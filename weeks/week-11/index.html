@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Week 11 - CYBER 327 course material">
+  <title>Week 11 | CYBER 327</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 11 &middot; November 8-14, 2026</p>
+      <h1>Week 11: Wireless Security Comparisons and Everyday Interfaces</h1>
+      <p class="body">Connect the week's communication principles with observable evidence, signal-intelligence applications, and laboratory work.</p>
+    </section>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 29 / Mon</p>
+        <h2>Wireless Security Comparisons and Everyday Interfaces</h2>
+        <p class="meta">November 9, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Wi-Fi, Bluetooth, RFID/NFC, ZigBee/IoT, and cellular compared as interfaces</li>
+          <li>Beaconing, discovery, pairing, range, identifiers, and authentication concepts</li>
+          <li>Rogue AP awareness in isolated lab networks</li>
+          <li>Flipper-style signal categories as concept demos only</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Trust versus visibility in short-range wireless</li>
+          <li>Static IDs, replay risk, and why rolling codes/authentication exist</li>
+          <li>Lab-owned devices and training tags only</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 30 / Wed</p>
+        <h2>ASCII, UART, RS-232, and Serial Framing</h2>
+        <p class="meta">November 11, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>ASCII and character encoding</li>
+          <li>Asynchronous serial framing: start bits, data bits, stop bits, and baud rate</li>
+          <li>RS-232 versus TTL UART line levels</li>
+          <li>LSB-first ordering and inverted signaling</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Serial-bus sniffing as signal intelligence at the hardware interface</li>
+          <li>Framing errors and baud mismatch as observable failures</li>
+          <li>Metadata leakage on simple hardware buses</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 31 / Fri</p>
+        <h2>Network Topologies, Ethernet Frames, and Interface Leakage</h2>
+        <p class="meta">November 13, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Network topologies and common network roles</li>
+          <li>Ethernet frames, LAN devices, switches, routers, and gateways</li>
+          <li>PAN/LAN/WAN scale concepts</li>
+          <li>Where physical, data-link, and higher layers meet</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Packet visibility on isolated lab networks</li>
+          <li>Why encryption matters above physical/data-link observation</li>
+          <li>What a tap or logic analyzer can expose versus what it cannot</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Key Terms and Relationships</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Key Terms</h3>
+        <ul class="term-list">
+          <li>ASCII</li>
+          <li>UART</li>
+          <li>baud</li>
+          <li>start bit</li>
+          <li>stop bit</li>
+          <li>RS-232</li>
+          <li>TTL levels</li>
+          <li>Ethernet frame</li>
+          <li>interface leakage</li>
+        </ul>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li>Bit duration: T_bit = 1 / baud rate</li>
+          <li>UART frame time = bits per frame / baud rate</li>
+          <li>Efficiency = payload bits / total transmitted bits</li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> Recover framing parameters from a lab-owned waveform and distinguish voltage, timing, wiring, and configuration faults.
+      </div>
+    </section>
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>What does an identifier prove, and what does it not prove?</li>
+          <li>How does range affect interception and threat models?</li>
+          <li>How can you infer baud rate from a waveform?</li>
+          <li>What information leaks on a simple serial link?</li>
+          <li>What can be observed from frames without reading application content?</li>
+          <li>Where should protection occur if the medium is physically accessible?</li>
+        </ul>
+    </section>
+
+    <aside class="callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>UART/Serial Bus Sniffing and Interface Leakage</h2>
+      <p>ASCII, RS-232, UART framing, baud rate, line levels, Ethernet/frame context, and interface metadata leakage</p>
+      <a class="button" href="../../labs/lab-11/">Open Lab 11</a>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-10/">&larr; Week 10</a>
+      <a href="../week-12/">Week 12 &rarr;</a>
+    </nav>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Signal Intelligence grounded in digital communications.</p>
+  </footer>
+</body>
+</html>

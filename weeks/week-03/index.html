@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Week 3 - CYBER 327 course material">
+  <title>Week 3 | CYBER 327</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 03 &middot; September 13-19, 2026</p>
+      <h1>Week 3: AC Terms, Phasors, Inductance, and Reactance</h1>
+      <p class="body">Connect the week's communication principles with observable evidence, signal-intelligence applications, and laboratory work.</p>
+    </section>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 05 / Mon</p>
+        <h2>AC Terms, Phasors, Inductance, and Reactance</h2>
+        <p class="meta">September 14, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Peak, peak-to-peak, RMS, frequency, phase, and period</li>
+          <li>Phasor intuition and phase relationships</li>
+          <li>Inductance and inductive reactance</li>
+          <li>Frequency-dependent current through inductors</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Frequency-dependent behavior as the basis for filtering and leakage</li>
+          <li>Inductive coupling as an unintentional communication path</li>
+          <li>Signal phase and timing as observable evidence</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 06 / Wed</p>
+        <h2>Transformers, Isolation, and Coupling</h2>
+        <p class="meta">September 16, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Transformer voltage and current ratios</li>
+          <li>DC isolation and galvanic isolation</li>
+          <li>Impedance matching and energy transfer</li>
+          <li>Common-mode noise and ground-loop thinking</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Isolation as both a safety boundary and a security boundary</li>
+          <li>Coupling paths that bypass intended wiring</li>
+          <li>Transformer and coil behavior as controlled and accidental signal transfer</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 07 / Fri</p>
+        <h2>EMI, Near-Field Leakage, and Signal Containment</h2>
+        <p class="meta">September 18, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Electromagnetic interference sources and coupling mechanisms</li>
+          <li>Distance, wire routing, twisting, shielding, and ferrites</li>
+          <li>Near-field observation using loops or probes</li>
+          <li>How layout choices affect signal integrity</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Unintentional emissions as confidentiality and reliability issues</li>
+          <li>Leakage detection through nearby probes or traces</li>
+          <li>Mitigation as engineering, not just policy</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Key Terms and Relationships</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Key Terms</h3>
+        <ul class="term-list">
+          <li>inductance</li>
+          <li>reactance</li>
+          <li>phasor</li>
+          <li>transformer</li>
+          <li>galvanic isolation</li>
+          <li>common mode</li>
+          <li>coupling</li>
+          <li>EMI</li>
+        </ul>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li>Inductive reactance: X_L = 2 pi f L</li>
+          <li>Ideal transformer ratio: V_s / V_p = N_s / N_p</li>
+          <li>Ideal current ratio: I_s / I_p = N_p / N_s</li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> Explain how frequency, distance, orientation, twisting, and shielding change intended and unintended coupling.
+      </div>
+    </section>
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>Why does an inductor oppose high-frequency changes?</li>
+          <li>How can a changing signal couple into a nearby wire or coil?</li>
+          <li>What does a transformer block and what can it still pass?</li>
+          <li>When is coupling useful, and when is it leakage?</li>
+          <li>What evidence shows that a signal is coupling unintentionally?</li>
+          <li>Which mitigation changed the measurement most?</li>
+        </ul>
+    </section>
+
+    <aside class="callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>Inductive Coupling, Isolation, and EMI Hardening</h2>
+      <p>Inductance, transformers, isolation, impedance matching, coupling, and frequency-dependent behavior</p>
+      <a class="button" href="../../labs/lab-03/">Open Lab 03</a>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-02/">&larr; Week 2</a>
+      <a href="../week-04/">Week 4 &rarr;</a>
+    </nav>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Signal Intelligence grounded in digital communications.</p>
+  </footer>
+</body>
+</html>

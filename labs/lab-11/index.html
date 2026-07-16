@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lab 11: UART/Serial Bus Sniffing and Interface Leakage - CYBER 327 course material">
+  <title>Lab 11: UART/Serial Bus Sniffing and Interface Leakage | CYBER 327</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 11 &middot; Week 11 &middot; November 13, 2026</p>
+      <h1>UART/Serial Bus Sniffing and Interface Leakage</h1>
+      <p class="body">ASCII, RS-232, UART framing, baud rate, line levels, Ethernet/frame context, and interface metadata leakage</p>
+      <p class="meta">Scheduled duration: 2 hours after Friday lecture</p>
+    </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Apply the associated communication principles in a controlled investigation: ASCII, RS-232, UART framing, baud rate, line levels, Ethernet/frame context, and interface metadata leakage</li>
+          <li>Collect repeatable measurements and distinguish observation from interpretation</li>
+          <li>Explain how the measured communication behavior affects reliability, visibility, or trust</li>
+        </ul>
+    </section>
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review the Week 11 guide and its equations or signal relationships</li>
+          <li>Read the full procedure and mark every required measurement or capture</li>
+          <li>Create a report document with headings for predictions, results, interpretation, and guardrails</li>
+          <li>Ask the instructor before proceeding if the assigned setup differs from this handout</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Assigned Equipment and Data</h2>
+        <ul>
+          <li>Computer with PuTTY or serial terminal</li>
+          <li>USB-to-RS232 or USB-UART adapter</li>
+          <li>Oscilloscope</li>
+          <li>USB logic analyzer</li>
+          <li>Arduino or training board</li>
+        </ul>
+        <h3>Optional or Specialized</h3>
+        <ul>
+          <li>Bus Pirate/Shikra for known boards</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Investigation</p>
+      <h2>Procedure</h2>
+        <ol class="procedure">
+          <li>Record team members, equipment models, probe settings, source settings, and the assigned circuit or capture configuration.</li>
+          <li>Inspect the setup before power is applied. Confirm grounds, voltage/current limits, terminations, and the safety boundaries listed below.</li>
+          <li>Predict the baseline result. Include the calculation, expected waveform, expected spectrum, or expected decoded structure appropriate to this lab.</li>
+          <li>Capture RS-232 or TTL UART waveforms</li>
+          <li>Identify start bits, stop bits, bit order, line levels, and baud rate</li>
+          <li>Use a USB logic analyzer to decode lab-owned Arduino/device messages</li>
+          <li>Introduce baud mismatch, inverted levels, noise, or swapped TX/RX and diagnose failures</li>
+          <li>Compare the baseline and changed conditions. Preserve measurements that support the comparison and identify any result that does not match the prediction.</li>
+          <li>Return sources to a safe state, power down as appropriate, restore the bench, and confirm that all captures contain only approved lab data.</li>
+        </ol>
+    </section>
+
+    <section class="content-panel deliverables-panel">
+      <p class="eyebrow">Submission</p>
+      <h2>Required Evidence and Deliverables</h2>
+        <ul class="deliverables">
+          <li>A labeled setup or block diagram showing signal flow and measurement points</li>
+          <li>Predictions and calculations made before each major measurement</li>
+          <li>A results table with units, instrument settings, and baseline-versus-changed conditions</li>
+          <li>Representative scope, spectrum, logic, simulation, or trace captures with annotations</li>
+          <li>A concise claim-evidence-reasoning explanation of the principal finding</li>
+          <li>A short Signal Intelligence interpretation stating what the evidence supports, what remains uncertain, and which guardrails applied</li>
+        </ul>
+      <p class="completion-note"><strong>Completion standard:</strong> another technical reader should be able to understand what was tested, reproduce the important settings, and see why the evidence supports the conclusion.</p>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why It Matters</h2>
+        <ul>
+          <li>Hardware interfaces often expose metadata and messages before higher-layer protections</li>
+          <li>Signal-level diagnosis supports embedded security work</li>
+        </ul>
+      </section>
+      <section class="safety-panel">
+        <h2>Safety and Scope</h2>
+        <ul>
+          <li>Use only lab-owned training boards</li>
+          <li>Do not connect to unknown systems or campus devices</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-11/">&larr; Week 11 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Signal Intelligence grounded in digital communications.</p>
+  </footer>
+</body>
+</html>

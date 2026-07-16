@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lab 06: Modulation Recognition and Interference Effects - CYBER 327 course material">
+  <title>Lab 06: Modulation Recognition and Interference Effects | CYBER 327</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 06 &middot; Week 6 &middot; October 9, 2026</p>
+      <h1>Modulation Recognition and Interference Effects</h1>
+      <p class="body">AM/FM/PM, sidebands, modulation index, deviation, filters, PLLs, and synchronization robustness</p>
+      <p class="meta">Scheduled duration: 2 hours after Friday lecture</p>
+    </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Apply the associated communication principles in a controlled investigation: AM/FM/PM, sidebands, modulation index, deviation, filters, PLLs, and synchronization robustness</li>
+          <li>Collect repeatable measurements and distinguish observation from interpretation</li>
+          <li>Explain how the measured communication behavior affects reliability, visibility, or trust</li>
+        </ul>
+    </section>
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review the Week 6 guide and its equations or signal relationships</li>
+          <li>Read the full procedure and mark every required measurement or capture</li>
+          <li>Create a report document with headings for predictions, results, interpretation, and guardrails</li>
+          <li>Ask the instructor before proceeding if the assigned setup differs from this handout</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Assigned Equipment and Data</h2>
+        <ul>
+          <li>Modulation-capable function generator</li>
+          <li>Oscilloscope with FFT/spectrum view</li>
+          <li>BNC cables/connectors</li>
+        </ul>
+        <h3>Optional or Specialized</h3>
+        <ul>
+          <li>audio source</li>
+          <li>instructor-provided Universal Radio Hacker captures</li>
+          <li>lab-owned Flipper/HackRF demo under strict controls</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Investigation</p>
+      <h2>Procedure</h2>
+        <ol class="procedure">
+          <li>Record team members, equipment models, probe settings, source settings, and the assigned circuit or capture configuration.</li>
+          <li>Inspect the setup before power is applied. Confirm grounds, voltage/current limits, terminations, and the safety boundaries listed below.</li>
+          <li>Predict the baseline result. Include the calculation, expected waveform, expected spectrum, or expected decoded structure appropriate to this lab.</li>
+          <li>Generate AM and FM signals and view time/frequency behavior</li>
+          <li>Classify unknown AM/FM/OOK-like captures or instructor-generated signals</li>
+          <li>Introduce controlled wired interference or overmodulation and observe recovery degradation</li>
+          <li>Relate changes to sidebands, bandwidth, and synchronization</li>
+          <li>Compare the baseline and changed conditions. Preserve measurements that support the comparison and identify any result that does not match the prediction.</li>
+          <li>Return sources to a safe state, power down as appropriate, restore the bench, and confirm that all captures contain only approved lab data.</li>
+        </ol>
+    </section>
+
+    <section class="content-panel deliverables-panel">
+      <p class="eyebrow">Submission</p>
+      <h2>Required Evidence and Deliverables</h2>
+        <ul class="deliverables">
+          <li>A labeled setup or block diagram showing signal flow and measurement points</li>
+          <li>Predictions and calculations made before each major measurement</li>
+          <li>A results table with units, instrument settings, and baseline-versus-changed conditions</li>
+          <li>Representative scope, spectrum, logic, simulation, or trace captures with annotations</li>
+          <li>A concise claim-evidence-reasoning explanation of the principal finding</li>
+          <li>A short Signal Intelligence interpretation stating what the evidence supports, what remains uncertain, and which guardrails applied</li>
+        </ul>
+      <p class="completion-note"><strong>Completion standard:</strong> another technical reader should be able to understand what was tested, reproduce the important settings, and see why the evidence supports the conclusion.</p>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why It Matters</h2>
+        <ul>
+          <li>Spoofing and interference can be understood at the modulation layer</li>
+          <li>Classification must be based on observable signal features</li>
+        </ul>
+      </section>
+      <section class="safety-panel">
+        <h2>Safety and Scope</h2>
+        <ul>
+          <li>No unauthorized RF transmission</li>
+          <li>Transmit-capable tools must use shielded/cabled/lab-owned demonstrations only</li>
+          <li>No third-party remotes or devices</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-06/">&larr; Week 6 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Signal Intelligence grounded in digital communications.</p>
+  </footer>
+</body>
+</html>
