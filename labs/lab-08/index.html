@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lab 08: CRC Is Not Authentication - CYBER 327 course material">
+  <title>Lab 08: CRC Is Not Authentication | CYBER 327</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 08 &middot; Week 8 &middot; October 23, 2026</p>
+      <h1>CRC Is Not Authentication</h1>
+      <p class="body">Parity, checksums, CRC, FEC, random errors, burst errors, and integrity versus authentication</p>
+      <p class="meta">Scheduled duration: 2 hours after Friday lecture</p>
+    </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Apply the associated communication principles in a controlled investigation: Parity, checksums, CRC, FEC, random errors, burst errors, and integrity versus authentication</li>
+          <li>Collect repeatable measurements and distinguish observation from interpretation</li>
+          <li>Explain how the measured communication behavior affects reliability, visibility, or trust</li>
+        </ul>
+    </section>
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review the Week 8 guide and its equations or signal relationships</li>
+          <li>Read the full procedure and mark every required measurement or capture</li>
+          <li>Create a report document with headings for predictions, results, interpretation, and guardrails</li>
+          <li>Ask the instructor before proceeding if the assigned setup differs from this handout</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Assigned Equipment and Data</h2>
+        <ul>
+          <li>Computer with Python, C/C++, JavaScript, Java, or spreadsheet tools</li>
+        </ul>
+        <h3>Optional or Specialized</h3>
+        <ul>
+          <li>Arduino pair</li>
+          <li>USB-UART adapters</li>
+          <li>USB logic analyzer</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Investigation</p>
+      <h2>Procedure</h2>
+        <ol class="procedure">
+          <li>Record team members, equipment models, probe settings, source settings, and the assigned circuit or capture configuration.</li>
+          <li>Inspect the setup before power is applied. Confirm grounds, voltage/current limits, terminations, and the safety boundaries listed below.</li>
+          <li>Predict the baseline result. Include the calculation, expected waveform, expected spectrum, or expected decoded structure appropriate to this lab.</li>
+          <li>Generate parity for bytes and test one-bit and multi-bit errors</li>
+          <li>Implement or inspect a simple CRC/checksum workflow</li>
+          <li>Modify a payload and recompute the CRC to show why CRC is not authentication</li>
+          <li>Optional: send serial frames with payload plus checksum between lab-owned devices</li>
+          <li>Compare the baseline and changed conditions. Preserve measurements that support the comparison and identify any result that does not match the prediction.</li>
+          <li>Return sources to a safe state, power down as appropriate, restore the bench, and confirm that all captures contain only approved lab data.</li>
+        </ol>
+    </section>
+
+    <section class="content-panel deliverables-panel">
+      <p class="eyebrow">Submission</p>
+      <h2>Required Evidence and Deliverables</h2>
+        <ul class="deliverables">
+          <li>A labeled setup or block diagram showing signal flow and measurement points</li>
+          <li>Predictions and calculations made before each major measurement</li>
+          <li>A results table with units, instrument settings, and baseline-versus-changed conditions</li>
+          <li>Representative scope, spectrum, logic, simulation, or trace captures with annotations</li>
+          <li>A concise claim-evidence-reasoning explanation of the principal finding</li>
+          <li>A short Signal Intelligence interpretation stating what the evidence supports, what remains uncertain, and which guardrails applied</li>
+        </ul>
+      <p class="completion-note"><strong>Completion standard:</strong> another technical reader should be able to understand what was tested, reproduce the important settings, and see why the evidence supports the conclusion.</p>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why It Matters</h2>
+        <ul>
+          <li>Error detection supports reliability but does not establish sender trust</li>
+          <li>Deliberate modification differs from random channel noise</li>
+        </ul>
+      </section>
+      <section class="safety-panel">
+        <h2>Safety and Scope</h2>
+        <ul>
+          <li>Use toy messages only</li>
+          <li>Do not represent CRC as cryptographic protection</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-08/">&larr; Week 8 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Signal Intelligence grounded in digital communications.</p>
+  </footer>
+</body>
+</html>

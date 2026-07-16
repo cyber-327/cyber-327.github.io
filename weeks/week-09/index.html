@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Week 9 - CYBER 327 course material">
+  <title>Week 9 | CYBER 327</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 09 &middot; October 25-31, 2026</p>
+      <h1>Week 9: QAM, PRBS, BER, and Link Metrics</h1>
+      <p class="body">Connect the week's communication principles with observable evidence, signal-intelligence applications, and laboratory work.</p>
+    </section>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 23 / Mon</p>
+        <h2>QAM, PRBS, BER, and Link Metrics</h2>
+        <p class="meta">October 26, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>QAM constellation interpretation</li>
+          <li>PRBS generators for channel testing</li>
+          <li>BER, carrier-to-noise ratio, and acceptable performance</li>
+          <li>4-QAM versus 16-QAM tradeoffs</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>BER as a resilience metric under noise or interference</li>
+          <li>PRBS as a diagnostic pattern, not real payload</li>
+          <li>Throughput versus robustness under adversarial channel conditions</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 24 / Wed</p>
+        <h2>OFDM, Spread Spectrum, and Shannon Revisited</h2>
+        <p class="meta">October 28, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>OFDM carrier spacing and channel use</li>
+          <li>Spread-spectrum ideas: FHSS and DSSS at a conceptual level</li>
+          <li>Capacity revisited under modulation and coding choices</li>
+          <li>Adaptive modulation and coding tradeoffs</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Spread and OFDM as resilience and coexistence strategies</li>
+          <li>Interference localization in frequency and time</li>
+          <li>Low-probability-of-detection discussion at a high level</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 25 / Fri</p>
+        <h2>Line Coding, Pulse Impairments, and Eye Patterns</h2>
+        <p class="meta">October 30, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Digital encoding formats and line coding</li>
+          <li>Pulse impairments: bandwidth limitation, noise, ringing, and impedance mismatch</li>
+          <li>Eye patterns as channel diagnostics</li>
+          <li>Legacy telephone/T1 context kept brief</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Eye diagrams as evidence of timing jitter, noise, and bandwidth limits</li>
+          <li>Impedance mismatch as a physical-layer fault</li>
+          <li>Why old line-coding ideas still matter in modern links</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Key Terms and Relationships</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Key Terms</h3>
+        <ul class="term-list">
+          <li>QAM</li>
+          <li>constellation</li>
+          <li>symbol</li>
+          <li>PRBS</li>
+          <li>BER</li>
+          <li>eye diagram</li>
+          <li>OFDM</li>
+          <li>spread spectrum</li>
+          <li>line coding</li>
+        </ul>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li>Bits per M-ary symbol: log2(M)</li>
+          <li>Bit rate: R_b = R_s log2(M)</li>
+          <li>BER = erroneous bits / total transmitted bits</li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> Use constellation, eye-pattern, spectrum, and BER evidence to trade throughput against robustness.
+      </div>
+    </section>
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>Why can lower-order modulation outperform higher-order modulation in bad channels?</li>
+          <li>What does BER reveal that raw signal power does not?</li>
+          <li>Why split data over many carriers?</li>
+          <li>How does spreading change the way interference appears?</li>
+          <li>What does a closing eye suggest about a link?</li>
+          <li>How can impedance mismatch corrupt digital pulses?</li>
+        </ul>
+    </section>
+
+    <aside class="callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>QAM Link Resilience Challenge</h2>
+      <p>QAM, constellations, eye diagrams, SNR, BER, filter order, pulse impairments, and throughput-versus-robustness</p>
+      <a class="button" href="../../labs/lab-09/">Open Lab 09</a>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-08/">&larr; Week 8</a>
+      <a href="../week-10/">Week 10 &rarr;</a>
+    </nav>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Signal Intelligence grounded in digital communications.</p>
+  </footer>
+</body>
+</html>

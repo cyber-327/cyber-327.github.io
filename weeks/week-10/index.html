@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Week 10 - CYBER 327 course material">
+  <title>Week 10 | CYBER 327</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 10 &middot; November 1-7, 2026</p>
+      <h1>Week 10: Media Transmission Case Study: Video, Timing, and Compression</h1>
+      <p class="body">Connect the week's communication principles with observable evidence, signal-intelligence applications, and laboratory work.</p>
+    </section>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 26 / Mon</p>
+        <h2>Media Transmission Case Study: Video, Timing, and Compression</h2>
+        <p class="meta">November 2, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>TV/video/fax as communication-system case studies</li>
+          <li>Pixels, frames, synchronization, bandwidth, compression, and artifacts</li>
+          <li>Lossy versus lossless compression</li>
+          <li>Timing and error tolerance in media links</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Visible artifacts as evidence of channel or compression problems</li>
+          <li>Metadata and side-channel implications of media streams</li>
+          <li>Why content transport still depends on bandwidth, timing, and error behavior</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 27 / Wed</p>
+        <h2>Wireless Systems Survey: Wi-Fi, RFID, Bluetooth, IoT, and Cellular</h2>
+        <p class="meta">November 4, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Wireless technologies and standards survey</li>
+          <li>Bands, bandwidths, modulation families, ranges, and use cases</li>
+          <li>Wi-Fi, Bluetooth, ZigBee, RFID/NFC, UWB, cellular, and IoT</li>
+          <li>MIMO and antenna concepts at a preview level</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Wireless trust decisions: beacons, pairing, identifiers, and rogue infrastructure</li>
+          <li>Identifiers are not authentication</li>
+          <li>Receive-only observation and ethical boundaries</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 28 / Fri</p>
+        <h2>5G/Cellular Awareness, SDR, and Spectrum Ethics</h2>
+        <p class="meta">November 6, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Cell architecture, bands, bandwidth, attenuation, SINR, RSRP, RSRQ, MIMO, and beamforming</li>
+          <li>SDR and waterfall displays</li>
+          <li>Receive-only spectrum classification</li>
+          <li>Legal and ethical boundaries for wireless observation</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Cellular/5G as signal-awareness, not exploitation</li>
+          <li>Availability risk from poor SINR, interference, and coverage holes</li>
+          <li>Rogue AP concepts as lab-safe analogs to rogue infrastructure</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Key Terms and Relationships</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Key Terms</h3>
+        <ul class="term-list">
+          <li>SDR</li>
+          <li>waterfall</li>
+          <li>spectral occupancy</li>
+          <li>Wi-Fi</li>
+          <li>Bluetooth</li>
+          <li>RFID</li>
+          <li>cellular band</li>
+          <li>RSRP</li>
+          <li>RSRQ</li>
+          <li>SINR</li>
+          <li>MIMO</li>
+        </ul>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li>Wavelength: lambda = propagation speed / frequency</li>
+          <li>SINR = signal power / (interference power + noise power)</li>
+          <li>A 3 dB power change is approximately a factor of two.</li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> Compare wireless observations without decoding payloads or claiming more about identity or activity than the measurements support.
+      </div>
+    </section>
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>What parts of a video signal are timing-sensitive?</li>
+          <li>How can compression artifacts reveal link or coding constraints?</li>
+          <li>Why are short-range systems not automatically secure?</li>
+          <li>What metadata can wireless systems expose before payload decoding?</li>
+          <li>What do RSRP, RSRQ, and SINR reveal about a cellular link?</li>
+          <li>Why is receive-only observation still ethically bounded?</li>
+        </ul>
+    </section>
+
+    <aside class="callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>SDR and 5G/Cellular Signal Awareness</h2>
+      <p>SDR, waterfall diagrams, wireless systems, cellular metrics, SINR, bands, MIMO, and ethical signal observation</p>
+      <a class="button" href="../../labs/lab-10/">Open Lab 10</a>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-09/">&larr; Week 9</a>
+      <a href="../week-11/">Week 11 &rarr;</a>
+    </nav>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Signal Intelligence grounded in digital communications.</p>
+  </footer>
+</body>
+</html>

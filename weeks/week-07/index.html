@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Week 7 - CYBER 327 course material">
+  <title>Week 7 | CYBER 327</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 07 &middot; October 11-17, 2026</p>
+      <h1>Week 7: Receiver Architecture, Sensitivity, and Selectivity</h1>
+      <p class="body">Connect the week's communication principles with observable evidence, signal-intelligence applications, and laboratory work.</p>
+    </section>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 17 / Mon</p>
+        <h2>Receiver Architecture, Sensitivity, and Selectivity</h2>
+        <p class="meta">October 12, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Superheterodyne receiver blocks</li>
+          <li>Tuning, local oscillator, IF, detection, and audio/data recovery</li>
+          <li>Sensitivity and selectivity</li>
+          <li>Front-end overload and unwanted signals</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Receiver exposure to jamming, saturation, and desensitization</li>
+          <li>Front-end filtering as a resilience control</li>
+          <li>Receiver observations as evidence of channel conditions</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 18 / Wed</p>
+        <h2>Pulse Modulation, PCM, ADCs, and DACs</h2>
+        <p class="meta">October 14, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Pulse modulation and PCM workflow</li>
+          <li>Sampling rate, quantization, resolution, step size, and reconstruction</li>
+          <li>ADC and DAC practical behavior</li>
+          <li>Quantization error and distortion</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Digitization as a security boundary between analog truth and digital data</li>
+          <li>Resolution limits that hide small changes</li>
+          <li>DAC stair steps as observable metadata</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 19 / Fri</p>
+        <h2>Aliasing, False Telemetry, and Sensor Spoofing</h2>
+        <p class="meta">October 16, 2026 &middot; 50 minutes</p>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Nyquist sampling criterion and aliasing</li>
+          <li>Sampled versus reconstructed waveforms</li>
+          <li>High-frequency inputs appearing as false lower-frequency behavior</li>
+          <li>Sensor and telemetry examples</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Signal Intelligence Connection</h3>
+        <ul>
+          <li>Aliasing as a hardware-level spoofing risk</li>
+          <li>Injected analog signals that produce misleading digital values</li>
+          <li>Comparing analog evidence with sampled evidence</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Key Terms and Relationships</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Key Terms</h3>
+        <ul class="term-list">
+          <li>sampling</li>
+          <li>quantization</li>
+          <li>ADC</li>
+          <li>DAC</li>
+          <li>aliasing</li>
+          <li>reconstruction</li>
+          <li>dynamic range</li>
+          <li>false telemetry</li>
+        </ul>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li>Quantization levels: L = 2^N</li>
+          <li>Ideal Nyquist condition: f_s &gt; 2 f_max</li>
+          <li>Ideal ADC step size: delta = full-scale range / 2^N</li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> Given a sampling rate and input frequency, predict whether the sampled data represents the original signal or an alias.
+      </div>
+    </section>
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>What is the difference between sensitivity and selectivity?</li>
+          <li>How can a strong unwanted signal hide a desired signal?</li>
+          <li>What information is lost during sampling and quantization?</li>
+          <li>How can bit depth affect trust in a measurement?</li>
+          <li>How can a high-frequency signal appear as a false low-frequency reading?</li>
+          <li>What evidence would confirm the analog truth?</li>
+        </ul>
+    </section>
+
+    <aside class="callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>ADC/DAC Aliasing and Sensor Spoofing</h2>
+      <p>ADC/DAC conversion, sampling, quantization, reconstruction, aliasing, and false telemetry</p>
+      <a class="button" href="../../labs/lab-07/">Open Lab 07</a>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-06/">&larr; Week 6</a>
+      <a href="../week-08/">Week 8 &rarr;</a>
+    </nav>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Signal Intelligence grounded in digital communications.</p>
+  </footer>
+</body>
+</html>
