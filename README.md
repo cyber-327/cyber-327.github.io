@@ -29,9 +29,9 @@ so regenerate and push the public repo after a release time arrives. Release
 overrides are stored only in the private parent repo at
 `planning/course/site-release.json`.
 
-Public home-page, syllabus, and weekly-supplement copy is maintained in the
-parent repo's `site-content/` Markdown files. Lecture and lab content is
-maintained in `topics_proposed/`; do not edit generated HTML directly.
+Public home-page, syllabus, Excellence Project, and weekly-supplement copy is
+maintained in the parent repo's `site-content/` Markdown files. Lecture and lab
+content is maintained in `topics_proposed/`; do not edit generated HTML directly.
 
 Use `--as-of YYYY-MM-DDTHH:MM` to test the site at a specific time,
 `--release-all` for a complete instructor review build, or `--max-week N` for
@@ -42,6 +42,7 @@ review build should not expose future material.
 
 - `index.html` - landing page
 - `syllabus/` - public syllabus generated from the private syllabus draft
+- `excellence/` - project guide, example ideas, submission requirements, and rubric
 - `theme.css` - public design tokens for colors, fonts, surfaces, and shape
 - `styles.css` - shared structural and component styling
 - `weeks/` - weekly lecture guides, key terms, equations, and study questions
