@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 430" role="img" aria-labelledby="title desc">
+  <title id="title">Lab 1 series-circuit measurement diagram</title>
+  <desc id="desc">A five volt current-limited supply drives R1 330 ohms, node A, R2 one kilohm, node B, R3 3.3 kilohms, and node G before returning to supply ground. All node voltages are measured relative to supply ground.</desc>
+  <rect width="1120" height="430" rx="28" fill="#f7f3ea"/>
+
+  <rect x="40" y="90" width="160" height="220" rx="18" fill="#ffffff" stroke="#182028" stroke-width="6"/>
+  <text x="120" y="145" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">DC</text>
+  <text x="120" y="195" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">5.00 V</text>
+  <text x="120" y="245" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">limit 25 mA</text>
+
+  <line x1="200" y1="135" x2="260" y2="135" stroke="#182028" stroke-width="8" stroke-linecap="round"/>
+  <polyline points="260,135 278,111 306,159 334,111 362,159 390,111 408,135" fill="none" stroke="#0f6d74" stroke-width="8" stroke-linejoin="round"/>
+  <line x1="408" y1="135" x2="500" y2="135" stroke="#182028" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="500" cy="135" r="13" fill="#d96f32" stroke="#ffffff" stroke-width="4"/>
+
+  <line x1="500" y1="135" x2="540" y2="135" stroke="#182028" stroke-width="8" stroke-linecap="round"/>
+  <polyline points="540,135 558,111 586,159 614,111 642,159 670,111 688,135" fill="none" stroke="#0f6d74" stroke-width="8" stroke-linejoin="round"/>
+  <line x1="688" y1="135" x2="780" y2="135" stroke="#182028" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="780" cy="135" r="13" fill="#d96f32" stroke="#ffffff" stroke-width="4"/>
+
+  <line x1="780" y1="135" x2="820" y2="135" stroke="#182028" stroke-width="8" stroke-linecap="round"/>
+  <polyline points="820,135 838,111 866,159 894,111 922,159 950,111 968,135" fill="none" stroke="#0f6d74" stroke-width="8" stroke-linejoin="round"/>
+  <polyline points="968,135 1000,135 1000,335 200,335 200,265" fill="none" stroke="#182028" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="1000" cy="335" r="13" fill="#d96f32" stroke="#ffffff" stroke-width="4"/>
+  <line x1="1000" y1="335" x2="1048" y2="335" stroke="#182028" stroke-width="8" stroke-linecap="round"/>
+  <line x1="1048" y1="335" x2="1048" y2="357" stroke="#182028" stroke-width="5"/>
+  <line x1="1032" y1="357" x2="1064" y2="357" stroke="#182028" stroke-width="5"/>
+  <line x1="1037" y1="369" x2="1059" y2="369" stroke="#182028" stroke-width="5"/>
+  <line x1="1042" y1="381" x2="1054" y2="381" stroke="#182028" stroke-width="5"/>
+
+  <text x="334" y="82" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">R1</text>
+  <text x="334" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">330 ohm</text>
+  <text x="500" y="82" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">NODE A</text>
+  <text x="614" y="82" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">R2</text>
+  <text x="614" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">1.0 kilohm</text>
+  <text x="780" y="82" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">NODE B</text>
+  <text x="894" y="82" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">R3</text>
+  <text x="894" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">3.3 kilohm</text>
+  <text x="970" y="405" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">NODE G</text>
+
+  <text x="600" y="270" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="23">Measure node A, node B, and node G relative to supply ground.</text>
+  <text x="600" y="305" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="23">Disable power before rewiring or measuring resistance.</text>
+</svg>

@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Week 8 - CYBER 327 course material">
-  <title>Week 8 | CYBER 327</title>
+  <meta name="description" content="Week 08 - CYBER 327 course material">
+  <title>Week 08 | CYBER 327</title>
+  <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
 <body>
@@ -12,158 +13,23 @@
     <nav class="nav shell nav-shell" aria-label="Main navigation">
       <a class="brand" href="../../">CYBER 327</a>
       <div class="nav-links">
+        <a href="../../syllabus/">Syllabus</a>
         <a href="../../weeks/">Weekly Guides</a>
         <a href="../../labs/">Labs</a>
       </div>
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Weekly Guide</p>
-    <section class="page-intro">
-      <p class="kicker">Week 08 &middot; October 18-24, 2026</p>
-      <h1>Week 8: Error Detection and Correction Fundamentals</h1>
-      <p class="body">Connect the week's communication principles with observable evidence, signal-intelligence applications, and laboratory work.</p>
+    <p class="eyebrow">Scheduled Content</p>
+    <section class="page-intro locked-page">
+      <p class="kicker">Week 08 &middot; Week 8</p>
+      <h1>Not Yet Available</h1>
+      <p class="body">This material is scheduled to become available on October 18, 2026. The instructor may release it earlier.</p>
+      <a class="button" href="../">Return to all weeks</a>
     </section>
-
-    <div class="lesson-stack">
-    <article class="lesson">
-      <div class="lesson-heading">
-        <p class="lesson-number">Lecture 20 / Mon</p>
-        <h2>Error Detection and Correction Fundamentals</h2>
-        <p class="meta">October 19, 2026 &middot; 50 minutes</p>
-      </div>
-      <div class="topic-columns">
-        <section>
-          <h3>Digital Communications Foundations</h3>
-        <ul>
-          <li>Parity, checksums, CRCs, ECC/FEC, block parity, interleaving, and coding gain</li>
-          <li>Random errors versus burst errors</li>
-          <li>Undetected-error probability</li>
-          <li>Throughput cost of redundancy</li>
-        </ul>
-        </section>
-        <section class="accent-panel">
-          <h3>Signal Intelligence Connection</h3>
-        <ul>
-          <li>Reliability is not the same as trust</li>
-          <li>Error detection for noisy channels versus deliberate modification</li>
-          <li>Redundancy as a design tradeoff</li>
-        </ul>
-        </section>
-      </div>
-    </article>
-    <article class="lesson">
-      <div class="lesson-heading">
-        <p class="lesson-number">Lecture 21 / Wed</p>
-        <h2>Integrity, Authentication, and Encryption Boundaries</h2>
-        <p class="meta">October 21, 2026 &middot; 50 minutes</p>
-      </div>
-      <div class="topic-columns">
-        <section>
-          <h3>Digital Communications Foundations</h3>
-        <ul>
-          <li>CRC/checksum behavior in packetized communication</li>
-          <li>Integrity checks versus authentication versus encryption</li>
-          <li>Deliberate bit flips and recomputed checksums</li>
-          <li>When channel errors and adversarial changes look similar</li>
-        </ul>
-        </section>
-        <section class="accent-panel">
-          <h3>Signal Intelligence Connection</h3>
-        <ul>
-          <li>CRC is useful evidence of accidental corruption but not proof of sender trust</li>
-          <li>Authentication requires a secret or trusted mechanism beyond error detection</li>
-          <li>Encryption hides content but not all metadata</li>
-        </ul>
-        </section>
-      </div>
-    </article>
-    <article class="lesson">
-      <div class="lesson-heading">
-        <p class="lesson-number">Lecture 22 / Fri</p>
-        <h2>Digital Modulation Families and Constellation Basics</h2>
-        <p class="meta">October 23, 2026 &middot; 50 minutes</p>
-      </div>
-      <div class="topic-columns">
-        <section>
-          <h3>Digital Communications Foundations</h3>
-        <ul>
-          <li>ASK, FSK, PSK, QPSK, and QAM</li>
-          <li>Symbols, baud rate, bit rate, and spectral efficiency</li>
-          <li>I/Q channels and constellation plots</li>
-          <li>Noise separation between constellation points</li>
-        </ul>
-        </section>
-        <section class="accent-panel">
-          <h3>Signal Intelligence Connection</h3>
-        <ul>
-          <li>Modulation choice as a resilience and detectability tradeoff</li>
-          <li>Constellation spread as signal quality evidence</li>
-          <li>Digital modulation as the bridge into QAM/BER labs</li>
-        </ul>
-        </section>
-      </div>
-    </article>
-    </div>
-
-    <section class="study-materials">
-      <p class="eyebrow">Recall and Apply</p>
-      <h2>Key Terms and Relationships</h2>
-      <div class="topic-columns">
-        <section class="content-panel">
-          <h3>Key Terms</h3>
-        <ul class="term-list">
-          <li>parity</li>
-          <li>checksum</li>
-          <li>CRC</li>
-          <li>codeword</li>
-          <li>Hamming distance</li>
-          <li>FEC</li>
-          <li>integrity</li>
-          <li>authentication</li>
-          <li>encryption</li>
-        </ul>
-        </section>
-        <section class="content-panel formula-panel">
-          <h3>Equations and Relationships</h3>
-        <ul class="formula-list">
-          <li>Code rate: R_c = k / n</li>
-          <li>Redundancy: n - k bits</li>
-          <li>Minimum distance indicates the detectable and correctable error capability of a code.</li>
-        </ul>
-        </section>
-      </div>
-      <div class="practice-focus">
-        <strong>Practice focus:</strong> Separate accidental-error detection from adversarial integrity, sender authentication, and confidentiality claims.
-      </div>
-    </section>
-
-    <section class="study-panel">
-      <p class="eyebrow">Check Your Understanding</p>
-      <h2>Study Questions</h2>
-        <ul class="questions">
-          <li>What types of errors does parity miss?</li>
-          <li>Why does redundancy reduce effective data rate?</li>
-          <li>Why can an attacker modify data and recompute a CRC?</li>
-          <li>What protection does encryption not provide at the signal level?</li>
-          <li>How can two links have the same baud rate but different bit rate?</li>
-          <li>What does a noisy constellation look like?</li>
-        </ul>
-    </section>
-
-    <aside class="callout">
-      <p class="eyebrow">Friday Lab</p>
-      <h2>CRC Is Not Authentication</h2>
-      <p>Parity, checksums, CRC, FEC, random errors, burst errors, and integrity versus authentication</p>
-      <a class="button" href="../../labs/lab-08/">Open Lab 08</a>
-    </aside>
-    <nav class="pager" aria-label="Week navigation">
-      <a href="../week-07/">&larr; Week 7</a>
-      <a href="../week-09/">Week 9 &rarr;</a>
-    </nav>
   </main>
   <footer class="site-footer shell">
-    <p>CYBER 327: Signal Intelligence grounded in digital communications.</p>
+    <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
   </footer>
 </body>
 </html>

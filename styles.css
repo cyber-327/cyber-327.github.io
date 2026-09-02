@@ -1,33 +1,23 @@
-:root {
-  --bg: #f3efe5;
-  --ink: #182028;
-  --muted: #5f6b73;
-  --panel: rgba(255, 255, 255, 0.78);
-  --line: rgba(24, 32, 40, 0.12);
-  --accent: #0f6d74;
-  --accent-2: #d96f32;
-}
-
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  color: var(--ink);
+  color: var(--theme-ink);
   background:
-    radial-gradient(circle at top left, rgba(217, 111, 50, 0.22), transparent 28rem),
-    radial-gradient(circle at top right, rgba(15, 109, 116, 0.18), transparent 30rem),
-    linear-gradient(180deg, #f7f3ea 0%, var(--bg) 100%);
-  font-family: Georgia, "Times New Roman", serif;
+    radial-gradient(circle at top left, var(--theme-glow-warm), transparent 28rem),
+    radial-gradient(circle at top right, var(--theme-glow-cool), transparent 30rem),
+    linear-gradient(180deg, var(--theme-bg-top) 0%, var(--theme-bg) 100%);
+  font-family: var(--theme-font-body);
 }
 
 a {
-  color: var(--accent);
+  color: var(--theme-accent);
 }
 
 .shell {
-  width: min(960px, calc(100vw - 2rem));
+  width: min(var(--theme-content-width), calc(100vw - 2rem));
   margin: 0 auto;
   padding: 3rem 0 4rem;
 }
@@ -37,8 +27,8 @@ a {
 }
 
 .site-header {
-  border-bottom: 1px solid var(--line);
-  background: rgba(247, 243, 234, 0.78);
+  border-bottom: 1px solid var(--theme-line);
+  background: var(--theme-header);
   backdrop-filter: blur(14px);
 }
 
@@ -52,13 +42,13 @@ a {
 
 .brand,
 .nav-links a {
-  color: var(--ink);
+  color: var(--theme-ink);
   font-weight: 700;
   text-decoration: none;
 }
 
 .brand {
-  color: var(--accent);
+  color: var(--theme-accent);
   letter-spacing: 0.08em;
 }
 
@@ -68,27 +58,27 @@ a {
 }
 
 .nav-links a:hover {
-  color: var(--accent-2);
+  color: var(--theme-accent-2);
 }
 
 .hero,
 .status,
 .card {
-  border: 1px solid var(--line);
-  background: var(--panel);
+  border: 1px solid var(--theme-line);
+  background: var(--theme-panel);
   backdrop-filter: blur(10px);
-  box-shadow: 0 18px 48px rgba(24, 32, 40, 0.08);
+  box-shadow: 0 var(--theme-shadow-size) var(--theme-shadow);
 }
 
 .hero,
 .status {
-  border-radius: 1.5rem;
+  border-radius: var(--theme-radius-large);
   padding: 2rem;
 }
 
 .eyebrow {
   margin: 0 0 0.75rem;
-  color: var(--accent);
+  color: var(--theme-accent);
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -102,6 +92,13 @@ p {
   margin-top: 0;
 }
 
+h1,
+h2,
+h3,
+.brand {
+  font-family: var(--theme-font-heading);
+}
+
 h1 {
   margin-bottom: 0.5rem;
   font-size: clamp(2.8rem, 7vw, 5.4rem);
@@ -110,7 +107,7 @@ h1 {
 
 .subtitle {
   margin-bottom: 1rem;
-  color: var(--accent-2);
+  color: var(--theme-accent-2);
   font-size: clamp(1.15rem, 2vw, 1.5rem);
 }
 
@@ -118,7 +115,7 @@ h1 {
 .status p,
 .card p,
 .page-intro p {
-  color: var(--muted);
+  color: var(--theme-muted);
   line-height: 1.6;
   font-size: 1.02rem;
 }
@@ -137,7 +134,7 @@ h1 {
 .lesson-number,
 .meta,
 .card-foot {
-  color: var(--accent-2);
+  color: var(--theme-accent-2);
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -145,7 +142,7 @@ h1 {
 }
 
 .meta {
-  color: var(--muted);
+  color: var(--theme-muted);
   letter-spacing: 0.04em;
 }
 
@@ -156,9 +153,13 @@ h1 {
   margin: 1rem 0;
 }
 
+.home-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .card {
   display: block;
-  border-radius: 1.25rem;
+  border-radius: var(--theme-radius-card);
   padding: 1.5rem;
   color: inherit;
   text-decoration: none;
@@ -173,7 +174,7 @@ h1 {
 .card-foot {
   display: block;
   margin-top: 1rem;
-  color: var(--accent);
+  color: var(--theme-accent);
 }
 
 .card-list,
@@ -194,10 +195,10 @@ h1 {
 .callout,
 .accent-panel,
 .safety-panel {
-  border: 1px solid var(--line);
-  border-radius: 1.25rem;
-  background: var(--panel);
-  box-shadow: 0 18px 48px rgba(24, 32, 40, 0.06);
+  border: 1px solid var(--theme-line);
+  border-radius: var(--theme-radius-card);
+  background: var(--theme-panel);
+  box-shadow: 0 var(--theme-shadow-size) var(--theme-shadow-soft);
 }
 
 .lesson {
@@ -214,7 +215,7 @@ h1 {
 }
 
 .lesson-heading {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--theme-line);
 }
 
 .lesson-heading h2 {
@@ -244,11 +245,11 @@ h1 {
 }
 
 .accent-panel {
-  background: rgba(15, 109, 116, 0.1);
+  background: var(--theme-accent-soft);
 }
 
 .safety-panel {
-  background: rgba(217, 111, 50, 0.1);
+  background: var(--theme-warning-soft);
 }
 
 .lesson h3,
@@ -262,14 +263,14 @@ h1 {
 ul {
   margin: 0;
   padding-left: 1.25rem;
-  color: var(--muted);
+  color: var(--theme-muted);
   line-height: 1.55;
 }
 
 ol {
   margin: 0;
   padding-left: 1.5rem;
-  color: var(--muted);
+  color: var(--theme-muted);
   line-height: 1.55;
 }
 
@@ -289,22 +290,22 @@ li + li {
 .schedule-note,
 .practice-focus,
 .completion-note {
-  border: 1px solid var(--line);
-  border-radius: 0.9rem;
+  border: 1px solid var(--theme-line);
+  border-radius: var(--theme-radius-small);
   padding: 1rem 1.15rem;
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.62);
+  color: var(--theme-muted);
+  background: var(--theme-note);
   line-height: 1.55;
 }
 
 .schedule-note {
   margin: -0.75rem 0 1rem;
-  border-left: 0.35rem solid var(--accent-2);
+  border-left: 0.35rem solid var(--theme-accent-2);
 }
 
 .practice-focus {
   margin-top: 1rem;
-  border-left: 0.35rem solid var(--accent);
+  border-left: 0.35rem solid var(--theme-accent);
 }
 
 .term-list {
@@ -313,19 +314,171 @@ li + li {
 }
 
 .formula-panel li {
-  color: var(--ink);
+  color: var(--theme-ink);
+}
+
+.formula-list {
+  display: grid;
+  gap: 0.8rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.formula-list li + li {
+  margin-top: 0;
+}
+
+.formula-label {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--theme-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.equation {
+  font-family: "Cambria Math", Cambria, Georgia, serif;
+  font-size: 1.12rem;
+  letter-spacing: 0.02em;
+}
+
+.equation sub,
+.equation sup {
+  font-size: 0.72em;
+}
+
+.formula-relationship {
+  color: var(--theme-muted);
+  line-height: 1.5;
+}
+
+.locked-card {
+  border-style: dashed;
+  box-shadow: none;
+  opacity: 0.78;
+}
+
+.locked-card:hover {
+  transform: none;
+  border-color: var(--theme-line);
+  box-shadow: none;
+}
+
+.locked-card .card-foot,
+.locked-callout .eyebrow {
+  color: var(--theme-muted);
+}
+
+.locked-page {
+  min-height: 45vh;
+}
+
+.syllabus-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.syllabus-section {
+  overflow: hidden;
+  border: 1px solid var(--theme-line);
+  border-radius: var(--theme-radius-card);
+  padding: 1.5rem;
+  background: var(--theme-panel);
+  box-shadow: 0 var(--theme-shadow-size) var(--theme-shadow-soft);
+}
+
+.syllabus-section h2 {
+  margin-bottom: 1rem;
+  color: var(--theme-accent-2);
+}
+
+.syllabus-section h3 {
+  margin-top: 1.25rem;
+}
+
+.syllabus-section p,
+.syllabus-section td {
+  color: var(--theme-muted);
+  line-height: 1.55;
+}
+
+.syllabus-section code {
+  color: var(--theme-ink);
+  overflow-wrap: anywhere;
+}
+
+.syllabus-draft-note {
+  margin-bottom: 1rem;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+th,
+td {
+  min-width: 8rem;
+  border: 1px solid var(--theme-line);
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--theme-ink);
+  background: var(--theme-note);
+  font-family: var(--theme-font-heading);
 }
 
 .objectives-panel,
 .lab-preflight,
+.resource-panel,
 .procedure-panel,
 .deliverables-panel {
   margin-top: 1rem;
 }
 
+.lab-diagram {
+  margin: 1rem 0;
+}
+
+.lab-diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--theme-line);
+  border-radius: var(--theme-radius-small);
+  background: var(--theme-note);
+}
+
+.lab-diagram figcaption {
+  margin-top: 0.5rem;
+  color: var(--theme-muted);
+  font-size: 0.85rem;
+}
+
+.resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.resource-links .button {
+  margin-top: 0;
+}
+
 .equipment h3 {
   margin: 1.25rem 0 0.7rem;
-  color: var(--accent-2);
+  color: var(--theme-accent-2);
 }
 
 .procedure li {
@@ -333,7 +486,7 @@ li + li {
 }
 
 .deliverables-panel {
-  border-top: 0.35rem solid var(--accent);
+  border-top: 0.35rem solid var(--theme-accent);
 }
 
 .completion-note {
@@ -350,7 +503,7 @@ li + li {
 }
 
 .callout {
-  border-left: 0.4rem solid var(--accent-2);
+  border-left: 0.4rem solid var(--theme-accent-2);
 }
 
 .button {
@@ -358,14 +511,14 @@ li + li {
   margin-top: 0.35rem;
   border-radius: 999px;
   padding: 0.75rem 1rem;
-  color: #fff;
-  background: var(--accent);
+  color: var(--theme-button-text);
+  background: var(--theme-accent);
   font-weight: 700;
   text-decoration: none;
 }
 
 .button:hover {
-  background: #0a555b;
+  background: var(--theme-accent-hover);
 }
 
 .pager {
@@ -374,8 +527,8 @@ li + li {
   gap: 1rem;
   margin-top: 2rem;
   padding-top: 1.25rem;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
+  border-top: 1px solid var(--theme-line);
+  color: var(--theme-muted);
 }
 
 .pager a {
@@ -385,26 +538,26 @@ li + li {
 
 .site-footer {
   padding-top: 0;
-  color: var(--muted);
+  color: var(--theme-muted);
   font-size: 0.9rem;
 }
 
 .card:hover {
   transform: translateY(-3px);
-  border-color: rgba(15, 109, 116, 0.28);
-  box-shadow: 0 20px 50px rgba(24, 32, 40, 0.12);
+  border-color: var(--theme-hover-line);
+  box-shadow: 0 20px 50px var(--theme-shadow-hover);
 }
 
 @media (max-width: 700px) {
   .shell {
-    width: min(100vw - 1rem, 960px);
+    width: min(100vw - 1rem, var(--theme-content-width));
     padding: 1rem 0 2rem;
   }
 
   .hero,
   .status,
   .card {
-    border-radius: 1rem;
+    border-radius: min(1rem, var(--theme-radius-large));
   }
 
   .grid {
@@ -429,12 +582,20 @@ li + li {
   }
 
   .nav-shell {
+    align-items: flex-start;
+    gap: 0.75rem;
     padding: 0.85rem 0.25rem;
   }
 
   .nav-links {
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 0.75rem;
     font-size: 0.9rem;
+  }
+
+  .syllabus-section {
+    padding: 1rem;
   }
 }
 
@@ -463,7 +624,8 @@ li + li {
   .accent-panel,
   .safety-panel,
   .schedule-note,
-  .practice-focus {
+  .practice-focus,
+  .syllabus-section {
     break-inside: avoid;
     box-shadow: none;
     background: #fff;
