@@ -22,13 +22,18 @@ or instructor-only material in this repo.
 4. Commit and push this repo independently from the parent planning repo.
 
 The generator creates stable pages for Weeks 1-15 and Labs 1-13. On each build,
-content becomes available at the start of its scheduled week; future pages are
+labs become available at the start of their scheduled week and weekly recap
+guides become available Friday at noon Mountain Time. Future pages are
 content-free placeholders. GitHub Pages does not rebuild this private source,
-so regenerate and push the public repo when a new week begins. Release
+so regenerate and push the public repo after a release time arrives. Release
 overrides are stored only in the private parent repo at
 `planning/course/site-release.json`.
 
-Use `--as-of YYYY-MM-DD` to test the site at a specific date,
+Public home-page, syllabus, and weekly-supplement copy is maintained in the
+parent repo's `site-content/` Markdown files. Lecture and lab content is
+maintained in `topics_proposed/`; do not edit generated HTML directly.
+
+Use `--as-of YYYY-MM-DDTHH:MM` to test the site at a specific time,
 `--release-all` for a complete instructor review build, or `--max-week N` for
 a partial build. Always run the normal command again before publishing if a
 review build should not expose future material.

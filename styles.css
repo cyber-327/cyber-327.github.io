@@ -380,6 +380,26 @@ li + li {
   gap: 1rem;
 }
 
+.grading-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 1rem;
+}
+
+.grading-grid .syllabus-section {
+  min-width: 0;
+}
+
+.grading-grid table {
+  font-size: 0.86rem;
+}
+
+.grading-grid th,
+.grading-grid td {
+  min-width: 0;
+  padding: 0.6rem;
+}
+
 .syllabus-section {
   overflow: hidden;
   border: 1px solid var(--theme-line);
@@ -561,6 +581,10 @@ th {
   }
 
   .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grading-grid {
     grid-template-columns: 1fr;
   }
 

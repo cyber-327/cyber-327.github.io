@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 01: Hardware Tamper Hunt and Series-Circuit Evidence - CYBER 327 course material">
-  <title>Lab 01: Hardware Tamper Hunt and Series-Circuit Evidence | CYBER 327</title>
+  <meta name="description" content="Lab 01 - CYBER 327 course material">
+  <title>Lab 01 | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -20,154 +20,13 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Laboratory</p>
-    <section class="page-intro">
-      <p class="kicker">Lab 01 &middot; Week 1 &middot; September 4, 2026</p>
-      <h1>Hardware Tamper Hunt and Series-Circuit Evidence</h1>
-      <p class="body">Ohm&#x27;s Law, resistor tolerance, series current, voltage dividers, power, and prediction-versus-measurement evidence</p>
-      <p class="meta">Scheduled duration: 2 hours after Friday lecture</p>
+    <p class="eyebrow">Scheduled Content</p>
+    <section class="page-intro locked-page">
+      <p class="kicker">Lab 01 &middot; Week 1</p>
+      <h1>Not Yet Available</h1>
+      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
+      <a class="button" href="../">Return to all labs</a>
     </section>
-
-    <section class="content-panel objectives-panel">
-      <p class="eyebrow">Learning Outcomes</p>
-      <h2>By the End of This Lab</h2>
-        <ul>
-          <li>Measure resistance, voltage, and current with a DMM using the correct connection method</li>
-          <li>Predict and verify current and voltage drops in a low-voltage series circuit</li>
-          <li>Evaluate whether measured components and circuit results are consistent with tolerance and instrument uncertainty</li>
-          <li>Locate an altered component, hidden resistance, reference-path fault, or source mismatch from node-voltage evidence</li>
-          <li>Write a claim-evidence-reasoning conclusion that distinguishes direct observations from supported inference</li>
-        </ul>
-    </section>
-
-    <div class="lab-layout lab-preflight">
-      <section class="content-panel">
-        <p class="eyebrow">Before Lab</p>
-        <h2>Preparation</h2>
-        <ul>
-          <li>Review V = I R, P = V I, series resistance, and the voltage-divider relationship</li>
-          <li>Review the difference between measuring voltage in parallel and current in series</li>
-          <li>Bring a calculator and open the individual report template before lab</li>
-          <li>Complete the baseline predictions for a 5.00 V source and 330 ohm, 1.0 kilohm, and 3.3 kilohm series resistors</li>
-          <li>Read all safety limits before energizing a circuit</li>
-        </ul>
-      </section>
-      <aside class="content-panel equipment">
-        <p class="eyebrow">Bench Setup</p>
-        <h2>Assigned Equipment and Data</h2>
-        <ul>
-          <li>DMM with intact voltage, resistance, and current functions</li>
-          <li>Current-limited DC power supply</li>
-          <li>Solderless breadboard and jumper leads</li>
-          <li>330 ohm, 1.0 kilohm, and 3.3 kilohm resistors, 5 percent or better</li>
-          <li>Instructor-prepared Lab 1 fault stations or fault adapters</li>
-        </ul>
-        <h3>Optional or Specialized</h3>
-        <ul>
-          <li>second DMM for simultaneous source and node measurements</li>
-        </ul>
-      </aside>
-    </div>
-
-    <section class="callout circuit-limits">
-      <p class="eyebrow">Circuit and Limits</p>
-      <h2>Use This Configuration</h2>
-        <ul>
-          <li>Baseline path: supply positive to R1 330 ohm to node A to R2 1.0 kilohm to node B to R3 3.3 kilohm to node G to supply ground</li>
-          <li>Set the source to 5.00 V nominal with a 25 mA current limit; never exceed 5.20 V or 25 mA</li>
-          <li>Measure node voltages relative to supply ground unless a step explicitly requests a component voltage drop</li>
-          <li>De-energize the circuit before resistance measurements or rewiring</li>
-          <li>Use the DMM current input only when the meter is intentionally inserted in series; return the lead to the voltage input immediately afterward</li>
-        </ul>
-    </section>
-
-    <section class="content-panel resource-panel">
-      <p class="eyebrow">Student Resources</p>
-      <h2>Diagram and Report Template</h2>
-        <figure class="lab-diagram">
-          <img src="../../assets/labs/lab-01-series-circuit.svg" alt="Series-circuit measurement diagram">
-          <figcaption>Series-circuit measurement diagram</figcaption>
-        </figure>
-      <div class="resource-links">
-        <a class="button" href="../../assets/labs/lab-01-series-circuit.svg">Series-circuit measurement diagram</a>
-        <a class="button" href="../../assets/labs/lab-01-report-template.md" download>Individual report template</a>
-      </div>
-    </section>
-
-    <section class="content-panel procedure-panel">
-      <p class="eyebrow">Investigation</p>
-      <h2>Procedure</h2>
-        <ol class="procedure">
-          <li>0-10 minutes - Record team members and equipment identifiers; inspect the DMM leads and fuse status; set the supply to 5.00 V with a 25 mA current limit while its output remains disabled</li>
-          <li>10-25 minutes - With power disconnected, measure R1, R2, and R3; record rated value, measured value, percent difference, and whether each is inside its stated tolerance</li>
-          <li>25-35 minutes - Calculate total resistance, expected series current, each voltage drop, node A voltage, node B voltage, and maximum resistor power for the measured component values</li>
-          <li>35-45 minutes - Build the baseline series circuit using the published node labels; have another team member trace the complete current path before enabling the source</li>
-          <li>45-55 minutes - Measure the actual source voltage and series current; current measurement requires opening the path and inserting the meter in series; disable power and restore the meter lead to its voltage input immediately afterward</li>
-          <li>55-65 minutes - Measure node A, node B, and node G relative to supply ground; calculate each resistor drop from adjacent node measurements and verify Kirchhoff&#x27;s voltage relationship</li>
-          <li>65-75 minutes - Compare predicted and measured current and voltages; calculate percent difference and identify whether component tolerance, source accuracy, contact resistance, or meter resolution plausibly explains each difference</li>
-          <li>75-80 minutes - Disable the source and move to the first assigned fault station; do not use resistance mode or remove covers from a prepared station</li>
-          <li>80-92 minutes - Record source, circuit-input, node A, node B, and node G voltages at fault station 1; identify the earliest point where the measured pattern departs from the baseline and form a fault hypothesis</li>
-          <li>92-104 minutes - Repeat the voltage-evidence process at fault station 2; request one instructor confirmation only after recording a claim and the measurements supporting it</li>
-          <li>104-110 minutes - Return all sources to zero and disabled, restore DMM leads, reset the breadboard and fault stations as directed, inventory components, and photograph or copy the final data tables</li>
-        </ol>
-    </section>
-
-    <section class="content-panel deliverables-panel">
-      <p class="eyebrow">Submission</p>
-      <h2>Required Evidence and Deliverables</h2>
-        <ul class="deliverables">
-          <li>Individual report using the supplied template; shared bench data must identify the team and each student&#x27;s role</li>
-          <li>Rated and measured resistor table with tolerance and percent-difference calculations</li>
-          <li>Labeled baseline circuit diagram showing source ground, R1, node A, R2, node B, R3, and node G</li>
-          <li>Baseline predictions made with measured resistor values before circuit power is enabled</li>
-          <li>Measured source voltage, series current, node voltages, resistor voltage drops, and one complete power calculation</li>
-          <li>Fault-station table containing raw measurements, comparison with baseline, diagnosis, confidence, and at least one plausible alternative explanation</li>
-          <li>One claim-evidence-reasoning conclusion for each assigned fault station</li>
-          <li>Final scope statement identifying what the measurements support, what remains uncertain, and what additional test would reduce uncertainty</li>
-        </ul>
-      <p class="completion-note"><strong>Completion standard:</strong> another technical reader should be able to understand what was tested, reproduce the important settings, and see why the evidence supports the conclusion.</p>
-    </section>
-
-    <section class="study-panel analysis-panel">
-      <p class="eyebrow">Analysis</p>
-      <h2>Questions for the Individual Report</h2>
-        <ul class="questions">
-          <li>Why must resistance be measured with the circuit de-energized?</li>
-          <li>Why can placing an ammeter directly across the supply damage the meter or open its fuse?</li>
-          <li>Which node-voltage pattern would suggest an altered resistor rather than a lower source voltage?</li>
-          <li>How can a voltage drop across a wire or adapter reveal hidden series resistance?</li>
-          <li>Why can a changed ground or return path make every downstream voltage appear wrong?</li>
-          <li>When is a percent difference evidence of a fault, and when could it be consistent with tolerance or measurement uncertainty?</li>
-          <li>How could a small analog voltage change cause a digital receiver to interpret a different logic state near its threshold?</li>
-        </ul>
-    </section>
-
-    <div class="topic-columns supporting-panels">
-      <section class="accent-panel">
-        <h2>Why It Matters</h2>
-        <ul>
-          <li>Hardware tamper changes measurable electrical behavior before any software layer is involved</li>
-          <li>Node-by-node comparison is a basic communications troubleshooting method: establish a baseline, locate the first meaningful deviation, and state confidence</li>
-          <li>A trustworthy diagnosis separates observed values from an inferred cause and records alternative explanations</li>
-        </ul>
-      </section>
-      <section class="safety-panel">
-        <h2>Safety and Scope</h2>
-        <ul>
-          <li>Use only lab-owned circuits and instructor-prepared fault stations</li>
-          <li>Keep all work at or below 5.20 V and 25 mA with current limiting enabled</li>
-          <li>Disable power before resistance measurements, rewiring, or moving between stations</li>
-          <li>Never place a DMM in current mode directly across a voltage source</li>
-          <li>Do not open, bypass, or dismantle hidden-fault adapters</li>
-          <li>Report damaged leads, unexpected heating, odor, or unstable supply behavior immediately</li>
-        </ul>
-      </section>
-    </div>
-
-    <nav class="pager" aria-label="Lab navigation">
-      <a href="../../weeks/week-01/">&larr; Week 1 guide</a>
-      <a href="../">All labs &rarr;</a>
-    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
