@@ -9,6 +9,7 @@
   <text x="120" y="245" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">limit 25 mA</text>
 
   <line x1="200" y1="135" x2="260" y2="135" stroke="#182028" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="230" cy="135" r="13" fill="#d96f32" stroke="#ffffff" stroke-width="4"/>
   <polyline points="260,135 278,111 306,159 334,111 362,159 390,111 408,135" fill="none" stroke="#0f6d74" stroke-width="8" stroke-linejoin="round"/>
   <line x1="408" y1="135" x2="500" y2="135" stroke="#182028" stroke-width="8" stroke-linecap="round"/>
   <circle cx="500" cy="135" r="13" fill="#d96f32" stroke="#ffffff" stroke-width="4"/>
@@ -29,6 +30,7 @@
   <line x1="1042" y1="381" x2="1054" y2="381" stroke="#182028" stroke-width="5"/>
 
   <text x="334" y="82" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">R1</text>
+  <text x="230" y="82" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">INPUT</text>
   <text x="334" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">330 ohm</text>
   <text x="500" y="82" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">NODE A</text>
   <text x="614" y="82" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">R2</text>

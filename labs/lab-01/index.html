@@ -41,6 +41,18 @@
         </ul>
     </section>
 
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Build a known three-resistor series circuit and verify that it behaves as predicted</li>
+          <li>Use the measured values from that circuit as a trusted baseline or electrical fingerprint</li>
+          <li>Visit two instructor-prepared fault stations built from the same intended circuit, but with one concealed change</li>
+          <li>Compare voltages point by point, locate the first segment that differs from the baseline, and support a diagnosis with evidence</li>
+        </ol>
+    </section>
+
+
     <div class="lab-layout lab-preflight">
       <section class="content-panel">
         <p class="eyebrow">Before Lab</p>
@@ -74,12 +86,25 @@
       <p class="eyebrow">Circuit and Limits</p>
       <h2>Use This Configuration</h2>
         <ul>
-          <li>Baseline path: supply positive to R1 330 ohm to node A to R2 1.0 kilohm to node B to R3 3.3 kilohm to node G to supply ground</li>
+          <li>Baseline path: supply positive to circuit input to R1 330 ohm to node A to R2 1.0 kilohm to node B to R3 3.3 kilohm to node G to supply ground</li>
           <li>Set the source to 5.00 V nominal with a 25 mA current limit; never exceed 5.20 V or 25 mA</li>
           <li>Measure node voltages relative to supply ground unless a step explicitly requests a component voltage drop</li>
           <li>De-energize the circuit before resistance measurements or rewiring</li>
           <li>Use the DMM current input only when the meter is intentionally inserted in series; return the lead to the voltage input immediately afterward</li>
         </ul>
+    </section>
+
+    <section class="content-panel measurement-map">
+      <p class="eyebrow">Measurement Map</p>
+      <h2>What Each Voltage Tells You</h2>
+        <dl class="definition-list">
+          <div><dt>Supply voltage</dt><dd>Confirms the voltage available at the power-supply terminals</dd></div>
+          <div><dt>Circuit-input voltage</dt><dd>At a prepared fault station, confirms the voltage that reaches R1 and reveals a possible drop before the resistor chain</dd></div>
+          <div><dt>Node A voltage</dt><dd>Shows the voltage remaining after R1</dd></div>
+          <div><dt>Node B voltage</dt><dd>Shows the voltage remaining after R2</dd></div>
+          <div><dt>Node G voltage</dt><dd>Should be near 0 V and reveals a possible problem in the return path</dd></div>
+          <div><dt>Resistor voltage drops</dt><dd>Calculate R1 from input minus A, R2 from A minus B, and R3 from B minus G</dd></div>
+        </dl>
     </section>
 
     <section class="content-panel resource-panel">
@@ -91,25 +116,22 @@
         </figure>
       <div class="resource-links">
         <a class="button" href="../../assets/labs/lab-01-series-circuit.svg">Series-circuit measurement diagram</a>
-        <a class="button" href="../../assets/labs/lab-01-report-template.md" download>Individual report template</a>
+        <a class="button" href="../../assets/labs/lab-01-report-template.docx" download>Editable Word report template</a>
       </div>
     </section>
 
     <section class="content-panel procedure-panel">
-      <p class="eyebrow">Investigation</p>
-      <h2>Procedure</h2>
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
         <ol class="procedure">
-          <li>0-10 minutes - Record team members and equipment identifiers; inspect the DMM leads and fuse status; set the supply to 5.00 V with a 25 mA current limit while its output remains disabled</li>
-          <li>10-25 minutes - With power disconnected, measure R1, R2, and R3; record rated value, measured value, percent difference, and whether each is inside its stated tolerance</li>
-          <li>25-35 minutes - Calculate total resistance, expected series current, each voltage drop, node A voltage, node B voltage, and maximum resistor power for the measured component values</li>
-          <li>35-45 minutes - Build the baseline series circuit using the published node labels; have another team member trace the complete current path before enabling the source</li>
-          <li>45-55 minutes - Measure the actual source voltage and series current; current measurement requires opening the path and inserting the meter in series; disable power and restore the meter lead to its voltage input immediately afterward</li>
-          <li>55-65 minutes - Measure node A, node B, and node G relative to supply ground; calculate each resistor drop from adjacent node measurements and verify Kirchhoff&#x27;s voltage relationship</li>
-          <li>65-75 minutes - Compare predicted and measured current and voltages; calculate percent difference and identify whether component tolerance, source accuracy, contact resistance, or meter resolution plausibly explains each difference</li>
-          <li>75-80 minutes - Disable the source and move to the first assigned fault station; do not use resistance mode or remove covers from a prepared station</li>
-          <li>80-92 minutes - Record source, circuit-input, node A, node B, and node G voltages at fault station 1; identify the earliest point where the measured pattern departs from the baseline and form a fault hypothesis</li>
-          <li>92-104 minutes - Repeat the voltage-evidence process at fault station 2; request one instructor confirmation only after recording a claim and the measurements supporting it</li>
-          <li>104-110 minutes - Return all sources to zero and disabled, restore DMM leads, reset the breadboard and fault stations as directed, inventory components, and photograph or copy the final data tables</li>
+          <li><strong>Set up safely:</strong> Record your team and equipment, inspect the DMM leads, and set the disabled supply to 5.00 V with a 25 mA current limit</li>
+          <li><strong>Measure the parts:</strong> With power disconnected, measure R1, R2, and R3 and decide whether each value is within its marked tolerance</li>
+          <li><strong>Predict the baseline:</strong> Using the measured resistor values, calculate total resistance, series current, resistor voltage drops, node voltages, and maximum resistor power</li>
+          <li><strong>Build and check the known circuit:</strong> Assemble R1, R2, and R3 in series using the published labels; ask a teammate to trace the complete path before enabling power</li>
+          <li><strong>Record its electrical fingerprint:</strong> Measure source voltage, series current, and nodes A, B, and G; calculate each resistor drop and compare the results with your predictions</li>
+          <li><strong>Investigate fault station 1:</strong> Measure source voltage, circuit-input voltage, and nodes A, B, and G without opening or resistance-testing the station; find the first meaningful departure from the baseline and record a claim, evidence, reasoning, confidence, and an alternative explanation</li>
+          <li><strong>Investigate fault station 2:</strong> Repeat the same point-by-point comparison and support a second diagnosis from the measured pattern</li>
+          <li><strong>Finish safely:</strong> Disable and zero the source, restore the DMM leads to the voltage input, reset the bench as directed, and complete your individual report</li>
         </ol>
     </section>
 
@@ -117,14 +139,10 @@
       <p class="eyebrow">Submission</p>
       <h2>Required Evidence and Deliverables</h2>
         <ul class="deliverables">
-          <li>Individual report using the supplied template; shared bench data must identify the team and each student&#x27;s role</li>
-          <li>Rated and measured resistor table with tolerance and percent-difference calculations</li>
-          <li>Labeled baseline circuit diagram showing source ground, R1, node A, R2, node B, R3, and node G</li>
-          <li>Baseline predictions made with measured resistor values before circuit power is enabled</li>
-          <li>Measured source voltage, series current, node voltages, resistor voltage drops, and one complete power calculation</li>
-          <li>Fault-station table containing raw measurements, comparison with baseline, diagnosis, confidence, and at least one plausible alternative explanation</li>
-          <li>One claim-evidence-reasoning conclusion for each assigned fault station</li>
-          <li>Final scope statement identifying what the measurements support, what remains uncertain, and what additional test would reduce uncertainty</li>
+          <li>Completed individual Word report identifying your team and role</li>
+          <li>Baseline section containing component measurements, predictions, circuit diagram, measured voltages and current, percent differences, and one power calculation</li>
+          <li>Two fault-station sections containing raw voltages, baseline comparisons, and a claim-evidence-reasoning diagnosis with confidence and an alternative explanation</li>
+          <li>Answers to the analysis questions and a final statement explaining what the evidence supports, what remains uncertain, and what additional measurement would help</li>
         </ul>
       <p class="completion-note"><strong>Completion standard:</strong> another technical reader should be able to understand what was tested, reproduce the important settings, and see why the evidence supports the conclusion.</p>
     </section>

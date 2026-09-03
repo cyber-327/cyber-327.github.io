@@ -532,6 +532,48 @@ th {
   padding-left: 0.35rem;
 }
 
+.procedure li strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--theme-ink);
+}
+
+.overview-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: overview-step;
+}
+
+.overview-steps li {
+  position: relative;
+  margin: 0;
+  border: 1px solid var(--theme-line);
+  border-radius: var(--theme-radius-small);
+  padding: 2.75rem 1rem 1rem;
+  background: var(--theme-panel);
+  counter-increment: overview-step;
+}
+
+.overview-steps li::before {
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
+  color: var(--theme-accent-2);
+  font-weight: 700;
+  content: "0" counter(overview-step);
+}
+
+.measurement-map {
+  margin-top: 1rem;
+}
+
+.measurement-map .definition-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .deliverables-panel {
   border-top: 0.35rem solid var(--theme-accent);
 }
@@ -617,6 +659,11 @@ th {
 
   .topic-columns,
   .lab-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-steps,
+  .measurement-map .definition-list {
     grid-template-columns: 1fr;
   }
 
