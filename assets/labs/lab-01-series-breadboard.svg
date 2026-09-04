@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 430" role="img" aria-labelledby="title desc">
+  <title id="title">Three resistors connected in series on a breadboard</title>
+  <desc id="desc">A simplified breadboard view shows R1, R2, and R3 forming one path through input, node A, node B, and node G.</desc>
+  <rect width="1120" height="430" rx="28" fill="#f7f3ea"/>
+  <text x="560" y="48" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30" font-weight="bold">One Path Through R1, R2, And R3</text>
+  <rect x="65" y="85" width="990" height="270" rx="24" fill="#fff" stroke="#182028" stroke-width="4"/>
+  <g>
+    <rect x="135" y="125" width="90" height="180" rx="14" fill="#d6ecee" stroke="#0f6d74" stroke-width="3"/>
+    <rect x="375" y="125" width="90" height="180" rx="14" fill="#f6d8c5" stroke="#d96f32" stroke-width="3"/>
+    <rect x="655" y="125" width="90" height="180" rx="14" fill="#d6ecee" stroke="#0f6d74" stroke-width="3"/>
+    <rect x="895" y="125" width="90" height="180" rx="14" fill="#f6d8c5" stroke="#d96f32" stroke-width="3"/>
+  </g>
+  <g fill="#fff" stroke="#5f6b73" stroke-width="3">
+    <circle cx="180" cy="150" r="9"/><circle cx="180" cy="180" r="9"/><circle cx="180" cy="210" r="9"/><circle cx="180" cy="240" r="9"/><circle cx="180" cy="270" r="9"/>
+    <circle cx="420" cy="150" r="9"/><circle cx="420" cy="180" r="9"/><circle cx="420" cy="210" r="9"/><circle cx="420" cy="240" r="9"/><circle cx="420" cy="270" r="9"/>
+    <circle cx="700" cy="150" r="9"/><circle cx="700" cy="180" r="9"/><circle cx="700" cy="210" r="9"/><circle cx="700" cy="240" r="9"/><circle cx="700" cy="270" r="9"/>
+    <circle cx="940" cy="150" r="9"/><circle cx="940" cy="180" r="9"/><circle cx="940" cy="210" r="9"/><circle cx="940" cy="240" r="9"/><circle cx="940" cy="270" r="9"/>
+  </g>
+  <g fill="none" stroke="#0f6d74" stroke-width="8" stroke-linejoin="round">
+    <path d="M180 180 L225 180 L245 160 L285 200 L325 160 L365 200 L385 180 L420 180"/>
+    <path d="M420 240 L465 240 L485 220 L525 260 L565 220 L605 260 L625 240 L700 240"/>
+    <path d="M700 180 L745 180 L765 160 L805 200 L845 160 L885 200 L905 180 L940 180"/>
+  </g>
+  <g font-family="Georgia, serif" text-anchor="middle">
+    <text x="180" y="112" fill="#0f6d74" font-size="22" font-weight="bold">INPUT</text>
+    <text x="420" y="112" fill="#d96f32" font-size="22" font-weight="bold">NODE A</text>
+    <text x="700" y="112" fill="#0f6d74" font-size="22" font-weight="bold">NODE B</text>
+    <text x="940" y="112" fill="#d96f32" font-size="22" font-weight="bold">NODE G</text>
+    <text x="300" y="145" fill="#182028" font-size="21">R1 330 Ω</text>
+    <text x="560" y="290" fill="#182028" font-size="21">R2 1.0 kΩ</text>
+    <text x="820" y="145" fill="#182028" font-size="21">R3 3.3 kΩ</text>
+  </g>
+  <path d="M90 385 H1030" stroke="#d96f32" stroke-width="4" marker-end="url(#arrow)"/>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#d96f32"/></marker></defs>
+  <text x="560" y="414" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="20">Follow the single current path from INPUT to NODE G.</text>
+</svg>

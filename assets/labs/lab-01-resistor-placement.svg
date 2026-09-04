@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 440" role="img" aria-labelledby="title desc">
+  <title id="title">Incorrect and correct resistor placement</title>
+  <desc id="desc">The left panel shows both resistor leads in one connected breadboard node, which shorts the resistor. The right panel shows each lead in a different node.</desc>
+  <rect width="1120" height="440" rx="28" fill="#f7f3ea"/>
+  <text x="560" y="48" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30" font-weight="bold">Place Resistor Leads In Different Nodes</text>
+  <g transform="translate(55 75)">
+    <rect width="480" height="315" rx="22" fill="#fff" stroke="#b8453c" stroke-width="5"/>
+    <text x="240" y="42" text-anchor="middle" fill="#b8453c" font-family="Georgia, serif" font-size="27" font-weight="bold">Incorrect: resistor is shorted</text>
+    <rect x="175" y="80" width="70" height="180" rx="12" fill="#f6d8c5" stroke="#d96f32" stroke-width="3"/>
+    <g fill="#fff" stroke="#5f6b73" stroke-width="3"><circle cx="210" cy="105" r="9"/><circle cx="210" cy="135" r="9"/><circle cx="210" cy="165" r="9"/><circle cx="210" cy="195" r="9"/><circle cx="210" cy="225" r="9"/></g>
+    <path d="M210 105 L290 105 L310 85 L350 125 L390 85 L430 125 L450 105 L450 195 L210 195" fill="none" stroke="#0f6d74" stroke-width="8" stroke-linejoin="round"/>
+    <circle cx="210" cy="105" r="8" fill="#d96f32"/><circle cx="210" cy="195" r="8" fill="#d96f32"/>
+    <text x="240" y="290" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="20">Both leads enter the same connected group.</text>
+  </g>
+  <g transform="translate(585 75)">
+    <rect width="480" height="315" rx="22" fill="#fff" stroke="#0f6d74" stroke-width="5"/>
+    <text x="240" y="42" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="27" font-weight="bold">Correct: resistor spans two nodes</text>
+    <rect x="75" y="80" width="70" height="180" rx="12" fill="#d6ecee" stroke="#0f6d74" stroke-width="3"/>
+    <rect x="335" y="80" width="70" height="180" rx="12" fill="#f6d8c5" stroke="#d96f32" stroke-width="3"/>
+    <g fill="#fff" stroke="#5f6b73" stroke-width="3"><circle cx="110" cy="105" r="9"/><circle cx="110" cy="135" r="9"/><circle cx="110" cy="165" r="9"/><circle cx="110" cy="195" r="9"/><circle cx="110" cy="225" r="9"/><circle cx="370" cy="105" r="9"/><circle cx="370" cy="135" r="9"/><circle cx="370" cy="165" r="9"/><circle cx="370" cy="195" r="9"/><circle cx="370" cy="225" r="9"/></g>
+    <path d="M110 165 L165 165 L185 145 L225 185 L265 145 L305 185 L325 165 L370 165" fill="none" stroke="#0f6d74" stroke-width="8" stroke-linejoin="round"/>
+    <circle cx="110" cy="165" r="8" fill="#0f6d74"/><circle cx="370" cy="165" r="8" fill="#d96f32"/>
+    <text x="240" y="290" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="20">Each lead enters a different connected group.</text>
+  </g>
+</svg>

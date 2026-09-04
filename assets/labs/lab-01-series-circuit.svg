@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 430" role="img" aria-labelledby="title desc">
   <title id="title">Lab 1 series-circuit measurement diagram</title>
-  <desc id="desc">A five volt current-limited supply drives R1 330 ohms, node A, R2 one kilohm, node B, R3 3.3 kilohms, and node G before returning to supply ground. All node voltages are measured relative to supply ground.</desc>
+  <desc id="desc">A five volt current-limited supply drives R1 330 Ω, node A, R2 1.0 kΩ, node B, R3 3.3 kΩ, and node G before returning to supply ground. All node voltages are measured relative to supply ground.</desc>
   <rect width="1120" height="430" rx="28" fill="#f7f3ea"/>
 
   <rect x="40" y="90" width="160" height="220" rx="18" fill="#ffffff" stroke="#182028" stroke-width="6"/>
@@ -31,13 +31,13 @@
 
   <text x="334" y="82" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">R1</text>
   <text x="230" y="82" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">INPUT</text>
-  <text x="334" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">330 ohm</text>
+  <text x="334" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">330 Ω</text>
   <text x="500" y="82" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">NODE A</text>
   <text x="614" y="82" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">R2</text>
-  <text x="614" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">1.0 kilohm</text>
+  <text x="614" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">1.0 kΩ</text>
   <text x="780" y="82" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">NODE B</text>
   <text x="894" y="82" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30">R3</text>
-  <text x="894" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">3.3 kilohm</text>
+  <text x="894" y="205" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="24">3.3 kΩ</text>
   <text x="970" y="405" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">NODE G</text>
 
   <text x="600" y="270" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="23">Measure node A, node B, and node G relative to supply ground.</text>

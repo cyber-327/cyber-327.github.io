@@ -70,7 +70,7 @@
           <li>Digital Multimeter (DMM)</li>
           <li>Current-limited DC power supply with red and black leads</li>
           <li>Solderless breadboard and jumper leads</li>
-          <li>R1 = 330 ohm, R2 = 1.0 kilohm, and R3 = 3.3 kilohm resistors</li>
+          <li>R1 = 330 Ω, R2 = 1.0 kΩ, and R3 = 3.3 kΩ resistors</li>
           <li>Instructor-prepared fault stations X and Y</li>
         </ul>
       </aside>
@@ -91,24 +91,122 @@
     <section class="content-panel procedure-panel">
       <p class="eyebrow">Follow These Steps</p>
       <h2>Lab Walkthrough</h2>
-        <ol class="procedure">
-          <li><strong>Inventory your station:</strong> Find the DMM, power supply, breadboard, leads, jumper wires, and all three resistors; record your name and lab partners in the report</li>
-          <li><strong>Learn the breadboard connections:</strong> Use the markings or continuity demonstration provided in class to identify which holes form one node; make sure the two resistor leads are placed in different connected regions rather than shorted together in one node</li>
-          <li><strong>Check the DMM leads:</strong> Put the black lead in the <code>COM</code> jack and the red lead in the voltage/resistance jack; do not use a current jack until the current-measurement step</li>
-          <li><strong>Configure the power supply:</strong> Keep the output disabled while connecting the red lead to positive and the black lead to negative; use the instructor-demonstrated controls to set 5.00 V and a 25 mA current limit, then leave the output disabled</li>
-          <li><strong>Read the resistor markings:</strong> Use the color-code table to identify the rated resistance and tolerance of R1, R2, and R3; enter these values in Table 1</li>
-          <li><strong>Measure resistance with power off:</strong> Select resistance mode, touch one probe to each end of R1, and record the measured value; repeat for R2 and R3, calculate percent difference, and decide whether each resistor is within tolerance</li>
-          <li><strong>Predict the circuit:</strong> Before applying power, calculate the total resistance, voltage across each resistor, node A and B voltages, series current, and total power; enter the predictions in Table 2</li>
-          <li><strong>Build the series circuit:</strong> Connect supply positive to R1, R1 to node A, R2 to node B, R3 to node G, and node G to supply negative as shown in the diagram; have another person trace the complete path before enabling the output</li>
-          <li><strong>Measure voltage in parallel:</strong> Confirm black is in <code>COM</code>, red is in the voltage/resistance jack, and the DMM is in DC-voltage mode; enable the supply, place the probes across each resistor, and record the three voltage drops in Table 2</li>
-          <li><strong>Check voltage polarity and nodes:</strong> Reverse the probes across R1 and record what changes; then keep the black probe on node G and use the red probe to measure nodes A and B; record the results and compare node voltages with resistor drops</li>
-          <li><strong>Measure current in series:</strong> Disable the supply before moving leads, move the red DMM lead to the appropriate current jack, and select DC current; open the circuit after R3 and insert the meter into that gap, then enable the supply and record the current in Table 2</li>
-          <li><strong>Verify series current:</strong> Disable the supply before each change and repeat the current measurement between R1 and R2 and then between R2 and R3; compare the readings, disable the supply, restore the circuit, and immediately return the red DMM lead to the voltage/resistance jack</li>
-          <li><strong>Establish the baseline:</strong> Finish Table 2, compare predicted and measured values, calculate percent differences, and take the required setup and measurement photographs for the Evidence section</li>
-          <li><strong>Investigate fault station X:</strong> Do not open, rewire, or resistance-test the station; measure its source, input, node A, node B, and node G voltages, compare them with the baseline, complete Table 3, and take the required photograph</li>
-          <li><strong>Investigate fault station Y:</strong> Repeat the same point-by-point voltage comparison, complete Table 4, and take the required photograph</li>
-          <li><strong>Finish the report and reset the bench:</strong> Complete the Evidence and Conclusion sections, disable and zero the supply, return the DMM leads to <code>COM</code> and the voltage/resistance jack, and return all components as directed</li>
-        </ol>
+      <section class="walkthrough-stage">
+        <h3>Set Up Your Station</h3>
+          <ol class="walkthrough-list">
+            <li>Open the Lab 1 report and enter your name and lab partners before taking measurements.</li>
+            <li>Find the DMM, power supply, breadboard, supply leads, DMM probes, jumper wires, and all three resistors. Ask the instructor or TA about anything missing or damaged.</li>
+            <li>With the DMM off, place the black probe in the <code>COM</code> jack and the red probe in the voltage/resistance jack labeled <code>V</code>, <code>Ω</code>, or both. Do not use a current jack yet.</li>
+            <li>On the power supply, identify the positive terminal, negative terminal, output-enable control, voltage control, and current-limit control. Keep the output disabled.</li>
+            <li>Following the in-lab demonstration for your supply model, set the output to 5.00 V and the current limit to 25 mA. If you cannot confirm both settings, stop and ask for help.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Learn Your Breadboard</h3>
+          <ol class="walkthrough-list">
+            <li>A breadboard does not connect every visible hole. On a typical board, each group of five holes beside the center gap forms one node; power rails run along the edge and may be split in the middle.</li>
+            <li>Compare your board with the diagram and its printed markings. When uncertain, use the instructor&#x27;s continuity demonstration rather than assuming two holes are connected.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-01-breadboard-connections.svg" alt="Typical breadboard connected-hole groups" loading="lazy">
+            <figcaption>Typical breadboard connected-hole groups</figcaption>
+          </figure>
+          <ol class="walkthrough-list">
+            <li>A resistor works only when its two leads are in different nodes. Putting both leads into the same connected group shorts across the resistor, making it electrically ineffective.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-01-resistor-placement.svg" alt="Incorrect and correct resistor placement" loading="lazy">
+            <figcaption>Incorrect and correct resistor placement</figcaption>
+          </figure>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Read And Measure The Resistors</h3>
+          <ol class="walkthrough-list">
+            <li>Use the resistor color-code table from the Week 1 guide to identify the rated value and tolerance of R1, R2, and R3. Enter those values in Table 1.</li>
+            <li>Confirm that no resistor is connected to the power supply. Resistance must be measured only on a de-energized, isolated component.</li>
+            <li>Turn on the DMM and select resistance mode, marked <code>Ω</code>. If the meter is not autoranging, choose the next range above the expected resistor value.</li>
+            <li>Hold one probe against each resistor lead. Resistance has no polarity, so the red and black probe order does not matter.</li>
+            <li>Wait for a stable reading, record the measured value with units, and repeat for all three resistors.</li>
+            <li>Calculate the percent difference between rated and measured resistance, then use the tolerance band to answer “Within tolerance?” in Table 1.</li>
+            <li>Take the required photograph showing one resistor connected to the DMM with its resistance reading visible.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Build The Series Circuit</h3>
+          <ol class="walkthrough-list">
+            <li>Place R1, R2, and R3 so current has only one path through all three resistors. The junction of R1 and R2 is node A; the junction of R2 and R3 is node B; the return end of R3 is node G.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-01-series-breadboard.svg" alt="Three resistors connected in series on a breadboard" loading="lazy">
+            <figcaption>Three resistors connected in series on a breadboard</figcaption>
+          </figure>
+          <ol class="walkthrough-list">
+            <li>Keep the power-supply output disabled. Connect supply positive to the input side of R1 and supply negative to node G.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-01-supply-connection.svg" alt="Power supply connected to the series circuit" loading="lazy">
+            <figcaption>Power supply connected to the series circuit</figcaption>
+          </figure>
+          <ol class="walkthrough-list">
+            <li>Ask a partner to trace the complete path aloud: supply positive, R1, node A, R2, node B, R3, node G, and supply negative. Correct any branch, gap, or short before enabling power.</li>
+            <li>Before applying power, calculate total resistance, the voltage across each resistor, node A and node B voltages, series current, and total power. Enter the predictions in Table 2.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Measure Voltage</h3>
+          <ol class="walkthrough-list">
+            <li>Confirm that the black DMM lead is in <code>COM</code>, the red lead is in the voltage/resistance jack, and the DMM is set to DC voltage.</li>
+            <li>Enable the power-supply output. Verify that the supply still reads approximately 5.00 V and is not indicating current-limit operation.</li>
+            <li>Measure voltage <strong>across</strong> R1 by placing the red probe on the side closer to supply positive and the black probe on the side closer to node G. This places the DMM in parallel with R1.</li>
+            <li>Record the R1 voltage in Table 2, then repeat the same measurement across R2 and R3.</li>
+            <li>Reverse the probes across R1. Record what changes in the displayed reading; the magnitude should remain similar while the sign changes.</li>
+            <li>For a node voltage, keep the black probe on node G and touch the red probe to the node being measured. Record node A and node B voltages in Table 2.</li>
+            <li>Compare the node voltages with the individual resistor drops. Explain their relationship in the report.</li>
+            <li>Take the required photograph showing the probe placement and displayed voltage for one resistor.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Measure Current</h3>
+          <ol class="walkthrough-list">
+            <li><strong>Important:</strong> Never place a DMM configured for current directly across the power supply or a component. In current mode, the meter must become part of the one series path.</li>
+            <li>Disable the power-supply output before opening the circuit or moving a DMM lead.</li>
+            <li>Move the red DMM lead to the appropriate current jack and select DC current. Begin on the highest suitable range unless the instructor demonstrates a safer meter-specific setting.</li>
+            <li>Disconnect R3 from node G to create one gap in the series path. Connect the red probe to the R3 side of the gap and the black probe to the node G or supply-negative side.</li>
+            <li>Enable the output, read the current, and record it in Table 2. If the display remains zero or shows an overload, disable the output and ask for help rather than changing connections while powered.</li>
+            <li>Disable the output. To verify that series current is the same everywhere, repeat the measurement with the meter inserted between R1 and R2 and then between R2 and R3.</li>
+            <li>After the final reading, disable the output, remove the meter, restore the original circuit connection, and immediately return the red DMM lead to the voltage/resistance jack.</li>
+            <li>Take the required photograph showing the DMM inserted in series and the current reading visible.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Establish Your Baseline</h3>
+          <ol class="walkthrough-list">
+            <li>Finish Table 2 and calculate the percent difference between each predicted and measured value.</li>
+            <li>Check that the three measured voltage drops approximately add to the measured source voltage and that current is approximately equal at every series location.</li>
+            <li>Treat these measured values as the known-good electrical fingerprint for the circuit. Small differences caused by resistor tolerance and meter resolution are normal.</li>
+            <li>Take the required photograph of the complete breadboard circuit connected to the supply.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Investigate Fault Stations X And Y</h3>
+          <ol class="walkthrough-list">
+            <li>Move to fault station X. Do not open, rewire, or use resistance mode on an instructor-prepared station.</li>
+            <li>Set the DMM for DC voltage with black in <code>COM</code> and red in the voltage/resistance jack. Use supply ground as the black-probe reference for every node measurement.</li>
+            <li>Measure source voltage, circuit-input voltage, node A, node B, and node G. Enter the results in Table 3 beside the corresponding baseline measurements.</li>
+            <li>Find the first point where the station differs meaningfully from the baseline. State what you think changed, explain why the measured pattern supports that conclusion, and identify another condition that could create similar behavior.</li>
+            <li>Take the required photograph showing the node A measurement at fault station X.</li>
+            <li>Repeat the same process at fault station Y, complete Table 4, and take the required photograph showing its node B measurement.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Finish And Submit</h3>
+          <ol class="walkthrough-list">
+            <li>Complete the Evidence section by checking that all six required photographs are present and readable.</li>
+            <li>Complete the Conclusion section in your own words. Summarize the work, explain measured-versus-predicted differences, identify what was easy or difficult, and state what you learned.</li>
+            <li>Disable the power-supply output, set its voltage to zero, return the DMM leads to <code>COM</code> and the voltage/resistance jack, and return all components as directed.</li>
+            <li>Save the completed Word report using the required filename and submit it through Learning Suite.</li>
+          </ol>
+      </section>
     </section>
 
     <div class="topic-columns supporting-panels">

@@ -538,6 +538,48 @@ th {
   color: var(--theme-ink);
 }
 
+.walkthrough-stage {
+  margin-top: 1rem;
+  border: 1px solid var(--theme-line);
+  border-radius: var(--theme-radius-small);
+  padding: 1.25rem;
+  background: var(--theme-note);
+}
+
+.walkthrough-stage h3 {
+  margin-bottom: 0.8rem;
+  color: var(--theme-accent-2);
+  font-size: 1.35rem;
+}
+
+.walkthrough-list {
+  padding-left: 1.5rem;
+}
+
+.walkthrough-list + .walkthrough-figure,
+.walkthrough-figure + .walkthrough-list {
+  margin-top: 1rem;
+}
+
+.walkthrough-figure {
+  margin: 0;
+}
+
+.walkthrough-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--theme-line);
+  border-radius: var(--theme-radius-small);
+  background: var(--theme-panel);
+}
+
+.walkthrough-figure figcaption {
+  margin-top: 0.45rem;
+  color: var(--theme-muted);
+  font-size: 0.85rem;
+}
+
 .overview-steps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

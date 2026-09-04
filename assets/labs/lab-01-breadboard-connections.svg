@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">Typical breadboard connected-hole groups</title>
+  <desc id="desc">A breadboard diagram showing groups of five connected terminal holes, a center isolation gap, and long power rails that may be split.</desc>
+  <rect width="1120" height="520" rx="28" fill="#f7f3ea"/>
+  <text x="560" y="48" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30" font-weight="bold">Typical Breadboard Connections</text>
+  <rect x="85" y="78" width="950" height="380" rx="24" fill="#fff" stroke="#182028" stroke-width="4"/>
+  <rect x="145" y="145" width="830" height="115" rx="12" fill="#eef4f1"/>
+  <rect x="145" y="285" width="830" height="115" rx="12" fill="#eef4f1"/>
+  <rect x="145" y="260" width="830" height="25" fill="#d9d9d9"/>
+  <text x="560" y="279" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="18">CENTER GAP: holes above and below are not connected</text>
+  <rect x="245" y="142" width="54" height="121" rx="10" fill="#f6d8c5" stroke="#d96f32" stroke-width="3"/>
+  <rect x="535" y="282" width="54" height="121" rx="10" fill="#d6ecee" stroke="#0f6d74" stroke-width="3"/>
+  <g fill="#fff" stroke="#5f6b73" stroke-width="3">
+    <circle cx="190" cy="165" r="8"/><circle cx="190" cy="185" r="8"/><circle cx="190" cy="205" r="8"/><circle cx="190" cy="225" r="8"/><circle cx="190" cy="245" r="8"/>
+    <circle cx="272" cy="165" r="8"/><circle cx="272" cy="185" r="8"/><circle cx="272" cy="205" r="8"/><circle cx="272" cy="225" r="8"/><circle cx="272" cy="245" r="8"/>
+    <circle cx="354" cy="165" r="8"/><circle cx="354" cy="185" r="8"/><circle cx="354" cy="205" r="8"/><circle cx="354" cy="225" r="8"/><circle cx="354" cy="245" r="8"/>
+    <circle cx="436" cy="165" r="8"/><circle cx="436" cy="185" r="8"/><circle cx="436" cy="205" r="8"/><circle cx="436" cy="225" r="8"/><circle cx="436" cy="245" r="8"/>
+    <circle cx="518" cy="165" r="8"/><circle cx="518" cy="185" r="8"/><circle cx="518" cy="205" r="8"/><circle cx="518" cy="225" r="8"/><circle cx="518" cy="245" r="8"/>
+    <circle cx="600" cy="165" r="8"/><circle cx="600" cy="185" r="8"/><circle cx="600" cy="205" r="8"/><circle cx="600" cy="225" r="8"/><circle cx="600" cy="245" r="8"/>
+    <circle cx="682" cy="165" r="8"/><circle cx="682" cy="185" r="8"/><circle cx="682" cy="205" r="8"/><circle cx="682" cy="225" r="8"/><circle cx="682" cy="245" r="8"/>
+    <circle cx="764" cy="165" r="8"/><circle cx="764" cy="185" r="8"/><circle cx="764" cy="205" r="8"/><circle cx="764" cy="225" r="8"/><circle cx="764" cy="245" r="8"/>
+    <circle cx="846" cy="165" r="8"/><circle cx="846" cy="185" r="8"/><circle cx="846" cy="205" r="8"/><circle cx="846" cy="225" r="8"/><circle cx="846" cy="245" r="8"/>
+    <circle cx="928" cy="165" r="8"/><circle cx="928" cy="185" r="8"/><circle cx="928" cy="205" r="8"/><circle cx="928" cy="225" r="8"/><circle cx="928" cy="245" r="8"/>
+    <circle cx="190" cy="300" r="8"/><circle cx="190" cy="320" r="8"/><circle cx="190" cy="340" r="8"/><circle cx="190" cy="360" r="8"/><circle cx="190" cy="380" r="8"/>
+    <circle cx="272" cy="300" r="8"/><circle cx="272" cy="320" r="8"/><circle cx="272" cy="340" r="8"/><circle cx="272" cy="360" r="8"/><circle cx="272" cy="380" r="8"/>
+    <circle cx="354" cy="300" r="8"/><circle cx="354" cy="320" r="8"/><circle cx="354" cy="340" r="8"/><circle cx="354" cy="360" r="8"/><circle cx="354" cy="380" r="8"/>
+    <circle cx="436" cy="300" r="8"/><circle cx="436" cy="320" r="8"/><circle cx="436" cy="340" r="8"/><circle cx="436" cy="360" r="8"/><circle cx="436" cy="380" r="8"/>
+    <circle cx="562" cy="300" r="8"/><circle cx="562" cy="320" r="8"/><circle cx="562" cy="340" r="8"/><circle cx="562" cy="360" r="8"/><circle cx="562" cy="380" r="8"/>
+    <circle cx="682" cy="300" r="8"/><circle cx="682" cy="320" r="8"/><circle cx="682" cy="340" r="8"/><circle cx="682" cy="360" r="8"/><circle cx="682" cy="380" r="8"/>
+    <circle cx="764" cy="300" r="8"/><circle cx="764" cy="320" r="8"/><circle cx="764" cy="340" r="8"/><circle cx="764" cy="360" r="8"/><circle cx="764" cy="380" r="8"/>
+    <circle cx="846" cy="300" r="8"/><circle cx="846" cy="320" r="8"/><circle cx="846" cy="340" r="8"/><circle cx="846" cy="360" r="8"/><circle cx="846" cy="380" r="8"/>
+    <circle cx="928" cy="300" r="8"/><circle cx="928" cy="320" r="8"/><circle cx="928" cy="340" r="8"/><circle cx="928" cy="360" r="8"/><circle cx="928" cy="380" r="8"/>
+  </g>
+  <line x1="130" y1="105" x2="990" y2="105" stroke="#d14b4b" stroke-width="5"/><line x1="130" y1="125" x2="990" y2="125" stroke="#2e67a0" stroke-width="5"/>
+  <text x="105" y="114" fill="#d14b4b" font-family="Georgia, serif" font-size="20">+</text><text x="105" y="134" fill="#2e67a0" font-family="Georgia, serif" font-size="20">−</text>
+  <path d="M272 140 L272 95 L390 95" fill="none" stroke="#d96f32" stroke-width="3"/>
+  <text x="400" y="101" fill="#d96f32" font-family="Georgia, serif" font-size="21" font-weight="bold">These five holes share one node</text>
+  <path d="M562 405 L562 438 L715 438" fill="none" stroke="#0f6d74" stroke-width="3"/>
+  <text x="725" y="445" fill="#0f6d74" font-family="Georgia, serif" font-size="21" font-weight="bold">A different five-hole node</text>
+  <text x="560" y="492" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="18">Rail and terminal-strip connections vary by model. Verify your board before wiring.</text>
+</svg>

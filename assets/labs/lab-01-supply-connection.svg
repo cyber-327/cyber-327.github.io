@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 460" role="img" aria-labelledby="title desc">
+  <title id="title">Power supply connected to the series circuit</title>
+  <desc id="desc">A disabled five volt current-limited supply connects positive to the circuit input and negative to node G of a three-resistor series circuit.</desc>
+  <rect width="1120" height="460" rx="28" fill="#f7f3ea"/>
+  <text x="560" y="46" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="30" font-weight="bold">Connect With The Supply Output Disabled</text>
+  <rect x="55" y="105" width="275" height="245" rx="22" fill="#fff" stroke="#182028" stroke-width="5"/>
+  <text x="192" y="145" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="24" font-weight="bold">DC POWER SUPPLY</text>
+  <rect x="95" y="170" width="195" height="58" rx="8" fill="#182028"/><text x="192" y="207" text-anchor="middle" fill="#9ee8be" font-family="monospace" font-size="27">5.00 V</text>
+  <circle cx="125" cy="285" r="22" fill="#d14b4b" stroke="#182028" stroke-width="3"/><circle cx="260" cy="285" r="22" fill="#2e4057" stroke="#182028" stroke-width="3"/>
+  <text x="125" y="330" text-anchor="middle" fill="#d14b4b" font-family="Georgia, serif" font-size="21" font-weight="bold">POSITIVE</text><text x="260" y="330" text-anchor="middle" fill="#2e4057" font-family="Georgia, serif" font-size="21" font-weight="bold">NEGATIVE</text>
+  <rect x="390" y="95" width="670" height="280" rx="22" fill="#fff" stroke="#182028" stroke-width="4"/>
+  <circle cx="455" cy="225" r="12" fill="#d14b4b"/><circle cx="995" cy="225" r="12" fill="#2e4057"/>
+  <text x="455" y="185" text-anchor="middle" fill="#d14b4b" font-family="Georgia, serif" font-size="21" font-weight="bold">INPUT</text><text x="995" y="185" text-anchor="middle" fill="#2e4057" font-family="Georgia, serif" font-size="21" font-weight="bold">NODE G</text>
+  <g fill="none" stroke="#0f6d74" stroke-width="8" stroke-linejoin="round">
+    <path d="M455 225 H500 L520 205 L560 245 L600 205 L640 245 L660 225 H725"/>
+    <path d="M725 225 L745 205 L785 245 L825 205 L865 245 L885 225 H900"/>
+    <path d="M900 225 L915 205 L940 245 L965 205 L980 225 H995"/>
+  </g>
+  <text x="575" y="190" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="20">R1</text><text x="805" y="190" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="20">R2</text><text x="945" y="190" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="20">R3</text>
+  <path d="M125 285 C345 285 320 225 443 225" fill="none" stroke="#d14b4b" stroke-width="9"/>
+  <path d="M260 285 C365 420 940 420 995 237" fill="none" stroke="#2e4057" stroke-width="9"/>
+  <rect x="390" y="395" width="340" height="42" rx="21" fill="#f6d8c5" stroke="#d96f32" stroke-width="2"/>
+  <text x="560" y="423" text-anchor="middle" fill="#9a431e" font-family="Georgia, serif" font-size="20" font-weight="bold">OUTPUT OFF • 5.00 V • LIMIT 25 mA</text>
+</svg>
