@@ -45,10 +45,10 @@
       <p class="eyebrow">The Big Picture</p>
       <h2>What You Are Doing</h2>
         <ol class="overview-steps">
-          <li>Build a known three-resistor series circuit and verify that it behaves as predicted</li>
-          <li>Use the measured values from that circuit as a trusted baseline or electrical fingerprint</li>
-          <li>Visit two instructor-prepared fault stations built from the same intended circuit, but with one concealed change</li>
-          <li>Compare voltages point by point, locate the first segment that differs from the baseline, and support a diagnosis with evidence</li>
+          <li>Learn how to safely measure resistance, voltage, and current.</li>
+          <li>Build a known series circuit and verify that it behaves as predicted.</li>
+          <li>Use the measured values from that circuit as a trusted baseline, or electrical fingerprint.</li>
+          <li>Investigate incident devices built from the same intended circuit, but with one concealed change.</li>
         </ol>
     </section>
 
@@ -60,18 +60,17 @@
         <ul>
           <li>Review the Week 1 definitions, formulas, resistor color code, and series-circuit diagram</li>
           <li>Bring a calculator and open the Lab 1 report before beginning</li>
-          <li>Do not energize or rewire anything until directed by the walkthrough and the in-lab safety demonstration</li>
         </ul>
       </section>
       <aside class="content-panel equipment">
         <p class="eyebrow">Bench Setup</p>
-        <h2>Assigned Equipment and Data</h2>
+        <h2>Equipment and Materials</h2>
         <ul>
           <li>Digital Multimeter (DMM)</li>
           <li>Current-limited DC power supply with red and black leads</li>
           <li>Solderless breadboard and jumper leads</li>
           <li>R1 = 330 Ω, R2 = 1.0 kΩ, and R3 = 3.3 kΩ resistors</li>
-          <li>Instructor-prepared fault stations X and Y</li>
+          <li>Incident Device X and Incident Device Y</li>
         </ul>
       </aside>
     </div>
@@ -84,7 +83,7 @@
           <figcaption>Series-circuit measurement diagram</figcaption>
         </figure>
       <div class="resource-links">
-        <a class="button" href="../../assets/labs/lab-01-report.docx" download>Lab report template</a>
+        <a class="button" href="../../assets/labs/lab-01-report.docx" download>Lab report</a>
       </div>
     </section>
 
@@ -97,8 +96,8 @@
             <li>Open the Lab 1 report and enter your name and lab partners before taking measurements.</li>
             <li>Find the DMM, power supply, breadboard, supply leads, DMM probes, jumper wires, and all three resistors. Ask the instructor or TA about anything missing or damaged.</li>
             <li>With the DMM off, place the black probe in the <code>COM</code> jack and the red probe in the voltage/resistance jack labeled <code>V</code>, <code>Ω</code>, or both. Do not use a current jack yet.</li>
-            <li>On the power supply, identify the positive terminal, negative terminal, output-enable control, voltage control, and current-limit control. Keep the output disabled.</li>
-            <li>Following the in-lab demonstration for your supply model, set the output to 5.00 V and the current limit to 25 mA. If you cannot confirm both settings, stop and ask for help.</li>
+            <li>On the power supply, identify the positive terminal, negative terminal, voltage control, and current-limit control. Keep the output disabled.</li>
+            <li>Following the in-lab demonstration for your supply model, set the output to 5.00 V. If you cannot confirm both settings, stop and ask for help.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
@@ -160,7 +159,7 @@
             <li>Measure voltage <strong>across</strong> R1 by placing the red probe on the side closer to supply positive and the black probe on the side closer to node G. This places the DMM in parallel with R1.</li>
             <li>Record the R1 voltage in Table 2, then repeat the same measurement across R2 and R3.</li>
             <li>Reverse the probes across R1. Record what changes in the displayed reading; the magnitude should remain similar while the sign changes.</li>
-            <li>For a node voltage, keep the black probe on node G and touch the red probe to the node being measured. Record node A and node B voltages in Table 2.</li>
+            <li>For every node voltage, use supply negative (<code>V−/COM</code>) as the reference. In your baseline circuit, node G is directly connected to <code>V−/COM</code>, so clipping the black probe to G uses the same reference. Touch the red probe to A and then B, and record both readings in Table 2.</li>
             <li>Compare the node voltages with the individual resistor drops. Explain their relationship in the report.</li>
             <li>Take the required photograph showing the probe placement and displayed voltage for one resistor.</li>
           </ol>
@@ -188,14 +187,14 @@
           </ol>
       </section>
       <section class="walkthrough-stage">
-        <h3>Investigate Fault Stations X And Y</h3>
+        <h3>Investigate Incident Devices X And Y</h3>
           <ol class="walkthrough-list">
-            <li>Move to fault station X. Do not open, rewire, or use resistance mode on an instructor-prepared station.</li>
-            <li>Set the DMM for DC voltage with black in <code>COM</code> and red in the voltage/resistance jack. Use supply ground as the black-probe reference for every node measurement.</li>
-            <li>Measure source voltage, circuit-input voltage, node A, node B, and node G. Enter the results in Table 3 beside the corresponding baseline measurements.</li>
-            <li>Find the first point where the station differs meaningfully from the baseline. State what you think changed, explain why the measured pattern supports that conclusion, and identify another condition that could create similar behavior.</li>
-            <li>Take the required photograph showing the node A measurement at fault station X.</li>
-            <li>Repeat the same process at fault station Y, complete Table 4, and take the required photograph showing its node B measurement.</li>
+            <li>The class shares both devices. When either Incident Device X or Y becomes available, begin with that device. Do not open, rewire, or use resistance mode on it.</li>
+            <li>Each device has power connections labeled <code>V+</code> and <code>V−/COM</code>, plus test points labeled <code>A</code>, <code>B</code>, and <code>G</code>. Connect the power supply to <code>V+</code> and <code>V−/COM</code> as directed.</li>
+            <li>Set the DMM for DC voltage with black in <code>COM</code> and red in the voltage/resistance jack. Keep the black probe on the device&#x27;s <code>V−/COM</code> reference for every node measurement. Use the red probe to measure <code>V+</code>, A, B, and G.</li>
+            <li>Enter Device X results in Table 3 and Device Y results in Table 4 beside the corresponding known-good measurements. Node G is normally near 0 V relative to <code>V−/COM</code>; a difference between them is useful diagnostic evidence.</li>
+            <li>Find the first point where the device differs meaningfully from the baseline. State what you think changed, explain why the measured pattern supports that conclusion, and identify another condition that could create similar behavior.</li>
+            <li>Take the required photograph showing a diagnostic node-voltage measurement, pass the device to the next waiting group, and repeat the investigation when the other device becomes available.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
@@ -215,6 +214,7 @@
         <ul>
           <li>In industry, technicians commonly troubleshoot failed or altered hardware by comparing node voltages and signal levels with a known-good baseline</li>
           <li>Point-by-point measurements help locate the circuit segment where expected behavior first changes</li>
+          <li>A professional incident handoff must distinguish measurements your team collected from data and conclusions received from another team</li>
           <li>The same evidence-first method supports hardware maintenance, communications troubleshooting, and investigation of possible physical tampering</li>
         </ul>
       </section>

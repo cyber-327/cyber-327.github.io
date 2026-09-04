@@ -456,10 +456,6 @@ li + li {
   overflow-wrap: anywhere;
 }
 
-.syllabus-draft-note {
-  margin-bottom: 1rem;
-}
-
 .table-scroll {
   overflow-x: auto;
   margin-top: 1rem;
