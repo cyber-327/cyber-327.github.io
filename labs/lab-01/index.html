@@ -68,8 +68,8 @@
           <li>Digital Multimeter (DMM)</li>
           <li>Current-limited DC power supply with red and black leads</li>
           <li>Solderless breadboard and jumper leads</li>
-          <li>R1 = 330 Ω, R2 = 1.0 kΩ, and R3 = 3.3 kΩ resistors</li>
-          <li>Incident Device X and Incident Device Y</li>
+          <li>R1 = 330 Ω, R2 = 1.0 kΩ, and R3 = 3.0 kΩ resistors</li>
+          <li>Shared Incident Devices X, Y, and Z</li>
         </ul>
       </aside>
     </div>
@@ -196,12 +196,12 @@
           </ul>
       </section>
       <section class="walkthrough-stage">
-        <h3>Investigate Incident Devices X And Y</h3>
+        <h3>Investigate Any Two Incident Devices</h3>
           <ol class="walkthrough-list">
-            <li>The class shares both devices. When either Incident Device X or Y becomes available, begin with that device. Do not open, rewire, or use resistance mode on it.</li>
+            <li>The class shares Incident Devices X, Y, and Z. Investigate any two devices that become available; you do not need to investigate all three. Do not open, rewire, or use resistance mode on a device.</li>
             <li>Each device has power connections labeled <code>V+</code> and <code>V−/COM</code>, plus test points labeled <code>A</code>, <code>B</code>, and <code>G</code>. Connect the power supply to <code>V+</code> and <code>V−/COM</code> as directed.</li>
             <li>Set the DMM for DC voltage with black in <code>COM</code> and red in the voltage/resistance jack. Keep the black probe on the device&#x27;s <code>V−/COM</code> reference for every node measurement. Use the red probe to measure <code>V+</code>, A, B, and G.</li>
-            <li>Enter Device X results in Table 3 and Device Y results in Table 4 beside the corresponding known-good measurements. Node G is normally near 0 V relative to <code>V−/COM</code>; a difference between them is useful diagnostic evidence.</li>
+            <li>Record your first device in Table 3 and your second device in Table 4, including each device&#x27;s letter. Enter the readings beside the corresponding known-good measurements. Node G is normally near 0 V relative to <code>V−/COM</code>; a difference between them is useful diagnostic evidence.</li>
             <li>Find the first point where the device differs meaningfully from the baseline. State what you think changed, explain why the measured pattern supports that conclusion, and identify another condition that could create similar behavior.</li>
             <li>Take the required photograph showing a diagnostic node-voltage measurement, pass the device to the next waiting group, and repeat the investigation when the other device becomes available.</li>
           </ol>
