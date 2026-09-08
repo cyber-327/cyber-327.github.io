@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 02 - CYBER 327 course material">
-  <title>Lab 02 | CYBER 327</title>
+  <meta name="description" content="Lab 02: Measurement Integrity and Power Signatures - CYBER 327 course material">
+  <title>Lab 02: Measurement Integrity and Power Signatures | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,201 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 02 &middot; Week 2</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Scheduled release: September 6, 2026. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 02 &middot; Week 2 &middot; September 11, 2026</p>
+      <h1>Measurement Integrity and Power Signatures</h1>
+      <p class="body">Parallel loads, instrument loading, and trustworthy waveform measurements</p>
     </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Predict and measure how an added parallel load changes equivalent resistance, source current, and total power</li>
+          <li>Explain how finite instrument input resistance changes the circuit being measured</li>
+          <li>Configure a function generator and oscilloscope to produce and measure a repeatable sine wave</li>
+          <li>Recognize incorrect probe attenuation and AC/DC coupling as measurement-configuration problems</li>
+          <li>Separate the physical signal, the instrument configuration, the displayed result, and the conclusion drawn from it</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Extend the Lab 1 predict-measure-compare method to a circuit with parallel loads.</li>
+          <li>Treat source-current change as a simple electrical signature of device state.</li>
+          <li>Compare a high-value divider with no instrument, a DMM, a 1x probe, and a 10x probe.</li>
+          <li>Generate a known sine wave and verify its amplitude, frequency, RMS value, and offset.</li>
+          <li>Create and correct two controlled configuration errors that make a healthy signal look wrong.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review the Week 2 definitions and formulas for parallel resistance, branch current, loading, amplitude, period, frequency, RMS, and offset</li>
+          <li>Bring a calculator and open the Lab 2 report before beginning</li>
+          <li>Recall the Lab 1 rules: power off before rewiring, resistance is measured only on a de-energized circuit, and current mode is never placed across a source</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Digital multimeter with DC voltage, DC current, resistance, and AC voltage modes</li>
+          <li>Current-limited DC power supply with red and black leads</li>
+          <li>Two-channel oscilloscope with one switchable 1x/10x probe</li>
+          <li>Function generator with BNC-to-clip or BNC-to-probe connection</li>
+          <li>Solderless breadboard and jumper leads</li>
+          <li>Two 100 kΩ resistors, one 1.0 kΩ resistor, and one 2.2 kΩ resistor</li>
+          <li>Calculator</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Lab Report</h2>
+
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-02-report.docx" download>Lab report</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
+      <section class="walkthrough-stage">
+        <h3>Set Up The Bench</h3>
+          <ol class="walkthrough-list">
+            <li>Open the Lab 2 report and enter your name and lab partners.</li>
+            <li>Find the DMM, power supply, oscilloscope, function generator, probe, breadboard, leads, and resistors. Record instrument model numbers in the report and ask about missing or damaged equipment.</li>
+            <li>Keep the power-supply and function-generator outputs disabled. Set the supply to <code>5.00 V</code> with a <code>25 mA</code> current limit using the instructor-approved procedure.</li>
+            <li>Put the DMM black lead in <code>COM</code> and the red lead in <code>V/Ω</code>. Do not move the red lead to a current jack until the procedure explicitly tells you to do so.</li>
+            <li>Set the physical oscilloscope probe switch to <code>10x</code>, set the channel probe factor to <code>10x</code>, and connect the probe ground clip only to circuit common. The oscilloscope ground clip must never be moved to the supply-positive rail or a divider midpoint.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Build The Parallel-Load Circuit</h3>
+          <ol class="walkthrough-list">
+            <li>With the supply output disabled, build two resistor branches from <code>V+</code> to <code>G</code>: Branch 1 contains <code>R1 = 1.0 kΩ</code>; Branch 2 contains <code>R2 = 2.2 kΩ</code> and can be connected or disconnected with a jumper.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-02-parallel-circuit.svg" alt="Parallel-load circuit with a removable second branch" loading="lazy">
+            <figcaption>Parallel-load circuit with a removable second branch</figcaption>
+          </figure>
+          <ol class="walkthrough-list">
+            <li>Measure each resistor while it is isolated and de-energized. Record the measured values in Table 1, then reconnect the circuit.</li>
+            <li>For State A, leave Branch 2 disconnected. Predict equivalent resistance, Branch 1 current, total source current, and total power.</li>
+            <li>For State B, connect Branch 2 in parallel. Predict equivalent resistance, both branch currents, total source current, and total power.</li>
+            <li>Before applying power, explain why adding Branch 2 must decrease equivalent resistance and increase total source current.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Measure The Two Load States</h3>
+          <ol class="walkthrough-list">
+            <li>Confirm the DMM is still configured for DC voltage. Enable the supply and verify approximately <code>5.00 V</code> across <code>V+</code> and <code>G</code>.</li>
+            <li>Measure the voltage across Branch 1 in State A and across both branches in State B. Parallel branches should share approximately the same voltage.</li>
+            <li>Disable the supply before measuring current. Move the red DMM lead to the instructor-approved current jack, select a safe DC-current range, and open the source path at <code>V+</code>.</li>
+            <li>Insert the DMM in series with the entire circuit, enable the supply, and record total current for State A. Disable the supply before connecting Branch 2, then repeat for State B.</li>
+            <li>Disable the supply, remove the DMM from the source path, restore the circuit, and immediately return the red lead to <code>V/Ω</code>.</li>
+            <li>Complete Table 1. Treat the difference between State A and State B current as a simple power signature: an observer can distinguish load state without seeing what the second branch represents.</li>
+            <li>Take one photograph showing the completed two-branch circuit and one photograph showing the State B total-current measurement.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Build The Loading Divider</h3>
+          <ol class="walkthrough-list">
+            <li>Disable the supply and remove the parallel-load circuit. Build a divider using <code>Rtop = 100 kΩ</code> from <code>V+</code> to <code>Vout</code> and <code>Rbottom = 100 kΩ</code> from <code>Vout</code> to <code>G</code>.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-02-loading-divider.svg" alt="High-value divider used to reveal instrument loading" loading="lazy">
+            <figcaption>High-value divider used to reveal instrument loading</figcaption>
+          </figure>
+          <ol class="walkthrough-list">
+            <li>Calculate the ideal unloaded <code>Vout</code>. Then use the nominal input resistances provided by the instructor to predict <code>Vout</code> with the DMM, 1x probe, and 10x probe connected one at a time.</li>
+            <li>For each instrument, treat its input resistance as parallel with <code>Rbottom</code>. Record the nominal input resistance, effective lower-leg resistance, and predicted voltage in Table 2.</li>
+            <li>Enable the supply. Attach only one measuring instrument at a time between <code>Vout</code> and <code>G</code>; attaching the DMM and oscilloscope together creates another loading condition.</li>
+            <li>Measure <code>Vout</code> with the DMM, the oscilloscope probe in 1x mode with the channel set to 1x, and the probe in 10x mode with the channel set to 10x. Return the probe to 10x when finished.</li>
+            <li>Record each result and calculate loading error relative to the ideal unloaded voltage. If the instrument specifications differ from the nominal values, use the actual documented input resistance and note the change.</li>
+            <li>Take one photograph showing the divider and one screenshot or photograph showing a loaded <code>Vout</code> measurement.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Learn The Function Generator And Oscilloscope</h3>
+          <ol class="walkthrough-list">
+            <li>Disconnect the DC divider from the instruments. Connect function-generator signal to the oscilloscope probe tip and generator ground to the oscilloscope ground/reference as shown.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-02-scope-connection.svg" alt="Safe function-generator and oscilloscope connection" loading="lazy">
+            <figcaption>Safe function-generator and oscilloscope connection</figcaption>
+          </figure>
+          <ol class="walkthrough-list">
+            <li>Set the generator to a sine wave at <code>1.00 kHz</code>, <code>2.00 Vpp</code>, and <code>+1.00 V</code> offset. Use the generator&#x27;s <code>High Z</code> load setting when available. If it has no load setting, adjust amplitude until the correctly configured oscilloscope measures approximately <code>2.00 Vpp</code> and record the generator configuration.</li>
+            <li>Keep generator amplitude at or below <code>5.00 Vpp</code> and verify that the displayed waveform remains within the instructor-approved voltage range.</li>
+            <li>Set the oscilloscope channel to DC coupling, 10x probe factor, approximately <code>500 mV/div</code>, and approximately <code>200 µs/div</code>. Adjust trigger level until the waveform is stable.</li>
+            <li>Measure and record <code>Vpp</code>, peak amplitude, maximum, minimum, DC offset, period, and frequency in Table 3. Calculate the expected AC RMS value and compare it with the oscilloscope measurement if available.</li>
+            <li>Set the DMM to AC voltage and measure the same generator output without changing generator settings. Record the reading and the meter&#x27;s stated AC bandwidth or note that it is unknown. A difference from the scope does not automatically mean either instrument is defective.</li>
+            <li>Save or photograph one clear baseline waveform with volts/div, time/div, probe factor, coupling, and measured values visible.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Configuration Challenge 1: Probe Factor Mismatch</h3>
+          <ol class="walkthrough-list">
+            <li>Record the correct baseline amplitude before changing anything.</li>
+            <li>Leave the physical probe switch at <code>10x</code>, but deliberately set the oscilloscope channel probe factor to <code>1x</code>. Do not change generator amplitude.</li>
+            <li>Record the displayed amplitude and compare it with the baseline. Explain why the display is wrong even though the electrical signal did not change.</li>
+            <li>Restore the channel setting to <code>10x</code>, verify the baseline amplitude returns, and record the correction in Table 4.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Configuration Challenge 2: Coupling Hides The Offset</h3>
+          <ol class="walkthrough-list">
+            <li>With the correct 10x probe configuration restored, record the DC-coupled waveform&#x27;s <code>Vpp</code> and offset.</li>
+            <li>Change only the oscilloscope channel from DC coupling to AC coupling. Record what happens to the displayed offset and what remains approximately unchanged.</li>
+            <li>Explain why AC coupling can be useful but can also hide an important DC component. Restore DC coupling and confirm the original display returns.</li>
+            <li>Save or photograph one challenge waveform with the relevant scope setting visible and complete Table 4.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Finish And Submit</h3>
+          <ol class="walkthrough-list">
+            <li>Complete all four content tables and verify units, settings, predictions, and measured results.</li>
+            <li>Complete the Evidence section with five readable photographs or screenshots: parallel circuit, State B current, loaded divider, baseline waveform, and one configuration challenge.</li>
+            <li>Complete the Conclusion in your own words. Explain the load-state signature, the largest loading error, one configuration error, and what evidence supports each conclusion.</li>
+            <li>Disable both source outputs. Set the power supply to its storage state, return the scope to DC coupling and 10x, return the DMM leads to <code>COM</code> and <code>V/Ω</code>, remove components, and restore the bench.</li>
+            <li>Save the completed report, export it as a PDF, and submit the PDF through Learning Suite.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Lab Matters</h2>
+        <ul>
+          <li>Device operating states can produce repeatable current and power signatures even when payload data is unavailable</li>
+          <li>Measurement tools become part of the circuit and can create apparent anomalies that are not device faults or attacks</li>
+          <li>Incorrect probe factors, coupling modes, references, and generator settings can produce persuasive but false evidence</li>
+          <li>Trustworthy signal analysis requires recording both the physical connection and the instrument configuration</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete the individual Lab 2 report and submit it in PDF form through Learning Suite</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-02/">&larr; Week 2 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">Parallel-load circuit with two operating states</title>
+  <desc id="desc">A five volt source feeds a one kilohm branch and a removable two point two kilohm parallel branch. State A has only branch one and State B connects both branches.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#d96f32"/></marker>
+  </defs>
+  <rect width="1200" height="650" rx="28" fill="#f7f3ea"/>
+  <text x="600" y="55" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="32" font-weight="bold">Parallel Loads Create A Measurable State Change</text>
+  <rect x="90" y="95" width="1020" height="455" rx="24" fill="#fff" stroke="#182028" stroke-width="4"/>
+  <path d="M255 180 H930 M255 465 H930" fill="none" stroke="#0f6d74" stroke-width="8"/>
+  <circle cx="255" cy="180" r="10" fill="#d96f32"/><circle cx="255" cy="465" r="10" fill="#182028"/>
+  <text x="215" y="166" text-anchor="end" fill="#d96f32" font-family="Georgia, serif" font-size="26" font-weight="bold">V+ 5.00 V</text>
+  <text x="215" y="478" text-anchor="end" fill="#182028" font-family="Georgia, serif" font-size="26" font-weight="bold">G / COM</text>
+  <g fill="none" stroke="#182028" stroke-width="6" stroke-linejoin="round">
+    <path d="M510 180 V235 L490 255 L530 285 L490 315 L530 345 L490 375 L510 395 V465"/>
+    <path d="M810 180 V220"/>
+    <path d="M810 260 V285 L790 305 L830 335 L790 365 L830 395 L810 420 V465"/>
+  </g>
+  <circle cx="810" cy="220" r="8" fill="#d96f32"/><circle cx="810" cy="260" r="8" fill="#d96f32"/>
+  <path d="M810 220 L855 245" stroke="#d96f32" stroke-width="7" stroke-linecap="round"/>
+  <g font-family="Georgia, serif" text-anchor="middle">
+    <text x="510" y="265" fill="#0f6d74" font-size="25" font-weight="bold">BRANCH 1</text>
+    <text x="510" y="425" fill="#182028" font-size="24">R1 = 1.0 kΩ</text>
+    <text x="810" y="315" fill="#d96f32" font-size="25" font-weight="bold">BRANCH 2</text>
+    <text x="810" y="450" fill="#182028" font-size="24">R2 = 2.2 kΩ</text>
+    <text x="880" y="238" fill="#d96f32" font-size="21">removable jumper</text>
+  </g>
+  <path d="M380 590 H820" stroke="#d96f32" stroke-width="5" marker-end="url(#arrow)"/>
+  <text x="600" y="585" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="23">State A: Branch 1 only</text>
+  <text x="600" y="625" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="23">State B: connect Branch 2 and observe total current increase</text>
+</svg>

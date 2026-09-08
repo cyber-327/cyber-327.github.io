@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">High-value divider and instrument input resistance</title>
+  <desc id="desc">Two one hundred kilohm resistors form a five volt divider. A DMM or oscilloscope input resistance connects from Vout to ground in parallel with the lower resistor, reducing measured voltage.</desc>
+  <rect width="1200" height="700" rx="28" fill="#f7f3ea"/>
+  <text x="600" y="55" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="32" font-weight="bold">The Instrument Becomes Part Of The Circuit</text>
+  <rect x="70" y="95" width="1060" height="500" rx="24" fill="#fff" stroke="#182028" stroke-width="4"/>
+  <g fill="none" stroke="#0f6d74" stroke-width="7" stroke-linejoin="round">
+    <path d="M250 145 V205 L225 225 L275 260 L225 295 L275 330 L250 350 V405"/>
+    <path d="M250 405 V440 L225 460 L275 495 L225 530 L250 550 V575"/>
+    <path d="M250 405 H640"/>
+  </g>
+  <circle cx="250" cy="145" r="10" fill="#d96f32"/><circle cx="250" cy="405" r="11" fill="#d96f32"/><circle cx="250" cy="575" r="10" fill="#182028"/>
+  <text x="205" y="136" text-anchor="end" fill="#d96f32" font-family="Georgia, serif" font-size="25" font-weight="bold">V+ 5.00 V</text>
+  <text x="205" y="415" text-anchor="end" fill="#d96f32" font-family="Georgia, serif" font-size="25" font-weight="bold">Vout</text>
+  <text x="205" y="585" text-anchor="end" fill="#182028" font-family="Georgia, serif" font-size="25" font-weight="bold">G / COM</text>
+  <text x="340" y="270" fill="#182028" font-family="Georgia, serif" font-size="24">Rtop = 100 kΩ</text>
+  <text x="340" y="500" fill="#182028" font-family="Georgia, serif" font-size="24">Rbottom = 100 kΩ</text>
+  <rect x="640" y="245" width="390" height="275" rx="22" fill="#eaf2f7" stroke="#0f6d74" stroke-width="4" stroke-dasharray="12 8"/>
+  <text x="835" y="290" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="26" font-weight="bold">ONE INSTRUMENT AT A TIME</text>
+  <text x="835" y="335" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="23">DMM or oscilloscope probe</text>
+  <path d="M720 405 V445 L700 462 L740 486 L720 505 V560" fill="none" stroke="#d96f32" stroke-width="6"/>
+  <path d="M640 405 H720 M250 575 H720 V560" fill="none" stroke="#d96f32" stroke-width="6"/>
+  <text x="820" y="470" fill="#d96f32" font-family="Georgia, serif" font-size="24" font-weight="bold">Rinput</text>
+  <text x="835" y="625" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="22">Rinput is parallel with Rbottom, so Vout decreases.</text>
+  <text x="835" y="662" text-anchor="middle" fill="#5f6b73" font-family="Georgia, serif" font-size="21">Typical: 1x probe ≈ 1 MΩ; DMM or 10x probe ≈ 10 MΩ</text>
+</svg>

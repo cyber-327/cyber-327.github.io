@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">Safe function generator and oscilloscope connection</title>
+  <desc id="desc">The function generator signal connects to the oscilloscope probe tip. Generator ground and oscilloscope ground connect together at circuit common. The probe and channel are both set to ten times attenuation.</desc>
+  <rect width="1200" height="650" rx="28" fill="#f7f3ea"/>
+  <text x="600" y="55" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="32" font-weight="bold">Known Signal, Shared Reference, Matching Probe Factor</text>
+  <rect x="80" y="120" width="400" height="360" rx="24" fill="#fff" stroke="#0f6d74" stroke-width="5"/>
+  <text x="280" y="175" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="29" font-weight="bold">FUNCTION GENERATOR</text>
+  <path d="M155 285 C190 210 225 360 260 285 S330 210 365 285 S435 360 455 285" fill="none" stroke="#d96f32" stroke-width="7"/>
+  <text x="280" y="380" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="23">1.00 kHz · 2.00 Vpp · +1.00 V offset</text>
+  <text x="280" y="425" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="23">Output/load display: High Z</text>
+  <circle cx="480" cy="235" r="10" fill="#d96f32"/><circle cx="480" cy="420" r="10" fill="#182028"/>
+  <text x="455" y="220" text-anchor="end" fill="#d96f32" font-family="Georgia, serif" font-size="20">SIGNAL</text>
+  <text x="455" y="450" text-anchor="end" fill="#182028" font-family="Georgia, serif" font-size="20">GROUND</text>
+  <rect x="720" y="120" width="400" height="360" rx="24" fill="#fff" stroke="#182028" stroke-width="5"/>
+  <text x="920" y="175" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="29" font-weight="bold">OSCILLOSCOPE</text>
+  <rect x="785" y="210" width="270" height="150" rx="10" fill="#182028"/>
+  <path d="M805 285 C830 225 855 345 880 285 S930 225 955 285 S1005 345 1035 285" fill="none" stroke="#60d0d8" stroke-width="5"/>
+  <text x="920" y="405" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">Probe switch: 10x</text>
+  <text x="920" y="440" text-anchor="middle" fill="#0f6d74" font-family="Georgia, serif" font-size="24" font-weight="bold">Channel setting: 10x</text>
+  <circle cx="720" cy="235" r="10" fill="#d96f32"/><circle cx="720" cy="420" r="10" fill="#182028"/>
+  <path d="M490 235 H710" stroke="#d96f32" stroke-width="8"/>
+  <path d="M490 420 H710" stroke="#182028" stroke-width="8"/>
+  <text x="600" y="215" text-anchor="middle" fill="#d96f32" font-family="Georgia, serif" font-size="22">probe tip / signal</text>
+  <text x="600" y="450" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="22">shared ground / common</text>
+  <rect x="165" y="535" width="870" height="72" rx="18" fill="#f6d8c5" stroke="#d96f32" stroke-width="3"/>
+  <text x="600" y="580" text-anchor="middle" fill="#182028" font-family="Georgia, serif" font-size="23" font-weight="bold">Keep the oscilloscope ground clip at circuit common. Never move it to V+ or Vout.</text>
+</svg>
