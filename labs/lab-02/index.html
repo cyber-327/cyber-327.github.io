@@ -61,7 +61,6 @@
           <li>Review the Week 2 definitions and formulas for parallel resistance, branch current, loading, amplitude, period, frequency, RMS, and offset</li>
           <li>Bring a calculator and open the Lab 2 report before beginning</li>
           <li>Recall the Lab 1 rules: power off before rewiring, resistance is measured only on a de-energized circuit, and current mode is never placed across a source</li>
-          <li>Read the evidence checklist at the beginning of the report so you know which pictures must be taken before each setup is dismantled</li>
         </ul>
       </section>
       <aside class="content-panel equipment">
@@ -92,11 +91,9 @@
       <p class="eyebrow">Follow These Steps</p>
       <h2>Lab Walkthrough</h2>
       <section class="walkthrough-stage">
-        <h3>Set Up The Bench And Preview The Evidence</h3>
+        <h3>Set Up The Bench</h3>
           <ol class="walkthrough-list">
             <li>Open the Lab 2 report and enter your name and lab partners.</li>
-            <li>Before building anything, read the Evidence section of the report. You must capture three items: the State B current measurement, the correctly configured baseline waveform, and one configuration challenge with the changed setting visible.</li>
-            <li>Choose one person to watch the evidence checklist. Everyone should verify that each required picture is readable before the team disconnects or dismantles that setup.</li>
             <li>Find the DMM, power supply, oscilloscope, function generator, probe, breadboard, leads, and resistors. Record instrument model numbers in the report and ask about missing or damaged equipment.</li>
             <li>Keep the power-supply and function-generator outputs disabled. Set the supply to <code>5.00 V</code> with a <code>25 mA</code> current limit using the instructor-approved procedure.</li>
             <li>Put the DMM black lead in <code>COM</code> and the red lead in <code>V/Ω</code>. Do not move the red lead to a current jack until the procedure explicitly tells you to do so.</li>
@@ -120,6 +117,10 @@
       </section>
       <section class="walkthrough-stage">
         <h3>Measure The Two Load States</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You will photograph the State B current measurement in this section. Do not disconnect the DMM until the circuit, series meter connection, and current reading are visible in the picture.</p>
+          </aside>
           <ol class="walkthrough-list">
             <li>Confirm the DMM is still configured for DC voltage. Enable the supply and verify approximately <code>5.00 V</code> across <code>V+</code> and <code>G</code>.</li>
             <li>In State B, measure the voltage across each branch once. Parallel branches should share approximately the same voltage.</li>
@@ -145,6 +146,10 @@
       </section>
       <section class="walkthrough-stage">
         <h3>Learn The Oscilloscope</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You will photograph or capture the correctly configured baseline waveform in this section. Keep the baseline on screen until the waveform and relevant settings are readable in the picture.</p>
+          </aside>
           <ol class="walkthrough-list">
             <li>On the oscilloscope, locate the channel input, channel menu, volts-per-division control, vertical-position control, seconds-per-division control, trigger controls, measurement menu, and capture or save control.</li>
             <li>Set the physical probe switch to <code>10x</code> and set the oscilloscope channel probe factor to <code>10x</code>. Select DC coupling so the display includes both the changing waveform and its DC offset.</li>
@@ -152,12 +157,17 @@
             <li>Turn volts/div one step in each direction and observe that the trace changes display height even though the generator setting does not change. Restore approximately <code>500 mV/div</code>.</li>
             <li>Turn seconds/div one step in each direction and observe that the number of visible cycles changes. Restore approximately <code>200 µs/div</code>.</li>
             <li>Move the trace with the vertical-position control, then restore it. Display position is not the same as the waveform&#x27;s measured DC offset.</li>
-            <li>Measure and record <code>Vpp</code>, peak amplitude, maximum, minimum, DC offset, period, and frequency in Table 2. Calculate the expected AC RMS value and compare it with the oscilloscope measurement if available.</li>
+            <li>Before reading the oscilloscope, complete the blank entries in Table 2&#x27;s Expected from Generator Settings column: period from frequency, peak amplitude from <code>Vpp</code>, sine-wave AC RMS from peak amplitude, and maximum and minimum from offset plus or minus peak amplitude.</li>
+            <li>Measure and record <code>Vpp</code>, peak amplitude, maximum, minimum, DC offset, period, and frequency in Table 2. Compare the oscilloscope readings with the calculated expectations.</li>
             <li>Before changing any setting, take the required baseline photograph or screenshot. Check that the waveform, volts/div, time/div, probe factor, coupling, and measured values are readable.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
         <h3>Configuration Challenge 1: Probe Factor Mismatch</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You need one configuration-challenge picture from either Challenge 1 or Challenge 2. If you use this challenge, capture the incorrect amplitude with the mismatched probe setting visible before restoring <code>10x</code>.</p>
+          </aside>
           <ol class="walkthrough-list">
             <li>Record the correct baseline amplitude before changing anything.</li>
             <li>Leave the physical probe switch at <code>10x</code>, but deliberately set the oscilloscope channel probe factor to <code>1x</code>. Do not change generator amplitude.</li>
@@ -167,6 +177,10 @@
       </section>
       <section class="walkthrough-stage">
         <h3>Configuration Challenge 2: Coupling Hides The Offset</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You need one configuration-challenge picture from either Challenge 1 or Challenge 2. If you use this challenge, capture the recentered waveform with AC coupling visible before restoring DC coupling.</p>
+          </aside>
           <ol class="walkthrough-list">
             <li>With the correct 10x probe configuration restored, record the DC-coupled waveform&#x27;s <code>Vpp</code> and offset.</li>
             <li>Change only the oscilloscope channel from DC coupling to AC coupling. Record what happens to the displayed offset and what remains approximately unchanged.</li>
@@ -177,6 +191,10 @@
       </section>
       <section class="walkthrough-stage">
         <h3>Build The Loading Divider</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You will photograph the loading divider during its DMM voltage measurement. Do not disconnect the DMM or dismantle the divider until the circuit and voltage reading are visible in the picture.</p>
+          </aside>
           <ol class="walkthrough-list">
             <li>Disable the generator output and disconnect it from the oscilloscope. With the DC supply disabled, remove the parallel-load circuit and build a divider using <code>Rtop = 100 kΩ</code> from <code>V+</code> to <code>Vout</code> and <code>Rbottom = 100 kΩ</code> from <code>Vout</code> to <code>G</code>.</li>
           </ol>
@@ -188,7 +206,9 @@
             <li>Calculate the ideal unloaded <code>Vout</code>. Then use the input resistances provided by the instructor to predict <code>Vout</code> with the DMM, 1x probe, and 10x probe connected one at a time.</li>
             <li>For each instrument, treat its input resistance as parallel with <code>Rbottom</code>. Record the input resistance, effective lower-leg resistance, and predicted voltage in Table 4.</li>
             <li>Enable the DC supply. Attach only one measuring instrument at a time between <code>Vout</code> and <code>G</code>; attaching the DMM and oscilloscope together creates a different loading condition.</li>
-            <li>Measure <code>Vout</code> with the DMM, the oscilloscope probe in 1x mode with the channel set to 1x, and the probe in 10x mode with the channel set to 10x. Return the probe and channel to 10x when finished.</li>
+            <li>Measure <code>Vout</code> with the DMM and record the result.</li>
+            <li>Take the required loading-divider photograph while the DMM is connected and displaying <code>Vout</code>. Check that the divider, meter connection, and voltage reading are visible before dismantling the circuit.</li>
+            <li>Disconnect the DMM, then measure <code>Vout</code> with the oscilloscope probe in 1x mode with the channel set to 1x. Repeat with the probe and channel set to 10x, then return both to 10x when finished.</li>
             <li>Record each result and calculate loading error relative to the ideal unloaded voltage. Identify which instrument changed the measured circuit most and explain why.</li>
           </ol>
       </section>
@@ -196,7 +216,7 @@
         <h3>Finish And Submit</h3>
           <ol class="walkthrough-list">
             <li>Complete all four content tables and verify units, settings, predictions, and measured results.</li>
-            <li>Complete the Evidence section with three readable photographs or screenshots: State B current, the correctly configured baseline waveform, and one configuration challenge.</li>
+            <li>Complete the Evidence section with four readable photographs or screenshots: State B current, the correctly configured baseline waveform, one configuration challenge, and the loading-divider DMM measurement.</li>
             <li>Complete the Conclusion in your own words. Explain one real circuit change, one measurement-induced circuit change, and one display-only configuration error. State what the evidence supports and what it does not prove.</li>
             <li>Disable both source outputs. Set the power supply to its storage state, return the scope to DC coupling and 10x, return the DMM leads to <code>COM</code> and <code>V/Ω</code>, remove components, and restore the bench.</li>
             <li>Save the completed report, export it as a PDF, and submit the PDF through Learning Suite.</li>

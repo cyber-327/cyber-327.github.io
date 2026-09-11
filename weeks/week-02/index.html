@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Week 02 - CYBER 327 course material">
-  <title>Week 02 | CYBER 327</title>
+  <meta name="description" content="Week 2 - CYBER 327 course material">
+  <title>Week 2 | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,203 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Week 02 &middot; Week 2</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Scheduled release: September 11, 2026 at 12:00 PM MDT. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all weeks</a>
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 02 &middot; September 6-12, 2026</p>
+      <h1>Week 2: Parallel Circuits, Loading, and Power Integrity</h1>
+      <p class="body">Connect the week's communication principles with observable evidence, cybersecurity applications, and laboratory work.</p>
     </section>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 03 / Wed</p>
+        <h2>Parallel Circuits, Loading, and Power Integrity</h2>
+        <p class="meta">September 9, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-03-slides.pptx" download>Lecture 03 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Parallel resistance and branch current behavior</li>
+          <li>Voltage sources, current capacity, power dissipation, and shared loads</li>
+          <li>Source current as the sum of branch currents</li>
+          <li>Quantitative instrument loading using a high-resistance voltage divider</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Power integrity as evidence of embedded-device state or failure</li>
+          <li>Abnormal current draw as a diagnostic and possible side channel</li>
+          <li>Shared power rails as a source of unreliable telemetry</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 04 / Fri</p>
+        <h2>Bench Instruments and AC Waveform Evidence</h2>
+        <p class="meta">September 11, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-04-slides.pptx" download>Lecture 04 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>DMM, oscilloscope, function generator, and DC supply roles</li>
+          <li>Accuracy, precision, resolution, grounding, probe loading, and trigger setup</li>
+          <li>Source-terminal versus load-input measurements for localizing voltage droop</li>
+          <li>AC waveform terms: amplitude, period, frequency, offset, and RMS</li>
+          <li>DC versus AC oscilloscope coupling and generator High-Z conventions</li>
+          <li>Using instruments without corrupting the signal being measured</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Oscilloscope evidence quality and reproducibility</li>
+          <li>False conclusions from bad grounds, wrong probe mode, or instrument input impedance</li>
+          <li>Trust boundaries between sensor, instrument, and observer</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Definitions and Formulas</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Important Definitions</h3>
+        <dl class="definition-list">
+          <div><dt>parallel circuit</dt><dd>A circuit whose branches share the same two nodes and therefore the same voltage.</dd></div>
+          <div><dt>branch</dt><dd>One current path between two nodes in a parallel circuit.</dd></div>
+          <div><dt>equivalent resistance</dt><dd>A single resistance that would draw the same total current as the complete resistor network.</dd></div>
+          <div><dt>current limit</dt><dd>The maximum current a source is configured or designed to provide before it reduces its output or enters protection.</dd></div>
+          <div><dt>voltage droop</dt><dd>A decrease in source or rail voltage when load current increases beyond what the source, wiring, or connections can maintain.</dd></div>
+          <div><dt>loading</dt><dd>A change in circuit behavior caused by connecting another device or measurement instrument.</dd></div>
+          <div><dt>input resistance</dt><dd>The effective resistance a meter or probe places across the measured points at low frequency.</dd></div>
+          <div><dt>High-Z</dt><dd>A high-impedance instrument setting or input that draws relatively little current from the measured source.</dd></div>
+          <div><dt>reference or ground</dt><dd>The point against which voltage is measured; a scope ground clip is a real electrical connection to this point.</dd></div>
+          <div><dt>probe attenuation</dt><dd>The ratio by which an oscilloscope probe reduces a signal before it reaches the scope input, commonly 1x or 10x.</dd></div>
+          <div><dt>amplitude</dt><dd>The maximum change of a waveform from its center or reference level.</dd></div>
+          <div><dt>peak-to-peak voltage</dt><dd>The voltage difference between a waveform&#x27;s maximum and minimum values.</dd></div>
+          <div><dt>period</dt><dd>Time required for one complete cycle of a repeating signal.</dd></div>
+          <div><dt>frequency</dt><dd>Number of cycles completed per second.</dd></div>
+          <div><dt>RMS</dt><dd>The effective value of an AC signal that produces the same average power in a resistor as an equivalent DC value.</dd></div>
+          <div><dt>DC offset</dt><dd>The average or center voltage of a waveform relative to its reference.</dd></div>
+          <div><dt>DC coupling</dt><dd>Oscilloscope input mode that displays both the changing signal and its DC offset.</dd></div>
+          <div><dt>AC coupling</dt><dd>Oscilloscope input mode that blocks the DC component and can attenuate low-frequency content.</dd></div>
+          <div><dt>trigger</dt><dd>Oscilloscope condition that establishes a stable horizontal starting point for acquisition.</dd></div>
+          <div><dt>accuracy</dt><dd>Closeness of a measurement to the true value under stated conditions.</dd></div>
+          <div><dt>precision</dt><dd>Repeatability or spread among repeated measurements.</dd></div>
+          <div><dt>resolution</dt><dd>Smallest increment an instrument can display or distinguish.</dd></div>
+        </dl>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li><span class="formula-label">Parallel resistance</span><span class="equation">1 / R<sub>total</sub> = Σ(1 / R<sub>n</sub>)</span></li>
+          <li><span class="formula-label">Two resistors in parallel</span><span class="equation">R<sub>1</sub> || R<sub>2</sub> = R<sub>1</sub> R<sub>2</sub> / (R<sub>1</sub> + R<sub>2</sub>)</span></li>
+          <li><span class="formula-label">Branch current</span><span class="equation">I<sub>branch</sub> = V<sub>branch</sub> / R<sub>branch</sub></span></li>
+          <li><span class="formula-label">Source current</span><span class="equation">I<sub>total</sub> = Σ(I<sub>branch</sub>)</span></li>
+          <li><span class="formula-label">Electrical power</span><span class="equation">P = V I = I<sup>2</sup> R = V<sup>2</sup> / R</span></li>
+          <li><span class="formula-label">Total power</span><span class="equation">P<sub>total</sub> = V<sub>source</sub> I<sub>total</sub> = Σ(P<sub>branch</sub>)</span></li>
+          <li><span class="formula-label">Loaded divider leg</span><span class="equation">R<sub>lower,loaded</sub> = R<sub>lower</sub> || R<sub>instrument</sub></span></li>
+          <li><span class="formula-label">Divider output</span><span class="equation">V<sub>out</sub> = V<sub>in</sub> R<sub>lower,loaded</sub> / (R<sub>upper</sub> + R<sub>lower,loaded</sub>)</span></li>
+          <li><span class="formula-label">Loading error</span><span class="equation">percent error = |V<sub>measured</sub> - V<sub>ideal</sub>| / |V<sub>ideal</sub>| × 100%</span></li>
+          <li><span class="formula-label">Period and frequency</span><span class="equation">T = 1 / f</span></li>
+          <li><span class="formula-label">Sine-wave AC RMS</span><span class="equation">V<sub>rms,AC</sub> = V<sub>peak</sub> / √(2)</span></li>
+          <li><span class="formula-label">Peak-to-peak voltage</span><span class="equation">V<sub>pp</sub> = 2 V<sub>peak</sub></span></li>
+          <li><span class="formula-label">Waveform extrema</span><span class="equation">V<sub>max</sub> = V<sub>offset</sub> + V<sub>peak</sub>; V<sub>min</sub> = V<sub>offset</sub> - V<sub>peak</sub></span></li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> Calculate the expected resistance, branch currents, source current, and power for a parallel load; predict loading in a high-resistance divider; convert between period, frequency, peak, peak-to-peak, and RMS; then use recorded settings to distinguish a physical signal change from a misleading display.
+      </div>
+    </section>
+
+    <section class="study-materials reference-materials">
+      <p class="eyebrow">Quick Reference</p>
+      <h2>Important Tables</h2>
+      <div class="reference-tables">
+      <section class="content-panel reference-table">
+        <h3>Predicting Circuit Changes</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Change</th><th scope="col">Expected Electrical Effect</th><th scope="col">Evidence To Check</th></tr></thead>
+          <tbody>
+          <tr><td>Add a resistor branch in parallel</td><td>Equivalent resistance decreases and source current increases</td><td>Branch voltage, total current, and source-terminal voltage</td></tr>
+          <tr><td>Connect a finite-resistance instrument across a divider leg</td><td>The effective leg resistance changes and the divider output shifts</td><td>Instrument input resistance and measured output voltage</td></tr>
+          <tr><td>Demand more current than a source or connection can support</td><td>Rail voltage may droop or the source may enter current limit</td><td>Source setting, current-limit indicator, and voltage under load</td></tr>
+          <tr><td>Change only a scope setting</td><td>The display may change even though the physical signal does not</td><td>Generator settings, probe switch, channel factor, coupling, and reference</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Bench Instrument Roles</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Instrument</th><th scope="col">Primary Role</th><th scope="col">Setting Or Connection To Verify</th></tr></thead>
+          <tbody>
+          <tr><td>DC power supply</td><td>Provides controlled DC voltage and current</td><td>Voltage, current limit, polarity, and output state</td></tr>
+          <tr><td>Function generator</td><td>Produces a known test waveform</td><td>Waveform, frequency, amplitude, offset, and High-Z/50 Ω convention</td></tr>
+          <tr><td>Digital multimeter</td><td>Measures scalar voltage, current, or resistance</td><td>Lead jacks, mode, range, and whether the circuit must be de-energized</td></tr>
+          <tr><td>Oscilloscope</td><td>Displays voltage versus time</td><td>Probe factor, coupling, volts/div, time/div, trigger, and ground reference</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Common Oscilloscope Measurements</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Measurement</th><th scope="col">Meaning</th><th scope="col">Unit</th></tr></thead>
+          <tbody>
+          <tr><td>Vmax</td><td>Highest observed voltage</td><td>V</td></tr>
+          <tr><td>Vmin</td><td>Lowest observed voltage</td><td>V</td></tr>
+          <tr><td>Vpp</td><td>Difference between maximum and minimum voltage</td><td>V</td></tr>
+          <tr><td>DC offset</td><td>Average or center voltage relative to the reference</td><td>V</td></tr>
+          <tr><td>Period</td><td>Time for one complete cycle</td><td>s</td></tr>
+          <tr><td>Frequency</td><td>Cycles per second</td><td>Hz</td></tr>
+          <tr><td>DC coupling</td><td>Displays AC variation and DC offset</td><td>-</td></tr>
+          <tr><td>AC coupling</td><td>Blocks DC offset; may alter low-frequency signals</td><td>-</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </div>
+    </section>
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>What changes when a new load is added in parallel?</li>
+          <li>Why does a finite-resistance instrument change a high-resistance divider?</li>
+          <li>How can current draw leak information about device behavior?</li>
+          <li>Why can a correct instrument still produce a misleading measurement?</li>
+          <li>What information disappears when a scope channel changes from DC to AC coupling?</li>
+          <li>What metadata should be recorded with a waveform capture?</li>
+        </ul>
+    </section>
+
+    <aside class="callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>Measurement Integrity and Power Signatures</h2>
+      <p>Parallel resistance, branch current, electrical power, instrument input resistance, probe loading, oscilloscope setup, AC amplitude, period, frequency, RMS, offset, and measurement trust</p>
+      <a class="button" href="../../labs/lab-02/">Open Lab 02</a>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-01/">&larr; Week 1</a>
+      <a href="../week-03/">Week 3 &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
