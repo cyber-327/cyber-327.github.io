@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Week 03 - CYBER 327 course material">
-  <title>Week 03 | CYBER 327</title>
+  <meta name="description" content="Week 3 - CYBER 327 course material">
+  <title>Week 3 | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,121 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Week 03 &middot; Week 3</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Scheduled release: September 17, 2026 at 11:59 PM MDT. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all weeks</a>
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 03 &middot; September 13-19, 2026</p>
+      <h1>Week 3: AC Terms, Phasors, Inductance, and Reactance</h1>
+      <p class="body">Connect the week's communication principles with observable evidence, cybersecurity applications, and laboratory work.</p>
     </section>
+
+    <aside class="callout rolling-guide-note">
+      <p class="eyebrow">Rolling Weekly Guide</p>
+      <h2>Updated through Lecture 05.</h2>
+      <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added after each lecture rather than published in advance.</p>
+    </aside>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 05 / Mon</p>
+        <h2>AC Terms, Phasors, Inductance, and Reactance</h2>
+        <p class="meta">September 14, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-05-slides.pptx" download>Lecture 05 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Peak, peak-to-peak, RMS, frequency, phase, and period</li>
+          <li>Phasor intuition and phase relationships</li>
+          <li>Inductance and inductive reactance</li>
+          <li>Frequency-dependent current through inductors</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Frequency-dependent behavior as the basis for filtering and leakage</li>
+          <li>Inductive coupling as an unintentional communication path</li>
+          <li>Signal phase and timing as observable evidence</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Definitions and Formulas</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Important Definitions</h3>
+        <dl class="definition-list">
+          <div><dt>phase</dt><dd>The angular position of a periodic waveform relative to a stated reference waveform at the same frequency.</dd></div>
+          <div><dt>phasor</dt><dd>A magnitude-and-angle representation of a sinusoidal quantity at one frequency; this course writes phasors in polar form using RMS magnitude.</dd></div>
+          <div><dt>inductance</dt><dd>A conductor&#x27;s tendency to oppose changes in current by storing energy in a magnetic field.</dd></div>
+          <div><dt>inductor</dt><dd>A component designed to provide inductance and store energy in a magnetic field.</dd></div>
+          <div><dt>inductive reactance</dt><dd>The frequency-dependent opposition an ideal inductor presents to alternating current.</dd></div>
+        </dl>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li><span class="formula-label">Sine-wave model</span><span class="equation">v(t) = V<sub>peak</sub> sin(2 π f t + phi)</span></li>
+          <li><span class="formula-label">Sine-wave RMS</span><span class="equation">V<sub>rms</sub> = V<sub>peak</sub> / √(2)</span></li>
+          <li><span class="formula-label">Ideal inductor voltage</span><span class="equation">v<sub>L</sub>(t) = L di(t) / dt</span></li>
+          <li><span class="formula-label">Inductive reactance</span><span class="equation">X<sub>L</sub> = 2 π f L</span></li>
+          <li><span class="formula-label">Ideal inductor current magnitude</span><span class="equation">I<sub>rms</sub> = V<sub>rms</sub> / X<sub>L</sub></span></li>
+          <li><span class="formula-label">Ideal inductor phase</span><span class="equation">voltage leads current by 90 degrees; current lags voltage by 90 degrees</span></li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> Identify amplitude, frequency, and phase in a sinusoidal model; represent a same-frequency sinusoid as an RMS phasor; calculate inductive reactance and ideal RMS current; and explain why inductor voltage leads current.
+      </div>
+    </section>
+
+
+    <section class="study-materials reference-materials">
+      <p class="eyebrow">Quick Reference</p>
+      <h2>Important Tables</h2>
+      <div class="reference-tables">
+      <section class="content-panel reference-table">
+        <h3>Ideal 10 mH Inductor</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Frequency</th><th scope="col">Inductive Reactance</th><th scope="col">Meaning For Equal Applied RMS Voltage</th></tr></thead>
+          <tbody>
+          <tr><td>100 Hz</td><td>6.28 Ω</td><td>Highest current of these cases</td></tr>
+          <tr><td>1 kHz</td><td>62.8 Ω</td><td>Ten times the 100 Hz reactance</td></tr>
+          <tr><td>2 kHz</td><td>125.7 Ω</td><td>A 1.00 Vrms source produces 7.96 mArms ideally</td></tr>
+          <tr><td>10 kHz</td><td>628 Ω</td><td>Lowest current of these cases</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </div>
+    </section>
+
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>Why does an inductor oppose high-frequency changes?</li>
+          <li>How can a changing signal couple into a nearby wire or coil?</li>
+        </ul>
+    </section>
+
+    <aside class="callout locked-callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>Lab 03 is not yet available</h2>
+      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-02/">&larr; Week 2</a>
+      <a href="../week-04/">Week 4 &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
+  <title id="title">Spectrum evidence and inference boundary</title>
+  <desc id="desc">Observable spectrum features support a limited waveform classification and confidence statement, but not claims about message, identity, ownership, or intent.</desc>
+  <defs><style>.box{fill:#f7f2e8;stroke:#173f4f;stroke-width:3}.arrow{stroke:#b54d2e;stroke-width:4;fill:none}.title{font:700 26px Georgia,serif;fill:#173f4f}.text{font:21px Georgia,serif;fill:#2d3b40}.stop{font:700 21px Georgia,serif;fill:#8a351f}</style></defs>
+  <rect width="1100" height="620" fill="#fffdf8"/>
+  <rect class="box" x="45" y="150" width="280" height="315" rx="15"/><text class="title" x="185" y="200" text-anchor="middle">Observe</text><text class="text" x="75" y="255">• fundamental</text><text class="text" x="75" y="295">• harmonics or tones</text><text class="text" x="75" y="335">• occupied span</text><text class="text" x="75" y="375">• noise-floor relation</text><text class="text" x="75" y="415">• instrument settings</text>
+  <path class="arrow" d="M325 305 H405"/><rect class="box" x="405" y="150" width="280" height="315" rx="15"/><text class="title" x="545" y="200" text-anchor="middle">Infer carefully</text><text class="text" x="435" y="265">• waveform family</text><text class="text" x="435" y="310">• confidence level</text><text class="text" x="435" y="355">• plausible alternatives</text><text class="text" x="435" y="400">• uncertainty</text>
+  <path class="arrow" d="M685 305 H765"/><rect class="box" x="765" y="150" width="290" height="315" rx="15"/><text class="title" x="910" y="200" text-anchor="middle">Do not attribute</text><text class="stop" x="795" y="265">• message content</text><text class="stop" x="795" y="310">• transmitter identity</text><text class="stop" x="795" y="355">• ownership</text><text class="stop" x="795" y="400">• malicious intent</text>
+  <text class="title" x="550" y="555" text-anchor="middle">A spectrum supports classification only as far as its visible, reproducible evidence.</text>
+</svg>

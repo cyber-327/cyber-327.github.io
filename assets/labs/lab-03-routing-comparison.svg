@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
+  <title id="title">Separated and twisted conductor routing comparison</title>
+  <desc id="desc">Equal-length routes carry the same signal and load. The pickup stays at a marked position while separated and twisted conductors are compared.</desc>
+  <defs><style>.panel{fill:#f7f2e8;stroke:#173f4f;stroke-width:3}.wire1{fill:none;stroke:#b54d2e;stroke-width:5}.wire2{fill:none;stroke:#174a5c;stroke-width:5}.loop{fill:none;stroke:#173f4f;stroke-width:4}.title{font:700 27px Georgia,serif;fill:#173f4f}.text{font:21px Georgia,serif;fill:#2d3b40}.note{font:700 19px Georgia,serif;fill:#8a351f}</style></defs>
+  <rect width="1100" height="620" fill="#fffdf8"/>
+  <rect class="panel" x="40" y="65" width="490" height="460" rx="16"/><rect class="panel" x="570" y="65" width="490" height="460" rx="16"/>
+  <text class="title" x="285" y="112" text-anchor="middle">Separated conductors</text><text class="title" x="815" y="112" text-anchor="middle">Twisted pair</text>
+  <text class="text" x="90" y="180">SOURCE</text><text class="text" x="435" y="180">LOAD</text><path class="wire1" d="M105 210 H460"/><path class="wire2" d="M460 350 H105"/>
+  <text class="text" x="620" y="180">SOURCE</text><text class="text" x="965" y="180">LOAD</text><path class="wire1" d="M635 230 C670 175 705 285 740 230 S810 285 845 230 S915 285 950 230"/><path class="wire2" d="M635 230 C670 285 705 175 740 230 S810 175 845 230 S915 175 950 230"/>
+  <ellipse class="loop" cx="285" cy="420" rx="80" ry="55"/><ellipse class="loop" cx="815" cy="420" rx="80" ry="55"/><text class="text" x="285" y="428" text-anchor="middle">PICKUP</text><text class="text" x="815" y="428" text-anchor="middle">PICKUP</text><path class="loop" d="M285 365 V330"/><path class="loop" d="M815 365 V330"/>
+  <text class="note" x="550" y="575" text-anchor="middle">Keep source, load, cable length, pickup position, and scope settings unchanged.</text>
+</svg>

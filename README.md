@@ -21,12 +21,13 @@ or instructor-only material in this repo.
 3. Review the generated pages for student-safe content and working links.
 4. Commit and push this repo independently from the parent planning repo.
 
-The generator creates stable pages for Weeks 1-15 and Labs 1-13. On each build,
-labs become available at the start of their scheduled week and weekly recap
-guides become available Friday at noon Mountain Time. Future pages are
-content-free placeholders. GitHub Pages does not rebuild this private source,
-so regenerate and push the public repo after a release time arrives. Release
-overrides are stored only in the private parent repo at
+The generator creates stable pages for Weeks 1-15 and Labs 1-13. Labs become
+available at the start of their scheduled week unless held. Weekly guides use
+a rolling release: they begin after the first lecture and gain definitions,
+formulas, tables, slides, and study prompts after later meetings. Future lecture
+cards and downloads remain hidden. GitHub Pages does not rebuild the private
+source, so the instructor regenerates and pushes after each update. Release
+controls are stored only in the private parent repo at
 `planning/course/site-release.json`.
 
 Public home-page, syllabus, Excellence Project, and weekly-supplement copy is

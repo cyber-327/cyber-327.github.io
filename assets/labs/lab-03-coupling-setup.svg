@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
+  <title id="title">Controlled inductive coupling measurement setup</title>
+  <desc id="desc">A generator drives a source loop through a resistor. Oscilloscope channel one verifies the source. A pickup loop with no generator signal connection connects to channel two.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#174a5c"/></marker>
+    <style>.box{fill:#f7f2e8;stroke:#173f4f;stroke-width:3}.wire{fill:none;stroke:#173f4f;stroke-width:4}.signal{fill:none;stroke:#b54d2e;stroke-width:4}.label{font:700 24px Georgia,serif;fill:#173f4f}.small{font:20px Georgia,serif;fill:#2d3b40}.note{font:700 19px Georgia,serif;fill:#8a351f}</style>
+  </defs>
+  <rect width="1100" height="620" fill="#fffdf8"/>
+  <rect class="box" x="45" y="210" width="210" height="145" rx="14"/><text class="label" x="150" y="255" text-anchor="middle">Function</text><text class="label" x="150" y="287" text-anchor="middle">generator</text><text class="small" x="150" y="326" text-anchor="middle">Bench-tested sine</text>
+  <path class="signal" d="M255 255 H325"/><rect class="box" x="325" y="225" width="130" height="60" rx="10"/><text class="small" x="390" y="263" text-anchor="middle">100 Ω*</text>
+  <path class="signal" d="M455 255 H505"/><ellipse class="signal" cx="600" cy="255" rx="95" ry="135"/><text class="label" x="600" y="80" text-anchor="middle">SOURCE loop</text>
+  <path class="wire" d="M600 390 V455 H150 V355"/>
+  <ellipse class="wire" cx="855" cy="255" rx="95" ry="135"/><text class="label" x="855" y="80" text-anchor="middle">PICKUP loop</text>
+  <path class="wire" d="M760 255 H700" marker-end="url(#arrow)"/><text class="small" x="728" y="230" text-anchor="middle">field</text>
+  <rect class="box" x="785" y="455" width="255" height="110" rx="14"/><text class="label" x="912" y="497" text-anchor="middle">Oscilloscope</text><text class="small" x="912" y="532" text-anchor="middle">CH1 source · CH2 pickup</text>
+  <path class="wire" d="M760 310 H735 V510 H785"/><path class="wire" d="M950 310 V430 H1000 V455"/><path class="wire" d="M455 255 V145 H735 V480 H785"/>
+  <text class="note" x="550" y="595" text-anchor="middle">The loops do not touch; no generator signal wire connects to the pickup. *Use the station-card resistor.</text>
+</svg>
