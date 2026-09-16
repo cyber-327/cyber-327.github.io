@@ -23,14 +23,14 @@
   <main class="shell content-shell">
     <p class="eyebrow">Weekly Guide</p>
     <section class="page-intro">
-      <p class="kicker">Week 03 &middot; September 13-19, 2026</p>
+      <p class="kicker">Week 03 · September 13-19, 2026</p>
       <h1>Week 3: AC Terms, Phasors, Inductance, and Reactance</h1>
-      <p class="body">Connect the week's communication principles with observable evidence, cybersecurity applications, and laboratory work.</p>
+      <p class="body">Connect the week&#x27;s communication principles with observable evidence, cybersecurity applications, and laboratory work.</p>
     </section>
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 05.</h2>
+      <h2>Updated through Lecture 06.</h2>
       <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added after each lecture rather than published in advance.</p>
     </aside>
 
@@ -62,6 +62,34 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 06 / Wed</p>
+        <h2>Transformers, Isolation, and Coupling</h2>
+        <p class="meta">September 16, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-06-slides.pptx" download>Lecture 06 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Transformer voltage and current ratios</li>
+          <li>Real-coil limits: winding resistance, parasitic capacitance, core loss, saturation, self-resonance, and operating ratings</li>
+          <li>DC isolation and galvanic isolation</li>
+          <li>Impedance matching and energy transfer</li>
+          <li>Common-mode noise and ground-loop thinking</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Isolation as both a safety boundary and a security boundary</li>
+          <li>Coupling paths that bypass intended wiring</li>
+          <li>Transformer and coil behavior as controlled and accidental signal transfer</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -76,6 +104,11 @@
           <div><dt>inductance</dt><dd>A conductor&#x27;s tendency to oppose changes in current by storing energy in a magnetic field.</dd></div>
           <div><dt>inductor</dt><dd>A component designed to provide inductance and store energy in a magnetic field.</dd></div>
           <div><dt>inductive reactance</dt><dd>The frequency-dependent opposition an ideal inductor presents to alternating current.</dd></div>
+          <div><dt>transformer</dt><dd>Coupled coils that transfer AC energy through a changing magnetic field.</dd></div>
+          <div><dt>turns ratio</dt><dd>Ratio of secondary turns to primary turns that sets the ideal transformer voltage ratio.</dd></div>
+          <div><dt>galvanic isolation</dt><dd>Separation that prevents a direct conductive path between circuits.</dd></div>
+          <div><dt>saturation</dt><dd>Core condition in which additional magnetizing force produces little additional magnetic flux and the ideal model breaks down.</dd></div>
+          <div><dt>self-resonance</dt><dd>Frequency where an inductor&#x27;s inductance and parasitic capacitance resonate, limiting ideal inductive behavior.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -87,11 +120,14 @@
           <li><span class="formula-label">Inductive reactance</span><span class="equation">X<sub>L</sub> = 2 π f L</span></li>
           <li><span class="formula-label">Ideal inductor current magnitude</span><span class="equation">I<sub>rms</sub> = V<sub>rms</sub> / X<sub>L</sub></span></li>
           <li><span class="formula-label">Ideal inductor phase</span><span class="equation">voltage leads current by 90 degrees; current lags voltage by 90 degrees</span></li>
+          <li><span class="formula-label">Ideal transformer voltage ratio</span><span class="equation">V<sub>s</sub> / V<sub>p</sub> = N<sub>s</sub> / N<sub>p</sub></span></li>
+          <li><span class="formula-label">Ideal transformer current ratio</span><span class="equation">I<sub>s</sub> / I<sub>p</sub> = N<sub>p</sub> / N<sub>s</sub></span></li>
+          <li><span class="formula-label">Ideal impedance reflection</span><span class="equation">Z<sub>p</sub> = (N<sub>p</sub> / N<sub>s</sub>)<sup>2</sup> Z<sub>s</sub></span></li>
         </ul>
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> Identify amplitude, frequency, and phase in a sinusoidal model; represent a same-frequency sinusoid as an RMS phasor; calculate inductive reactance and ideal RMS current; and explain why inductor voltage leads current.
+        <strong>Practice focus:</strong> Identify amplitude, frequency, and phase in a sinusoidal model; represent a same-frequency sinusoid as an RMS phasor; calculate inductive reactance and ideal RMS current; and explain why inductor voltage leads current. Calculate ideal transformer voltage and current ratios, then identify which conclusions require checking frequency, loading, isolation rating, or other real-coil limitations.
       </div>
     </section>
 
@@ -114,6 +150,20 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Ideal And Real Coil Behavior</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Property</th><th scope="col">Ideal Model</th><th scope="col">Real Limitation</th></tr></thead>
+          <tbody>
+          <tr><td>Inductor reactance</td><td>Increases linearly with frequency</td><td>Winding resistance and parasitic capacitance alter the response</td></tr>
+          <tr><td>Transformer voltage</td><td>Follows turns ratio</td><td>Copper loss, core loss, and leakage flux reduce output</td></tr>
+          <tr><td>Isolation</td><td>No intended conductive path</td><td>Parasitic capacitance and insulation ratings still matter</td></tr>
+          <tr><td>Operating range</td><td>Unlimited</td><td>Saturation, self-resonance, heating, and ratings set limits</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -124,6 +174,8 @@
         <ul class="questions">
           <li>Why does an inductor oppose high-frequency changes?</li>
           <li>How can a changing signal couple into a nearby wire or coil?</li>
+          <li>What does a transformer block and what can it still pass?</li>
+          <li>When is coupling useful, and when is it leakage?</li>
         </ul>
     </section>
 
