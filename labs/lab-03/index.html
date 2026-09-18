@@ -114,9 +114,9 @@
           <ol class="walkthrough-list">
             <li>Read the transformer nameplate. Record its rated primary voltage and full-secondary voltage, then calculate the expected ratio as <code>rated secondary voltage / rated primary voltage</code>. Use the two outer secondary leads, not the center tap, for every full-secondary measurement.</li>
             <li>Disconnect the transformer from the function generator. Set the DMM to resistance and verify the labeled primary pair and full-secondary pair. Record both winding resistances in Table 1. The primary should be the higher-resistance winding.</li>
-            <li>With the transformer still unpowered, measure between one primary terminal and one secondary terminal. Record <code>OL</code> or the meter&#x27;s out-of-range indication. If the meter reports a low resistance between windings, stop and notify the instructor.</li>
+            <li>With the transformer still unpowered, measure between one primary terminal and one secondary terminal. Record <code>OL</code> or the meter&#x27;s out-of-range indication. If the meter reports a low resistance between windings, stop and notify the instructor. This means that you need a new transformer.</li>
             <li>Return the DMM to AC-voltage mode. Connect the function-generator output through the 1 kΩ series resistor to one primary lead, and connect the other primary lead to function-generator ground. Leave the secondary connected only to the DMM when its voltage is being measured. Never connect any transformer lead to a wall outlet or mains source.</li>
-            <li>With the generator output disabled, select a <code>60 Hz</code> sine wave, <code>10.0 Vpp</code>, <code>0 V</code> offset, and <code>High-Z</code> display mode. Ask for a connection check before first power-up.</li>
+            <li>With the generator output disabled, select a <code>60 Hz</code> sine wave, <code>10.0 Vpp</code>, <code>0 V</code> offset, and <code>High-Z</code> display mode.</li>
             <li>Enable the output. Measure AC voltage directly across the primary winding and record <code>Vp</code>. Move only the DMM measurement leads to the secondary winding and record <code>Vs</code>; do not move the generator or resistor connections.</li>
             <li>Calculate the measured voltage ratio <code>Vs / Vp</code> and compare it with the ratio calculated from the nameplate. Small differences are expected in a real transformer.</li>
             <li>Take the required photograph, disable the generator output, and disconnect the transformer before continuing.</li>
@@ -127,10 +127,10 @@
           <ol class="walkthrough-list">
             <li>Disable the generator output and select a <code>100 kHz</code> square wave, <code>5.0 Vpp</code>, <code>0 V</code> offset, <code>50%</code> duty cycle, and <code>High-Z</code> display mode.</li>
             <li>Build the source-line path shown below: generator output, long source conductor, 1 kΩ load resistor, and circuit common. The load gives the source signal a defined return path.</li>
-            <li>Build the neighbor-line path with the second long conductor. It represents a quiet, legitimate signal line, not an unauthorized wire. Connect one end through the 100 kΩ neighbor-line resistor to circuit common and connect Channel 2 to the other end. The neighbor line must have no direct signal-wire connection to the generator output.</li>
+            <li>Build the neighbor-line path with the second long conductor. It represents a quiet, unauthorized signal line. Connect one end through the 100 kΩ neighbor-line resistor to circuit common and connect Channel 2 to the other end. The neighbor line must have no direct signal-wire connection to the generator output.</li>
             <li>Anchor the two long conductors parallel to each other across the breadboard, about <code>5 mm</code> apart for at least <code>15 cm</code>. Prevent bare conductors from touching.</li>
             <li>Set both physical probes and both oscilloscope channels to <code>10x</code> and DC coupling. Connect both probe ground clips only to circuit common. Connect Channel 1 to the source line and Channel 2 to the neighbor line.</li>
-            <li>Ask for a connection check before enabling the generator.</li>
+            <li>Double check your connections before enabling the generator.</li>
           </ol>
           <figure class="walkthrough-figure">
             <img src="../../assets/labs/lab-03-coupling-setup.svg" alt="Breadboard source-line and neighbor-line crosstalk setup" loading="lazy">
@@ -151,24 +151,12 @@
           </ol>
       </section>
       <section class="walkthrough-stage">
-        <h3>If Crosstalk Is Missing or Unstable</h3>
-          <ol class="walkthrough-list">
-            <li>Spend no more than five minutes on these checks before asking the instructor for help. Do not invent or select only the most favorable reading.</li>
-            <li>Verify Channel 1 first. It must show the <code>100 kHz</code>, <code>5.0 Vpp</code> source. If it does not, correct the generator, source-line wiring, probe factor, and Channel 1 settings before troubleshooting Channel 2.</li>
-            <li>Verify that the 100 kΩ resistor is installed, the Channel 2 probe and channel are both set to <code>10x</code>, both ground clips are at circuit common, Channel 2 uses DC coupling, and the scope triggers from Channel 1. Turn off averaging and autoscale, then reduce only the Channel 2 volts-per-division setting until the local noise floor is visible.</li>
-            <li>Check the physical baseline: at least <code>15 cm</code> of parallel overlap, about <code>5 mm</code> spacing, no bare-wire contact, firm breadboard connections, and no hands or loose leads moving near the conductors. Take three readings without touching the setup. Treat the result as unstable if the largest and smallest readings differ by more than <code>20%</code> of their average.</li>
-            <li>If the signal is still missing, disable the output and ask the instructor to approve the recovery geometry: <code>25–30 cm</code> of parallel overlap and about <code>2 mm</code> spacing without contact. If needed, the instructor may then approve increasing the source to <code>10.0 Vpp</code>. Change only one item at a time.</li>
-            <li>Once a stable recovered baseline is found, record the changed setting in the report and keep that geometry, amplitude, and all scope settings fixed for every remaining comparison.</li>
-            <li>If no stable signal appears after the recovery checks, stop troubleshooting. The instructor will verify the station, move the team to a working setup, or provide verified fallback measurements. Record which fallback was used.</li>
-          </ol>
-      </section>
-      <section class="walkthrough-stage">
         <h3>Part 4: Change the Coupling Path</h3>
           <ol class="walkthrough-list">
             <li>Keep the waveform, resistors, probe factors, scope scales, bandwidth, and acquisition settings fixed. Disable the generator before moving conductors.</li>
             <li>Reposition the neighbor conductor so it crosses the source conductor at approximately 90 degrees instead of running parallel. Keep the crossing point and wire lengths on the breadboard as shown below.</li>
             <li>Re-enable the generator and record source-line and neighbor-line <code>Vpp</code>. Calculate the new <code>Vneighbor / Vsource</code> ratio.</li>
-            <li>Return the neighbor line to the parallel baseline and verify that the original reading returns within <code>20%</code>.</li>
+            <li>Return the neighbor line to the parallel baseline and verify that the original reading returns.</li>
             <li>State whether the 90-degree crossing reduced observed crosstalk under the tested conditions.</li>
           </ol>
       </section>
@@ -179,11 +167,11 @@
             <p>You will take one mitigation evidence photograph in this part. Capture the condition with the lowest repeatable neighbor-line voltage, including the physical circuit and readable Channel 2 measurement.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Restore the parallel-wire baseline. Confirm that the 100 kΩ neighbor-line resistor is installed and record the neighbor-line <code>Vpp</code>.</li>
+            <li>Confirm you are back to the parallel-wire baseline. Confirm that the 100 kΩ neighbor-line resistor is installed and record the neighbor-line <code>Vpp</code>.</li>
             <li>Disable the generator. Replace only the 100 kΩ neighbor-line resistor with the 10 kΩ resistor; do not move either long conductor or change an instrument setting.</li>
             <li>Re-enable the generator and record source-line and neighbor-line <code>Vpp</code>. Calculate neighbor-line voltage reduction using <code>100(1 - Vlow / Vhigh)%</code>.</li>
-            <li>Explain whether the result supports lower neighbor-line impedance as a receiver-side mitigation in this circuit. Do not claim that the same resistor is appropriate for every communication system because it may also load an intended signal.</li>
-            <li>Take the required mitigation photograph before dismantling the circuit.</li>
+            <li>Explain whether the result supports the idea that lowering the impedance of the neighboring line will reduce interference.</li>
+            <li>Take the required photograph before dismantling the circuit.</li>
           </ol>
           <figure class="walkthrough-figure">
             <img src="../../assets/labs/lab-03-routing-comparison.svg" alt="Compare conductor orientation and neighbor-line resistance without changing the source" loading="lazy">
