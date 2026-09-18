@@ -151,6 +151,18 @@
           </ol>
       </section>
       <section class="walkthrough-stage">
+        <h3>If Crosstalk Is Missing or Unstable</h3>
+          <ol class="walkthrough-list">
+            <li>Spend no more than five minutes on these checks before asking the instructor for help. Do not invent or select only the most favorable reading.</li>
+            <li>Verify Channel 1 first. It must show the <code>100 kHz</code>, <code>5.0 Vpp</code> source. If it does not, correct the generator, source-line wiring, probe factor, and Channel 1 settings before troubleshooting Channel 2.</li>
+            <li>Verify that the 100 kΩ resistor is installed, the Channel 2 probe and channel are both set to <code>10x</code>, both ground clips are at circuit common, Channel 2 uses DC coupling, and the scope triggers from Channel 1. Turn off averaging and autoscale, then reduce only the Channel 2 volts-per-division setting until the local noise floor is visible.</li>
+            <li>Check the physical baseline: at least <code>15 cm</code> of parallel overlap, about <code>5 mm</code> spacing, no bare-wire contact, firm breadboard connections, and no hands or loose leads moving near the conductors. Take three readings without touching the setup. Treat the result as unstable if the largest and smallest readings differ by more than <code>20%</code> of their average.</li>
+            <li>If the signal is still missing, disable the output and ask the instructor to approve the recovery geometry: <code>25–30 cm</code> of parallel overlap and about <code>2 mm</code> spacing without contact. If needed, the instructor may then approve increasing the source to <code>10.0 Vpp</code>. Change only one item at a time.</li>
+            <li>Once a stable recovered baseline is found, record the changed setting in the report and keep that geometry, amplitude, and all scope settings fixed for every remaining comparison.</li>
+            <li>If no stable signal appears after the recovery checks, stop troubleshooting. The instructor will verify the station, move the team to a working setup, or provide verified fallback measurements. Record which fallback was used.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
         <h3>Part 4: Change the Coupling Path</h3>
           <ol class="walkthrough-list">
             <li>Keep the waveform, resistors, probe factors, scope scales, bandwidth, and acquisition settings fixed. Disable the generator before moving conductors.</li>
