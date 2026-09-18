@@ -1,18 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
-  <title id="title">Controlled inductive coupling measurement setup</title>
-  <desc id="desc">A generator drives a source loop through a resistor. Oscilloscope channel one verifies the source. A pickup loop with no generator signal connection connects to channel two.</desc>
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#174a5c"/></marker>
-    <style>.box{fill:#f7f2e8;stroke:#173f4f;stroke-width:3}.wire{fill:none;stroke:#173f4f;stroke-width:4}.signal{fill:none;stroke:#b54d2e;stroke-width:4}.label{font:700 24px Georgia,serif;fill:#173f4f}.small{font:20px Georgia,serif;fill:#2d3b40}.note{font:700 19px Georgia,serif;fill:#8a351f}</style>
-  </defs>
+  <title id="title">Breadboard source-line and neighbor-line crosstalk setup</title>
+  <desc id="desc">A function generator drives a source conductor through a load resistor. A separate parallel neighbor conductor connects to oscilloscope channel two and a resistor to common. There is no direct signal connection between the two conductors.</desc>
   <rect width="1100" height="620" fill="#fffdf8"/>
-  <rect class="box" x="45" y="210" width="210" height="145" rx="14"/><text class="label" x="150" y="255" text-anchor="middle">Function</text><text class="label" x="150" y="287" text-anchor="middle">generator</text><text class="small" x="150" y="326" text-anchor="middle">Bench-tested sine</text>
-  <path class="signal" d="M255 255 H325"/><rect class="box" x="325" y="225" width="130" height="60" rx="10"/><text class="small" x="390" y="263" text-anchor="middle">100 Ω*</text>
-  <path class="signal" d="M455 255 H505"/><ellipse class="signal" cx="600" cy="255" rx="95" ry="135"/><text class="label" x="600" y="80" text-anchor="middle">SOURCE loop</text>
-  <path class="wire" d="M600 390 V455 H150 V355"/>
-  <ellipse class="wire" cx="855" cy="255" rx="95" ry="135"/><text class="label" x="855" y="80" text-anchor="middle">PICKUP loop</text>
-  <path class="wire" d="M760 255 H700" marker-end="url(#arrow)"/><text class="small" x="728" y="230" text-anchor="middle">field</text>
-  <rect class="box" x="785" y="455" width="255" height="110" rx="14"/><text class="label" x="912" y="497" text-anchor="middle">Oscilloscope</text><text class="small" x="912" y="532" text-anchor="middle">CH1 source · CH2 pickup</text>
-  <path class="wire" d="M760 310 H735 V510 H785"/><path class="wire" d="M950 310 V430 H1000 V455"/><path class="wire" d="M455 255 V145 H735 V480 H785"/>
-  <text class="note" x="550" y="595" text-anchor="middle">The loops do not touch; no generator signal wire connects to the pickup. *Use the station-card resistor.</text>
+  <rect x="40" y="195" width="195" height="135" rx="14" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/>
+  <text x="138" y="240" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#173f4f">Function</text><text x="138" y="272" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#173f4f">generator</text><text x="138" y="307" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#2d3b40">Posted waveform</text>
+  <text x="500" y="105" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#173f4f">SOURCE LINE: intended active signal</text>
+  <path d="M235 230 H735" fill="none" stroke="#b54d2e" stroke-width="6"/>
+  <rect x="735" y="195" width="140" height="70" rx="10" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/><text x="805" y="238" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#2d3b40">Load R</text>
+  <path d="M875 230 H950 V500 H138 V330" fill="none" stroke="#173f4f" stroke-width="4"/>
+  <text x="500" y="355" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#173f4f">NEIGHBOR LINE: quiet legitimate circuit</text>
+  <path d="M285 395 H735" fill="none" stroke="#167b80" stroke-width="6"/>
+  <rect x="735" y="360" width="140" height="70" rx="10" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/><text x="805" y="403" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#2d3b40">Neighbor R</text>
+  <path d="M875 395 H950" fill="none" stroke="#173f4f" stroke-width="4"/>
+  <path d="M390 255 C420 290 450 315 480 350" fill="none" stroke="#8a351f" stroke-width="3" stroke-dasharray="10 9"/>
+  <path d="M520 255 C550 290 580 315 610 350" fill="none" stroke="#8a351f" stroke-width="3" stroke-dasharray="10 9"/>
+  <text x="500" y="295" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#2d3b40">unwanted coupling</text>
+  <rect x="55" y="370" width="190" height="105" rx="14" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/><text x="150" y="410" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#173f4f">Oscilloscope</text><text x="150" y="445" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#2d3b40">CH1 source</text><text x="150" y="470" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#2d3b40">CH2 neighbor</text>
+  <path d="M235 405 H260 V230" fill="none" stroke="#b54d2e" stroke-width="6"/><path d="M245 445 H270 V395" fill="none" stroke="#167b80" stroke-width="6"/>
+  <text x="550" y="575" text-anchor="middle" font-family="Georgia,serif" font-size="19" font-weight="700" fill="#8a351f">Both scope grounds use circuit common. The neighbor line has no direct connection to generator OUT.</text>
 </svg>

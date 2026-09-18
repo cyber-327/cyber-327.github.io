@@ -30,7 +30,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 06.</h2>
+      <h2>This week&#x27;s lecture material is complete.</h2>
       <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added after each lecture rather than published in advance.</p>
     </aside>
 
@@ -90,6 +90,34 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 07 / Fri</p>
+        <h2>EMI, Near-Field Leakage, and Signal Containment</h2>
+        <p class="meta">September 18, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-07-slides.pptx" download>Lecture 07 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Electromagnetic interference sources and coupling mechanisms</li>
+          <li>Distance, wire routing, twisting, shielding, and ferrites</li>
+          <li>Near-field observation using loops or probes</li>
+          <li>How layout choices affect signal integrity</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Unwanted energy entering a signal path can disrupt or distort communication</li>
+          <li>Signal energy leaking from a path can reveal activity to an unauthorized observer</li>
+          <li>Leakage detection through nearby probes or traces without assuming message content, identity, or intent</li>
+          <li>Mitigation as engineering, not just policy</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -109,6 +137,11 @@
           <div><dt>galvanic isolation</dt><dd>Separation that prevents a direct conductive path between circuits.</dd></div>
           <div><dt>saturation</dt><dd>Core condition in which additional magnetizing force produces little additional magnetic flux and the ideal model breaks down.</dd></div>
           <div><dt>self-resonance</dt><dd>Frequency where an inductor&#x27;s inductance and parasitic capacitance resonate, limiting ideal inductive behavior.</dd></div>
+          <div><dt>coupling</dt><dd>Intended or unintended transfer of energy between circuits or conductors.</dd></div>
+          <div><dt>EMI</dt><dd>Electromagnetic interference that degrades or alters circuit operation.</dd></div>
+          <div><dt>common mode</dt><dd>Signal component appearing in the same direction on multiple conductors relative to a reference.</dd></div>
+          <div><dt>near field</dt><dd>Region close to a source where electric or magnetic coupling can dominate.</dd></div>
+          <div><dt>containment</dt><dd>Engineering controls that reduce unwanted signal transfer or exposure.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -123,11 +156,13 @@
           <li><span class="formula-label">Ideal transformer voltage ratio</span><span class="equation">V<sub>s</sub> / V<sub>p</sub> = N<sub>s</sub> / N<sub>p</sub></span></li>
           <li><span class="formula-label">Ideal transformer current ratio</span><span class="equation">I<sub>s</sub> / I<sub>p</sub> = N<sub>p</sub> / N<sub>s</sub></span></li>
           <li><span class="formula-label">Ideal impedance reflection</span><span class="equation">Z<sub>p</sub> = (N<sub>p</sub> / N<sub>s</sub>)<sup>2</sup> Z<sub>s</sub></span></li>
+          <li><span class="formula-label">Coupling amplitude ratio</span><span class="equation">H = V<sub>received</sub> / V<sub>source</sub></span></li>
+          <li><span class="formula-label">Measured reduction</span><span class="equation">reduction percent = (V<sub>before</sub> - V<sub>after</sub>) / V<sub>before</sub> × 100%</span></li>
         </ul>
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> Identify amplitude, frequency, and phase in a sinusoidal model; represent a same-frequency sinusoid as an RMS phasor; calculate inductive reactance and ideal RMS current; and explain why inductor voltage leads current. Calculate ideal transformer voltage and current ratios, then identify which conclusions require checking frequency, loading, isolation rating, or other real-coil limitations.
+        <strong>Practice focus:</strong> Identify amplitude, frequency, and phase in a sinusoidal model; represent a same-frequency sinusoid as an RMS phasor; calculate inductive reactance and ideal RMS current; and explain why inductor voltage leads current. Calculate ideal transformer voltage and current ratios, then identify which conclusions require checking frequency, loading, isolation rating, or other real-coil limitations. Explain how frequency, distance, orientation, twisting, routing, shielding, and ferrites affect measured coupling, and distinguish a measured interference path from an unsupported claim about intent.
       </div>
     </section>
 
@@ -164,6 +199,21 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Magnetic Coupling Controls</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Change</th><th scope="col">Typical Effect On Coupling</th><th scope="col">Reason</th></tr></thead>
+          <tbody>
+          <tr><td>Increase separation</td><td>Decreases</td><td>Field strength falls with distance</td></tr>
+          <tr><td>Rotate one loop 90 degrees</td><td>Decreases</td><td>Less magnetic flux links the loops</td></tr>
+          <tr><td>Twist conductor pair</td><td>Decreases common-mode pickup</td><td>Adjacent loops tend to cancel</td></tr>
+          <tr><td>Add magnetic shielding</td><td>May decrease</td><td>Provides a lower-reluctance field path</td></tr>
+          <tr><td>Increase frequency</td><td>Often increases induced voltage</td><td>Magnetic field changes more rapidly</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -176,13 +226,16 @@
           <li>How can a changing signal couple into a nearby wire or coil?</li>
           <li>What does a transformer block and what can it still pass?</li>
           <li>When is coupling useful, and when is it leakage?</li>
+          <li>What evidence shows that a signal is coupling unintentionally?</li>
+          <li>Which mitigation changed the measurement most?</li>
         </ul>
     </section>
 
-    <aside class="callout locked-callout">
+    <aside class="callout">
       <p class="eyebrow">Friday Lab</p>
-      <h2>Lab 03 is not yet available</h2>
-      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+      <h2>Transformer Coupling and Breadboard Crosstalk</h2>
+      <p>Transformers, galvanic isolation, conducted and field coupling, crosstalk, EMI, receiver impedance, repeatable measurement, and evidence limits</p>
+      <a class="button" href="../../labs/lab-03/">Open Lab 03</a>
     </aside>
     <nav class="pager" aria-label="Week navigation">
       <a href="../week-02/">&larr; Week 2</a>

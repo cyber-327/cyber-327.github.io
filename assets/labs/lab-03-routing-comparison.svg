@@ -1,12 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
-  <title id="title">Separated and twisted conductor routing comparison</title>
-  <desc id="desc">Equal-length routes carry the same signal and load. The pickup stays at a marked position while separated and twisted conductors are compared.</desc>
-  <defs><style>.panel{fill:#f7f2e8;stroke:#173f4f;stroke-width:3}.wire1{fill:none;stroke:#b54d2e;stroke-width:5}.wire2{fill:none;stroke:#174a5c;stroke-width:5}.loop{fill:none;stroke:#173f4f;stroke-width:4}.title{font:700 27px Georgia,serif;fill:#173f4f}.text{font:21px Georgia,serif;fill:#2d3b40}.note{font:700 19px Georgia,serif;fill:#8a351f}</style></defs>
+  <title id="title">Breadboard crosstalk comparisons</title>
+  <desc id="desc">Three panels show the parallel baseline, a ninety-degree conductor crossing, and a lower neighbor-line resistance. Students change only one variable in each comparison.</desc>
   <rect width="1100" height="620" fill="#fffdf8"/>
-  <rect class="panel" x="40" y="65" width="490" height="460" rx="16"/><rect class="panel" x="570" y="65" width="490" height="460" rx="16"/>
-  <text class="title" x="285" y="112" text-anchor="middle">Separated conductors</text><text class="title" x="815" y="112" text-anchor="middle">Twisted pair</text>
-  <text class="text" x="90" y="180">SOURCE</text><text class="text" x="435" y="180">LOAD</text><path class="wire1" d="M105 210 H460"/><path class="wire2" d="M460 350 H105"/>
-  <text class="text" x="620" y="180">SOURCE</text><text class="text" x="965" y="180">LOAD</text><path class="wire1" d="M635 230 C670 175 705 285 740 230 S810 285 845 230 S915 285 950 230"/><path class="wire2" d="M635 230 C670 285 705 175 740 230 S810 175 845 230 S915 175 950 230"/>
-  <ellipse class="loop" cx="285" cy="420" rx="80" ry="55"/><ellipse class="loop" cx="815" cy="420" rx="80" ry="55"/><text class="text" x="285" y="428" text-anchor="middle">PICKUP</text><text class="text" x="815" y="428" text-anchor="middle">PICKUP</text><path class="loop" d="M285 365 V330"/><path class="loop" d="M815 365 V330"/>
-  <text class="note" x="550" y="575" text-anchor="middle">Keep source, load, cable length, pickup position, and scope settings unchanged.</text>
+  <rect x="30" y="65" width="330" height="455" rx="16" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/><rect x="385" y="65" width="330" height="455" rx="16" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/><rect x="740" y="65" width="330" height="455" rx="16" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/>
+  <text x="195" y="110" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#173f4f">1. Parallel baseline</text>
+  <path d="M75 225 H315" fill="none" stroke="#b54d2e" stroke-width="6"/><path d="M75 310 H315" fill="none" stroke="#167b80" stroke-width="6"/>
+  <text x="195" y="380" text-anchor="middle" font-family="Georgia,serif" font-size="19" fill="#2d3b40">High neighbor resistance</text><text x="195" y="415" text-anchor="middle" font-family="Georgia,serif" font-size="19" fill="#2d3b40">Measure baseline crosstalk</text>
+  <text x="550" y="110" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#173f4f">2. Change the path</text>
+  <path d="M430 270 H670" fill="none" stroke="#b54d2e" stroke-width="6"/><path d="M550 155 V390" fill="none" stroke="#167b80" stroke-width="6"/>
+  <text x="550" y="430" text-anchor="middle" font-family="Georgia,serif" font-size="19" fill="#2d3b40">Cross at approximately 90 degrees</text><text x="550" y="462" text-anchor="middle" font-family="Georgia,serif" font-size="19" fill="#2d3b40">Keep the high neighbor resistance</text>
+  <text x="905" y="110" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#173f4f">3. Change the receiver</text>
+  <path d="M785 225 H1025" fill="none" stroke="#b54d2e" stroke-width="6"/><path d="M785 310 H1025" fill="none" stroke="#167b80" stroke-width="6"/>
+  <rect x="845" y="350" width="120" height="60" rx="9" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/><text x="905" y="387" text-anchor="middle" font-family="Georgia,serif" font-size="19" fill="#2d3b40">Lower R</text>
+  <text x="905" y="450" text-anchor="middle" font-family="Georgia,serif" font-size="19" fill="#2d3b40">Restore parallel placement</text><text x="905" y="482" text-anchor="middle" font-family="Georgia,serif" font-size="19" fill="#2d3b40">Change only neighbor resistance</text>
+  <text x="550" y="575" text-anchor="middle" font-family="Georgia,serif" font-size="19" font-weight="700" fill="#8a351f">Keep source settings and oscilloscope settings fixed; change only the stated variable.</text>
 </svg>
