@@ -44,12 +44,10 @@
       <p class="eyebrow">The Big Picture</p>
       <h2>What You Are Doing</h2>
         <ol class="overview-steps">
-          <li>Begin with intentional magnetic coupling: identify a transformer primary and secondary, verify the isolation boundary with power disconnected, and measure its AC voltage ratio.</li>
-          <li>Build a source line that carries a known signal and a nearby neighbor line that represents a quiet, legitimate circuit affected by crosstalk.</li>
-          <li>Verify that the neighbor-line waveform follows the source and disappears when the source is disabled.</li>
-          <li>Compare parallel conductors with a 90-degree crossing while keeping instrument settings fixed.</li>
-          <li>Replace only the neighbor-line resistance and measure whether lower receiver impedance reduces the observed crosstalk.</li>
-          <li>Use the measurements to explain the difference between useful coupling, unintended crosstalk, and tested path-side and receiver-side improvements.</li>
+          <li>Identify the windings of a transformer, verify the DC isolation boundary, and measure its AC voltage ratio.</li>
+          <li>Build source and neighbor lines, then verify that the neighbor-line waveform is caused by the source without a direct signal-wire connection.</li>
+          <li>Compare parallel conductors with a 90-degree crossing while keeping the source and measurement settings fixed.</li>
+          <li>Change only the neighbor-line resistance, then use the evidence to compare intentional coupling, unintended crosstalk, and two ways to reduce crosstalk.</li>
         </ol>
     </section>
 
@@ -60,24 +58,20 @@
         <h2>Preparation</h2>
         <ul>
           <li>Review transformer windings, turns ratio, galvanic isolation, coupling, crosstalk, peak-to-peak voltage, RMS voltage, and amplitude ratio</li>
-          <li>Bring a calculator and open the Lab 3 report before beginning</li>
           <li>Recall that resistance and continuity are measured only with the source disabled and the component disconnected from power</li>
-          <li>Keep the DMM leads in `COM` and `V/Ω`; this lab does not use either current jack or AC-current mode</li>
-          <li>Recall that oscilloscope ground clips connect only to generator ground or the instructor-designated circuit common</li>
-          <li>Do not substitute personal electronics, wireless devices, building wiring, or unknown powered equipment for the approved source</li>
         </ul>
       </section>
       <aside class="content-panel equipment">
         <p class="eyebrow">Bench Setup</p>
         <h2>Equipment and Materials</h2>
         <ul>
-          <li>Instructor-approved, labeled low-voltage transformer and station card</li>
-          <li>Digital multimeter with working resistance and AC-voltage modes</li>
+          <li>Instructor-inspected transformer with its primary, full secondary, and center-tap leads labeled</li>
+          <li>Digital multimeter</li>
           <li>Two-channel oscilloscope with two 10x probes</li>
-          <li>Function generator with BNC-to-clip lead or approved output adapter</li>
+          <li>Function generator with BNC-to-clip lead</li>
           <li>Breadboard and ordinary jumper leads</li>
-          <li>Two similar insulated jumper or hookup wires, approximately `15–30 cm` long</li>
-          <li>Instructor-approved transformer series resistor, source-line load resistor, and two neighbor-line resistors</li>
+          <li>Two similar insulated long jumper wires</li>
+          <li>1 kΩ transformer series resistor, 1 kΩ source-line load resistor, and 100 kΩ and 10 kΩ neighbor-line resistors</li>
           <li>Ruler and calculator</li>
         </ul>
       </aside>
@@ -106,34 +100,35 @@
         <h3>Prepare the Station</h3>
           <ol class="walkthrough-list">
             <li>Open the Lab 3 report and enter your name and lab partners.</li>
-            <li>Identify the transformer, station card, approved resistors, breadboard, and two long insulated conductors. Do not substitute resistor values or transformer windings.</li>
-            <li>Put the DMM black lead in <code>COM</code> and the red lead in <code>V/Ω</code>. Confirm that neither lead is in a current jack. This lab uses resistance and AC-voltage modes only.</li>
-            <li>Keep the function-generator output disabled until a step explicitly tells you to enable it. Use only the waveform, frequency, amplitude, and resistor printed on the station card.</li>
+            <li>Procure all necessary equipment.</li>
+            <li>Put the DMM black lead in <code>COM</code> and the red lead in <code>V/Ω</code>.</li>
+            <li>Keep the function-generator output disabled.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
         <h3>Part 1: Observe Intentional Coupling in a Transformer</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
-            <p>You will take one evidence photograph in this part. Before disconnecting the powered transformer setup, capture the transformer, DMM AC-voltage reading, and station card in the same frame.</p>
+            <p>You will take one evidence photograph in this part. Before disconnecting the powered transformer setup, capture the transformer and DMM AC-voltage reading.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Disconnect the transformer from the function generator. Set the DMM to resistance and identify the two terminals that form the primary winding and the two that form the secondary winding. Record both winding resistances in Table 1.</li>
+            <li>Read the transformer nameplate. Record its rated primary voltage and full-secondary voltage, then calculate the expected ratio as <code>rated secondary voltage / rated primary voltage</code>. Use the two outer secondary leads, not the center tap, for every full-secondary measurement.</li>
+            <li>Disconnect the transformer from the function generator. Set the DMM to resistance and verify the labeled primary pair and full-secondary pair. Record both winding resistances in Table 1. The primary should be the higher-resistance winding.</li>
             <li>With the transformer still unpowered, measure between one primary terminal and one secondary terminal. Record <code>OL</code> or the meter&#x27;s out-of-range indication. If the meter reports a low resistance between windings, stop and notify the instructor.</li>
-            <li>Return the DMM to AC-voltage mode. Connect the function generator, approved series resistor, and transformer primary exactly as shown on the station card. Leave the secondary connected only to the DMM when its voltage is being measured.</li>
-            <li>Program the instructor-posted sine-wave settings while the generator output remains disabled. Ask for a connection check before first power-up.</li>
+            <li>Return the DMM to AC-voltage mode. Connect the function-generator output through the 1 kΩ series resistor to one primary lead, and connect the other primary lead to function-generator ground. Leave the secondary connected only to the DMM when its voltage is being measured. Never connect any transformer lead to a wall outlet or mains source.</li>
+            <li>With the generator output disabled, select a <code>60 Hz</code> sine wave, <code>10.0 Vpp</code>, <code>0 V</code> offset, and <code>High-Z</code> display mode. Ask for a connection check before first power-up.</li>
             <li>Enable the output. Measure AC voltage directly across the primary winding and record <code>Vp</code>. Move only the DMM measurement leads to the secondary winding and record <code>Vs</code>; do not move the generator or resistor connections.</li>
-            <li>Calculate the measured voltage ratio <code>Vs / Vp</code> and compare it with the expected ratio printed on the station card. Small differences are expected in a real transformer.</li>
+            <li>Calculate the measured voltage ratio <code>Vs / Vp</code> and compare it with the ratio calculated from the nameplate. Small differences are expected in a real transformer.</li>
             <li>Take the required photograph, disable the generator output, and disconnect the transformer before continuing.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
         <h3>Part 2: Build the Source and Neighbor Lines</h3>
           <ol class="walkthrough-list">
-            <li>Disable the generator output and change it to the instructor-posted crosstalk waveform, frequency, amplitude, offset, and display mode.</li>
-            <li>Build the source-line path shown below: generator output, long source conductor, approved load resistor, and circuit common. The load gives the source signal a defined return path.</li>
-            <li>Build the neighbor-line path with the second long conductor. It represents a quiet, legitimate signal line, not an unauthorized wire. Connect one end through the posted high-value neighbor-line resistor to circuit common and connect Channel 2 to the other end. The neighbor line must have no direct signal-wire connection to the generator output.</li>
-            <li>Anchor the two long conductors parallel to each other across the breadboard. Keep the posted baseline spacing and prevent bare conductors from touching.</li>
+            <li>Disable the generator output and select a <code>100 kHz</code> square wave, <code>5.0 Vpp</code>, <code>0 V</code> offset, <code>50%</code> duty cycle, and <code>High-Z</code> display mode.</li>
+            <li>Build the source-line path shown below: generator output, long source conductor, 1 kΩ load resistor, and circuit common. The load gives the source signal a defined return path.</li>
+            <li>Build the neighbor-line path with the second long conductor. It represents a quiet, legitimate signal line, not an unauthorized wire. Connect one end through the 100 kΩ neighbor-line resistor to circuit common and connect Channel 2 to the other end. The neighbor line must have no direct signal-wire connection to the generator output.</li>
+            <li>Anchor the two long conductors parallel to each other across the breadboard, about <code>5 mm</code> apart for at least <code>15 cm</code>. Prevent bare conductors from touching.</li>
             <li>Set both physical probes and both oscilloscope channels to <code>10x</code> and DC coupling. Connect both probe ground clips only to circuit common. Connect Channel 1 to the source line and Channel 2 to the neighbor line.</li>
             <li>Ask for a connection check before enabling the generator.</li>
           </ol>
@@ -151,7 +146,7 @@
           <ol class="walkthrough-list">
             <li>Enable the generator. Trigger from Channel 1 and verify the source-line <code>Vpp</code> and frequency. Adjust Channel 2 only enough to obtain a stable neighbor-line waveform, then record neighbor-line <code>Vpp</code>.</li>
             <li>Confirm that the neighbor-line waveform repeats with the source-line frequency or transitions. Calculate the baseline ratio <code>Vneighbor / Vsource</code>.</li>
-            <li>Disable the generator output without changing the oscilloscope. Verify that the neighbor-line waveform falls to the posted noise-floor range, then re-enable the source and confirm that the baseline returns.</li>
+            <li>Disable the generator output without changing the oscilloscope. Verify that the neighbor-line waveform becomes indistinguishable from the local noise floor, then re-enable the source and confirm that the baseline returns.</li>
             <li>Take the required baseline photograph before moving either conductor.</li>
           </ol>
       </section>
@@ -161,7 +156,7 @@
             <li>Keep the waveform, resistors, probe factors, scope scales, bandwidth, and acquisition settings fixed. Disable the generator before moving conductors.</li>
             <li>Reposition the neighbor conductor so it crosses the source conductor at approximately 90 degrees instead of running parallel. Keep the crossing point and wire lengths on the breadboard as shown below.</li>
             <li>Re-enable the generator and record source-line and neighbor-line <code>Vpp</code>. Calculate the new <code>Vneighbor / Vsource</code> ratio.</li>
-            <li>Return the neighbor line to the parallel baseline and verify that the original reading returns within the posted tolerance.</li>
+            <li>Return the neighbor line to the parallel baseline and verify that the original reading returns within <code>20%</code>.</li>
             <li>State whether the 90-degree crossing reduced observed crosstalk under the tested conditions.</li>
           </ol>
       </section>
@@ -172,8 +167,8 @@
             <p>You will take one mitigation evidence photograph in this part. Capture the condition with the lowest repeatable neighbor-line voltage, including the physical circuit and readable Channel 2 measurement.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Restore the parallel-wire baseline. Confirm that the high-value neighbor-line resistor is installed and record the neighbor-line <code>Vpp</code>.</li>
-            <li>Disable the generator. Replace only the neighbor-line resistor with the posted lower-value resistor; do not move either long conductor or change an instrument setting.</li>
+            <li>Restore the parallel-wire baseline. Confirm that the 100 kΩ neighbor-line resistor is installed and record the neighbor-line <code>Vpp</code>.</li>
+            <li>Disable the generator. Replace only the 100 kΩ neighbor-line resistor with the 10 kΩ resistor; do not move either long conductor or change an instrument setting.</li>
             <li>Re-enable the generator and record source-line and neighbor-line <code>Vpp</code>. Calculate neighbor-line voltage reduction using <code>100(1 - Vlow / Vhigh)%</code>.</li>
             <li>Explain whether the result supports lower neighbor-line impedance as a receiver-side mitigation in this circuit. Do not claim that the same resistor is appropriate for every communication system because it may also load an intended signal.</li>
             <li>Take the required mitigation photograph before dismantling the circuit.</li>
