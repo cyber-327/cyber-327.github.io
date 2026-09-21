@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">RC, RL, and series-RLC filter progression</title>
+  <desc id="desc">Three circuits reuse one output resistor. A series capacitor creates an RC high-pass filter, a series inductor creates an RL low-pass filter, and both in series create an RLC band-pass filter. Output is measured across the resistor relative to common.</desc>
+  <defs>
+    <style>.panel{fill:#f7f2e8;stroke:#173f4f;stroke-width:3}.wire{fill:none;stroke:#173f4f;stroke-width:4}.part{fill:none;stroke:#b54d2e;stroke-width:4}.title{font:700 29px Georgia,serif;fill:#173f4f}.label{font:700 22px Georgia,serif;fill:#173f4f}.text{font:19px Georgia,serif;fill:#2d3b40}.note{font:700 19px Georgia,serif;fill:#8a351f}</style>
+  </defs>
+  <rect width="1200" height="760" fill="#fffdf8"/>
+  <text class="title" x="600" y="52" text-anchor="middle">Build the filters in three stages</text>
+
+  <g transform="translate(35 95)">
+    <rect class="panel" width="350" height="535" rx="16"/>
+    <text class="label" x="175" y="45" text-anchor="middle">1. RC high-pass</text>
+    <text class="text" x="175" y="77" text-anchor="middle">Low frequencies are reduced</text>
+    <path class="wire" d="M35 175 H95 M155 175 H265"/>
+    <path class="part" d="M95 130 V220 M155 130 V220"/>
+    <text class="label" x="125" y="115" text-anchor="middle">C</text>
+    <circle cx="265" cy="175" r="7" fill="#b54d2e"/>
+    <text class="label" x="272" y="155">OUT</text>
+    <path class="part" d="M265 175 V235 l-22 14 44 24-44 24 44 24-22 14 V395"/>
+    <text class="label" x="305" y="285">R</text>
+    <path class="wire" d="M265 395 H35"/>
+    <text class="text" x="35" y="155">IN</text><text class="text" x="35" y="425">COMMON</text>
+    <text class="note" x="175" y="475" text-anchor="middle">Measure Vout across R</text>
+  </g>
+
+  <g transform="translate(425 95)">
+    <rect class="panel" width="350" height="535" rx="16"/>
+    <text class="label" x="175" y="45" text-anchor="middle">2. RL low-pass</text>
+    <text class="text" x="175" y="77" text-anchor="middle">High frequencies are reduced</text>
+    <path class="wire" d="M35 175 H85"/>
+    <path class="part" d="M85 175 c12-42 27-42 39 0 c12-42 27-42 39 0 c12-42 27-42 39 0 c12-42 27-42 39 0"/>
+    <path class="wire" d="M241 175 H265"/>
+    <text class="label" x="163" y="115" text-anchor="middle">L</text>
+    <circle cx="265" cy="175" r="7" fill="#b54d2e"/>
+    <text class="label" x="272" y="155">OUT</text>
+    <path class="part" d="M265 175 V235 l-22 14 44 24-44 24 44 24-22 14 V395"/>
+    <text class="label" x="305" y="285">R</text>
+    <path class="wire" d="M265 395 H35"/>
+    <text class="text" x="35" y="155">IN</text><text class="text" x="35" y="425">COMMON</text>
+    <text class="note" x="175" y="475" text-anchor="middle">Measure Vout across R</text>
+  </g>
+
+  <g transform="translate(815 95)">
+    <rect class="panel" width="350" height="535" rx="16"/>
+    <text class="label" x="175" y="45" text-anchor="middle">3. RLC band-pass</text>
+    <text class="text" x="175" y="77" text-anchor="middle">A middle frequency is favored</text>
+    <path class="wire" d="M25 175 H60 M105 175 H125"/>
+    <path class="part" d="M60 137 V213 M105 137 V213"/>
+    <text class="label" x="82" y="115" text-anchor="middle">C</text>
+    <path class="part" d="M125 175 c10-38 23-38 33 0 c10-38 23-38 33 0 c10-38 23-38 33 0 c10-38 23-38 33 0"/>
+    <path class="wire" d="M257 175 H270"/>
+    <text class="label" x="191" y="115" text-anchor="middle">L</text>
+    <circle cx="270" cy="175" r="7" fill="#b54d2e"/>
+    <text class="label" x="277" y="155">OUT</text>
+    <path class="part" d="M270 175 V235 l-22 14 44 24-44 24 44 24-22 14 V395"/>
+    <text class="label" x="310" y="285">R</text>
+    <path class="wire" d="M270 395 H25"/>
+    <text class="text" x="25" y="155">IN</text><text class="text" x="25" y="425">COMMON</text>
+    <text class="note" x="175" y="475" text-anchor="middle">Measure Vout across R</text>
+  </g>
+
+  <text class="note" x="600" y="690" text-anchor="middle">Disable the source before rewiring. Connect every source and probe ground to COMMON.</text>
+  <text class="text" x="600" y="725" text-anchor="middle">The final circuit reuses one resistor; it does not cascade two complete unbuffered filter stages.</text>
+</svg>
