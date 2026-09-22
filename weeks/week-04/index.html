@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Week 04 - CYBER 327 course material">
-  <title>Week 04 | CYBER 327</title>
+  <meta name="description" content="Week 4 - CYBER 327 course material">
+  <title>Week 4 | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,124 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Week 04 &middot; Week 4</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Rolling release begins after the first lecture; check back as the week progresses. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all weeks</a>
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 04 · September 20-26, 2026</p>
+      <h1>Week 4: Capacitance, Impedance, and RLC Behavior</h1>
+      <p class="body">Connect the week&#x27;s communication principles with observable evidence, cybersecurity applications, and laboratory work.</p>
     </section>
+
+    <aside class="callout rolling-guide-note">
+      <p class="eyebrow">Rolling Weekly Guide</p>
+      <h2>Updated through Lecture 08.</h2>
+      <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
+    </aside>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 08 / Mon</p>
+        <h2>Capacitance, Impedance, and RLC Behavior</h2>
+        <p class="meta">September 21, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-08-slides.pptx" download>Lecture 08 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Capacitance as electric-field energy storage; capacitor voltage cannot change instantaneously</li>
+          <li>Transient versus steady-state DC behavior of an ideal capacitor</li>
+          <li>Capacitive reactance and its inverse relationship with frequency and capacitance</li>
+          <li>Current-leading-voltage phase intuition for an ideal capacitor</li>
+          <li>Series-RLC impedance: net reactance, impedance magnitude, and current</li>
+          <li>How output location determines the observed response of an RLC circuit</li>
+          <li>Real capacitor, inductor, breadboard, and measurement parasitics</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Stray capacitance as an unintended signal or interference path</li>
+          <li>Higher-frequency edges crossing weak capacitive paths more readily</li>
+          <li>Controlled source-path-victim measurements as evidence of coupling</li>
+          <li>Circuit behavior as the foundation for receiver filtering and channel integrity</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Definitions and Formulas</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Important Definitions</h3>
+        <dl class="definition-list">
+          <div><dt>capacitance</dt><dd>Ability to store separated electric charge and energy in an electric field; capacitor voltage cannot change instantaneously.</dd></div>
+          <div><dt>capacitive reactance</dt><dd>Frequency-dependent opposition of a capacitor to AC; it decreases as frequency or capacitance increases.</dd></div>
+          <div><dt>impedance</dt><dd>Total opposition to AC, combining resistance and net reactance at a stated frequency.</dd></div>
+          <div><dt>RLC circuit</dt><dd>A circuit containing resistance, inductance, and capacitance.</dd></div>
+        </dl>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li><span class="formula-label">Capacitive reactance</span><span class="equation">X<sub>C</sub> = 1 / (2 π f C)</span></li>
+          <li><span class="formula-label">Net series reactance</span><span class="equation">X = X<sub>L</sub> - X<sub>C</sub></span></li>
+          <li><span class="formula-label">Series impedance magnitude</span><span class="equation">|Z| = sqrt(R<sup>2</sup> + (X<sub>L</sub> - X<sub>C</sub>)<sup>2</sup>)</span></li>
+          <li><span class="formula-label">AC current magnitude</span><span class="equation">I<sub>rms</sub> = V<sub>rms</sub> / |Z|</span></li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> After Lecture 08, review capacitance, impedance, and rlc behavior. Check your understanding: Why does a capacitor pass changing signals more easily than DC? How do `X_L` and `X_C` change as frequency increases? Why can resistance and reactance not be added as unsigned magnitudes? Why does voltage across the resistor in a series-RLC circuit indicate series current? What evidence supports a capacitive-coupling claim without establishing identity or intent?
+      </div>
+    </section>
+
+
+    <section class="study-materials reference-materials">
+      <p class="eyebrow">Quick Reference</p>
+      <h2>Important Tables</h2>
+      <div class="reference-tables">
+      <section class="content-panel reference-table">
+        <h3>Series-RLC Behavior</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Frequency Region</th><th scope="col">Dominant Reactance</th><th scope="col">Series Current</th><th scope="col">Resistor Output</th></tr></thead>
+          <tbody>
+          <tr><td>Below resonance</td><td>Capacitive, X_C &gt; X_L</td><td>Reduced</td><td>Reduced</td></tr>
+          <tr><td>At resonance</td><td>X_C = X_L</td><td>Maximum</td><td>Maximum</td></tr>
+          <tr><td>Above resonance</td><td>Inductive, X_L &gt; X_C</td><td>Reduced</td><td>Reduced</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </div>
+    </section>
+
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>Why does a capacitor pass changing signals more easily than DC?</li>
+          <li>How do `X_L` and `X_C` change as frequency increases?</li>
+          <li>Why can resistance and reactance not be added as unsigned magnitudes?</li>
+          <li>Why does voltage across the resistor in a series-RLC circuit indicate series current?</li>
+          <li>What evidence supports a capacitive-coupling claim without establishing identity or intent?</li>
+        </ul>
+    </section>
+
+    <aside class="callout locked-callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>Lab 04 is not yet available</h2>
+      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-03/">&larr; Week 3</a>
+      <a href="../week-05/">Week 5 &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
