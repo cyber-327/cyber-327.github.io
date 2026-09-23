@@ -30,7 +30,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 08.</h2>
+      <h2>Updated through Lecture 09.</h2>
       <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
     </aside>
 
@@ -66,6 +66,39 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 09 / Wed</p>
+        <h2>Resonance, Selectivity, and Filtering</h2>
+        <p class="meta">September 23, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-09-slides.pptx" download>Lecture 09 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Series-RLC resonance as the balance of inductive and capacitive reactance</li>
+          <li>Resonant frequency, minimum series impedance, maximum current, and resistor-output peak</li>
+          <li>Controlled frequency sweeps using measured `Vout / Vin`</li>
+          <li>Half-power amplitude, lower and upper crossing frequencies, bandwidth, and Q</li>
+          <li>Selectivity tradeoffs: narrow rejection versus tolerance for drift and signal bandwidth</li>
+          <li>Low-pass, high-pass, band-pass, and band-stop filter responses</li>
+          <li>First-order RC cutoff frequency and the importance of circuit topology</li>
+          <li>Equal-input desired-tone and off-channel-interferer comparisons</li>
+          <li>RC high-pass and RL low-pass behavior as building blocks for the Lab 4 series-RLC receiver stage</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Selectivity as a defense against interference</li>
+          <li>Filter response as a trusted baseline or measurable fingerprint</li>
+          <li>Detuning from tolerance, damage, drift, substitution, or possible tamper</li>
+          <li>Limits of filtering against in-band interference and front-end overload</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -79,6 +112,12 @@
           <div><dt>capacitive reactance</dt><dd>Frequency-dependent opposition of a capacitor to AC; it decreases as frequency or capacitance increases.</dd></div>
           <div><dt>impedance</dt><dd>Total opposition to AC, combining resistance and net reactance at a stated frequency.</dd></div>
           <div><dt>RLC circuit</dt><dd>A circuit containing resistance, inductance, and capacitance.</dd></div>
+          <div><dt>resonance</dt><dd>Condition where inductive and capacitive reactances balance; in a series RLC path, impedance is minimized and current peaks.</dd></div>
+          <div><dt>half-power frequency</dt><dd>Frequency where output power is half its maximum; for like impedances, amplitude is `0.707` of maximum.</dd></div>
+          <div><dt>quality factor</dt><dd>Ratio of resonant frequency to bandwidth; a measure of response sharpness, not overall design quality.</dd></div>
+          <div><dt>selectivity</dt><dd>Ability to favor desired frequencies while attenuating others.</dd></div>
+          <div><dt>bandwidth</dt><dd>Frequency range over which a circuit or channel meets a stated performance criterion.</dd></div>
+          <div><dt>filter</dt><dd>Circuit or system that changes signal amplitude or phase according to frequency.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -88,11 +127,18 @@
           <li><span class="formula-label">Net series reactance</span><span class="equation">X = X<sub>L</sub> - X<sub>C</sub></span></li>
           <li><span class="formula-label">Series impedance magnitude</span><span class="equation">|Z| = sqrt(R<sup>2</sup> + (X<sub>L</sub> - X<sub>C</sub>)<sup>2</sup>)</span></li>
           <li><span class="formula-label">AC current magnitude</span><span class="equation">I<sub>rms</sub> = V<sub>rms</sub> / |Z|</span></li>
+          <li><span class="formula-label">Series RLC resonance</span><span class="equation">f<sub>0</sub> = 1 / (2 π √(L C))</span></li>
+          <li><span class="formula-label">Half-power amplitude</span><span class="equation">A<sub>HP</sub> = 0.707 A<sub>max</sub></span></li>
+          <li><span class="formula-label">Bandwidth</span><span class="equation">BW = f<sub>H</sub> - f<sub>L</sub></span></li>
+          <li><span class="formula-label">Quality factor relationship</span><span class="equation">Q = f<sub>0</sub> / BW</span></li>
+          <li><span class="formula-label">RC cutoff frequency</span><span class="equation">f<sub>c</sub> = 1 / (2 π R C)</span></li>
+          <li><span class="formula-label">Measured response ratio</span><span class="equation">H = V<sub>out</sub> / V<sub>in</sub></span></li>
+          <li><span class="formula-label">Interferer relative to desired output</span><span class="equation">J / D = H<sub>interferer</sub> / H<sub>desired</sub></span></li>
         </ul>
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> After Lecture 08, review capacitance, impedance, and rlc behavior. Check your understanding: Why does a capacitor pass changing signals more easily than DC? How do `X_L` and `X_C` change as frequency increases? Why can resistance and reactance not be added as unsigned magnitudes? Why does voltage across the resistor in a series-RLC circuit indicate series current? What evidence supports a capacitive-coupling claim without establishing identity or intent?
+        <strong>Practice focus:</strong> After Lecture 08, review capacitance, impedance, and rlc behavior. Check your understanding: Why does a capacitor pass changing signals more easily than DC? How do `X_L` and `X_C` change as frequency increases? Why can resistance and reactance not be added as unsigned magnitudes? Why does voltage across the resistor in a series-RLC circuit indicate series current? What evidence supports a capacitive-coupling claim without establishing identity or intent? After Lecture 09, review resonance, selectivity, and filtering. Check your understanding: How does resonance help recover one signal and reject another? Why does resistor voltage peak near series resonance? What does the `0.707` amplitude point mean, and when does it apply? Why is higher Q not always a better system design? What does a shifted filter response establish, and what cause does it not establish?
       </div>
     </section>
 
@@ -114,6 +160,20 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Basic Filter Responses</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Filter</th><th scope="col">Passes</th><th scope="col">Attenuates</th><th scope="col">Common Use</th></tr></thead>
+          <tbody>
+          <tr><td>Low-pass</td><td>Frequencies below cutoff</td><td>Frequencies above cutoff</td><td>Noise reduction and reconstruction</td></tr>
+          <tr><td>High-pass</td><td>Frequencies above cutoff</td><td>Frequencies below cutoff</td><td>DC removal and coupling</td></tr>
+          <tr><td>Band-pass</td><td>A selected frequency band</td><td>Frequencies outside the band</td><td>Channel selection</td></tr>
+          <tr><td>Band-stop</td><td>Frequencies outside a rejected band</td><td>A selected frequency band</td><td>Interference or notch filtering</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -127,6 +187,11 @@
           <li>Why can resistance and reactance not be added as unsigned magnitudes?</li>
           <li>Why does voltage across the resistor in a series-RLC circuit indicate series current?</li>
           <li>What evidence supports a capacitive-coupling claim without establishing identity or intent?</li>
+          <li>How does resonance help recover one signal and reject another?</li>
+          <li>Why does resistor voltage peak near series resonance?</li>
+          <li>What does the `0.707` amplitude point mean, and when does it apply?</li>
+          <li>Why is higher Q not always a better system design?</li>
+          <li>What does a shifted filter response establish, and what cause does it not establish?</li>
         </ul>
     </section>
 
