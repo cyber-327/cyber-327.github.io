@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
   <title id="title">Lab 4 message-recovery station wiring</title>
-  <desc id="desc">The computer connects to AUX IN on a passive interface. BNC LEFT OUT drives the RLC filter through a BNC-to-banana adapter. The filter output returns through a second adapter to BNC LEFT IN. AUX OUT connects to the powered speaker. Both oscilloscope channels share circuit common.</desc>
+  <desc id="desc">The computer connects to AUX IN on a passive interface. A BNC-to-red-and-black-clip lead from BNC LEFT OUT drives the RLC filter. A second clip lead returns the filter output to BNC LEFT IN. AUX OUT connects to the powered speaker. Both oscilloscope channels share circuit common.</desc>
   <defs>
     <style>.box{fill:#f7f2e8;stroke:#173f4f;stroke-width:3}.wire{fill:none;stroke:#173f4f;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.signal{fill:none;stroke:#b54d2e;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.title{font:700 31px Georgia,serif;fill:#173f4f}.label{font:700 21px Georgia,serif;fill:#173f4f}.text{font:18px Georgia,serif;fill:#2d3b40}.note{font:700 18px Georgia,serif;fill:#8a351f}.small{font:16px Georgia,serif;fill:#2d3b40}</style>
   </defs>
@@ -22,7 +22,7 @@
   <text class="small" x="372" y="303" text-anchor="middle">RIGHT OUT remains unused</text>
 
   <path class="signal" d="M485 245 H570" fill="none" stroke="#b54d2e" stroke-width="5"/>
-  <text class="small" x="527" y="225" text-anchor="middle">BNC + adapter</text>
+  <text class="small" x="527" y="225" text-anchor="middle">BNC-to-clip lead</text>
 
   <rect class="box" x="570" y="135" width="230" height="220" rx="14" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/>
   <text class="label" x="685" y="180" text-anchor="middle">Student RLC filter</text>
@@ -32,7 +32,7 @@
   <text class="small" x="685" y="326" text-anchor="middle">OUT + common</text>
 
   <path class="signal" d="M800 245 H885" fill="none" stroke="#b54d2e" stroke-width="5"/>
-  <text class="small" x="842" y="225" text-anchor="middle">Adapter + BNC</text>
+  <text class="small" x="842" y="225" text-anchor="middle">BNC-to-clip lead</text>
 
   <rect class="box" x="885" y="145" width="285" height="200" rx="14" fill="#f7f2e8" stroke="#173f4f" stroke-width="3"/>
   <text class="label" x="1027" y="185" text-anchor="middle">AUX/BNC box</text>
