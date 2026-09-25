@@ -30,7 +30,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>This week&#x27;s lecture material is complete.</h2>
+      <h2>Updated through Lecture 09.</h2>
       <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
     </aside>
 
@@ -99,39 +99,6 @@
         </section>
       </div>
     </article>
-    <article class="lesson">
-      <div class="lesson-heading">
-        <p class="lesson-number">Lecture 10 / Fri</p>
-        <h2>Communication Blocks and Physical-Channel Threats</h2>
-        <p class="meta">September 25, 2026 &middot; 50 minutes</p>
-        <a class="button" href="../../assets/slides/lecture-10-slides.pptx" download>Lecture 10 slides (.pptx)</a>
-      </div>
-      <div class="topic-columns">
-        <section>
-          <h3>Digital Communications Foundations</h3>
-        <ul>
-          <li>Communication chain: message, transmitter, medium/channel, receiver, and recovered message</li>
-          <li>Distinctions among message, physical signal, carrier, and channel</li>
-          <li>Block-level roles of encoding, modulation, filtering, detection, demodulation, and decoding</li>
-          <li>Usable bandwidth as a performance-qualified property of a channel</li>
-          <li>Simplex, half-duplex, and full-duplex direction modes; multiplexing as resource sharing</li>
-          <li>Differences among noise, interference, and intentional jamming</li>
-          <li>Placement and limits of receiver front-end selectivity</li>
-          <li>Evidence-driven localization of transmitter, path, filter, receiver, and instrument faults</li>
-        </ul>
-        </section>
-        <section class="accent-panel">
-          <h3>Cybersecurity Connection</h3>
-        <ul>
-          <li>Asset-path-consequence-control threat modeling at the physical layer</li>
-          <li>Availability risk from interruption, interference, overload, and poor filtering</li>
-          <li>Confidentiality risk from unintended emissions, coupling, and physical taps</li>
-          <li>Integrity risk from altered components or injected physical signals</li>
-          <li>Separating observable behavior from claims about source identity or malicious intent</li>
-        </ul>
-        </section>
-      </div>
-    </article>
     </div>
 
     <section class="study-materials">
@@ -151,14 +118,6 @@
           <div><dt>selectivity</dt><dd>Ability to favor desired frequencies while attenuating others.</dd></div>
           <div><dt>bandwidth</dt><dd>Frequency range over which a circuit or channel meets a stated performance criterion.</dd></div>
           <div><dt>filter</dt><dd>Circuit or system that changes signal amplitude or phase according to frequency.</dd></div>
-          <div><dt>message</dt><dd>Information that a communication system is intended to carry.</dd></div>
-          <div><dt>signal</dt><dd>Physical variation, such as voltage or electromagnetic field, used to represent information.</dd></div>
-          <div><dt>carrier</dt><dd>Periodic waveform whose property may be varied to transport a message or symbols.</dd></div>
-          <div><dt>channel</dt><dd>Physical path and constraints between transmitter and receiver.</dd></div>
-          <div><dt>encoding</dt><dd>Mapping information or bits into a defined representation.</dd></div>
-          <div><dt>modulation</dt><dd>Changing a carrier property according to a message or symbol sequence.</dd></div>
-          <div><dt>interference</dt><dd>Unwanted energy that affects reception; a measurement can establish interference without establishing intent.</dd></div>
-          <div><dt>jamming</dt><dd>Intentional interference intended to disrupt communication; intent requires evidence beyond a waveform alone.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -179,7 +138,7 @@
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> After Lecture 08, review capacitance, impedance, and rlc behavior. Check your understanding: Why does a capacitor pass changing signals more easily than DC? How do `X_L` and `X_C` change as frequency increases? Why can resistance and reactance not be added as unsigned magnitudes? Why does voltage across the resistor in a series-RLC circuit indicate series current? What evidence supports a capacitive-coupling claim without establishing identity or intent? After Lecture 09, review resonance, selectivity, and filtering. Check your understanding: How does resonance help recover one signal and reject another? Why does resistor voltage peak near series resonance? What does the `0.707` amplitude point mean, and when does it apply? Why is higher Q not always a better system design? What does a shifted filter response establish, and what cause does it not establish? After Lecture 10, review communication blocks and physical-channel threats. Check your understanding: Where can a communication system fail before software sees the data? Which channel threats are random and which are deliberate? Why does detecting energy not prove message content, sender identity, or intent? Which physical events primarily threaten availability, confidentiality, or integrity? What can filtering mitigate, and what remains outside its capability?
+        <strong>Practice focus:</strong> After Lecture 08, review capacitance, impedance, and rlc behavior. Check your understanding: Why does a capacitor pass changing signals more easily than DC? How do `X_L` and `X_C` change as frequency increases? Why can resistance and reactance not be added as unsigned magnitudes? Why does voltage across the resistor in a series-RLC circuit indicate series current? What evidence supports a capacitive-coupling claim without establishing identity or intent? After Lecture 09, review resonance, selectivity, and filtering. Check your understanding: How does resonance help recover one signal and reject another? Why does resistor voltage peak near series resonance? What does the `0.707` amplitude point mean, and when does it apply? Why is higher Q not always a better system design? What does a shifted filter response establish, and what cause does it not establish?
       </div>
     </section>
 
@@ -215,21 +174,6 @@
         </table>
       </div>
       </section>
-      <section class="content-panel reference-table">
-        <h3>Communication-System Blocks</h3>
-      <div class="table-scroll">
-        <table>
-          <thead><tr><th scope="col">Block</th><th scope="col">Primary Role</th><th scope="col">Example Physical Concern</th></tr></thead>
-          <tbody>
-          <tr><td>Message/source</td><td>Provides information</td><td>Incorrect or compromised source value</td></tr>
-          <tr><td>Transmitter</td><td>Encodes, modulates, filters, and launches a signal</td><td>Distortion, unwanted emission, or component change</td></tr>
-          <tr><td>Medium/channel</td><td>Carries the physical signal</td><td>Loss, noise, interference, interception, or damage</td></tr>
-          <tr><td>Receiver</td><td>Selects, amplifies, detects, demodulates, and decodes</td><td>Detuning, overload, false detection, or poor sensitivity</td></tr>
-          <tr><td>Recovered message</td><td>Presents the interpreted result</td><td>Corrupted, missing, or falsely trusted information</td></tr>
-          </tbody>
-        </table>
-      </div>
-      </section>
       </div>
     </section>
 
@@ -248,11 +192,6 @@
           <li>What does the `0.707` amplitude point mean, and when does it apply?</li>
           <li>Why is higher Q not always a better system design?</li>
           <li>What does a shifted filter response establish, and what cause does it not establish?</li>
-          <li>Where can a communication system fail before software sees the data?</li>
-          <li>Which channel threats are random and which are deliberate?</li>
-          <li>Why does detecting energy not prove message content, sender identity, or intent?</li>
-          <li>Which physical events primarily threaten availability, confidentiality, or integrity?</li>
-          <li>What can filtering mitigate, and what remains outside its capability?</li>
         </ul>
     </section>
 
