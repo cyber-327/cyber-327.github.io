@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 04 - CYBER 327 course material">
-  <title>Lab 04 | CYBER 327</title>
+  <meta name="description" content="Lab 04: Recover the Hidden Message - CYBER 327 course material">
+  <title>Lab 04: Recover the Hidden Message | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,191 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 04 &middot; Week 4</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 04 &middot; Week 4 &middot; September 25, 2026</p>
+      <h1>Recover the Hidden Message</h1>
+      <p class="body">Build a tuned RLC receiver, measure which frequencies it favors, and use it to recover a hidden Morse-code word from competing signals</p>
     </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Build and verify a series-RLC band-pass filter</li>
+          <li>Predict its resonant frequency from component values</li>
+          <li>Measure input and resistor-output voltage over a controlled frequency sweep</li>
+          <li>Use Vout / Vin to identify the measured pass-frequency peak</li>
+          <li>Recover a tone-coded message from stronger out-of-band signals</li>
+          <li>Explain one capability and one limitation of receiver filtering</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Calculate the expected resonant frequency of the assigned RLC circuit.</li>
+          <li>Build the circuit and measure its response at five frequencies while keeping the source settings fixed.</li>
+          <li>Identify the frequency favored by the circuit using measured Vout / Vin.</li>
+          <li>Replace the function generator with a prerecorded composite signal and use the same circuit to recover a hidden Morse-code word.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review inductive reactance, capacitive reactance, impedance, series resonance, and band-pass filters</li>
+          <li>Bring a calculator and open the Lab 4 report before beginning</li>
+          <li>Remember that the function generator&#x27;s High-Z display setting does not remove its internal output resistance; measure the actual circuit input with the oscilloscope</li>
+          <li>Connect every source ground, oscilloscope ground, and speaker-input ground to circuit common</li>
+          <li>Never connect the computer output and function-generator output at the same time</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Two-channel oscilloscope with two 10x probes</li>
+          <li>Function generator with BNC-to-clip lead or approved output adapter</li>
+          <li>Solderless breadboard and jumper leads</li>
+          <li>One 10 Ω ± 0.5 Ω resistor</li>
+          <li>One 2.9 mH ± 0.05 mH inductor with approximately 5 Ω winding resistance</li>
+          <li>One nonpolar 1.00 µF ± 0.02 µF capacitor</li>
+          <li>Calculator and instructor-provided Morse-code reference</li>
+          <li>Shared message-recovery station with a computer, powered speaker, passive AUX/BNC interface box, two 3.5 mm AUX cables, two BNC cables, and two BNC-to-banana adapters</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Lab Report and Circuit Diagrams</h2>
+        <figure class="lab-diagram">
+          <img src="../../assets/labs/lab-04-filter-progression.svg" alt="Series-RLC measurement diagram">
+          <figcaption>Series-RLC measurement diagram</figcaption>
+        </figure>
+        <figure class="lab-diagram">
+          <img src="../../assets/labs/lab-04-message-recovery.svg" alt="Message-recovery diagram">
+          <figcaption>Message-recovery diagram</figcaption>
+        </figure>
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-04-report.docx" download>Lab report</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
+      <section class="walkthrough-stage">
+        <h3>Part 1: Prepare the Measurement Bench</h3>
+          <ol class="walkthrough-list">
+            <li>Open the Lab 4 report and enter your name and lab partners.</li>
+            <li>Record the assigned and measured component values. Use resistance mode only while the circuit is disconnected from every source.</li>
+            <li>Calculate the predicted resonant frequency using <code>f0 = 1 / (2 pi sqrt(LC))</code>. With the nominal components, the result should be close to <code>3.0 kHz</code>.</li>
+            <li>Divide the work among builder, generator/scope operator, and recorder. Every student submits an individual report.</li>
+            <li>Set both physical probes and oscilloscope channels to <code>10x</code> and DC coupling. Connect both probe ground clips only to circuit common.</li>
+            <li>Set the function generator to a <code>2 Vpp</code> sine wave, <code>0 V</code> offset, and High-Z display mode, but keep its output disabled.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Build the Series-RLC Filter</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You will take one evidence photo in this section. Keep the capacitor, inductor, resistor, source connection, common node, and both probe points visible.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>With the source disabled, build one series path from generator signal through <code>C</code>, then <code>L</code>, then to <code>OUT</code>. Connect the <code>10 Ω</code> resistor from <code>OUT</code> to common.</li>
+            <li>Connect Channel 1 from circuit <code>IN</code> to common to measure the actual <code>Vin</code>. Connect Channel 2 from <code>OUT</code> to common to measure <code>Vout</code> across the resistor.</li>
+            <li>Trace the complete current path with a teammate and compare the build with the circuit diagram before enabling the source.</li>
+            <li>Photograph the verified circuit and probe locations.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-04-filter-progression.svg" alt="Series-RLC band-pass measurement circuit" loading="lazy">
+            <figcaption>Series-RLC band-pass measurement circuit</figcaption>
+          </figure>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Measure the Frequency Response</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You will preserve one oscilloscope capture at the measured peak. Keep both channels, frequency, amplitudes, scales, and probe factors readable.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Enable the generator at <code>500 Hz</code>. Verify a stable sine wave on both channels before recording measurements.</li>
+            <li>Test <code>500 Hz</code>, <code>1.7 kHz</code>, <code>3.0 kHz</code>, <code>5.2 kHz</code>, and <code>8.0 kHz</code> in that order. Change frequency only; do not change source amplitude, offset, circuit, probe factors, or acquisition mode.</li>
+            <li>At each frequency, record measured <code>Vin</code>, measured <code>Vout</code>, and <code>Vout / Vin</code>. Use measured <code>Vin</code>, not the generator display, because source resistance changes the voltage delivered to the circuit.</li>
+            <li>Identify the frequency with the largest <code>Vout / Vin</code>. If <code>3.0 kHz</code> is not the largest point, ask the instructor before adding a check between <code>2.8 kHz</code> and <code>3.2 kHz</code>.</li>
+            <li>Save the peak-response capture before changing connections.</li>
+            <li>Compare the measured peak with the predicted resonance and state whether the sweep shows a band-pass response.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Part 2: Check the Unfiltered Message</h3>
+          <ol class="walkthrough-list">
+            <li>Disable and disconnect the function generator before attaching the computer source.</li>
+            <li>At the shared station, connect the computer to <code>AUX IN</code> and the powered speaker to <code>AUX OUT</code>. Begin with both volume controls low.</li>
+            <li>For the unfiltered check, connect <code>BNC LEFT OUT</code> directly to <code>BNC LEFT IN</code> with one BNC cable. Leave both right-channel BNC connectors unused.</li>
+            <li>Play the assigned composite track once. Record what you hear and why the intended word is difficult to distinguish. Do not record a decoded answer yet.</li>
+            <li>Stop playback and remove the direct BNC loopback before inserting the filter.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Recover the Hidden Message</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You will preserve the message-station input and filtered output in this section. Keep both channels, scales, amplitudes, and the station connections readable before disconnecting anything.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Connect <code>BNC LEFT OUT</code> through a BNC cable and BNC-to-banana adapter to circuit <code>IN</code> and common. Red/center goes to <code>IN</code>; black/shield goes to common.</li>
+            <li>Connect circuit <code>OUT</code> and common through the second BNC-to-banana adapter and BNC cable to <code>BNC LEFT IN</code>. Red/center goes to <code>OUT</code>; black/shield goes to common.</li>
+            <li>Keep Channel 1 on filter <code>IN</code> and Channel 2 on filter <code>OUT</code>. The oscilloscope and speaker now observe the same filtered output in parallel.</li>
+            <li>Replay the same composite track at the approved volume. Use the provided Morse reference to decode the repeated word.</li>
+            <li>Record the decoded word and the direct observation or measurement that makes the answer more defensible than a guess.</li>
+            <li>If the message is not clearer, stop and ask the instructor to check the peak frequency, common connections, source level, and speaker loading before changing components.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-04-message-recovery.svg" alt="Message-recovery signal path" loading="lazy">
+            <figcaption>Message-recovery signal path</figcaption>
+          </figure>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Finish and Submit</h3>
+          <ol class="walkthrough-list">
+            <li>Complete all three Content tables, including component values, calculations, five-point response data, and the message comparison.</li>
+            <li>Complete the Evidence section with the circuit photograph, peak-response capture, and message-recovery capture.</li>
+            <li>Complete the Conclusion in your own words and answer every listed question.</li>
+            <li>Stop playback, disconnect the computer source, disable the generator, restore probes and channels to <code>10x</code>, remove components, and return all adapters and cables.</li>
+            <li>Save the completed report, export it as a PDF, and submit the PDF through Learning Suite.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Lab Matters</h2>
+        <ul>
+          <li>Receiver filtering can preserve availability by favoring an intended channel while reducing out-of-band interference</li>
+          <li>A selective filter cannot remove interference that overlaps its passband</li>
+          <li>Input-versus-output measurements support claims about receiver behavior but do not identify the source or intent of interference</li>
+          <li>This activity uses a wired prerecorded signal and does not radiate or jam an external communication system</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete the individual Lab 4 report and submit it in PDF form through Learning Suite</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-04/">&larr; Week 4 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
