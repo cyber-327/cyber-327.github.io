@@ -46,9 +46,9 @@
       <h2>What You Are Doing</h2>
         <ol class="overview-steps">
           <li>Calculate the expected resonant frequency of the assigned RLC circuit.</li>
-          <li>Build the circuit and measure its response at five frequencies while keeping the source settings fixed.</li>
-          <li>Use the low- and high-frequency ends of the sweep to observe how the capacitor and inductor shape the band-pass response without building separate RC and RL circuits.</li>
-          <li>Identify the frequency favored by the circuit using measured Vout / Vin.</li>
+          <li>Build the circuit and measure its response at ten frequencies scaled to your team&#x27;s predicted resonant frequency while keeping the source settings fixed.</li>
+          <li>Use frequencies from `0.05 f0` to `20 f0` to observe how the capacitor and inductor shape the full band-pass response without building separate RC and RL circuits.</li>
+          <li>Graph measured `Vout / Vin` against normalized frequency `f / f0` and identify the frequency favored by the circuit.</li>
           <li>Replace the function generator with a prerecorded composite signal and use the same circuit to recover a hidden Morse-code word.</li>
         </ol>
     </section>
@@ -73,11 +73,11 @@
           <li>Two-channel oscilloscope with two 10x probes</li>
           <li>Function generator with BNC-to-red/black clip lead</li>
           <li>Solderless breadboard and jumper leads</li>
-          <li>One 10 Ω ± 0.5 Ω resistor</li>
-          <li>One 2.9 mH ± 0.05 mH inductor with approximately 5 Ω winding resistance</li>
-          <li>One nonpolar 1.00 µF ± 0.02 µF capacitor</li>
-          <li>Calculator and instructor-provided Morse-code reference</li>
-          <li>Shared message-recovery station with a computer, powered speaker, passive AUX/BNC interface box, two 3.5 mm AUX cables, and two BNC-to-red/black clip leads</li>
+          <li>One 10 Ω resistor</li>
+          <li>One 2.9 mH inductor</li>
+          <li>One nonpolar 1.00 µF capacitor</li>
+          <li>Calculator and Morse-code reference</li>
+          <li>Shared message recovery station</li>
         </ul>
       </aside>
     </div>
@@ -98,9 +98,9 @@
         <h3>Part 1: Prepare the Measurement Bench</h3>
           <ol class="walkthrough-list">
             <li>Open the Lab 4 report and enter your name and lab partners.</li>
-            <li>Record the assigned and measured component values. Use resistance mode only while the circuit is disconnected from every source.</li>
-            <li>Calculate the predicted resonant frequency using <code>f0 = 1 / (2 pi sqrt(LC))</code>. With the nominal components, the result should be close to <code>3.0 kHz</code>.</li>
-            <li>Divide the work among builder, generator/scope operator, and recorder. Every student submits an individual report.</li>
+            <li>Use the analog lab&#x27;s LCR meter to get the measured resistance, capacitance and inductance of each component. Do this by pressing &quot;LCR Auto&quot;.</li>
+            <li>The inductor has a winding resistance. Take note of that in the LCR meter.</li>
+            <li>Calculate the predicted resonant frequency using <code>f0 = 1 / (2 pi sqrt(LC))</code>.</li>
             <li>Set both physical probes and oscilloscope channels to <code>10x</code> and DC coupling. Connect both probe ground clips only to circuit common.</li>
             <li>Set the function generator to a <code>2 Vpp</code> sine wave, <code>0 V</code> offset, and High-Z display mode, but keep its output disabled.</li>
           </ol>
@@ -114,7 +114,7 @@
           <ol class="walkthrough-list">
             <li>With the source disabled, build one series path from generator signal through <code>C</code>, then <code>L</code>, then to <code>OUT</code>. Connect the <code>10 Ω</code> resistor from <code>OUT</code> to common.</li>
             <li>Connect Channel 1 from circuit <code>IN</code> to common to measure the actual <code>Vin</code>. Connect Channel 2 from <code>OUT</code> to common to measure <code>Vout</code> across the resistor.</li>
-            <li>Trace the complete current path with a teammate and compare the build with the circuit diagram before enabling the source.</li>
+            <li>Double check the build with the circuit diagram before enabling the source.</li>
             <li>Photograph the verified circuit and probe locations.</li>
           </ol>
           <figure class="walkthrough-figure">
@@ -129,35 +129,35 @@
             <p>You will preserve one oscilloscope capture at the measured peak. Keep both channels, frequency, amplitudes, scales, and probe factors readable.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Enable the generator at <code>500 Hz</code>. Verify a stable sine wave on both channels before recording measurements.</li>
-            <li>Test <code>500 Hz</code>, <code>1.7 kHz</code>, <code>3.0 kHz</code>, <code>5.2 kHz</code>, and <code>8.0 kHz</code> in that order. Change frequency only; do not change source amplitude, offset, circuit, probe factors, or acquisition mode.</li>
-            <li>At each frequency, record measured <code>Vin</code>, measured <code>Vout</code>, and <code>Vout / Vin</code>. Use measured <code>Vin</code>, not the generator display, because source resistance changes the voltage delivered to the circuit.</li>
-            <li>Identify the frequency with the largest <code>Vout / Vin</code>. If <code>3.0 kHz</code> is not the largest point, ask the instructor before adding a check between <code>2.8 kHz</code> and <code>3.2 kHz</code>.</li>
+            <li>Use your team&#x27;s predicted <code>f0</code> from Table 1. For each multiplier in Table 2, calculate <code>target frequency = multiplier x f0</code>. Do not use another team&#x27;s frequency targets.</li>
+            <li>Sweep these normalized frequencies in order: <code>0.05 f0</code>, <code>0.20 f0</code>, <code>0.50 f0</code>, <code>0.75 f0</code>, <code>1.00 f0</code>, <code>1.25 f0</code>, <code>2.00 f0</code>, <code>5.00 f0</code>, <code>10.0 f0</code>, and <code>20.0 f0</code>.</li>
+            <li>At each frequency, record target frequency, measured frequency, measured <code>Vin</code>, measured <code>Vout</code>, and <code>H = Vout / Vin</code>. Use measured <code>Vin</code>, not the generator display, because source resistance changes the voltage delivered to the circuit.</li>
+            <li>Make an XY scatter plot of <code>H = Vout / Vin</code> against <code>f / f0</code>. Use a logarithmic horizontal axis from <code>0.05</code> to <code>20</code> and a linear vertical axis. Plot your measured values, not the nominal generator values.</li>
+            <li>Identify the frequency with the largest measured <code>Vout / Vin</code>. It may not occur exactly at <code>1.00 f0</code> because of component tolerance, winding resistance, source resistance, and breadboard or probe loading.</li>
             <li>Save the peak-response capture before changing connections.</li>
-            <li>Compare the measured peak with the predicted resonance and state whether the sweep shows a band-pass response.</li>
+            <li>Compare the measured peak with the predicted resonance and use the graph to decide whether the sweep shows a band-pass response.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
         <h3>Part 2: Check the Unfiltered Message</h3>
           <ol class="walkthrough-list">
             <li>Disable and disconnect the function generator before attaching the computer source.</li>
-            <li>At the shared station, first connect the computer directly to the powered speaker with an AUX cable. Begin with both volume controls low.</li>
-            <li>Play the assigned composite track once. Record what you hear and why the intended word is difficult to distinguish. Do not record a decoded answer yet.</li>
-            <li>Stop playback. Disconnect the direct AUX connection, connect the computer to interface <code>AUX IN</code>, and connect interface <code>AUX OUT</code> to the powered speaker. Leave both right-channel BNC connectors unused.</li>
+            <li>At the shared station, first connect the computer directly to the powered speaker with an AUX cable.</li>
+            <li>Play the assigned composite track once. Record what you hear and why the intended word is difficult to distinguish.</li>
+            <li>Stop playback.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
         <h3>Recover the Hidden Message</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
-            <p>You will preserve the message-station input and filtered output in this section. Keep both channels, scales, amplitudes, and the station connections readable before disconnecting anything.</p>
+            <p>You will preserve the message-station input and filtered output in this section.</p>
           </aside>
           <ol class="walkthrough-list">
             <li>Connect the <code>BNC LEFT OUT</code> clip lead to circuit <code>IN</code> and common. Red goes to <code>IN</code>; black goes to common.</li>
             <li>Connect the second clip lead from circuit <code>OUT</code> and common to <code>BNC LEFT IN</code>. Red goes to <code>OUT</code>; black goes to common.</li>
             <li>Keep Channel 1 on filter <code>IN</code> and Channel 2 on filter <code>OUT</code>. The oscilloscope and speaker now observe the same filtered output in parallel.</li>
             <li>Replay the same composite track at the approved volume. Use the provided Morse reference to decode the repeated word.</li>
-            <li>Record the decoded word and the direct observation or measurement that makes the answer more defensible than a guess.</li>
             <li>If the message is not clearer, stop and ask the instructor to check the peak frequency, common connections, source level, and speaker loading before changing components.</li>
           </ol>
           <figure class="walkthrough-figure">
@@ -168,10 +168,9 @@
       <section class="walkthrough-stage">
         <h3>Finish and Submit</h3>
           <ol class="walkthrough-list">
-            <li>Complete all three Content tables, including component values, calculations, five-point response data, and the message comparison.</li>
+            <li>Complete all three Content tables, including component values, calculations, ten-point normalized response data, the response graph, and the message comparison.</li>
             <li>Complete the Evidence section with the circuit photograph, peak-response capture, and message-recovery capture.</li>
             <li>Complete the Conclusion in your own words and answer every listed question.</li>
-            <li>Stop playback, disconnect the computer source, disable the generator, restore probes and channels to <code>10x</code>, remove components, and return all leads and cables.</li>
             <li>Save the completed report, export it as a PDF, and submit the PDF through Learning Suite.</li>
           </ol>
       </section>
