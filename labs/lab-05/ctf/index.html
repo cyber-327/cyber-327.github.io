@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Measure three of five unknown signals to decrypt Lab 5 messages; complete all five for one bonus revision credit.">
+  <title>Lab 5 Signal CTF | CYBER 327</title>
+  <link rel="stylesheet" href="../../../theme.css">
+  <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="ctf-55a0ead790c0.css">
+  <script src="challenges-28e1dfbec184.js" defer></script>
+  <script src="crypto-f0f3eeca70a6.js" defer></script>
+  <script src="app-c0d4d52143fd.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../../">CYBER 327</a>
+      <div class="nav-links"><a href="../">Lab 5</a><a href="../../../weeks/week-05/">Week 5</a></div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <section class="page-intro">
+      <p class="eyebrow">Lab 5 · Signal CTF</p>
+      <h1>Measure the signal. Unlock the message.</h1>
+      <p>Complete any three of the five unknown stations. Each station has its own key recipe. Use your oscilloscope measurements and waveform classification to build its key.</p>
+      <p>Complete all five, including the measurements and explanations, to earn one bonus revision credit. The two extra stations are optional; finish the required work first.</p>
+      <p>Use lowercase waveform names: <code>sine</code>, <code>square</code>, <code>triangle</code>, <code>sawtooth</code>, or <code>pulse</code>. A triangle has equal rise and fall times; a sawtooth has a gradual change followed by a fast reset. Use <code>pulse</code> for unequal high and low durations and <code>square</code> for the 50% case.</p>
+    </section>
+    <section class="content-panel">
+      <h2>Your station</h2>
+      <form id="decrypt-form">
+        <label for="station">Station ID</label>
+        <select id="station" name="station" required>
+          <option value="">Choose a station</option>
+          <option value="U1">U1</option><option value="U2">U2</option>
+          <option value="U3">U3</option><option value="U4">U4</option>
+          <option value="U5">U5</option>
+        </select>
+        <div id="recipe-panel" hidden>
+          <h3>Build your key</h3>
+          <p id="recipe"></p>
+          <h3>Ciphertext</h3>
+          <pre class="ciphertext"><code id="ciphertext"></code></pre>
+          <button class="button" id="copy-ciphertext" type="button">Copy ciphertext</button>
+        </div>
+        <label for="key">Your measurement key</label>
+        <input id="key" name="key" type="text" required maxlength="80" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="key-help">
+        <p id="key-help">Follow this station's rounding rule. Omit spaces and units. Keep any required decimal point.</p>
+        <button class="button" id="decrypt" type="submit">Decrypt message</button>
+      </form>
+      <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <div id="result" hidden>
+        <h3>Plaintext</h3>
+        <p><code id="message"></code></p>
+        <button class="button" id="copy" type="button">Copy message</button>
+      </div>
+      <noscript><p>Enable JavaScript to use the decryptor.</p></noscript>
+    </section>
+    <a href="../">Return to the Lab 5 walkthrough</a>
+  </main>
+  <footer class="site-footer shell"><p>CYBER 327: Digital Communications with cybersecurity applications.</p></footer>
+</body>
+</html>

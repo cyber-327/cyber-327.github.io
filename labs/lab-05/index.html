@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 05 - CYBER 327 course material">
-  <title>Lab 05 | CYBER 327</title>
+  <meta name="description" content="Lab 05: Signal ID CTF - Spectrum, SNR, and Capacity - CYBER 327 course material">
+  <title>Lab 05: Signal ID CTF - Spectrum, SNR, and Capacity | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,180 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 05 &middot; Week 5</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 05 &middot; Week 5 &middot; October 2, 2026</p>
+      <h1>Signal ID CTF - Spectrum, SNR, and Capacity</h1>
+      <p class="body">Build spectral fingerprints, classify unknown signals, and quantify how noise constrains a channel</p>
     </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Configure an oscilloscope FFT and preserve the settings needed to interpret a spectrum</li>
+          <li>Compare time-domain and frequency-domain evidence for known sine, square, triangle, sawtooth, and pulse waves</li>
+          <li>Classify unknown instructor-provided signals from observable spectral features and report confidence</li>
+          <li>Calculate voltage-ratio decibels, SNR, and Shannon capacity from approved measurements or supplied data</li>
+          <li>State what a spectrum supports without claiming message content, transmitter identity, or malicious intent</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Learn a repeatable FFT setup using a known sine wave.</li>
+          <li>Build a small reference library for sine, square, triangle, sawtooth, and pulse waveforms.</li>
+          <li>Choose three of five unknown stations, measure their signals, and use each station&#x27;s key recipe to decrypt its hidden message.</li>
+          <li>Complete all five stations with measurements, explanations, and recovered messages to earn one bonus revision credit. Finish the required work first; the two additional stations are optional.</li>
+          <li>Defend each classification from observed features and record the recovered message with your measurements.</li>
+          <li>Analyze a supplied channel snapshot to calculate SNR and theoretical capacity.</li>
+          <li>Separate signal description, classification, and attribution into appropriately limited claims.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review fundamental frequency, harmonics, spectrum, bandwidth, noise floor, dB, SNR, and Shannon capacity</li>
+          <li>Bring a calculator with logarithm functions and open the Lab 5 report before beginning</li>
+          <li>Recall that FFT amplitudes depend on probe factor, vertical scale, record length, window, and reference conventions</li>
+          <li>Use only instructor-provided generator configurations, captures, and receive-only data; do not inspect personal or unrelated signals</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Oscilloscope with FFT, spectrum, or math-frequency display and one 10x probe</li>
+          <li>Function generator with sine, square, ramp, and pulse outputs</li>
+          <li>BNC-to-clip lead or approved direct generator-to-scope connection</li>
+          <li>Computer or calculator with logarithm and exponent functions</li>
+          <li>Five instructor-configured unknown stations with covered generator displays, or equivalent saved captures</li>
+          <li>Lab 5 CTF decryptor in a web browser; shared scenario in this walkthrough</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Lab Report and CTF Decryptor</h2>
+
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-05-report.docx" download>Lab report</a>
+        <a class="button" href="../../labs/lab-05/ctf/">CTF message decryptor</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
+      <section class="walkthrough-stage">
+        <h3>Set Up a Known FFT Reference</h3>
+          <ol class="walkthrough-list">
+            <li>Keep the generator output disabled. Connect generator signal to the oscilloscope probe tip and generator ground to the probe ground. Set the physical probe and scope channel to <code>10x</code>.</li>
+            <li>Open the Lab 5 report and record generator, oscilloscope, probe, and FFT-mode information.</li>
+            <li>Configure the generator for the instructor-assigned sine wave with <code>0 V</code> offset. Enable the output and obtain a stable time-domain waveform before opening the FFT.</li>
+            <li>Follow the scope-specific FFT guide to set the source channel, span, vertical units, window, averaging, and peak measurement. Record the assigned settings in Table 1.</li>
+            <li>Confirm that the assigned span shows the fundamental and several possible harmonics. Keep the same window, averaging, and span for every reference waveform.</li>
+            <li>Confirm the largest spectral line agrees with the time-domain frequency. If it does not, correct scale, source channel, sampling, or probe settings before continuing.</li>
+          </ol>
+          <figure class="walkthrough-figure">
+            <img src="../../assets/labs/lab-05-fft-setup.svg" alt="Known-source oscilloscope FFT connection and evidence path" loading="lazy">
+            <figcaption>Known-source oscilloscope FFT connection and evidence path</figcaption>
+          </figure>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Build Reference Fingerprints</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You will capture the square-wave reference in this section. Keep its time waveform, spectral peaks, frequency scale, and FFT settings readable.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>At the same fundamental frequency and approximately the same <code>Vpp</code>, record time-domain and FFT observations for sine, square, triangle, sawtooth, and pulse waves. Use the instructor&#x27;s ramp symmetry and pulse duty-cycle settings.</li>
+            <li>Use the generator&#x27;s ramp mode with 50% symmetry for triangle (equal rise and fall times), and strongly asymmetric ramp mode for sawtooth (gradual change followed by a fast reset). If the generator lacks adjustable symmetry, obtain the instructor&#x27;s triangle capture or approved source.</li>
+            <li>For this lab, call a 50% rectangular waveform square and an unequal-duty rectangular waveform pulse. These names are the key convention for two members of the rectangular waveform family.</li>
+            <li>For each waveform, identify the fundamental, visible harmonic numbers, relative harmonic pattern, and approximate occupied span above the displayed noise floor.</li>
+            <li>Do not change FFT span, window, probe factor, or averaging between waveform types. If vertical scaling must change, record the change.</li>
+            <li>Capture the square-wave reference with its fundamental and at least two visible harmonics labeled or identifiable.</li>
+            <li>Explain why waveform shape can change while fundamental frequency remains the same.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Classify the Unknown Signals</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>You will preserve evidence for one unknown in this section. Choose the classification with the most useful visible features, not merely the strongest signal.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Choose three different unknown stations from U1-U5. Record each station ID, then select that station on the CTF decryptor to read its unique key recipe and ciphertext. Leave the generator settings and display cover in place.</li>
+            <li>Observe the time-domain waveform and spectrum using the same workflow as the references. Record fundamental, harmonic pattern, notable additional tones, approximate occupied span, and noise-floor relationship.</li>
+            <li>Select the narrowest classification supported by the evidence. The key uses the lowercase names sine, square, triangle, sawtooth, or pulse. Support the name with the time waveform and spectral features.</li>
+            <li>Measure the quantities requested by the station&#x27;s recipe. Use the recipe&#x27;s units and rounding rules; concatenate the waveform name and rounded numbers without spaces or unit symbols.</li>
+            <li>If a recipe uses amplitude, verify whether the FFT reads Vrms or dBV. Convert dBV using <code>Vrms = 10^(dBV / 20)</code>. If the FFT amplitude reference is unclear, use the scope&#x27;s AC RMS reading, or calculate <code>Vrms = Vpp / (2 sqrt(2))</code> for a clean sine wave, and record your method. A peak-voltage reading is not an RMS-voltage reading.</li>
+            <li>If a recipe uses duty cycle, measure high-state width and period in the time view and calculate <code>duty cycle = 100 t_high / T</code>.</li>
+            <li>If a recipe uses period, measure one complete cycle in the time view, convert to microseconds, and round as instructed. Verify that it agrees with <code>T = 1 / f0</code> from the FFT fundamental.</li>
+            <li>Enter your key and decrypt the station&#x27;s message. Record the exact recovered text, preserving capitalization and underscores. The decryptor shows only the text inside the flag braces.</li>
+            <li>The decryptor displays text for every entered key. If the result is garbled, check the station selection, waveform name, units, rounding, and measurements. Record the readable recovered message with measurement evidence; guessing alone does not earn the classification points.</li>
+            <li>State confidence as high, medium, or low and identify one observation that most affected it.</li>
+            <li>Capture one unknown with enough settings and features visible for another reader to evaluate the classification.</li>
+            <li>Complete the evidence-map fields for that unknown: direct observation, supported classification, confidence, and one unsupported attribution claim.</li>
+            <li>The spectrum supports the waveform classification and measurement key. Message content comes from decrypting the supplied ciphertext; the spectrum alone does not identify a transmitter, user, ownership, or intent.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Quantify SNR and Capacity</h3>
+          <ol class="walkthrough-list">
+            <li>Everyone analyzes the same security-link scenario below using supplied data. This calculation does not require adding noise to the CTF stations or measuring total noise from their FFTs.</li>
+            <li>Scenario: a security telemetry link needs <code>300 kbit/s</code> in a <code>100 kHz</code> channel. The desired signal is <code>0.100 Vrms</code>; baseline noise is <code>0.010 Vrms</code>, increasing to <code>0.050 Vrms</code>. These are separately supplied RMS components across equal impedance; the signal and bandwidth remain fixed. Treat the noise as additive white Gaussian noise for the Shannon model. Use these values, not individual FFT-bin heights, for the calculations.</li>
+            <li>Calculate <code>SNRdB = 20 log10(Vsignal,rms / Vnoise,rms)</code>. Convert to linear ratio using <code>SNRlinear = 10^(SNRdB / 10)</code>.</li>
+            <li>Calculate Shannon capacity using <code>C = B log2(1 + SNRlinear)</code>. Record bandwidth in hertz and capacity in bits per second.</li>
+            <li>Analyze the increased-noise condition using the same bandwidth. Calculate the new SNR and capacity, then quantify the capacity loss.</li>
+            <li>Compare each capacity with the required <code>300 kbit/s</code>. A capacity below the requirement means the modeled channel cannot reliably sustain that rate. A capacity above it is an upper bound and does not guarantee actual throughput.</li>
+            <li>Explain why Shannon capacity is a theoretical upper bound for the stated model rather than a measured application throughput.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Finish and Submit</h3>
+          <ol class="walkthrough-list">
+            <li>Complete all three content tables and verify units, dB signs, linear SNR conversion, bandwidth, and capacity calculations.</li>
+            <li>Include measurements, keys, explanations, and recovered messages for your three required stations. For the bonus revision credit, complete the two optional rows to document all five distinct stations to the same standard. Extra stations do not replace the SNR/capacity exercise.</li>
+            <li>Complete the Evidence section with the square-wave reference and one unknown signal. Verify that both captures show readable axes, units, useful features, and relevant FFT settings.</li>
+            <li>If a feature is near the noise floor or outside the displayed span, mark it uncertain rather than absent.</li>
+            <li>Complete the Conclusion in your own words. Compare the strongest reference fingerprint with the unknown, explain the noise/capacity result, and state one attribution limit.</li>
+            <li>Disable the generator, return the scope and probe to the approved starting state, close only your assigned files, and restore the bench.</li>
+            <li>Save the completed report, export it as a PDF, and submit the PDF through Learning Suite.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Lab Matters</h2>
+        <ul>
+          <li>Spectral fingerprints can reveal that a signal exists and suggest its waveform family without decoding its content</li>
+          <li>Measurements unlock an encrypted classroom message; the predictable keys are a puzzle and are unsuitable for protecting confidential data</li>
+          <li>SNR and channel capacity quantify how interference or noise reduces communication reliability</li>
+          <li>Reproducible settings and confidence statements prevent visually persuasive spectra from becoming unsupported attribution claims</li>
+          <li>All observations remain limited to instructor-provided bench signals, captures, and explicitly approved receive-only demonstrations</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete the individual Lab 5 report and submit it in PDF form through Learning Suite</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-05/">&larr; Week 5 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>

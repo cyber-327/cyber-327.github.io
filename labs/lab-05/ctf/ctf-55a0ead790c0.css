@@ -1,0 +1,18 @@
+#decrypt-form { display: grid; gap: .75rem; max-width: 42rem; }
+#decrypt-form label { font-weight: 700; }
+#decrypt-form select, #decrypt-form input {
+  width: 100%; min-height: 3rem; padding: .7rem; font: inherit;
+  color: #173f4f; background: #fffdf8; border: 2px solid #537581; border-radius: .35rem;
+}
+#decrypt-form input:focus-visible, #decrypt-form select:focus-visible,
+button:focus-visible { outline: 3px solid #b54d2e; outline-offset: 3px; }
+#decrypt-form button, #copy { width: fit-content; cursor: pointer; font: inherit; }
+button:disabled { opacity: .65; cursor: wait; }
+#recipe-panel { border-left: 4px solid #537581; padding-left: 1rem; }
+#result { border: 2px solid #537581; padding: 1rem; margin-top: 1rem; }
+#message { overflow-wrap: anywhere; font-size: 1.15rem; user-select: all; }
+#status { min-height: 1.5em; }
+.ciphertext { max-width: 100%; max-height: 18rem; overflow: auto; padding: 1rem;
+  border: 1px solid #537581; background: #fffdf8; color: #173f4f; white-space: pre-wrap; overflow-wrap: anywhere; }
+[hidden] { display: none !important; }
+@media print { #decrypt-form, #copy, .site-header { display: none; } }

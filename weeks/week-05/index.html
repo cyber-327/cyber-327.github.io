@@ -30,7 +30,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 12.</h2>
+      <h2>This week&#x27;s lecture material is complete.</h2>
       <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
     </aside>
 
@@ -89,6 +89,33 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 13 / Fri</p>
+        <h2>Signal Identification and Spectral Evidence</h2>
+        <p class="meta">October 2, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-13-slides.pptx" download>Lecture 13 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>FFT setup and interpretation</li>
+          <li>Fundamental frequency, harmonics, sidebands, and bandwidth estimation</li>
+          <li>Unknown signal classification workflow</li>
+          <li>Evidence quality in screenshots and measurements</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Signal identification as the first step in lawful communications analysis</li>
+          <li>Attribution limits: what the spectrum can and cannot prove</li>
+          <li>Noise and interference as both natural and intentional phenomena</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -107,6 +134,9 @@
           <div><dt>noise floor</dt><dd>Background level below which weak signals are difficult to distinguish.</dd></div>
           <div><dt>SNR</dt><dd>Ratio of desired signal power to noise power.</dd></div>
           <div><dt>channel capacity</dt><dd>Theoretical maximum reliable information rate under stated bandwidth and noise conditions.</dd></div>
+          <div><dt>spectral fingerprint</dt><dd>Repeatable set of measured frequency-domain features used to compare or classify a signal.</dd></div>
+          <div><dt>resolution bandwidth</dt><dd>Effective frequency width used to separate nearby spectral components or average measured energy.</dd></div>
+          <div><dt>classification confidence</dt><dd>Stated strength of a classification based on the observed features and remaining alternatives.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -118,11 +148,12 @@
           <li><span class="formula-label">Voltage ratio at equal impedance</span><span class="equation">dB = 20 log<sub>10</sub>(V<sub>2</sub> / V<sub>1</sub>)</span></li>
           <li><span class="formula-label">Signal-to-noise ratio</span><span class="equation">SNR<sub>dB</sub> = P<sub>signal,dBm</sub> - P<sub>noise,dBm</sub></span></li>
           <li><span class="formula-label">Shannon capacity</span><span class="equation">C = B log<sub>2</sub>(1 + S / N)</span></li>
+          <li><span class="formula-label">FFT bin spacing</span><span class="equation">Δ<sub>f</sub> = f<sub>s</sub> / N</span></li>
         </ul>
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> After Lecture 11, review time domain, frequency domain, fourier, and harmonics. Check your understanding: What features distinguish a square wave from a sine wave in the spectrum? What makes a signal easy or hard to notice? After Lecture 12, review decibels, noise, snr, and shannon capacity. Check your understanding: Why does increasing bandwidth not solve every link problem? How does a jammer show up in SNR terms?
+        <strong>Practice focus:</strong> After Lecture 11, review time domain, frequency domain, fourier, and harmonics. Check your understanding: What features distinguish a square wave from a sine wave in the spectrum? What makes a signal easy or hard to notice? After Lecture 12, review decibels, noise, snr, and shannon capacity. Check your understanding: Why does increasing bandwidth not solve every link problem? How does a jammer show up in SNR terms? After Lecture 13, review signal identification and spectral evidence. Check your understanding: What evidence supports your signal classification? What would increase or reduce your confidence?
       </div>
     </section>
 
@@ -158,13 +189,16 @@
           <li>What makes a signal easy or hard to notice?</li>
           <li>Why does increasing bandwidth not solve every link problem?</li>
           <li>How does a jammer show up in SNR terms?</li>
+          <li>What evidence supports your signal classification?</li>
+          <li>What would increase or reduce your confidence?</li>
         </ul>
     </section>
 
-    <aside class="callout locked-callout">
+    <aside class="callout">
       <p class="eyebrow">Friday Lab</p>
-      <h2>Lab 05 is not yet available</h2>
-      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+      <h2>Signal ID CTF - Spectrum, SNR, and Capacity</h2>
+      <p>Time and frequency domains, Fourier intuition, fundamentals, harmonics, occupied bandwidth, FFT configuration, decibels, noise floor, SNR, Shannon capacity, signal fingerprints, and evidence limits</p>
+      <a class="button" href="../../labs/lab-05/">Open Lab 05</a>
     </aside>
     <nav class="pager" aria-label="Week navigation">
       <a href="../week-04/">&larr; Week 4</a>
