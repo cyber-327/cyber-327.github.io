@@ -30,7 +30,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 14.</h2>
+      <h2>Updated through Lecture 15.</h2>
       <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
     </aside>
 
@@ -62,6 +62,33 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 15 / Wed</p>
+        <h2>FM, PM, Deviation, and Modulation Tradeoffs</h2>
+        <p class="meta">October 7, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-15-slides.pptx" download>Lecture 15 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Angle modulation: FM and PM</li>
+          <li>Deviation, modulation index, and bandwidth intuition</li>
+          <li>AM versus FM noise behavior</li>
+          <li>Bandwidth, power, complexity, and robustness tradeoffs</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Modulation recognition and interference response</li>
+          <li>Why some modulation choices are more resilient than others</li>
+          <li>When bandwidth is traded for noise immunity</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -74,6 +101,10 @@
           <div><dt>carrier</dt><dd>A periodic waveform whose property is varied to carry information.</dd></div>
           <div><dt>sideband</dt><dd>Frequency component produced around a carrier by modulation.</dd></div>
           <div><dt>AM</dt><dd>Modulation that varies carrier amplitude according to the message.</dd></div>
+          <div><dt>FM</dt><dd>Modulation that varies instantaneous carrier frequency according to the message.</dd></div>
+          <div><dt>PM</dt><dd>Modulation that varies carrier phase according to the message.</dd></div>
+          <div><dt>modulation index</dt><dd>Dimensionless measure of modulation depth or frequency deviation relative to message frequency.</dd></div>
+          <div><dt>deviation</dt><dd>Maximum departure of instantaneous frequency from the unmodulated carrier.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -81,14 +112,36 @@
         <ul class="formula-list">
           <li><span class="formula-label">AM bandwidth</span><span class="equation">B = 2 f<sub>m,max</sub></span></li>
           <li><span class="formula-label">AM modulation index</span><span class="equation">m = V<sub>m</sub> / V<sub>c</sub></span></li>
+          <li><span class="formula-label">FM modulation index</span><span class="equation">β = Δ<sub>f</sub> / f<sub>m</sub></span></li>
+          <li><span class="formula-label">Carson&#x27;s rule</span><span class="equation">B ≈ 2(Δ<sub>f</sub> + f<sub>m,max</sub>)</span></li>
         </ul>
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> After Lecture 14, review amplitude modulation and sidebands. Check your understanding: How do sidebands reveal the message frequency? What does overmodulation do to recoverability?
+        <strong>Practice focus:</strong> After Lecture 14, review amplitude modulation and sidebands. Check your understanding: How do sidebands reveal the message frequency? What does overmodulation do to recoverability? After Lecture 15, review fm, pm, deviation, and modulation tradeoffs. Check your understanding: Why is FM usually more noise tolerant than AM? What changes in the spectrum when deviation increases?
       </div>
     </section>
 
+
+    <section class="study-materials reference-materials">
+      <p class="eyebrow">Quick Reference</p>
+      <h2>Important Tables</h2>
+      <div class="reference-tables">
+      <section class="content-panel reference-table">
+        <h3>Analog Modulation Comparison</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Method</th><th scope="col">Carrier Property Changed</th><th scope="col">Main Strength</th><th scope="col">Main Limitation</th></tr></thead>
+          <tbody>
+          <tr><td>AM</td><td>Amplitude</td><td>Simple generation and detection</td><td>Amplitude noise directly affects message</td></tr>
+          <tr><td>FM</td><td>Frequency</td><td>Better rejection of amplitude noise</td><td>Usually requires more bandwidth</td></tr>
+          <tr><td>PM</td><td>Phase</td><td>Natural connection to digital phase modulation</td><td>Requires a phase reference or recovery</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </div>
+    </section>
 
 
     <section class="study-panel">
@@ -97,6 +150,8 @@
         <ul class="questions">
           <li>How do sidebands reveal the message frequency?</li>
           <li>What does overmodulation do to recoverability?</li>
+          <li>Why is FM usually more noise tolerant than AM?</li>
+          <li>What changes in the spectrum when deviation increases?</li>
         </ul>
     </section>
 
