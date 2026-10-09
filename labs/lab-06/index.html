@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 06 - CYBER 327 course material">
-  <title>Lab 06 | CYBER 327</title>
+  <meta name="description" content="Lab 06: AM and FM Measurements and Message Recovery - CYBER 327 course material">
+  <title>Lab 06: AM and FM Measurements and Message Recovery | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,182 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 06 &middot; Week 6</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 06 &middot; Week 6 &middot; October 9, 2026</p>
+      <h1>AM and FM Measurements and Message Recovery</h1>
+      <p class="body">Use two generators to compare sine, square, triangle, and pulse messages in AM and FM, then recover one wireless FM message and one wired AM message</p>
     </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Compare sine, square, triangle, and pulse messages and their effects on AM and FM</li>
+          <li>Tell AM and FM apart using an oscilloscope and its FFT spectrum</li>
+          <li>Calculate AM depth and bandwidth, FM modulation index, and estimated FM bandwidth</li>
+          <li>Recover messages using the correct AM or FM receiver mode</li>
+          <li>Test how receiver filter width affects recovered audio</li>
+          <li>Explain why receiving a message does not prove who sent it or whether it is trustworthy</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Part 1: use two generators and a scope. Generator 1 (FG1) makes a 100 kHz sine carrier. Generator 2 (FG2) supplies a 1 kHz message through FG1&#x27;s rear Modulation In connector. Cycle the message through sine, square, triangle, and pulse in both AM and FM. No SDR or antenna is needed at these benches.</li>
+          <li>Part 2: every team visits both shared message stations: FM through an approved antenna link and AM through protected coax.</li>
+          <li>At each shared station, first estimate the unknown carrier with the scope FFT. The instructor then reconnects the output for message reception; no splitter is used.</li>
+          <li>Each student completes an individual report. Take turns operating equipment, measuring, and recording results.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review AM depth, sidebands, FM deviation, modulation index, and Carson&#x27;s rule</li>
+          <li>Open the Lab 6 report and bring a calculator</li>
+          <li>At your own bench, use only the two generators and scope. Do not attach an antenna or an SDR. Verify FG2&#x27;s voltage on the scope before connecting it to Modulation In.</li>
+          <li>Only the instructor may change transmitter settings or the shared stations&#x27; cables. Antenna transmission is limited to the approved FM station.</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Per team: two function generators (FG1 must support external AM/FM), FFT-capable oscilloscope, BNC cable for FG2 to FG1, approved scope probe or BNC lead, and calculator</li>
+          <li>Shared FM station: audio source, generator, scope with bandwidth above 27 MHz, approved measurement lead/termination, HYS BNC transmit antenna, receiving antenna, RTL-SDR, receiver computer, and headphones</li>
+          <li>Shared AM station: audio source, generator, coax, verified RF attenuation, DC block, BNC-to-SMA connection, RTL-SDR, receiver computer, and headphones</li>
+          <li>Prepared scope captures and received audio/IQ recordings if a live station cannot be used</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Lab Report</h2>
+
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-06-report.docx" download>Lab report</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
+      <section class="walkthrough-stage">
+        <h3>Part 1 Connect Your Bench</h3>
+          <ol class="walkthrough-list">
+            <li>Label the generators FG1 (carrier) and FG2 (message). Keep both outputs off while connecting or changing cables. Never connect their two Output connectors together, and do not use Sync as the message output.</li>
+            <li>Prepare FG1 for a 100 kHz sine carrier, zero offset, and the instructor&#x27;s approved carrier amplitude and load setting. Leave its output off while you first check FG2 on the scope.</li>
+            <li>Match the scope probe setting to the probe. Record both generators&#x27; settings, probe factor, sample rate, FFT window, and span. Keep comparison settings fixed within each measurement group.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Part 1 Prepare the Four Message Waveforms</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save a labeled time trace and FFT for each message waveform before reconnecting; a readable combined image is fine.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Connect FG2&#x27;s front Output to the scope first. Leave FG2&#x27;s own modulation off. Set a 1 kHz sine, zero offset, and High Z load display. Start at 1 Vpp, verify the voltage, then use the instructor-approved 5 Vpp target (about +2.5 V to -2.5 V). Do not use a 50-ohm scope termination for this message check.</li>
+            <li>Check sine, square, triangle, and pulse in that order. Use 50% duty for square, Ramp with 50% symmetry for triangle, and 25% duty for pulse (250 us high time in a 1 ms period). Recheck frequency, Vpp, and offset after changing waveform. Keep both high and low levels inside the Modulation In full-scale range of -5 V to +5 V, including overshoot.</li>
+            <li>Record measured message frequency, Vpp and peak levels, time shape or duty cycle, and FFT peaks in Table 1. Use a message FFT view around 0-10 kHz; record any harmonics too small to see rather than guessing.</li>
+            <li>Return FG2 to the checked sine settings. Turn both outputs off. Connect FG2 Output by BNC cable to FG1&#x27;s rear Modulation In. Connect FG1&#x27;s front Output to scope Channel 1. No splitter is required: you check the message first, then reconnect to view the modulated carrier.</li>
+            <li>On FG1, press Mod, choose AM or FM as instructed below, and select Source = External. FG1 stays a sine carrier throughout; waveform changes happen only on FG2. Pulse is allowed as this external message even though FG1 cannot use Pulse as its AM/FM carrier.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Part 1 Measure AM</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save labeled AM time traces and FFTs for all four message shapes and the higher-depth sine case.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>On FG1 select AM, Source = External, and a 30% depth setting. Keep its 100 kHz sine carrier fixed. Enable the checked FG2 sine message, then FG1&#x27;s output, and view several cycles of the changing envelope.</li>
+            <li>Measure the envelope&#x27;s maximum and minimum from its centerline to the positive outline, or use peak-to-peak measurements consistently. Calculate m = (Vmax - Vmin)/(Vmax + Vmin).</li>
+            <li>For the sine message, use FFT to find the carrier and both sidebands. Calculate the single-tone AM bandwidth = 2 fm. With a measured +/-2.5 V message, a 30% setting gives about 15% actual depth, not 30%: the external input uses +/-5 V as full scale.</li>
+            <li>With the sine message unchanged, set FG1 depth to 80% and repeat. Expected actual depth is about 40% at +/-2.5 V. Record the displayed setting and measured depth separately; compare sideband strength and positions.</li>
+            <li>Return FG1 depth to 30%. Change only FG2&#x27;s message shape to square, triangle, then pulse, using the settings checked in Table 1. Fill one row for each in Table 2, comparing the envelope and FFT with the sine case. Pause outputs for setting changes and recheck message levels if a setting changed unexpectedly.</li>
+            <li>Square, triangle, and pulse messages have harmonics, so their AM spectra can have extra sidebands. Record the visible span using one common threshold; do not call 2 x the 1 kHz repetition rate their full bandwidth.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Part 1 Measure FM</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save labeled FM time traces and FFTs for all four message shapes and the higher-deviation sine case.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Return FG2 to the checked 1 kHz sine message. On FG1 choose FM and Source = External, keeping the 100 kHz sine carrier. Set its displayed deviation to 4 kHz.</li>
+            <li>Estimate actual peak deviation = displayed deviation x measured message peak voltage / 5 V. A +/-2.5 V sine with a 4 kHz setting gives about 2 kHz actual deviation. Use this actual estimate, not the displayed setting, in the calculations.</li>
+            <li>Observe the nearly constant envelope and changing spacing between carrier cycles. Use a separate time zoom if needed; keep the FFT acquisition settings unchanged for the spectrum comparison.</li>
+            <li>Record the sine spectrum, then change only FG1&#x27;s displayed deviation to 10 kHz (about 5 kHz actual at +/-2.5 V). For these two sine cases, calculate beta = actual deviation/fm and Carson bandwidth = 2(actual deviation + fm). Label actual deviation as an input-voltage estimate unless measured independently.</li>
+            <li>Return FG1&#x27;s deviation setting to 4 kHz. Cycle FG2 through square, triangle, and pulse at the checked settings. Complete Table 3, comparing cycle spacing and spectra with the sine case. Do not change FG1&#x27;s carrier waveform.</li>
+            <li>Use one FFT threshold for the visible-span comparison. For the non-sine messages, write N/A in the sine-only beta/Carson column: their harmonics mean the 1 kHz repetition rate is not their full message bandwidth.</li>
+            <li>A 25% pulse spends more time low than high, so its average voltage is not zero even with Offset set to zero. Modulation In passes this steady component, which can shift the average FM frequency. Record what you see; do not retune the carrier to hide it.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Part 2 Recover Both Messages</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save one scope FFT and one receiver screenshot at each station showing carrier estimate, tuned frequency, mode, and filter width. Describe the audio in a caption.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Visit both shared stations in the instructor&#x27;s rotation order. Do not unplug cables, change transmitter controls, or turn on the SDR bias tee.</li>
+            <li>First, the instructor connects the generator output to the scope instead of the antenna or SDR. Use FFT to estimate the unknown carrier and record the estimate and FFT resolution. For FM, use the center of the peak pattern, not automatically its tallest peak.</li>
+            <li>Save the scope FFT. The instructor turns output off, disconnects the measurement path, connects the antenna or protected AM coax path, and restores the approved output. Measurement and message transmission are sequential, not simultaneous.</li>
+            <li>At the FM station, receive the approved signal across the room. At the AM station, receive through the protected coax connection.</li>
+            <li>Use your scope estimate and the assigned search range to tune the SDR. Direct sampling is prepared by the instructor; you still select a frequency and choose AM or narrow FM to recover the message.</li>
+            <li>Write down the recovered message from each station. Record the tuned frequency, receiver mode, gain if available (otherwise N/A), and filter width with units. Keep source volume and transmitter settings fixed.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Part 2 Test Receiver Filter Width</h3>
+          <ol class="walkthrough-list">
+            <li>A receiver filter passes a selected range of frequencies. Too narrow a range can cut off part of the message; widening it can also admit more noise. You do not need PLL or clock-recovery calculations for this lab.</li>
+            <li>At the instructor-assigned station, record the baseline filter width and whether the message is clear, partly clear, or unreadable.</li>
+            <li>Change only receiver filter width to the instructor&#x27;s narrower test value. Record the new width and what happened to the sound; a narrower filter may reduce unwanted noise but can also remove needed signal content.</li>
+            <li>Restore the baseline width and verify recovery. Record this baseline, changed, and restored comparison in Table 4&#x27;s response area.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Finish and Submit</h3>
+          <ol class="walkthrough-list">
+            <li>Complete the four report tables, calculation spaces, evidence, and short conclusion prompts. Identify any supplied recordings instead of calling them live measurements.</li>
+            <li>Disable both bench generator outputs and return them to the posted defaults. Leave the shared station wiring and transmit antenna for the instructor to reset.</li>
+            <li>Export your individual report as PDF and submit through Learning Suite.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Lab Matters</h2>
+        <ul>
+          <li>An SDR can recover an unencrypted message when its modulation and receiver settings are known</li>
+          <li>Receiver settings can make a working signal sound damaged; poor reception alone does not prove an attack</li>
+          <li>A decoded message does not establish sender identity, authorization, or authenticity</li>
+          <li>Students transmit only through their cabled bench scopes; the instructor controls the approved FM antenna transmitter</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete the individual Lab 6 report and submit it in PDF form through Learning Suite</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-06/">&larr; Week 6 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
