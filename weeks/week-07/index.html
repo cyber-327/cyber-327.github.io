@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Week 07 - CYBER 327 course material">
-  <title>Week 07 | CYBER 327</title>
+  <meta name="description" content="Week 7 - CYBER 327 course material">
+  <title>Week 7 | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,203 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Week 07 &middot; Week 7</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Rolling release begins at 11:59 PM the evening before the first lecture. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all weeks</a>
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 07 · October 11-17, 2026</p>
+      <h1>Week 7: Receiver Architecture, Sensitivity, and Selectivity</h1>
+      <p class="body">Connect the week&#x27;s communication principles with observable evidence, cybersecurity applications, and laboratory work.</p>
     </section>
+
+    <aside class="callout rolling-guide-note">
+      <p class="eyebrow">Rolling Weekly Guide</p>
+      <h2>Updated through Lecture 18.</h2>
+      <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
+    </aside>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 16 / Mon</p>
+        <h2>Filters, Clock Recovery, PLLs, and Synchronization</h2>
+        <p class="meta">October 12, 2026 &middot; 30 minutes within the combined 50-minute session with Lecture 17</p>
+        <a class="button" href="../../assets/slides/lecture-16-slides.pptx" download>Lecture 16 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Communication circuit blocks and filters</li>
+          <li>Clock recovery and transition-based timing</li>
+          <li>PLL lock range and capture range</li>
+          <li>Run-length limiting and synchronization failure</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Synchronization attacks and interference at the timing layer</li>
+          <li>PLL behavior under weak or noisy signals</li>
+          <li>Why robust recovery matters in digital links</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 17 / Mon</p>
+        <h2>Receiver Architecture, Sensitivity, and Selectivity</h2>
+        <p class="meta">October 12, 2026 &middot; 20 minutes within the combined 50-minute session with Lecture 16</p>
+        <a class="button" href="../../assets/slides/lecture-17-slides.pptx" download>Lecture 17 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Superheterodyne receiver blocks</li>
+          <li>Tuning, local oscillator, IF, detection, and audio/data recovery</li>
+          <li>Sensitivity and selectivity</li>
+          <li>Front-end overload and unwanted signals</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Receiver exposure to jamming, saturation, and desensitization</li>
+          <li>Front-end filtering as a resilience control</li>
+          <li>Receiver observations as evidence of channel conditions</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 18 / Wed</p>
+        <h2>Pulse Modulation, PCM, ADCs, and DACs</h2>
+        <p class="meta">October 14, 2026 &middot; 50 minutes</p>
+        <a class="button" href="../../assets/slides/lecture-18-slides.pptx" download>Lecture 18 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Pulse modulation and PCM workflow</li>
+          <li>Sampling rate, quantization, resolution, step size, and reconstruction</li>
+          <li>ADC and DAC practical behavior</li>
+          <li>Quantization error and distortion</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Digitization as a security boundary between analog truth and digital data</li>
+          <li>Resolution limits that hide small changes</li>
+          <li>DAC stair steps as observable metadata</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Definitions and Formulas</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Important Definitions</h3>
+        <dl class="definition-list">
+          <div><dt>PLL</dt><dd>Feedback system that makes an oscillator track the phase or frequency of an input.</dd></div>
+          <div><dt>clock recovery</dt><dd>Extraction of symbol timing from a received signal.</dd></div>
+          <div><dt>synchronization</dt><dd>Alignment of receiver timing, frequency, or phase with the incoming signal.</dd></div>
+          <div><dt>capture range</dt><dd>Frequency range over which a PLL can initially acquire lock.</dd></div>
+          <div><dt>lock range</dt><dd>Frequency range over which an already locked PLL can continue tracking.</dd></div>
+          <div><dt>receiver</dt><dd>System that selects, amplifies, and recovers information from an incoming signal.</dd></div>
+          <div><dt>sensitivity</dt><dd>Minimum input level required for a receiver to meet a stated performance target.</dd></div>
+          <div><dt>selectivity</dt><dd>Ability to accept a desired channel while rejecting nearby signals.</dd></div>
+          <div><dt>dynamic range</dt><dd>Span between the weakest usable signal and the strongest signal the receiver can handle without unacceptable distortion.</dd></div>
+          <div><dt>overload</dt><dd>Condition in which a strong input drives a receiver stage outside its useful operating region.</dd></div>
+          <div><dt>sampling</dt><dd>Measuring a continuous-time signal at discrete instants.</dd></div>
+          <div><dt>quantization</dt><dd>Mapping each sample to one of a finite set of amplitude levels.</dd></div>
+          <div><dt>ADC</dt><dd>Device that converts an analog input into a digital code.</dd></div>
+          <div><dt>DAC</dt><dd>Device that converts a digital code into an analog output.</dd></div>
+          <div><dt>reconstruction</dt><dd>Recovery of a continuous-time waveform from samples.</dd></div>
+        </dl>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li><span class="formula-label">Bit interval</span><span class="equation">T<sub>b</sub> = 1 / R<sub>b</sub></span></li>
+          <li><span class="formula-label">Sensitivity margin</span><span class="equation">margin<sub>dB</sub> = received power<sub>dBm</sub> - sensitivity<sub>dBm</sub></span></li>
+          <li><span class="formula-label">Signal quality</span><span class="equation">SINR = signal power / (interference power + noise power)</span></li>
+          <li><span class="formula-label">Quantization levels</span><span class="equation">levels = 2<sup>N</sup></span></li>
+          <li><span class="formula-label">Ideal ADC step size</span><span class="equation">Δ = full-scale range / 2<sup>N</sup></span></li>
+          <li><span class="formula-label">Sample interval</span><span class="equation">T<sub>s</sub> = 1 / f<sub>s</sub></span></li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> After Lecture 16, review filters, clock recovery, plls, and synchronization. Check your understanding: How can a valid-looking signal still fail if timing is wrong? What would interference do to lock or capture? Review Lecture 16&#x27;s deferred filters, clock recovery, capture/lock range, and synchronization topics in the shared October 12 session before connecting them to receiver architecture. Given desired-signal and interferer levels, distinguish sensitivity, selectivity, overload, and dynamic-range failures without treating them as interchangeable. Convert between ADC bit depth, number of levels, ideal step size, sample interval, input voltage, and expected output code.
+      </div>
+    </section>
+
+
+    <section class="study-materials reference-materials">
+      <p class="eyebrow">Quick Reference</p>
+      <h2>Important Tables</h2>
+      <div class="reference-tables">
+      <section class="content-panel reference-table">
+        <h3>Receiver Limitations</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Limitation</th><th scope="col">Observable Symptom</th><th scope="col">Useful Next Test</th></tr></thead>
+          <tbody>
+          <tr><td>Poor sensitivity</td><td>Weak desired signal is not recovered</td><td>Increase desired level while holding interference fixed</td></tr>
+          <tr><td>Poor selectivity</td><td>Nearby channel enters the recovered output</td><td>Change frequency separation</td></tr>
+          <tr><td>Overload</td><td>Strong input causes broad distortion or desensitization</td><td>Add attenuation before the receiver</td></tr>
+          <tr><td>Insufficient dynamic range</td><td>Weak and strong signals cannot coexist cleanly</td><td>Compare each signal alone and together</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>ADC Resolution</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Bits</th><th scope="col">Number Of Levels</th><th scope="col">Step For A 0-5 V Range</th></tr></thead>
+          <tbody>
+          <tr><td>8</td><td>256</td><td>19.5 mV</td></tr>
+          <tr><td>10</td><td>1024</td><td>4.88 mV</td></tr>
+          <tr><td>12</td><td>4096</td><td>1.22 mV</td></tr>
+          <tr><td>16</td><td>65536</td><td>76.3 µV</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </div>
+    </section>
+
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>How can a valid-looking signal still fail if timing is wrong?</li>
+          <li>What would interference do to lock or capture?</li>
+          <li>What is the difference between sensitivity and selectivity?</li>
+          <li>How can a strong unwanted signal hide a desired signal?</li>
+          <li>What information is lost during sampling and quantization?</li>
+          <li>How can bit depth affect trust in a measurement?</li>
+        </ul>
+    </section>
+
+    <aside class="callout locked-callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>Lab 07 is not yet available</h2>
+      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-06/">&larr; Week 6</a>
+      <a href="../week-08/">Week 8 &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
