@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 07 - CYBER 327 course material">
-  <title>Lab 07 | CYBER 327</title>
+  <meta name="description" content="Lab 07: ADC Sampling, Aliasing, and False Telemetry - CYBER 327 course material">
+  <title>Lab 07: ADC Sampling, Aliasing, and False Telemetry | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,215 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 07 &middot; Week 7</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 07 &middot; Week 7 &middot; October 16, 2026</p>
+      <h1>ADC Sampling, Aliasing, and False Telemetry</h1>
+      <p class="body">Use an Arduino Nano and an oscilloscope to compare the real input with sampled measurements, create a false alarm, and test a higher sampling rate</p>
     </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Check a 10-bit ADC against two measured DC voltages</li>
+          <li>Compare the input frequency on the oscilloscope with the Nano&#x27;s apparent frequency</li>
+          <li>Predict how a signal above the Nyquist limit can appear at a lower frequency</li>
+          <li>Demonstrate a false decision in a toy alarm, then test a higher sampling rate</li>
+          <li>Explain why a valid digital measurement does not prove physical accuracy or sender identity</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Your function generator represents a sensor input. The oscilloscope measures the physical signal, and a preloaded Nano samples A0 and prints its interpretation.</li>
+          <li>Check the ADC with two DC levels, then compare a 200 Hz sine with a 1,800 Hz sine at the lower sampling rate.</li>
+          <li>Run a toy alarm scenario using one generator. Change the source to model an unwanted input; do not connect two generator outputs together.</li>
+          <li>Increase the sampling rate without changing the unwanted input, check that a genuine 200 Hz input can still be detected, and restore the baseline.</li>
+          <li>This is an ADC/sampling activity: no physical DAC output, radio, antenna, or new Arduino code is required. Each student submits an individual report.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review ADC step size, sample rate, Nyquist limit, alias frequency, and peak-to-peak voltage.</li>
+          <li>Open the Lab 7 report. Your instructor programs and checks the classic 5 V, 16 MHz ATmega328/P Nano before class.</li>
+          <li>Use Arduino IDE 2 on the computer connected to your Nano. If it is not installed, complete the Before Lab installation steps below before class; use the existing copy on a prepared lab computer when available.</li>
+          <li>Open Serial Monitor at 115200 baud. Send ? for help; 2 selects 2,000 samples/s and captures, 5 selects 5,000 samples/s and captures, and c takes another capture at the selected rate.</li>
+          <li>Send d only if you want the last 256-sample capture as CSV. It does not take a new measurement. Send c after every source change; old results do not update automatically.</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Per team: preloaded classic Arduino Nano, USB data cable, and computer with Arduino IDE 2 (includes Serial Monitor)</li>
+          <li>Function generator with adjustable DC offset and an approved BNC-to-clips lead</li>
+          <li>Two-channel oscilloscope, two 10x probes, and DMM with voltage leads</li>
+          <li>Breadboard, jumper wires, and one 3.3 kohm series resistor</li>
+          <li>Calculator or spreadsheet; use only instructor-validated captures if the live setup is unavailable</li>
+        </ul>
+        <h3>Optional or Specialized</h3>
+        <ul>
+          <li>100 nF non-polarized capacitor for the low-pass extension after the required experiment</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="callout circuit-limits">
+      <p class="eyebrow">Circuit and Limits</p>
+      <h2>Use This Configuration</h2>
+        <ul>
+          <li>Generator Output through 3.3 kohm to A0; generator shield, Nano GND, and scope grounds share common GND. Scope CH1 observes the generator side and CH2 observes A0.</li>
+          <li>Check the generator on the scope with A0 disconnected first. Output off for rewiring; USB power on before applying input, Output off before unplugging USB. The resistor is not complete overvoltage protection.</li>
+          <li>Verified sine target: 1.00 Vpp with +2.50 V offset, about 2.00-3.00 V. DC targets: about 1.00 and 3.00 V. Never apply negative or above-supply input, and leave AREF unconnected.</li>
+        </ul>
+    </section>
+
+    <section class="content-panel measurement-map">
+      <p class="eyebrow">Measurement Map</p>
+      <h2>What Each Voltage Tells You</h2>
+        <dl class="definition-list">
+          <div><dt>Scope CH1</dt><dd>physical source voltage and frequency before the series resistor</dd></div>
+          <div><dt>Scope CH2 at A0</dt><dd>voltage actually reaching the ADC; move to D8 only for the timing check</dd></div>
+          <div><dt>Nano Serial Monitor</dt><dd>interpretation of one 256-sample capture, not a continuous live display</dd></div>
+          <div><dt>D8</dt><dd>sample-start marker; rising-edge spacing checks sampling rate, not input frequency</dd></div>
+        </dl>
+    </section>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Lab Report</h2>
+
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-07-report.docx" download>Lab report</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
+      <section class="walkthrough-stage">
+        <h3>Before Lab: Install Arduino IDE and Open Serial Monitor</h3>
+          <ol class="walkthrough-list">
+            <li>Arduino IDE is the desktop application used to upload the sketch and read the Nano through its built-in Serial Monitor. In this lab, the instructor uploads the sketch; students use Serial Monitor and do not write code. Only the computer connected to each team&#x27;s Nano needs the application.</li>
+            <li>If Arduino IDE 2 is already installed, open it and skip the download. Otherwise, go to the <a href="https://www.arduino.cc/en/software/">official Arduino software page</a> and choose the stable Arduino IDE 2 download for your computer, not App Lab, PLC IDE, or a nightly build.</li>
+            <li>Windows: download the installer, open the .exe file, follow its prompts, and launch Arduino IDE. On a managed lab computer, ask the instructor or IT to install it rather than changing administrator or security settings.</li>
+            <li>macOS: download the version matching your Mac (Apple Silicon or Intel), open the .dmg file, drag Arduino IDE to Applications, and launch it.</li>
+            <li>Linux: download the supported AppImage, allow it to run as a program in the file&#x27;s Properties / Permissions, and open it. If a dependency or USB-permission error appears, ask the instructor or IT; do not run the IDE as root. See <a href="https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE">Arduino&#x27;s installation guide</a> for OS-specific help.</li>
+            <li>Finish first-launch setup while you have internet access. Open Boards Manager, search for Arduino AVR Boards by Arduino, and install it if missing. Then choose Tools &gt; Board &gt; Arduino AVR Boards &gt; Arduino Nano. Do not choose Nano Every, Nano 33, or Nano ESP32.</li>
+            <li>Leave the generator disconnected or its Output off. Connect the preloaded Nano by a USB data cable and choose its port under Tools &gt; Port or the board/port selector. If no port appears, try a known data cable and ask the instructor before installing drivers. Do not upload Blink or another sketch over the preloaded lab program.</li>
+            <li>Choose Tools &gt; Serial Monitor, set 115200 baud, and allow the board to restart. Type ? in the message box and press Enter; check that the sampler help appears. If text is garbled, recheck the baud rate. Close any other application using the same serial port. Internet is needed for installation/downloads, not normal USB sampling once setup is complete.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>1. Check the Connections and Sample Timing</h3>
+          <ol class="walkthrough-list">
+            <li>Keep generator Output off. With the A0 jumper initially disconnected, check the source on the scope. Connect generator Output center/red through 3.3 kohm to A0 only after the levels are verified; join generator shield/black, Nano GND, and scope grounds at common GND.</li>
+            <li>Power the Nano by USB before enabling the verified input. Scope CH1 observes the generator side of the resistor; CH2 observes A0. Use 10x probes, matching probe factors, DC coupling, and high-impedance scope inputs, not 50 ohms.</li>
+            <li>Use High Z load display on the generator; it is a display convention, not a change in output resistance. Leave modulation, sweep, burst, and the optional capacitor off. Use the main Output, not Sync.</li>
+            <li>Record the board, measured reference voltage, 10-bit resolution, resistor, scope settings, and instrument IDs. Intended DC inputs are about 1 and 3 V; sine inputs are 1.00 Vpp with +2.50 V offset, about 2.00-3.00 V. Verify actual high/low levels within the board&#x27;s permitted range before each connection. Never use negative voltages, RF carriers, VIN, 5V, or AREF as the signal input.</li>
+            <li>For the timing check only, move CH2 to D8 with Output off while reconnecting. Send 2, then 5, and measure spacing between consecutive rising edges in each burst. Calculate actual sample rate = 1 / edge spacing. D8&#x27;s high time is conversion time, not the sample interval. D8 is an output: never connect it to A0.</li>
+            <li>Record both intervals/rates in the report and check overruns = 0. Return CH2 to A0 with Output off. If timing, input range, or wiring is uncertain, stop and ask the instructor; do not trust the frequency display yet.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>2. Check the ADC with Two DC Voltages — Table 1</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the higher DC-point DMM voltage and Nano mean code, with the reference voltage identified.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Using the approved source, apply about 1.00 V DC through the resistor. Verify A0 voltage with the DMM, send 2, and record mean_code, not min_code or max_code.</li>
+            <li>Turn Output off before changing connections or settings. Repeat at about 3.00 V DC. Keep both inputs inside the verified board range.</li>
+            <li>Calculate step size = measured Vref / 1024 and predicted code = measured input / Vref x 1024. Use the measured values, not an assumed exact 5.00 V reference. Calculate code error = reported mean code - predicted code.</li>
+            <li>DC has no tone frequency: an N/A frequency or INVALID tone/alarm message is expected here. Use the voltage/code results for calibration and investigate unexplained errors before continuing.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>3. Measure a Faithful Sine Wave — Table 2</h3>
+          <ol class="walkthrough-list">
+            <li>With Output off, select sine, 200 Hz, 1.00 Vpp, +2.50 V offset, and High Z load display. Keep the capacitor disconnected. Recheck the physical high/low voltages before proceeding.</li>
+            <li>Send 2 to capture at 2,000 samples/s. Record the actual scope frequency and the Nano&#x27;s apparent_frequency_Hz. Calculate the Nyquist limit = sample rate / 2 and make your frequency prediction before comparing it with the Nano result.</li>
+            <li>Check that overruns is zero, near_rail_warning is NO, and the sine result is valid. The sketch estimates a single sine&#x27;s frequency from rising midpoint crossings; it is not an FFT or a general audio decoder.</li>
+            <li>Optional: send d and plot the last capture&#x27;s estimated voltage against time. Dots are measurements; a line joining them is not a physical DAC output.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>4. Create an Alias, Then Change the Sampling Rate — Table 2</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the scope frequency and the corresponding lower-rate Nano capture together; identify the source and sample rate.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Keep the Nano at 2,000 samples/s. Turn Output off, change only the sine frequency to 1,800 Hz, and recheck the voltage settings.</li>
+            <li>Verify the real input on the scope. Use an adequate scope sample rate, such as at least 100,000 samples/s, so the scope is a useful independent reference; record the rate actually used.</li>
+            <li>Predict the apparent frequency using f_alias = abs(f_input - k x f_sample), choosing integer k so the result lies from zero to f_sample/2. Then send c and record a fresh result.</li>
+            <li>Leave the 1,800 Hz source unchanged and send 5. Predict and record the higher-rate result. For all three Table 2 rows calculate absolute frequency error = abs(Nano frequency - scope frequency).</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>5. Run the Toy Alarm Scenario — Table 3</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Preserve the baseline, substituted, higher-rate, positive-control, and restored results before changing each condition.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>The alarm is text, not a physical actuator. It prints ON only for a valid apparent frequency from 180 to 220 Hz with estimated amplitude at least 0.50 Vpp. Clipping/near-rail warnings, weak signals, or overruns are not successful controls.</li>
+            <li>Use the same single generator and the same 1.00 Vpp / +2.50 V sine settings throughout. This is source substitution, not simultaneous injection into a real sensor. Do not combine generator outputs.</li>
+            <li>Baseline: set 400 Hz and send 2. Record actual scope frequency, Nano frequency, Nano Vpp, the printed alarm state, and frequency error.</li>
+            <li>Substituted input: change the source to 1,800 Hz, leave the lower sample rate selected, and send c. Record a fresh scope/Nano comparison and alarm decision.</li>
+            <li>Higher-rate control: leave the 1,800 Hz source unchanged and send 5. Record the result and quantify how the measured frequency error changes. Higher-rate sampling does not remove the physical input.</li>
+            <li>Positive control: at the higher sampling rate, set a genuine 200 Hz input and send c. Check whether the valid alarm can still activate. An OFF result from disconnecting or invalidating the signal does not demonstrate a useful mitigation.</li>
+            <li>Restored baseline: return to 400 Hz and send 2. Record the result before clearing settings. Explain why resolving this alias does not authenticate a sensor or prevent a genuine unwanted 200 Hz input.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Optional Extension: Add an Analog Low-Pass Filter</h3>
+          <ol class="walkthrough-list">
+            <li>Only after the required higher-rate experiment works, turn Output off and connect a 100 nF capacitor from A0 to common GND. Keep the 3.3 kohm series resistor in place. The capacitor is not a series DC block in this experiment.</li>
+            <li>Use 2,000 samples/s and the same source amplitude/offset. Compare the generator-side and A0-side scope Vpp at 1,800 Hz, then at the genuine 200 Hz input; take a fresh Nano capture for each condition.</li>
+            <li>Calculate amplitude reduction = 100 x (1 - Vpp_after / Vpp_before). Check whether the desired input remains usable. Distinguish reducing unwanted amplitude from removing an alias or proving authenticity. This extension adds no required graded table.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>6. Explain the Result and Finish</h3>
+          <ol class="walkthrough-list">
+            <li>Complete the three content tables, evidence captions, and conclusion. Use measured results and record any warnings; do not replace unexpected data with theoretical values.</li>
+            <li>Rotate equipment operator, scope observer, and recorder roles. Each student submits their own report as a PDF through Learning Suite.</li>
+            <li>Disable generator Output before removing leads or unplugging USB. Remove the optional capacitor, return the station to its posted baseline, and return the equipment. Never lift protective earth on the scope or generator.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Lab Matters</h2>
+        <ul>
+          <li>A plausible digital number can misrepresent the physical input if sampling is inadequate</li>
+          <li>If an attacker can introduce a suitable analog disturbance, an alias may contribute to a false software decision; this bench model does not establish real-device exploitability</li>
+          <li>Higher-rate sampling resolves the chosen frequency ambiguity; it does not remove interference or authenticate a sensor</li>
+          <li>A valid positive control distinguishes a useful change from simply disabling the measurement</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete the individual Lab 7 report and submit it in PDF form through Learning Suite</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-07/">&larr; Week 7 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>

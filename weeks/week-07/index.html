@@ -30,7 +30,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 17.</h2>
+      <h2>This week&#x27;s lecture material is complete.</h2>
       <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
     </aside>
 
@@ -89,6 +89,60 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 18 / Wed</p>
+        <h2>Pulse Modulation, PCM, ADCs, and DACs</h2>
+        <p class="meta">October 14, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-18-slides.pptx" download>Lecture 18 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Pulse modulation and PCM workflow</li>
+          <li>Sampling rate, quantization, resolution, step size, and reconstruction</li>
+          <li>ADC and DAC practical behavior</li>
+          <li>Quantization error and distortion</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Digitization as a security boundary between analog truth and digital data</li>
+          <li>Resolution limits that hide small changes</li>
+          <li>DAC stair steps as observable metadata</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 19 / Fri</p>
+        <h2>Aliasing, False Telemetry, and Sensor Spoofing</h2>
+        <p class="meta">October 16, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-19-slides.pptx" download>Lecture 19 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Nyquist sampling criterion and aliasing</li>
+          <li>Sampled versus reconstructed waveforms</li>
+          <li>High-frequency inputs appearing as false lower-frequency behavior</li>
+          <li>Sensor and telemetry examples</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Aliasing as a hardware-level spoofing risk</li>
+          <li>Injected analog signals that produce misleading digital values</li>
+          <li>Comparing analog evidence with sampled evidence</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -108,6 +162,15 @@
           <div><dt>selectivity</dt><dd>Ability to accept a desired channel while rejecting nearby signals.</dd></div>
           <div><dt>dynamic range</dt><dd>Span between the weakest usable signal and the strongest signal the receiver can handle without unacceptable distortion.</dd></div>
           <div><dt>overload</dt><dd>Condition in which a strong input drives a receiver stage outside its useful operating region.</dd></div>
+          <div><dt>sampling</dt><dd>Measuring a continuous-time signal at discrete instants.</dd></div>
+          <div><dt>quantization</dt><dd>Mapping each sample to one of a finite set of amplitude levels.</dd></div>
+          <div><dt>ADC</dt><dd>Device that converts an analog input into a digital code.</dd></div>
+          <div><dt>DAC</dt><dd>Device that converts a digital code into an analog output.</dd></div>
+          <div><dt>reconstruction</dt><dd>Recovery of a continuous-time waveform from samples.</dd></div>
+          <div><dt>aliasing</dt><dd>False frequency representation caused by sampling too slowly.</dd></div>
+          <div><dt>false telemetry</dt><dd>Plausible-looking digital measurements that do not represent the true physical input.</dd></div>
+          <div><dt>anti-alias filter</dt><dd>Analog low-pass filter used before sampling to reduce frequencies that could alias.</dd></div>
+          <div><dt>analog truth</dt><dd>Physical input waveform used as the reference when evaluating sampled data.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -116,11 +179,17 @@
           <li><span class="formula-label">Bit interval</span><span class="equation">T<sub>b</sub> = 1 / R<sub>b</sub></span></li>
           <li><span class="formula-label">Sensitivity margin</span><span class="equation">margin<sub>dB</sub> = received power<sub>dBm</sub> - sensitivity<sub>dBm</sub></span></li>
           <li><span class="formula-label">Signal quality</span><span class="equation">SINR = signal power / (interference power + noise power)</span></li>
+          <li><span class="formula-label">Quantization levels</span><span class="equation">levels = 2<sup>N</sup></span></li>
+          <li><span class="formula-label">Ideal ADC step size</span><span class="equation">Δ = full-scale range / 2<sup>N</sup></span></li>
+          <li><span class="formula-label">Sample interval</span><span class="equation">T<sub>s</sub> = 1 / f<sub>s</sub></span></li>
+          <li><span class="formula-label">Ideal Nyquist condition</span><span class="equation">f<sub>s</sub> &gt; 2 f<sub>max</sub></span></li>
+          <li><span class="formula-label">Alias location</span><span class="equation">f<sub>alias</sub> = absolute value of (f<sub>in</sub> - k f<sub>s</sub>) for the integer k that places the result in the sampled band</span></li>
+          <li><span class="formula-label">Ideal ADC SNR</span><span class="equation">SNR<sub>dB</sub> ≈ 6.02 N + 1.76</span></li>
         </ul>
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> After Lecture 16, review filters, clock recovery, plls, and synchronization. Check your understanding: How can a valid-looking signal still fail if timing is wrong? What would interference do to lock or capture? Review Lecture 16&#x27;s deferred filters, clock recovery, capture/lock range, and synchronization topics in the shared October 12 session before connecting them to receiver architecture. Given desired-signal and interferer levels, distinguish sensitivity, selectivity, overload, and dynamic-range failures without treating them as interchangeable.
+        <strong>Practice focus:</strong> After Lecture 16, review filters, clock recovery, plls, and synchronization. Check your understanding: How can a valid-looking signal still fail if timing is wrong? What would interference do to lock or capture? Review Lecture 16&#x27;s deferred filters, clock recovery, capture/lock range, and synchronization topics in the shared October 12 session before connecting them to receiver architecture. Given desired-signal and interferer levels, distinguish sensitivity, selectivity, overload, and dynamic-range failures without treating them as interchangeable. Convert between ADC bit depth, number of levels, ideal step size, sample interval, input voltage, and expected output code. Predict an alias, compare sampled data with the physical waveform, and explain why valid digital framing does not prove that telemetry represents the true analog input.
       </div>
     </section>
 
@@ -143,6 +212,34 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>ADC Resolution</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Bits</th><th scope="col">Number Of Levels</th><th scope="col">Step For A 0-5 V Range</th></tr></thead>
+          <tbody>
+          <tr><td>8</td><td>256</td><td>19.5 mV</td></tr>
+          <tr><td>10</td><td>1024</td><td>4.88 mV</td></tr>
+          <tr><td>12</td><td>4096</td><td>1.22 mV</td></tr>
+          <tr><td>16</td><td>65536</td><td>76.3 µV</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Sampling Outcomes</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Input Condition</th><th scope="col">Sample-Rate Relationship</th><th scope="col">Likely Result</th></tr></thead>
+          <tbody>
+          <tr><td>Input well below Nyquist</td><td>Many samples per cycle</td><td>Frequency and shape are represented more faithfully</td></tr>
+          <tr><td>Input near Nyquist</td><td>Few samples per cycle</td><td>Phase and amplitude estimates become sensitive</td></tr>
+          <tr><td>Input above Nyquist</td><td>Sampling is too slow</td><td>A lower false frequency may appear</td></tr>
+          <tr><td>Input filtered before ADC</td><td>Above-band energy reduced</td><td>Aliasing risk decreases but authentication is not added</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -155,13 +252,18 @@
           <li>What would interference do to lock or capture?</li>
           <li>What is the difference between sensitivity and selectivity?</li>
           <li>How can a strong unwanted signal hide a desired signal?</li>
+          <li>What information is lost during sampling and quantization?</li>
+          <li>How can bit depth affect trust in a measurement?</li>
+          <li>How can a high-frequency signal appear as a false low-frequency reading?</li>
+          <li>What evidence would confirm the analog truth?</li>
         </ul>
     </section>
 
-    <aside class="callout locked-callout">
+    <aside class="callout">
       <p class="eyebrow">Friday Lab</p>
-      <h2>Lab 07 is not yet available</h2>
-      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+      <h2>ADC Sampling, Aliasing, and False Telemetry</h2>
+      <p>ADC resolution and quantization; sample rate and Nyquist limit; aliasing; measurement error; false telemetry and the limits of sampling controls</p>
+      <a class="button" href="../../labs/lab-07/">Open Lab 07</a>
     </aside>
     <nav class="pager" aria-label="Week navigation">
       <a href="../week-06/">&larr; Week 6</a>
