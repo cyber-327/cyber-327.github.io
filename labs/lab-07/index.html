@@ -135,7 +135,7 @@
             <li>Power the Nano by USB before enabling the verified input. Scope CH1 observes the generator side of the resistor; CH2 observes A0. Use 10x probes, matching probe factors, DC coupling, and high-impedance scope inputs, not 50 ohms.</li>
             <li>Use High Z load display on the generator; it is a display convention, not a change in output resistance. Leave modulation, sweep, burst, and the optional capacitor off. Use the main Output, not Sync.</li>
             <li>Record the board, measured reference voltage, 10-bit resolution, resistor, scope settings, and instrument IDs. Intended DC inputs are about 1 and 3 V; sine inputs are 1.00 Vpp with +2.50 V offset, about 2.00-3.00 V. Verify actual high/low levels within the board&#x27;s permitted range before each connection. Never use negative voltages, RF carriers, VIN, 5V, or AREF as the signal input.</li>
-            <li>For the timing check only, move CH2 to D8 with Output off while reconnecting. Send 2, then 5, and measure spacing between consecutive rising edges in each burst. Calculate actual sample rate = 1 / edge spacing. D8&#x27;s high time is conversion time, not the sample interval. D8 is an output: never connect it to A0.</li>
+            <li>For the timing check only, move CH2 to D8 with Output off while reconnecting. Send 2, then 5, and measure spacing between consecutive rising edges in each burst. Calculate actual sample rate = 1 / edge spacing.</li>
             <li>Record both intervals/rates in the report and check overruns = 0. Return CH2 to A0 with Output off. If timing, input range, or wiring is uncertain, stop and ask the instructor; do not trust the frequency display yet.</li>
           </ol>
       </section>
@@ -157,8 +157,8 @@
           <ol class="walkthrough-list">
             <li>With Output off, select sine, 200 Hz, 1.00 Vpp, +2.50 V offset, and High Z load display. Keep the capacitor disconnected. Recheck the physical high/low voltages before proceeding.</li>
             <li>Send 2 to capture at 2,000 samples/s. Record the actual scope frequency and the Nano&#x27;s apparent_frequency_Hz. Calculate the Nyquist limit = sample rate / 2 and make your frequency prediction before comparing it with the Nano result.</li>
-            <li>Check that overruns is zero, near_rail_warning is NO, and the sine result is valid. The sketch estimates a single sine&#x27;s frequency from rising midpoint crossings; it is not an FFT or a general audio decoder.</li>
-            <li>Optional: send d and plot the last capture&#x27;s estimated voltage against time. Dots are measurements; a line joining them is not a physical DAC output.</li>
+            <li>Check that overruns is zero, near_rail_warning is NO, and the sine result is valid.</li>
+            <li>Optional: send d and plot the last capture&#x27;s estimated voltage against time.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
@@ -181,29 +181,13 @@
             <p>Preserve the baseline, substituted, higher-rate, positive-control, and restored results before changing each condition.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>The alarm is text, not a physical actuator. It prints ON only for a valid apparent frequency from 180 to 220 Hz with estimated amplitude at least 0.50 Vpp. Clipping/near-rail warnings, weak signals, or overruns are not successful controls.</li>
-            <li>Use the same single generator and the same 1.00 Vpp / +2.50 V sine settings throughout. This is source substitution, not simultaneous injection into a real sensor. Do not combine generator outputs.</li>
+            <li>The alarm is text, not a physical actuator. It prints ON only for a valid apparent frequency from 150 to 250 Hz (inclusive) with estimated amplitude at least 0.50 Vpp. Read alarm_reason if the result is unexpected.</li>
+            <li>Use the same single generator and the same 1.00 Vpp / +2.50 V sine settings throughout. Do not combine generator outputs.</li>
             <li>Baseline: set 400 Hz and send 2. Record actual scope frequency, Nano frequency, Nano Vpp, the printed alarm state, and frequency error.</li>
             <li>Substituted input: change the source to 1,800 Hz, leave the lower sample rate selected, and send c. Record a fresh scope/Nano comparison and alarm decision.</li>
-            <li>Higher-rate control: leave the 1,800 Hz source unchanged and send 5. Record the result and quantify how the measured frequency error changes. Higher-rate sampling does not remove the physical input.</li>
-            <li>Positive control: at the higher sampling rate, set a genuine 200 Hz input and send c. Check whether the valid alarm can still activate. An OFF result from disconnecting or invalidating the signal does not demonstrate a useful mitigation.</li>
-            <li>Restored baseline: return to 400 Hz and send 2. Record the result before clearing settings. Explain why resolving this alias does not authenticate a sensor or prevent a genuine unwanted 200 Hz input.</li>
-          </ol>
-      </section>
-      <section class="walkthrough-stage">
-        <h3>Optional Extension: Add an Analog Low-Pass Filter</h3>
-          <ol class="walkthrough-list">
-            <li>Only after the required higher-rate experiment works, turn Output off and connect a 100 nF capacitor from A0 to common GND. Keep the 3.3 kohm series resistor in place. The capacitor is not a series DC block in this experiment.</li>
-            <li>Use 2,000 samples/s and the same source amplitude/offset. Compare the generator-side and A0-side scope Vpp at 1,800 Hz, then at the genuine 200 Hz input; take a fresh Nano capture for each condition.</li>
-            <li>Calculate amplitude reduction = 100 x (1 - Vpp_after / Vpp_before). Check whether the desired input remains usable. Distinguish reducing unwanted amplitude from removing an alias or proving authenticity. This extension adds no required graded table.</li>
-          </ol>
-      </section>
-      <section class="walkthrough-stage">
-        <h3>6. Explain the Result and Finish</h3>
-          <ol class="walkthrough-list">
-            <li>Complete the three content tables, evidence captions, and conclusion. Use measured results and record any warnings; do not replace unexpected data with theoretical values.</li>
-            <li>Rotate equipment operator, scope observer, and recorder roles. Each student submits their own report as a PDF through Learning Suite.</li>
-            <li>Disable generator Output before removing leads or unplugging USB. Remove the optional capacitor, return the station to its posted baseline, and return the equipment. Never lift protective earth on the scope or generator.</li>
+            <li>Higher-rate control: leave the 1,800 Hz source unchanged and send 5. Record the result and quantify how the measured frequency error changes.</li>
+            <li>Positive control: at the higher sampling rate, set a genuine 200 Hz input and send c. Check whether the valid alarm can still activate.</li>
+            <li>Restored baseline: return to 400 Hz and send 2. Record the result before clearing settings.</li>
           </ol>
       </section>
     </section>
