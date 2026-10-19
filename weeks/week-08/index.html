@@ -79,6 +79,8 @@
           <div><dt>FEC</dt><dd>Added redundancy that lets a receiver correct some errors without retransmission.</dd></div>
           <div><dt>interleaving</dt><dd>Reordering bits from different codewords to spread burst damage before decoding.</dd></div>
           <div><dt>coding gain</dt><dd>Reduction in required energy-per-bit to noise-density ratio for a stated target error rate under specified coding and decoding conditions.</dd></div>
+          <div><dt>coded bit rate</dt><dd>Transmitted bit rate including the extra bits added by error-control coding.</dd></div>
+          <div><dt>information bit rate</dt><dd>Rate of information bits carried by the code, before other overhead and retries.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -86,16 +88,13 @@
         <ul class="formula-list">
           <li><span class="formula-label">Code rate</span><span class="equation">R<sub>c</sub> = k / n</span></li>
           <li><span class="formula-label">Redundancy</span><span class="equation">n - k bits</span></li>
-          <li><span class="formula-label">Detectable errors</span><span class="equation">up to d<sub>min</sub> - 1 bit errors</span></li>
-          <li><span class="formula-label">Correctable errors</span><span class="equation">floor((d<sub>min</sub> - 1) / 2) bit errors</span></li>
-          <li><span class="formula-label">Coded data-rate example</span><span class="equation">12 kbit/s channel rate times code rate 8/12 gives 8 kbit/s before other overhead</span></li>
-          <li><span class="formula-label">CRC limitation</span><span class="equation">a passing check does not establish authenticated origin or guarantee unchanged data</span></li>
-          <li><span class="formula-label">Random-remainder approximation</span><span class="equation">an r-bit CRC has an undetected fraction near 2^-r only under an appropriate random-error model, not for arbitrary errors or deliberate changes</span></li>
+          <li><span class="formula-label">Information bit rate</span><span class="equation">R<sub>info</sub> = R<sub>coded</sub> × R<sub>c</sub></span></li>
+          <li><span class="formula-label">Random-remainder approximation</span><span class="equation">P<sub>undetected</sub> ≈ 1 / 2<sup>r</sup></span></li>
         </ul>
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> Follow a remote sensor message through a noisy link. Add parity, test a byte-sum checksum, trace a small CRC, then distinguish detection from correction. Explain how block parity and interleaving address different error patterns. Finish by calculating the data-rate cost of redundancy and explaining why a passing check does not prove sender trust. Minimum-distance detection and correction formulas describe separate capabilities; a decoder does not automatically deliver both guarantees simultaneously.
+        <strong>Practice focus:</strong> Follow a remote sensor message through a noisy link. Add parity, test a byte-sum checksum, trace a small CRC, then distinguish detection from correction. Explain how block parity and interleaving address different error patterns. Finish by calculating the data-rate cost of redundancy and explaining why a passing check does not prove sender trust. Minimum-distance detection and correction formulas describe separate capabilities; a decoder does not automatically deliver both guarantees simultaneously. In the equations, k is the number of information bits, n is the total number of coded bits, and r is the number of CRC bits. The CRC probability estimate assumes approximately uniform remainders for random corrupted frames; it is not a guarantee for every error pattern or a probability of attacker success.
       </div>
     </section>
 
