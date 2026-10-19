@@ -181,7 +181,7 @@
             <p>Preserve the baseline, substituted, higher-rate, positive-control, and restored results before changing each condition.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>The alarm is text, not a physical actuator. It prints ON only for a valid apparent frequency from 150 to 250 Hz (inclusive) with estimated amplitude at least 0.50 Vpp. Read alarm_reason if the result is unexpected.</li>
+            <li>The alarm is text, not a physical actuator. It prints ON only for a valid apparent frequency from 150 to 250 Hz (inclusive) with estimated amplitude at least 0.10 Vpp (100 mVpp). Read alarm_reason if the result is unexpected.</li>
             <li>Use the same single generator and the same 1.00 Vpp / +2.50 V sine settings throughout. Do not combine generator outputs.</li>
             <li>Baseline: set 400 Hz and send 2. Record actual scope frequency, Nano frequency, Nano Vpp, the printed alarm state, and frequency error.</li>
             <li>Substituted input: change the source to 1,800 Hz, leave the lower sample rate selected, and send c. Record a fresh scope/Nano comparison and alarm decision.</li>
