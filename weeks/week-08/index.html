@@ -30,7 +30,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 20.</h2>
+      <h2>Updated through Lecture 21.</h2>
       <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
     </aside>
 
@@ -62,6 +62,33 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 21 / Wed</p>
+        <h2>Integrity, Authentication, and Encryption Boundaries</h2>
+        <p class="meta">October 21, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-21-slides.pptx" download>Lecture 21 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>CRC/checksum behavior in packetized communication</li>
+          <li>Integrity checks versus authentication versus encryption</li>
+          <li>Deliberate bit flips and recomputed checksums</li>
+          <li>When channel errors and adversarial changes look similar</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>CRC is useful evidence of accidental corruption but not proof of sender trust</li>
+          <li>Authentication requires a secret or trusted mechanism beyond error detection</li>
+          <li>Encryption hides content but not all metadata</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -81,6 +108,22 @@
           <div><dt>coding gain</dt><dd>Reduction in required energy-per-bit to noise-density ratio for a stated target error rate under specified coding and decoding conditions.</dd></div>
           <div><dt>coded bit rate</dt><dd>Transmitted bit rate including the extra bits added by error-control coding.</dd></div>
           <div><dt>information bit rate</dt><dd>Rate of information bits carried by the code, before other overhead and retries.</dd></div>
+          <div><dt>secret key</dt><dd>A value kept from outsiders. In our shared-key example, the controller and door store it beforehand; they do not send it with the command.</dd></div>
+          <div><dt>message authentication code (MAC)</dt><dd>A cryptographic check calculated from a message and a secret key. It supports integrity and message authentication. This is not a network interface&#x27;s MAC address.</dd></div>
+          <div><dt>authentication tag</dt><dd>The value produced by the MAC calculation and sent with the message. The receiver recalculates the expected tag and compares them.</dd></div>
+          <div><dt>integrity</dt><dd>Protection against changes or forged content going undetected.</dd></div>
+          <div><dt>message authentication</dt><dd>Evidence that a message was formed by a holder of the trusted key. If several devices share a key, this does not distinguish those devices or the people using them.</dd></div>
+          <div><dt>authorization</dt><dd>Permission to perform a particular action, such as opening a particular door. Authentication and authorization are different checks.</dd></div>
+          <div><dt>replay</dt><dd>Recording a valid message and sending that same message again later.</dd></div>
+          <div><dt>freshness</dt><dd>Evidence that a message belongs to the current exchange rather than being a reused old message. Our simple counter rule rejects previously accepted commands; it does not prove wall-clock age.</dd></div>
+          <div><dt>counter</dt><dd>An increasing message number. In the ordered, single-controller example, the receiver requires a protected number larger than the last one accepted and remembers the new value.</dd></div>
+          <div><dt>plaintext / ciphertext</dt><dd>The readable message / its encrypted form.</dd></div>
+          <div><dt>encryption / decryption</dt><dd>Using a key to transform readable content into ciphertext / recovering the readable content with the appropriate key.</dd></div>
+          <div><dt>confidentiality</dt><dd>Keeping content from observers who should not read it.</dd></div>
+          <div><dt>authenticated encryption</dt><dd>An established encryption method that also protects integrity and message authenticity. Replay and permission checks are still needed.</dd></div>
+          <div><dt>metadata</dt><dd>Visible traffic details, such as transmission times and lengths, even when content is encrypted.</dd></div>
+          <div><dt>whitelist</dt><dd>A list of values the device accepts. Approving a CRC value does not identify a sender.</dd></div>
+          <div><dt>CRC collision</dt><dd>Different messages produce the same CRC value.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -90,11 +133,19 @@
           <li><span class="formula-label">Redundancy</span><span class="equation">n - k bits</span></li>
           <li><span class="formula-label">Information bit rate</span><span class="equation">R<sub>info</sub> = R<sub>coded</sub> × R<sub>c</sub></span></li>
           <li><span class="formula-label">Random-remainder approximation</span><span class="equation">P<sub>undetected</sub> ≈ 1 / 2<sup>r</sup></span></li>
+          <li><span class="formula-label">CRC boundary</span><span class="equation">a matching public CRC does not establish an authenticated sender.</span></li>
+          <li><span class="formula-label">CRC recomputation</span><span class="equation">a changed message can have a newly calculated matching CRC; its value may change.</span></li>
+          <li><span class="formula-label">Collision boundary</span><span class="equation">different messages can have the same CRC, so approving a CRC value does not uniquely approve a command or identify its sender.</span></li>
+          <li><span class="formula-label">MAC relationship</span><span class="equation">message + secret key → authentication tag. The message and tag travel; the key stays secret.</span></li>
+          <li><span class="formula-label">Replay boundary</span><span class="equation">an old message can still have a valid tag. Protect the counter with the message and check remembered receiver state.</span></li>
+          <li><span class="formula-label">Permission boundary</span><span class="equation">a valid tag does not authorize every action.</span></li>
+          <li><span class="formula-label">Encryption boundary</span><span class="equation">encryption alone does not necessarily detect changes or reject replay; timing and message length may remain visible.</span></li>
+          <li><span class="formula-label">Physical boundary</span><span class="equation">an authenticated sensor message does not prove that the sensor measured physical reality accurately.</span></li>
         </ul>
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> Follow a remote sensor message through a noisy link. Add parity, test a byte-sum checksum, trace a small CRC, then distinguish detection from correction. Explain how block parity and interleaving address different error patterns. Finish by calculating the data-rate cost of redundancy and explaining why a passing check does not prove sender trust. Minimum-distance detection and correction formulas describe separate capabilities; a decoder does not automatically deliver both guarantees simultaneously. In the equations, k is the number of information bits, n is the total number of coded bits, and r is the number of CRC bits. The CRC probability estimate assumes approximately uniform remainders for random corrupted frames; it is not a guarantee for every error pattern or a probability of attacker success.
+        <strong>Practice focus:</strong> Follow a remote sensor message through a noisy link. Add parity, test a byte-sum checksum, trace a small CRC, then distinguish detection from correction. Explain how block parity and interleaving address different error patterns. Finish by calculating the data-rate cost of redundancy and explaining why a passing check does not prove sender trust. Minimum-distance detection and correction formulas describe separate capabilities; a decoder does not automatically deliver both guarantees simultaneously. In the equations, k is the number of information bits, n is the total number of coded bits, and r is the number of CRC bits. The CRC probability estimate assumes approximately uniform remainders for random corrupted frames; it is not a guarantee for every error pattern or a probability of attacker success. Opening review from Lecture 20: - Data `1011010` uses even parity. Find its parity bit, then check complete words `10100100` and `10000100`. - A code uses k = 12 information bits and n = 16 transmitted bits at a coded rate of 8.00 Mbit/s. Find code rate, added bits per codeword, and information bit rate; ignore other overhead and retries. - In a separate example, use P_undetected ≈ 1/2^r for an 8-bit CRC under the roughly uniform random-remainder assumption. Explain why that estimate is not an attacker-success probability. Follow a toy door receiving `LOCK` and `OPEN`. First replace the command and recalculate its CRC. Then test a rule accepting only approved CRC values: a different command can share the same approved CRC. Explain what changes when a secret-key MAC is required. Replay a previously accepted `OPEN` with its original tag, and explain why a protected counter and remembered receiver state are needed. Finally, identify which separate problem encryption solves. Closing practice: - Distinguish CRC recomputation, a CRC collision, replay of an accepted command, and lack of privacy. Choose a control for each problem. - Start with last accepted counter = 70. In arrival order, consider `71 | OPEN` with a valid tag, the same message again, `72 | LOCK` with an invalid tag, then `73 | LOCK` with a valid tag. All senders have permission and all other format/error checks pass. Apply the rule: valid tag and counter greater than the last accepted number. Decide accept/reject and the remembered number after every row. - Design fields and receiver checks that block forgery and replay while preserving legitimate operation. If commands must also stay private, what changes? The preliminary Lab 8 plan progresses through parity, CRC, and a CRC-value whitelist using a hex/CRC helper. These are public checks, not proof of an authorized sender. MAC/replay protection is a conceptual repair, not an implemented lab stage; firmware and physical acceptance remain pending.
       </div>
     </section>
 
@@ -118,6 +169,21 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Match the Protection to the Problem</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Problem</th><th scope="col">Useful Protection</th><th scope="col">Important Limitation</th></tr></thead>
+          <tbody>
+          <tr><td>Noise changes bits</td><td>CRC with retry, or error-correcting coding</td><td>Does not authenticate the sender</td></tr>
+          <tr><td>Outsider replaces the command and recalculates CRC</td><td>MAC or authenticated encryption</td><td>Needs a secure construction, protected keys, and correct verification</td></tr>
+          <tr><td>Observer resends an already accepted command</td><td>Protected counter plus remembered receiver state</td><td>Restart, delay, counter wrap, and resynchronization need defined rules</td></tr>
+          <tr><td>Observer reads the content</td><td>Encryption or authenticated encryption</td><td>Does not hide all traffic details or automatically reject replay</td></tr>
+          <tr><td>Genuine controller requests an action it is not allowed to perform</td><td>Authorization rule</td><td>A genuine sender is not automatically permitted to do everything</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -130,6 +196,13 @@
           <li>Why does redundancy reduce effective data rate?</li>
           <li>How do detection, correction, and interleaving do different jobs?</li>
           <li>What does a passing CRC not establish about the sender?</li>
+          <li>Why can an attacker modify data and recompute a CRC?</li>
+          <li>What protection does encryption not provide at the signal level?</li>
+          <li>Why can a valid authentication tag still accompany an old message?</li>
+          <li>What is sent with a MAC-protected command, and what must stay secret?</li>
+          <li>How is authentication different from permission to perform an action?</li>
+          <li>Why must a freshness counter be protected, and what must the receiver remember?</li>
+          <li>Why does an authenticated message not prove that a sensor measured physical reality correctly?</li>
         </ul>
     </section>
 
