@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 08 - CYBER 327 course material">
-  <title>Lab 08 | CYBER 327</title>
+  <meta name="description" content="Lab 08: Break the Toy Door: Parity, CRC, and a Whitelist - CYBER 327 course material">
+  <title>Lab 08: Break the Toy Door: Parity, CRC, and a Whitelist | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
+  <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
   <header class="site-header">
@@ -21,13 +22,166 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 08 &middot; Week 8</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 08 &middot; Week 8 &middot; October 23, 2026</p>
+      <h1>Break the Toy Door: Parity, CRC, and a Whitelist</h1>
+      <p class="body">Investigate a lab-owned Arduino maintenance port, forge commands through three error-check upgrades, and explain why a valid check is not permission</p>
     </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Decode hex clues and identify a seven-byte message format</li>
+          <li>Demonstrate a detected one-bit change and an undetected two-bit parity change</li>
+          <li>Create a changed command with a matching CRC using the supplied calculator</li>
+          <li>Find a different command with the same approved CRC while keeping the correct device ID</li>
+          <li>Separate error-check consistency, command acceptance, and authorized origin</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Preliminary lab version: the helper and documents are ready for review, but new controller firmware and physical bench tests are still required. Do not use the Lab 7 sampler sketch for this activity.</li>
+          <li>Scenario: your team has access to a maintenance port on a classroom toy door. A red LED represents LOCKED and a green LED represents OPEN; no real lock is connected.</li>
+          <li>Recover a leaked service-sheet address from hex output, then use the service sheet to learn the packet format.</li>
+          <li>Stage 1 checks parity. Stage 2 switches to CRC. Stage 3 also requires the CRC value to appear on an approved list. Each successful stage prints a flag, relocks, and advances.</li>
+          <li>Use the helper instead of hand-calculating CRC division. A matching check is not a successful Arduino command; record the board&#x27;s actual serial response.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review even/odd parity, CRC purpose, the difference between error detection and authentication, and the idea that hex is encoding rather than encryption.</li>
+          <li>Open the Lab 8 report and packet workbench. Only the computer attached to the Nano needs Arduino IDE and Serial Monitor. Ask the instructor for a prepared computer if the application or board port is unavailable.</li>
+          <li>The instructor must preload and validate the new Lab 8 controller sketch. Do not upload another sketch, inspect firmware for flags, or bypass the protocol by driving LED pins.</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Per team: instructor-prepared classic 5 V Arduino Nano and USB data cable</li>
+          <li>Computer with Arduino IDE Serial Monitor and a browser for the packet workbench</li>
+          <li>Breadboard, red LED, green LED, two 330 ohm resistors, and jumper wires, prechecked by the instructor</li>
+          <li>Lab 8 report; approved fallback transcript if the hardware path has not passed its acceptance tests</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Report and Packet Tools</h2>
+
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-08-report.docx" download>Lab report</a>
+        <a class="button" href="../../labs/lab-08/helper/">Packet workbench</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
+      <section class="walkthrough-stage">
+        <h3>1. Discover the Maintenance Port — Table 1</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the startup banner and the decoded service-sheet address. No CRC polynomial arithmetic is required.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Keep USB disconnected while checking the instructor&#x27;s LED wiring. There is one 330 ohm resistor per LED. Use USB power only; no function generator, RF hardware, motor, or actual lock is part of this lab.</li>
+            <li>Connect USB. Open Serial Monitor at 115200 baud, 8-N-1, with a newline at the end of each message. Do not upload a sketch. Close other programs using that serial port.</li>
+            <li>Read the startup banner and record device ID, firmware version, stage, and parity convention. If the board still prints Lab 7 sampling data or no supported banner appears, stop and ask the instructor.</li>
+            <li>Copy the hex-encoded maintenance address into the workbench&#x27;s converter. Decode it and open that address to recover the service sheet and schematic. Record the decoded address and seven-byte layout; the page is a deliberately supplied classroom prop, not a real leak.</li>
+            <li>A transmitted line contains 14 hex digits, optionally separated by spaces. The planned Arduino firmware decodes them into seven bytes. Keep the serial setting at 8-N-1: packet parity is checked by the application, not UART hardware.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>2. Stage 1: Satisfy Parity — Table 2</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Preserve one failed parity test and the stage-1 OPEN result. Label the changed bits and record serial text, not color alone.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Capture the supplied valid LOCK message and load its seven bytes into the workbench. Record the parity convention; the final byte must be 00 or 01.</li>
+            <li>Send the captured LOCK message. It should be accepted while the red LED stays on. A valid message is not necessarily an OPEN command.</li>
+            <li>Restore that baseline for each test. Flip one bit in the extra byte without changing the parity byte, send it, and record the board&#x27;s response. Then flip two bits in the extra byte, keep the original check, and test again. Do not alter the device ID or command in these error-pattern tests.</li>
+            <li>Use the service sheet and converter to build the OPEN command for your own device. Use the helper to write its parity byte, inspect it, and send the packet. Record the flag, LED state, and stage transition before continuing.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>3. Stage 2: Recompute the CRC — Table 3</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the changed command with the old CRC failing and the matching new CRC succeeding.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>After the upgrade relocks the controller, capture the new valid LOCK frame. Record its payload and CRC. The CRC now covers bytes 0–5, including the extra byte; byte 6 stores the check and is excluded from the calculation.</li>
+            <li>Change only the four command bytes to OPEN and leave the extra byte and old CRC unchanged. Inspect and send the frame; record the response.</li>
+            <li>Use Write CRC byte in the helper, inspect the resulting frame, and send it. Preserve the successful flag and transition. This changes both message and check; it is forgery by recomputation, not the fixed-CRC collision required next.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>4. Stage 3: Keep an Approved CRC — Table 4</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the approved baseline, a rejected unapproved-CRC attempt, the helper&#x27;s collision result, and the Arduino&#x27;s successful stage-3 response.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Capture the stage-3 LOCK frame and record its device ID, extra byte, and approved CRC. Use this team&#x27;s capture, not another team&#x27;s result.</li>
+            <li>Change its command to OPEN while retaining the extra byte. Calculate the new CRC and send that otherwise-valid frame. Record whether its check is valid but unapproved. The whitelist is enforced on the Arduino, not by disabled browser fields.</li>
+            <li>Restore the approved CRC into byte 6. Set the command to OPEN, then lock every digit except the two digits of the extra byte. The helper&#x27;s Search extra byte only button sets those locks without changing your values. Both check digits must remain locked.</li>
+            <li>Run the fixed-CRC search. Record the locked fields, approved CRC, matching packet, and number of candidates tested. One extra byte has 256 possible values; no second extra byte is needed for this specified CRC-8 format.</li>
+            <li>Confirm that your result is different from the captured LOCK frame, has the correct device ID, still means OPEN, and retains the approved CRC. Send it to the board and record the actual flag, LED state, and final relock.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>5. Explain the Trust Boundary</h3>
+          <ol class="walkthrough-list">
+            <li>Compare the three protections. Which tested accidental changes did each notice? Why could a deliberate sender still create an accepted OPEN command? Do not claim parity or CRC protects all error patterns.</li>
+            <li>Explain why a whitelist of CRC values is not a whitelist of complete approved messages. Identify what access the scenario gave your team: permission to use this toy interface, not authority over a real door.</li>
+            <li>Propose a keyed message-authentication check over all decision-relevant fields. If old valid messages can be replayed, name the additional freshness check. No keyed-firmware repair is implemented or claimed in this preliminary activity.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>6. Finish and Submit</h3>
+          <ol class="walkthrough-list">
+            <li>Complete Tables 1–4, three evidence groups, and the short conclusion. Each student submits an individual report as a PDF. Use flags only from the target&#x27;s serial output; the helper never awards flags.</li>
+            <li>Rotate reader/decoder, packet operator, and recorder roles. Stop after the final relock. Ask the instructor before resetting a board; automatic stage persistence and reset behavior must be confirmed on the final firmware.</li>
+            <li>Close Serial Monitor and unplug USB before moving wires. If hardware is not ready, use only the instructor-provided fallback and label it as supplied evidence, not a live unlock.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Lab Matters</h2>
+        <ul>
+          <li>A public error check can detect accidental corruption without authenticating a sender</li>
+          <li>A short CRC can be shared by different messages; approving its value does not approve every message with that value</li>
+          <li>Encoding, reliable delivery, authorization, and freshness are separate concerns</li>
+          <li>Only supplied toy controllers and captures are in scope; no production hardware, networks, or real access-control systems are targets</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete the individual Lab 8 report and submit it in PDF form through Learning Suite</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-08/">&larr; Week 8 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>

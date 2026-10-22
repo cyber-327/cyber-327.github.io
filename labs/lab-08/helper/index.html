@@ -3,34 +3,54 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 08 - CYBER 327 course material">
-  <title>Lab 08 | CYBER 327</title>
+  <title>Lab 8 Packet Workbench | CYBER 327</title>
   <link rel="stylesheet" href="../../../theme.css">
   <link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="helper.css">
+  <script src="protocol.js" defer></script>
+  <script src="app.js" defer></script>
+  <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav shell nav-shell" aria-label="Main navigation">
-      <a class="brand" href="../../../">CYBER 327</a>
-      <div class="nav-links">
-        <a href="../../../syllabus/">Syllabus</a>
-        <a href="../../../weeks/">Weekly Guides</a>
-        <a href="../../../labs/">Labs</a>
-        <a href="../../../excellence/">Excellence</a>
+  <header class="site-header"><nav class="nav shell nav-shell"><a class="brand" href="../">CYBER 327 · Lab 8</a><span>Local packet tools · no Arduino connection</span></nav></header>
+  <main class="shell workbench">
+    <p class="eyebrow">Exposed Maintenance Port</p>
+    <h1>Packet workbench</h1>
+    <p>Decode the clues. Build a packet. Test your reasoning on the controller.</p>
+    <aside class="notice">Preliminary lab tools. This page calculates checks locally; it cannot open a door, award a flag, or confirm what an Arduino accepted. Copy your packet into Serial Monitor. Hex is an encoding, not encryption.</aside>
+    <section class="tool-panel" aria-labelledby="converter-title">
+      <h2 id="converter-title">1. Hex ↔ ASCII</h2>
+      <div class="converter-grid">
+        <div><label for="hex-input">Hex bytes or encoded maintenance URL</label><textarea id="hex-input" rows="3" spellcheck="false" placeholder="Enter complete hex byte pairs"></textarea><button id="decode" type="button">Hex to ASCII</button></div>
+        <div><label for="ascii-input">ASCII text</label><textarea id="ascii-input" rows="3" spellcheck="false" placeholder="Enter ASCII text"></textarea><button id="encode" type="button">ASCII to hex</button></div>
       </div>
-    </nav>
-  </header>
-  <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 08 &middot; Week 8</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+      <p id="converter-result" role="status" class="result">Nonprintable bytes are displayed as ·. Their original values stay in the hex input. Decoded text is never executed or opened automatically.</p>
     </section>
+    <section class="tool-panel" aria-labelledby="packet-title">
+      <h2 id="packet-title">2. Seven-byte message</h2>
+      <p>Enter the 14 hex digits from your capture. Each pair is one byte. Bytes 0–5 are checked; byte 6 stores the check. In stage 1 it must be 00 or 01. Stages 2–3 use CRC-8.</p>
+      <label for="packet-input">Paste a complete frame</label>
+      <div class="paste-row"><input id="packet-input" type="text" spellcheck="false" autocomplete="off" placeholder="Seven bytes, with or without spaces"><button id="load" type="button">Load boxes</button></div>
+      <div id="hex-grid" class="hex-grid" aria-label="Seven bytes with individual hex digit locks"></div>
+      <p class="legend">Checked means locked. The check-byte digits start locked. Loading a packet preserves your lock choices.</p>
+      <div class="button-row"><button id="all-lock" type="button">Lock all digits</button><button id="padding-only" type="button">Search extra byte only</button></div>
+      <label for="parity-mode">Stage 1 parity convention</label><select id="parity-mode"><option value="even">Even parity</option><option value="odd">Odd parity</option></select>
+      <div class="button-row"><button id="inspect" type="button">Inspect packet</button><button id="write-parity" type="button">Write parity byte</button><button id="write-crc" type="button">Write CRC byte</button></div>
+      <p class="legend">Write buttons deliberately replace byte 6, even when its search locks are checked. In stage 3, preserve the approved CRC instead.</p>
+      <pre id="inspection" class="result" role="status">Enter a packet to inspect.</pre>
+    </section>
+    <section class="tool-panel" aria-labelledby="search-title">
+      <h2 id="search-title">3. Fixed-CRC collision search</h2>
+      <p>Set the desired command first. Lock the device ID, command, and both target CRC digits. Leave the extra byte adjustable. The search keeps every locked digit unchanged.</p>
+      <p>CRC-8 parameters: polynomial 07, initial value 00, no reflection, no final XOR. The target is byte 6; the CRC covers bytes 0–5 only. A match means CRC consistency—not authorization or a successful command.</p>
+      <div class="button-row"><button id="search" type="button">Search unlocked digits</button><button id="cancel" type="button" disabled>Cancel search</button></div>
+      <pre id="search-result" class="result" role="status">No search started. At most four digits may be unlocked (65,536 candidates).</pre>
+      <label for="packet-output">Packet for Serial Monitor</label><input id="packet-output" readonly type="text" spellcheck="false" placeholder="Inspect or find a packet first">
+      <div class="button-row"><button id="copy" type="button">Copy packet</button></div>
+      <p class="legend">Send the displayed hex text plus a newline at 115200 baud, 8-N-1. The planned firmware decodes that text into seven bytes. Search runs locally; it does not send trial packets to the board.</p>
+    </section>
+    <p><a href="../">Return to Lab 8</a></p>
+    <noscript><p>This helper needs JavaScript. Ask your instructor for the prepared offline alternative.</p></noscript>
   </main>
-  <footer class="site-footer shell">
-    <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
-  </footer>
 </body>
 </html>
