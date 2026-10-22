@@ -36,15 +36,15 @@
     return value ^ (mode === "odd" ? 1 : 0);
   }
   function frame(bytes) {
-    if (bytes.length !== 7) throw new Error("A frame must contain exactly seven bytes: 14 hex digits.");
-    return {id: bytes[0], command: printable(bytes.slice(1, 5)), padding: bytes[5], check: bytes[6],
-      crc: crc8(bytes.slice(0, 6)), even: parity(bytes.slice(0, 6)), odd: parity(bytes.slice(0, 6), "odd")};
+    if (bytes.length !== 8) throw new Error("A frame must contain exactly eight bytes: 16 hex digits.");
+    return {id: bytes[0], command: printable(bytes.slice(1, 5)), extras: bytes.slice(5, 7), check: bytes[7],
+      crc: crc8(bytes.slice(0, 7)), even: parity(bytes.slice(0, 7)), odd: parity(bytes.slice(0, 7), "odd")};
   }
   function *searchCandidates(digits, locked) {
     const compact = String(digits).replace(/\s/g, "").toUpperCase();
     const bytes = parseHex(compact);
     frame(bytes);
-    if (locked.length !== 14 || !locked[12] || !locked[13]) throw new Error("Lock both digits of byte 6 to keep the target CRC fixed.");
+    if (locked.length !== 16 || !locked[14] || !locked[15]) throw new Error("Lock both digits of byte 7 to keep the target CRC fixed. Use Vary extra bytes only for a ready-made lock pattern.");
     const free = locked.map((value, index) => value ? -1 : index).filter(i => i >= 0);
     if (!free.length) throw new Error("Unlock at least one payload digit to search.");
     if (free.length > 4) throw new Error("Unlock at most four payload digits (65,536 candidates). One adjustable byte needs only 256.");
@@ -54,7 +54,8 @@
       let value = candidate;
       for (let j = free.length - 1; j >= 0; j--, value >>= 4) chars[free[j]] = (value & 15).toString(16).toUpperCase();
       const result = parseHex(chars.join(""));
-      yield {bytes: result, tested: candidate + 1, total, match: crc8(result.slice(0, 6)) === bytes[6]};
+      const isOriginal = chars.join("") === compact;
+      yield {bytes: result, tested: candidate + 1, total, match: !isOriginal && crc8(result.slice(0, 7)) === bytes[7]};
     }
   }
   return {parseHex, hex, printable, asciiBytes, crc8, parity, frame, searchCandidates};

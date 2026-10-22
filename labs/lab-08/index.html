@@ -33,7 +33,7 @@
       <p class="eyebrow">Learning Outcomes</p>
       <h2>By the End of This Lab</h2>
         <ul>
-          <li>Decode hex clues and identify a seven-byte message format</li>
+          <li>Decode hex clues and identify a eight-byte message format</li>
           <li>Demonstrate a detected one-bit change and an undetected two-bit parity change</li>
           <li>Create a changed command with a matching CRC using the supplied calculator</li>
           <li>Find a different command with the same approved CRC while keeping the correct device ID</li>
@@ -45,7 +45,7 @@
       <p class="eyebrow">The Big Picture</p>
       <h2>What You Are Doing</h2>
         <ol class="overview-steps">
-          <li>Preliminary lab version: the helper and documents are ready for review, but new controller firmware and physical bench tests are still required. Do not use the Lab 7 sampler sketch for this activity.</li>
+          <li>Preliminary lab version: the helper, documents and controller sketch are ready for review, but physical bench tests are still required. Do not use the Lab 7 sampler sketch for this activity.</li>
           <li>Scenario: your team has access to a maintenance port on a classroom toy door. A red LED represents LOCKED and a green LED represents OPEN; no real lock is connected.</li>
           <li>Recover a leaked service-sheet address from hex output, then use the service sheet to learn the packet format.</li>
           <li>Stage 1 checks parity. Stage 2 switches to CRC. Stage 3 also requires the CRC value to appear on an approved list. Each successful stage prints a flag, relocks, and advances.</li>
@@ -99,8 +99,8 @@
             <li>Keep USB disconnected while checking the instructor&#x27;s LED wiring. There is one 330 ohm resistor per LED. Use USB power only; no function generator, RF hardware, motor, or actual lock is part of this lab.</li>
             <li>Connect USB. Open Serial Monitor at 115200 baud, 8-N-1, with a newline at the end of each message. Do not upload a sketch. Close other programs using that serial port.</li>
             <li>Read the startup banner and record device ID, firmware version, stage, and parity convention. If the board still prints Lab 7 sampling data or no supported banner appears, stop and ask the instructor.</li>
-            <li>Copy the hex-encoded maintenance address into the workbench&#x27;s converter. Decode it and open that address to recover the service sheet and schematic. Record the decoded address and seven-byte layout; the page is a deliberately supplied classroom prop, not a real leak.</li>
-            <li>A transmitted line contains 14 hex digits, optionally separated by spaces. The planned Arduino firmware decodes them into seven bytes. Keep the serial setting at 8-N-1: packet parity is checked by the application, not UART hardware.</li>
+            <li>Copy the hex-encoded maintenance address into the workbench&#x27;s converter. Decode it and open that address to recover the service sheet and schematic. Record the decoded address and eight-byte layout; the page is a deliberately supplied classroom prop, not a real leak.</li>
+            <li>A transmitted line contains 16 hex digits, optionally separated by spaces. The Arduino sketch decodes them into eight bytes. Keep the serial setting at 8-N-1: packet parity is checked by the application, not UART hardware.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
@@ -110,7 +110,7 @@
             <p>Preserve one failed parity test and the stage-1 OPEN result. Label the changed bits and record serial text, not color alone.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Capture the supplied valid LOCK message and load its seven bytes into the workbench. Record the parity convention; the final byte must be 00 or 01.</li>
+            <li>Capture the supplied valid LOCK message and load its eight bytes into the workbench. Record the parity convention; the final byte must be 00 or 01.</li>
             <li>Send the captured LOCK message. It should be accepted while the red LED stays on. A valid message is not necessarily an OPEN command.</li>
             <li>Restore that baseline for each test. Flip one bit in the extra byte without changing the parity byte, send it, and record the board&#x27;s response. Then flip two bits in the extra byte, keep the original check, and test again. Do not alter the device ID or command in these error-pattern tests.</li>
             <li>Use the service sheet and converter to build the OPEN command for your own device. Use the helper to write its parity byte, inspect it, and send the packet. Record the flag, LED state, and stage transition before continuing.</li>
@@ -123,8 +123,8 @@
             <p>Save the changed command with the old CRC failing and the matching new CRC succeeding.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>After the upgrade relocks the controller, capture the new valid LOCK frame. Record its payload and CRC. The CRC now covers bytes 0–5, including the extra byte; byte 6 stores the check and is excluded from the calculation.</li>
-            <li>Change only the four command bytes to OPEN and leave the extra byte and old CRC unchanged. Inspect and send the frame; record the response.</li>
+            <li>After the upgrade relocks the controller, capture the new valid LOCK frame. Record its payload and CRC. The CRC now covers bytes 0–6, including both extra bytes; byte 7 stores the check and is excluded from the calculation.</li>
+            <li>Change only the four command bytes to OPEN and leave both extra bytes and old CRC unchanged. Inspect and send the frame; record the response.</li>
             <li>Use Write CRC byte in the helper, inspect the resulting frame, and send it. Preserve the successful flag and transition. This changes both message and check; it is forgery by recomputation, not the fixed-CRC collision required next.</li>
           </ol>
       </section>
@@ -135,10 +135,10 @@
             <p>Save the approved baseline, a rejected unapproved-CRC attempt, the helper&#x27;s collision result, and the Arduino&#x27;s successful stage-3 response.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Capture the stage-3 LOCK frame and record its device ID, extra byte, and approved CRC. Use this team&#x27;s capture, not another team&#x27;s result.</li>
-            <li>Change its command to OPEN while retaining the extra byte. Calculate the new CRC and send that otherwise-valid frame. Record whether its check is valid but unapproved. The whitelist is enforced on the Arduino, not by disabled browser fields.</li>
-            <li>Restore the approved CRC into byte 6. Set the command to OPEN, then lock every digit except the two digits of the extra byte. The helper&#x27;s Search extra byte only button sets those locks without changing your values. Both check digits must remain locked.</li>
-            <li>Run the fixed-CRC search. Record the locked fields, approved CRC, matching packet, and number of candidates tested. One extra byte has 256 possible values; no second extra byte is needed for this specified CRC-8 format.</li>
+            <li>Capture the stage-3 LOCK frame and record its device ID, both extra bytes, and approved CRC. Use this team&#x27;s capture, not another team&#x27;s result.</li>
+            <li>Change its command to OPEN while retaining both extra bytes. Calculate the new CRC and send that otherwise-valid frame. Record whether its check is valid but unapproved. The whitelist is enforced on the Arduino, not by disabled browser fields.</li>
+            <li>Restore the approved CRC into byte 7. Set the command to OPEN, then lock every digit except the four digits of the two extra bytes. The helper&#x27;s Vary extra bytes only button sets those locks without changing your values. Both check digits must remain locked.</li>
+            <li>Run the fixed-CRC search. Record the locked fields, approved CRC, matching packet, and number of candidates tested. Two extra bytes give 65,536 combinations and 256 matching combinations for each target CRC when both are fully adjustable. The starting packet is excluded; if it already matches, 255 different matches remain. Use Next collision to cycle through the results.</li>
             <li>Confirm that your result is different from the captured LOCK frame, has the correct device ID, still means OPEN, and retains the approved CRC. Send it to the board and record the actual flag, LED state, and final relock.</li>
           </ol>
       </section>

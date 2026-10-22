@@ -16,33 +16,33 @@
     <aside class="notice">Preliminary specification for a lab-owned toy controller. This is the deliberate “leak” in the scenario, not a real access-control product or a secret document. Firmware and physical operation still need instructor validation.</aside>
     <section class="tool-panel">
       <h2>Maintenance connection</h2>
-      <p>The planned maintenance port uses the Nano's existing USB serial connection: 115200 baud, 8-N-1. Send one line of hex text, containing 14 digits, then a newline. Spaces and lowercase hex are allowed. Firmware decodes the text into exactly seven bytes. Do not send the text “OPEN” by itself.</p>
+      <p>The planned maintenance port uses the Nano's existing USB serial connection: 115200 baud, 8-N-1. Send one line of hex text, containing 16 digits, then a newline. Spaces and lowercase hex are allowed. Firmware decodes the text into exactly eight bytes. Do not send the text “OPEN” by itself.</p>
       <p>Use Arduino IDE Serial Monitor; do not upload a sketch. Only one program may own the serial port. The packet's application-level parity is independent of the serial setting, which stays 8-N-1 in every stage.</p>
-      <img src="../../../assets/labs/lab-08-controller-schematic.svg" alt="Proposed Nano USB connection, separate red and green LEDs with 330 ohm resistors to ground, and seven-byte packet layout">
+      <img src="../../../assets/labs/lab-08-controller-schematic.svg" alt="Proposed Nano USB connection, separate red and green LEDs with 330 ohm resistors to ground, and eight-byte packet layout">
       <p>Red means LOCKED; green means OPEN. A valid LOCK command stays red. Serial text—not LED color alone—identifies acceptance or rejection. The LEDs represent a door; there is no lock actuator.</p>
     </section>
     <section class="tool-panel">
-      <h2>Seven-byte message</h2>
+      <h2>Eight-byte message</h2>
       <table>
         <thead><tr><th scope="col">Byte</th><th scope="col">Meaning</th><th scope="col">Rule</th></tr></thead>
         <tbody>
           <tr><td>0</td><td>Device ID</td><td>One byte. Must match the connected team's controller.</td></tr>
           <tr><td>1–4</td><td>Command</td><td>Four ASCII characters: LOCK or OPEN. Send their hex byte values.</td></tr>
-          <tr><td>5</td><td>Extra byte</td><td>00–FF. Included in the error check; ignored when executing the command.</td></tr>
-          <tr><td>6</td><td>Check byte</td><td>Application parity in stage 1; CRC-8 in stages 2 and 3.</td></tr>
+          <tr><td>5–6</td><td>Two extra bytes</td><td>Each is 00–FF. Both are included in the error check; both are ignored when executing the command.</td></tr>
+          <tr><td>7</td><td>Check byte</td><td>Application parity in stage 1; CRC-8 in stages 2 and 3.</td></tr>
         </tbody>
       </table>
-      <p>LOCK is ASCII 4C 4F 43 4B. OPEN is ASCII 4F 50 45 4E. The device ID, extra byte, and check byte are arbitrary bytes and may not display as readable ASCII. Hexadecimal is a representation, not encryption.</p>
+      <p>Layout: ID | four command bytes | extra 1 | extra 2 | check. This is seven data bytes plus one check byte: eight bytes total. LOCK is ASCII 4C 4F 43 4B. OPEN is ASCII 4F 50 45 4E. The device ID, extra bytes, and check byte may not display as readable ASCII. Hexadecimal is a representation, not encryption.</p>
     </section>
     <section class="tool-panel">
       <h2>Revision notes</h2>
       <h3>Revision 1: parity</h3>
-      <p>Count all one bits in bytes 0–5. Byte 6 must be 00 or 01; only its lowest bit supplies the parity bit and all its other bits must be zero. For even parity the total number of ones, including that bit, must be even; for odd parity it must be odd. Use the convention reported by the controller.</p>
+      <p>Count all one bits in bytes 0–6. Byte 7 must be 00 or 01; only its lowest bit supplies the parity bit and all its other bits must be zero. For even parity the total number of ones, including that bit, must be even; for odd parity it must be odd. Use the convention reported by the controller.</p>
       <h3>Revision 2: CRC</h3>
-      <p>CRC-8 covers bytes 0–5, including the extra byte but excluding byte 6. Polynomial 07, initial value 00, no input/output reflection, no final XOR. Both the sender and receiver use these exact settings. The helper calculates the value; no polynomial division is required.</p>
+      <p>CRC-8 covers bytes 0–6, including both extra bytes but excluding byte 7. Polynomial 07, initial value 00, no input/output reflection, no final XOR. Both the sender and receiver use these exact settings. The helper calculates the value; no polynomial division is required.</p>
       <h3>Revision 3: approved check values</h3>
       <p>The developer now requires a valid CRC whose value also appears in an approved-CRC list. The list contains the CRC from the team's captured LOCK message. This is a whitelist of check values, not a whitelist of complete packets or commands. Device ID and command syntax must still be valid.</p>
-      <p>The extra byte remains ignored by the door application, but it is still covered by the CRC. Is approving a short check value equivalent to approving the message itself?</p>
+      <p>The two extra bytes remain ignored by the door application, but both are still covered by the CRC. Is approving a short check value equivalent to approving the message itself?</p>
     </section>
     <section class="tool-panel">
       <h2>Planned diagnostic messages</h2>

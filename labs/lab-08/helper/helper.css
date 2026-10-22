@@ -13,7 +13,7 @@ button:disabled { opacity: .55; cursor: default; }
 button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #c45a0b; outline-offset: 3px; }
 .button-row { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: .8rem; }
 .paste-row { display: flex; gap: .7rem; align-items: baseline; }
-.hex-grid { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: .5rem; margin: 1.3rem 0; }
+.hex-grid { display: grid; grid-template-columns: repeat(8, minmax(0,1fr)); gap: .5rem; margin: 1.3rem 0; }
 .byte { margin: 0; min-width: 0; padding: .65rem .3rem; border: 1px solid #a8b7bf; border-radius: 9px; background: #f3f7f7; }
 .byte.check-byte { background: #fff1df; border: 2px solid #a74d19; }
 .byte legend { font-size: .8rem; font-weight: bold; padding: 0 .15rem; }
