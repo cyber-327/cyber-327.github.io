@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="../../../theme.css">
   <link rel="stylesheet" href="../../../styles.css">
   <link rel="stylesheet" href="../helper/helper.css">
-  <meta name="robots" content="noindex, nofollow">
 </head>
 <body class="engineering">
   <main class="drawing-sheet">
@@ -15,11 +14,11 @@
       <div><p>ACCESS SYSTEMS / SERVICE ENGINEERING</p><h1>DC-08 controller: service sheet</h1><p>Maintenance interface · wiring &amp; protocol schematic</p></div>
       <div>Drawing: DC08-SCH-003<br>Revision: C<br>Supply: USB / 5 V<br>Interface: 115200 / 8-N-1</div>
     </header>
-    <img src="../../../assets/labs/lab-08-controller-schematic.svg" alt="DC-08 electrical schematic: D4 red indicator, A5 green indicator, separate 330 ohm resistors, packet layout and patch notes">
+    <img src="../../../assets/labs/lab-08-controller-schematic.svg" alt="DC-08 electrical schematic: D4 red indicator, A5 green indicator, separate 330 ohm resistors and eight-byte packet layout">
     <section>
       <h2>01 / Maintenance interface</h2>
       <p>Use the onboard USB serial interface at 115200 baud, 8-N-1. Transmit one line containing 16 digits, representing exactly eight bytes, then a newline. Spaces and lowercase hex are permitted. CRLF is also supported. Bare command names, 0x prefixes, tabs and other separators are not accepted.</p>
-      <p>Before initialization, the service address is emitted as hex at 10-second intervals. To initialize the controller, use the INIT command in the correct packet syntax. The command list below identifies the four ASCII characters to place in the command field; construct their hex representation before transmission.</p>
+      <p>Before initialization, the service address is emitted as hex immediately on startup and at 10-second intervals. To initialize the controller, use the INIT command in the correct packet syntax. The command list below identifies the four ASCII characters to place in the command field; construct their hex representation before transmission.</p>
       <p>Disconnect USB before changing wiring. Red indicates LOCKED; green indicates OPEN. Each LED has its own 330 Ω series resistor. D0/RX and D1/TX are reserved for the onboard USB serial interface.</p>
     </section>
     <section>

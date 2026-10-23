@@ -7,7 +7,6 @@
   <title>Lab 08: DC-08 Door Receiver CTF | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
-  <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
   <header class="site-header">
@@ -89,6 +88,10 @@
       <h2>Lab Walkthrough</h2>
       <section class="walkthrough-stage">
         <h3>1. Gain Access — Table 1</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the recovered schematic address, device identity, and evidence that the device is initialized in the LOCK condition.</p>
+          </aside>
           <ol class="walkthrough-list">
             <li>You have gained access to the DC-08, a receiver for a security door. Your task is to break into the locked device. A helper page is available in your arsenal.</li>
             <li>Connect the device by USB and open Arduino IDE Serial Monitor at 115200 baud, 8-N-1, with a newline at the end of each message. Do not upload another sketch; close other programs using the port.</li>
@@ -98,6 +101,10 @@
       </section>
       <section class="walkthrough-stage">
         <h3>2. Defeat Patch v1.0 — Table 2</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save your attempts, the receiver&#x27;s responses, and the captured patch v1.0 flag.</p>
+          </aside>
           <ol class="walkthrough-list">
             <li>The maintenance port is leaking a legitimate command. Use the schematic to determine what the message means and what you must send to open the device.</li>
             <li>Investigate the command syntax and error-detection method. Record your attempts and the device&#x27;s responses in Table 2.</li>
@@ -106,6 +113,10 @@
       </section>
       <section class="walkthrough-stage">
         <h3>3. Defeat Patch v2.0 — Table 3</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save your attempts, the receiver&#x27;s responses, and the captured patch v2.0 flag.</p>
+          </aside>
           <ol class="walkthrough-list">
             <li>The device has been patched, and your previous attack no longer works. Find out what changed and break in again.</li>
             <li>Record your investigation and attempts in Table 3, and capture the new flag.</li>
@@ -113,6 +124,10 @@
       </section>
       <section class="walkthrough-stage">
         <h3>4. Defeat Patch v3.0 — Table 4</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the successful attempt, receiver response, and patch v3.0 flag. Include the reset packet, response, and bonus flag if you attempt the extra credit.</p>
+          </aside>
           <ol class="walkthrough-list">
             <li>The device has been patched again. Find out what changed and defeat the lock once more.</li>
             <li>Record your investigation and attempts in Table 4, and capture the final patch flag.</li>
