@@ -3,53 +3,71 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Recovered Service Sheet · DC-08 Controller | CYBER 327</title>
+  <title>DC-08 · Service Schematic · DC08-SCH-003</title>
   <link rel="stylesheet" href="../../../theme.css">
   <link rel="stylesheet" href="../../../styles.css">
   <link rel="stylesheet" href="../helper/helper.css">
   <meta name="robots" content="noindex, nofollow">
 </head>
-<body>
-  <main class="shell workbench service-sheet">
-    <p class="eyebrow">Classroom prop · recovered maintenance document</p>
-    <h1>DC-08 controller: service sheet</h1>
-    <aside class="notice">Preliminary specification for a lab-owned toy controller. This is the deliberate “leak” in the scenario, not a real access-control product or a secret document. Firmware and physical operation still need instructor validation.</aside>
-    <section class="tool-panel">
-      <h2>Maintenance connection</h2>
-      <p>The planned maintenance port uses the Nano's existing USB serial connection: 115200 baud, 8-N-1. Send one line of hex text, containing 16 digits, then a newline. Spaces and lowercase hex are allowed. Firmware decodes the text into exactly eight bytes. Do not send the text “OPEN” by itself.</p>
-      <p>Use Arduino IDE Serial Monitor; do not upload a sketch. Only one program may own the serial port. The packet's application-level parity is independent of the serial setting, which stays 8-N-1 in every stage.</p>
-      <img src="../../../assets/labs/lab-08-controller-schematic.svg" alt="Proposed Nano USB connection, separate red and green LEDs with 330 ohm resistors to ground, and eight-byte packet layout">
-      <p>Red means LOCKED; green means OPEN. A valid LOCK command stays red. Serial text—not LED color alone—identifies acceptance or rejection. The LEDs represent a door; there is no lock actuator.</p>
+<body class="engineering">
+  <main class="drawing-sheet">
+    <header class="drawing-title">
+      <div><p>ACCESS SYSTEMS / SERVICE ENGINEERING</p><h1>DC-08 controller: service sheet</h1><p>Maintenance interface · wiring &amp; protocol schematic</p></div>
+      <div>Drawing: DC08-SCH-003<br>Revision: C<br>Supply: USB / 5 V<br>Interface: 115200 / 8-N-1</div>
+    </header>
+    <img src="../../../assets/labs/lab-08-controller-schematic.svg" alt="DC-08 electrical schematic: D4 red indicator, A5 green indicator, separate 330 ohm resistors, packet layout and patch notes">
+    <section>
+      <h2>01 / Maintenance interface</h2>
+      <p>Use the onboard USB serial interface at 115200 baud, 8-N-1. Transmit one line containing 16 digits, representing exactly eight bytes, then a newline. Spaces and lowercase hex are permitted. CRLF is also supported. Bare command names, 0x prefixes, tabs and other separators are not accepted.</p>
+      <p>Before initialization, the service address is emitted as hex at 10-second intervals. To initialize the controller, use the INIT command in the correct packet syntax. The command list below identifies the four ASCII characters to place in the command field; construct their hex representation before transmission.</p>
+      <p>Disconnect USB before changing wiring. Red indicates LOCKED; green indicates OPEN. Each LED has its own 330 Ω series resistor. D0/RX and D1/TX are reserved for the onboard USB serial interface.</p>
     </section>
-    <section class="tool-panel">
-      <h2>Eight-byte message</h2>
+    <section>
+      <h2>02 / Eight-byte packet</h2>
       <table>
-        <thead><tr><th scope="col">Byte</th><th scope="col">Meaning</th><th scope="col">Rule</th></tr></thead>
+        <thead><tr><th>Byte</th><th>Field</th><th>Definition</th></tr></thead>
         <tbody>
-          <tr><td>0</td><td>Device ID</td><td>One byte. Must match the connected team's controller.</td></tr>
-          <tr><td>1–4</td><td>Command</td><td>Four ASCII characters: LOCK or OPEN. Send their hex byte values.</td></tr>
-          <tr><td>5–6</td><td>Two extra bytes</td><td>Each is 00–FF. Both are included in the error check; both are ignored when executing the command.</td></tr>
-          <tr><td>7</td><td>Check byte</td><td>Application parity in stage 1; CRC-8 in stages 2 and 3.</td></tr>
+          <tr><td>0</td><td>Device ID</td><td>01–FF for LOCK/OPEN; service ID 00 for INIT/HELP/RSET.</td></tr>
+          <tr><td>1–4</td><td>Command</td><td>Four ASCII command characters.</td></tr>
+          <tr><td>5–6</td><td>Two extra bytes</td><td>Both included in the check. LOCK/OPEN permit arbitrary values; service commands require both bytes to be zero.</td></tr>
+          <tr><td>7</td><td>Check byte</td><td>Computed over bytes 0–6. Check excluded from its own calculation.</td></tr>
         </tbody>
       </table>
-      <p>Layout: ID | four command bytes | extra 1 | extra 2 | check. This is seven data bytes plus one check byte: eight bytes total. LOCK is ASCII 4C 4F 43 4B. OPEN is ASCII 4F 50 45 4E. The device ID, extra bytes, and check byte may not display as readable ASCII. Hexadecimal is a representation, not encryption.</p>
+      <p>Service commands always use even parity, regardless of the installed patch. Their check byte must be 00 or 01 so the total number of one bits across all eight bytes is even. The serial port setting stays 8-N-1.</p>
     </section>
-    <section class="tool-panel">
-      <h2>Revision notes</h2>
-      <h3>Revision 1: parity</h3>
-      <p>Count all one bits in bytes 0–6. Byte 7 must be 00 or 01; only its lowest bit supplies the parity bit and all its other bits must be zero. For even parity the total number of ones, including that bit, must be even; for odd parity it must be odd. Use the convention reported by the controller.</p>
-      <h3>Revision 2: CRC</h3>
-      <p>CRC-8 covers bytes 0–6, including both extra bytes but excluding byte 7. Polynomial 07, initial value 00, no input/output reflection, no final XOR. Both the sender and receiver use these exact settings. The helper calculates the value; no polynomial division is required.</p>
-      <h3>Revision 3: approved check values</h3>
-      <p>The developer now requires a valid CRC whose value also appears in an approved-CRC list. The list contains the CRC from the team's captured LOCK message. This is a whitelist of check values, not a whitelist of complete packets or commands. Device ID and command syntax must still be valid.</p>
-      <p>The two extra bytes remain ignored by the door application, but both are still covered by the CRC. Is approving a short check value equivalent to approving the message itself?</p>
+    <section>
+      <h2>03 / Command register</h2>
+      <table>
+        <thead><tr><th>Command</th><th>Address</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>INIT</td><td>Service ID 00</td><td>Initialize v1.0 and enable the LOCK capture stream. Repeated INIT does not restart an active run.</td></tr>
+          <tr><td>HELP</td><td>Service ID 00</td><td>Report initialization, patch and lock status.</td></tr>
+          <tr><td>LOCK</td><td>Device ID</td><td>Confirm the locked state. A valid LOCK packet does not execute OPEN or advance a patch.</td></tr>
+          <tr><td>OPEN</td><td>Device ID</td><td>Open when the current patch's checks pass.</td></tr>
+          <tr><td>RSET</td><td>Service ID 00</td><td>Return to before INIT at v1.0.</td></tr>
+        </tbody>
+      </table>
     </section>
-    <section class="tool-panel">
-      <h2>Planned diagnostic messages</h2>
-      <p>Malformed lines, wrong device IDs, and unknown commands must be rejected. Other outcomes identify parity failure, CRC failure, or a valid CRC not in the approved list. An accepted OPEN command prints the stage flag; then the controller relocks and advances. The final stage relocks after success. Preserve the serial output before the transition.</p>
-      <p>The connected board supplies its ID, stage, check convention, and baseline capture. If your board does not support this protocol, stop and ask the instructor. The public helper has no target connection or flags.</p>
+    <section>
+      <h2>04 / Patch notes</h2>
+      <p><strong>v1.0:</strong> LOCK/OPEN use even parity across bytes 0–6 and the lowest bit of byte 7. Byte 7 must be 00 or 01.</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Patch</th><th>Convention</th><th>Input reflected</th><th>Result reflected</th><th>Polynomial</th><th>Initial Value</th><th>Final Xor Value</th></tr></thead>
+        <tbody>
+          <tr><td>v2.0</td><td>CRC-8/SMBUS</td><td>No</td><td>No</td><td>07</td><td>00</td><td>00</td></tr>
+          <tr><td>v3.0</td><td>CRC-8/MAXIM-DOW</td><td>Yes</td><td>Yes</td><td>31</td><td>00</td><td>00</td></tr>
+        </tbody>
+      </table></div>
+      <p>Width: 8 bits. CRC-8 covers bytes 0–6, including both extra bytes but excluding byte 7. Values are hexadecimal. Polynomial uses its normal representation with the implicit x⁸ term omitted; use 31, not its bit-reversed representation, for v3.0.</p>
+      <p><strong>v3.0 approval rule:</strong> A valid CRC must also equal the approved CRC from the current v3.0 LOCK capture. The approval list stores check values, not complete messages. Do not reuse the CRC from a v2.0 capture.</p>
     </section>
-    <p><a href="../helper/">Open packet workbench</a> · <a href="../">Return to Lab 8</a></p>
+    <section>
+      <h2>05 / Operating sequence</h2>
+      <p>After INIT, the controller emits its version/device header and current LOCK packet immediately, then every 30 seconds. Successful OPEN commands in v1.0 and v2.0 illuminate green, report the earned token and install the next patch. Installation takes three seconds; wait for “Patched!” and the new capture before transmitting another LOCK/OPEN packet.</p>
+      <p>An incorrect packet before completion reports “Wrong input detected!”, a reason, and “Rebooting…”. The controller returns to before INIT at v1.0. RSET has the same reset destination. Restart the interface with a newly transmitted INIT packet.</p>
+      <p>After the final successful OPEN, green remains on and the capture stream stops. HELP reports completion. Only a valid RSET packet, power cycle or hardware reset starts a new run; other input leaves completion intact.</p>
+    </section>
+    <footer><p>DC08-SCH-003 / REV C · <a href="../helper/">Packet workbench</a> · <a href="../">Maintenance investigation</a></p></footer>
   </main>
 </body>
 </html>

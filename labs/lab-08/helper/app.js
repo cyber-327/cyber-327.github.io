@@ -20,6 +20,7 @@
   function changed() {
     cancelSearch("Packet or locks changed; search cancelled.");
     $("packet-output").value = "";
+    result("crc-result", "Packet or settings changed. Calculate again.");
     result("inspection", "Packet changed. Inspect it again before copying.");
     result("search-result", "Packet or locks changed. Start a new search; previous matches were cleared.");
   }
@@ -77,14 +78,14 @@
   }
   function loadBytes(bytes) {
     P.frame(bytes);
+    result("crc-result", "Packet loaded. Calculate again with the current CRC parameters.");
     const digits = P.hex(bytes).replace(/ /g, "");
     inputs.forEach((input, index) => { input.value = digits[index]; });
     $("packet-input").value = P.hex(bytes);
   }
   function inspect() {
     const bytes = bytesFromGrid(), f = P.frame(bytes);
-    const convention = $("parity-mode").value, expected = P.parity(bytes.slice(0, 7), convention);
-    result("inspection", `Device: ${P.hex([f.id])}\nCommand ASCII: ${f.command}\nExtra bytes: ${P.hex(f.extras)}\nStage 1 ${convention} parity: expected ${P.hex([expected])}; ${f.check === expected ? "CHECK MATCH" : "CHECK MISMATCH"}\nStages 2–3 CRC-8: expected ${P.hex([f.crc])}; ${f.check === f.crc ? "CHECK MATCH" : "CHECK MISMATCH"}\nArduino state, device-ID acceptance, whitelist, and flags are NOT checked here.`);
+    result("inspection", `Device: ${P.hex([f.id])}\nCommand ASCII: ${f.command}\nExtra bytes: ${P.hex(f.extras)}\nAttached check: ${P.hex([f.check])}`);
     $("packet-output").value = P.hex(bytes);
     $("packet-input").value = P.hex(bytes);
   }
@@ -108,13 +109,28 @@
   });
   $("load").addEventListener("click", safe(() => { changed(); loadBytes(P.parseHex($("packet-input").value)); inspect(); }));
   $("inspect").addEventListener("click", safe(inspect));
-  $("parity-mode").addEventListener("change", changed);
+  function crcParameters() {
+    const hexField = id => {
+      const text = $(id).value.trim();
+      if (!/^(?:0x)?[0-9a-f]{1,2}$/i.test(text)) throw new Error("Enter one hex byte for Polynomial, Initial Value and Final Xor Value.");
+      return parseInt(text.replace(/^0x/i, ""), 16);
+    };
+    if (!["true", "false"].includes($("crc-refin").value) || !["true", "false"].includes($("crc-refout").value))
+      throw new Error("Choose Input reflected and Result reflected explicitly.");
+    return P.parameters({refin: $("crc-refin").value === "true", refout: $("crc-refout").value === "true",
+      poly: hexField("crc-poly"), init: hexField("crc-init"), xorout: hexField("crc-xorout")});
+  }
+  for (const id of ["crc-refin", "crc-refout", "crc-poly", "crc-init", "crc-xorout"])
+    $(id).addEventListener(id.startsWith("crc-ref") ? "change" : "input", changed);
   $("all-lock").addEventListener("click", () => { changed(); locks.forEach(lock => { lock.checked = true; }); });
   $("all-unlock").addEventListener("click", () => { changed(); locks.forEach(lock => { lock.checked = false; }); });
   $("padding-only").addEventListener("click", () => { changed(); locks.forEach((lock, index) => { lock.checked = index < 10 || index >= 14; }); });
-  for (const [id, fn] of [["write-crc", P.crc8], ["write-parity", bytes => P.parity(bytes, $("parity-mode").value)]]) {
-    $(id).addEventListener("click", safe(() => { const bytes = bytesFromGrid(); changed(); bytes[7] = fn(bytes.slice(0, 7)); loadBytes(bytes); inspect(); }));
-  }
+  $("calculate-crc").addEventListener("click", () => {
+    try {
+      const bytes = bytesFromGrid(), value = P.crc8(bytes.slice(0, 7), crcParameters());
+      result("crc-result", `CRC: ${P.hex([value])}\nCovers bytes 0–6. Attached check: ${P.hex([bytes[7]])}; ${value === bytes[7] ? "CHECK MATCH" : "CHECK MISMATCH"}.\nPacket unchanged. Enter the calculated byte manually if you intend to replace its check.`);
+    } catch (error) { result("crc-result", error.message, true); }
+  });
   $("cancel").addEventListener("click", () => cancelSearch());
   async function findNext(restart) {
     if (searching) return;
@@ -123,7 +139,7 @@
     try {
       if (!session) {
         const original = bytesFromGrid();
-        session = {iterator: P.searchCandidates(P.hex(original), locks.map(lock => lock.checked)), matches: [], index: -1, done: false};
+        session = {iterator: P.searchCandidates(P.hex(original), locks.map(lock => lock.checked), crcParameters()), matches: [], index: -1, done: false};
       }
       const current = session;
       searching = true; $("search").disabled = true; $("next").disabled = true; $("cancel").disabled = false;

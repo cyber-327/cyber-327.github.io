@@ -18,29 +18,40 @@
     if (bytes.some(b => b > 127)) throw new Error("Use ASCII characters only; non-ASCII text is not silently converted.");
     return bytes;
   }
-  function crc8(bytes) {
-    let crc = 0;
-    for (const byte of bytes) {
-      crc ^= byte;
-      for (let bit = 0; bit < 8; bit++) crc = ((crc << 1) ^ ((crc & 0x80) ? 0x07 : 0)) & 255;
-    }
-    return crc;
+  function parameters(value) {
+    if (!value || typeof value.refin !== "boolean" || typeof value.refout !== "boolean")
+      throw new Error("Choose Input reflected and Result reflected explicitly.");
+    for (const name of ["poly", "init", "xorout"])
+      if (!Number.isInteger(value[name]) || value[name] < 0 || value[name] > 255)
+        throw new Error("Polynomial, Initial Value and Final Xor Value must each be one hex byte.");
+    if (value.poly === 0) throw new Error("Polynomial must not be 00.");
+    return {...value};
   }
-  function parity(bytes, mode = "even") {
-    if (!["even", "odd"].includes(mode)) throw new Error("Parity must be even or odd.");
-    let value = 0;
+  function reflect8(value) {
+    let result = 0;
+    for (let bit = 0; bit < 8; bit++, value >>= 1) result = (result << 1) | (value & 1);
+    return result;
+  }
+  function calculate(bytes, p) {
+    let crc = p.init;
     for (const byte of bytes) {
-      let b = byte;
-      for (let i = 0; i < 8; i++, b >>= 1) value ^= b & 1;
+      crc ^= p.refin ? reflect8(byte) : byte;
+      for (let bit = 0; bit < 8; bit++) crc = ((crc << 1) ^ ((crc & 0x80) ? p.poly : 0)) & 255;
     }
-    return value ^ (mode === "odd" ? 1 : 0);
+    return (p.refout ? reflect8(crc) : crc) ^ p.xorout;
+  }
+  function crc8(bytes, value) {
+    const p = parameters(value);
+    if (Array.from(bytes).some(b => !Number.isInteger(b) || b < 0 || b > 255))
+      throw new Error("CRC input must contain complete byte values.");
+    return calculate(bytes, p);
   }
   function frame(bytes) {
     if (bytes.length !== 8) throw new Error("A frame must contain exactly eight bytes: 16 hex digits.");
-    return {id: bytes[0], command: printable(bytes.slice(1, 5)), extras: bytes.slice(5, 7), check: bytes[7],
-      crc: crc8(bytes.slice(0, 7)), even: parity(bytes.slice(0, 7)), odd: parity(bytes.slice(0, 7), "odd")};
+    return {id: bytes[0], command: printable(bytes.slice(1, 5)), extras: bytes.slice(5, 7), check: bytes[7]};
   }
-  function *searchCandidates(digits, locked) {
+  function *searchCandidates(digits, locked, value) {
+    const p = parameters(value);
     const compact = String(digits).replace(/\s/g, "").toUpperCase();
     const bytes = parseHex(compact);
     frame(bytes);
@@ -55,8 +66,8 @@
       for (let j = free.length - 1; j >= 0; j--, value >>= 4) chars[free[j]] = (value & 15).toString(16).toUpperCase();
       const result = parseHex(chars.join(""));
       const isOriginal = chars.join("") === compact;
-      yield {bytes: result, tested: candidate + 1, total, match: !isOriginal && crc8(result.slice(0, 7)) === bytes[7]};
+      yield {bytes: result, tested: candidate + 1, total, match: !isOriginal && calculate(result.slice(0, 7), p) === bytes[7]};
     }
   }
-  return {parseHex, hex, printable, asciiBytes, crc8, parity, frame, searchCandidates};
+  return {parseHex, hex, printable, asciiBytes, crc8, parameters, frame, searchCandidates};
 });

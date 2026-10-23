@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="../../../theme.css">
   <link rel="stylesheet" href="../../../styles.css">
   <link rel="stylesheet" href="helper.css">
-  <script src="protocol.js?v=2" defer></script>
-  <script src="app.js?v=2" defer></script>
+  <script src="protocol.js?v=3" defer></script>
+  <script src="app.js?v=3" defer></script>
   <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
@@ -17,7 +17,7 @@
     <p class="eyebrow">Exposed Maintenance Port</p>
     <h1>Packet workbench</h1>
     <p>Decode the clues. Build a packet. Test your reasoning on the controller.</p>
-    <aside class="notice">Preliminary lab tools. This page calculates checks locally; it cannot open a door, award a flag, or confirm what an Arduino accepted. Copy your packet into Serial Monitor. Hex is an encoding, not encryption.</aside>
+    <aside class="notice">DC-08 packet tools. Construct a packet, then transmit its hex text through Serial Monitor at 115200 baud, 8-N-1. This workbench does not transmit packets.</aside>
     <section class="tool-panel" aria-labelledby="converter-title">
       <h2 id="converter-title">1. Hex ↔ ASCII</h2>
       <div class="converter-grid">
@@ -28,28 +28,37 @@
     </section>
     <section class="tool-panel" aria-labelledby="packet-title">
       <h2 id="packet-title">2. Eight-byte message</h2>
-      <p>Enter the 16 hex digits from your capture. Each pair is one byte. Bytes 0–6 are checked; byte 7 stores the check. In stage 1 it must be 00 or 01. Stages 2–3 use CRC-8.</p>
+      <p>Enter the 16 hex digits from your capture. Each pair is one byte. Bytes 0–6 are checked; byte 7 stores the check. Use the service schematic for command syntax and the current patch's check rules.</p>
       <label for="packet-input">Paste a complete frame</label>
       <div class="paste-row"><input id="packet-input" type="text" spellcheck="false" autocomplete="off" placeholder="Eight bytes, with or without spaces"><button id="load" type="button">Load boxes</button></div>
       <div id="hex-grid" class="hex-grid" aria-label="Eight bytes with individual hex digit locks"></div>
       <p class="legend">Type continuously: each valid hex digit moves to the next box. Arrow keys move between boxes; pasting spreads digits across boxes. Checked means locked for searching, not typing. All locks start unchecked; loading a packet preserves your lock choices.</p>
       <div class="button-row"><button id="all-lock" type="button">Lock all digits</button><button id="all-unlock" type="button">Unlock all digits</button><button id="padding-only" type="button">Vary extra bytes only</button></div>
       <p class="legend">Vary extra bytes only sets the search locks: ID, command and CRC stay fixed; bytes 5–6 can vary. It does not change any packet values or start a search.</p>
-      <label for="parity-mode">Stage 1 parity convention</label><select id="parity-mode"><option value="even">Even parity</option><option value="odd">Odd parity</option></select>
-      <div class="button-row"><button id="inspect" type="button">Inspect packet</button><button id="write-parity" type="button">Write parity byte</button><button id="write-crc" type="button">Write CRC byte</button></div>
-      <p class="legend">Write buttons deliberately replace byte 7, even when its search locks are checked. In stage 3, preserve the approved CRC instead.</p>
+      <div class="button-row"><button id="inspect" type="button">Inspect packet</button></div>
       <pre id="inspection" class="result" role="status">Enter a packet to inspect.</pre>
+      <h3>CRC calculator · width 8 bits</h3>
+      <p>Enter all five parameters from the current patch notes. Numeric parameters are hexadecimal; use the normal polynomial representation, omitting the implicit x⁸ term. CRC calculation covers bytes 0–6 only.</p>
+      <div class="crc-settings">
+        <div><label for="crc-refin">Input reflected</label><select id="crc-refin"><option value="">Choose…</option><option value="false">No</option><option value="true">Yes</option></select></div>
+        <div><label for="crc-refout">Result reflected</label><select id="crc-refout"><option value="">Choose…</option><option value="false">No</option><option value="true">Yes</option></select></div>
+        <div><label for="crc-poly">Polynomial</label><input id="crc-poly" type="text" maxlength="4" spellcheck="false" placeholder="Hex byte"></div>
+        <div><label for="crc-init">Initial Value</label><input id="crc-init" type="text" maxlength="4" spellcheck="false" placeholder="Hex byte"></div>
+        <div><label for="crc-xorout">Final Xor Value</label><input id="crc-xorout" type="text" maxlength="4" spellcheck="false" placeholder="Hex byte"></div>
+      </div>
+      <button id="calculate-crc" type="button">Calculate CRC</button>
+      <pre id="crc-result" class="result" role="status">Enter the CRC parameters and a packet. Calculation does not change the packet.</pre>
     </section>
     <section class="tool-panel" aria-labelledby="search-title">
       <h2 id="search-title">3. Fixed-CRC collision search</h2>
       <p>Set the desired command first. Lock the device ID, command, and both target CRC digits. Leave the two extra bytes adjustable, or use Vary extra bytes only to set these locks. The search keeps every locked digit unchanged and never returns the starting packet.</p>
-      <p>CRC-8 parameters: polynomial 07, initial value 00, no reflection, no final XOR. The target is byte 7; the CRC covers bytes 0–6 only. A match means CRC consistency—not authorization or a successful command.</p>
+      <p>The search uses the five CRC parameters entered above. The target is byte 7; the CRC covers bytes 0–6 only. Inspect the result's command before transmitting: a matching LOCK packet does not execute OPEN.</p>
       <div class="button-row"><button id="search" type="button">Search unlocked digits</button><button id="next" type="button" disabled>Next collision</button><button id="cancel" type="button" disabled>Cancel search</button></div>
       <p class="legend">Search again or choose Next collision to move through different matches. After the last match, results cycle back to the first. Editing a value or lock starts a new search.</p>
       <pre id="search-result" class="result" role="status">No search started. At most four digits may be unlocked (65,536 candidates).</pre>
       <label for="packet-output">Packet for Serial Monitor</label><input id="packet-output" readonly type="text" spellcheck="false" placeholder="Inspect or find a packet first">
       <div class="button-row"><button id="copy" type="button">Copy packet</button></div>
-      <p class="legend">Send the displayed hex text plus a newline at 115200 baud, 8-N-1. The planned firmware decodes that text into eight bytes. Search runs locally; it does not send trial packets to the board.</p>
+      <p class="legend">Send the displayed hex text plus a newline at 115200 baud, 8-N-1. The controller decodes that text into eight bytes. Use INIT in the correct packet syntax to start the capture stream. Search runs locally; it does not transmit trial packets.</p>
     </section>
     <p><a href="../">Return to Lab 8</a></p>
     <noscript><p>This helper needs JavaScript. Ask your instructor for the prepared offline alternative.</p></noscript>

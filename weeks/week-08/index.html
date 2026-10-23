@@ -30,7 +30,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 21.</h2>
+      <h2>This week&#x27;s lecture material is complete.</h2>
       <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
     </aside>
 
@@ -89,6 +89,33 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 22 / Fri</p>
+        <h2>Digital Modulation Families and Constellation Basics</h2>
+        <p class="meta">October 23, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-22-slides.pptx" download>Lecture 22 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>ASK, FSK, PSK, QPSK, and QAM</li>
+          <li>Symbols, baud rate, bit rate, and spectral efficiency</li>
+          <li>I/Q channels and constellation plots</li>
+          <li>Noise separation between constellation points</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Modulation choice as a resilience and detectability tradeoff</li>
+          <li>Constellation spread as signal quality evidence</li>
+          <li>Digital modulation as the bridge into QAM/BER labs</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -124,6 +151,15 @@
           <div><dt>metadata</dt><dd>Visible traffic details, such as transmission times and lengths, even when content is encrypted.</dd></div>
           <div><dt>whitelist</dt><dd>A list of values the device accepts. Approving a CRC value does not identify a sender.</dd></div>
           <div><dt>CRC collision</dt><dd>Different messages produce the same CRC value.</dd></div>
+          <div><dt>ASK</dt><dd>Digital modulation that represents symbols using carrier-amplitude states.</dd></div>
+          <div><dt>FSK</dt><dd>Digital modulation that represents symbols using carrier-frequency states.</dd></div>
+          <div><dt>PSK</dt><dd>Digital modulation that represents symbols using carrier-phase states.</dd></div>
+          <div><dt>QAM</dt><dd>Digital modulation that represents symbols using combinations of amplitude and phase.</dd></div>
+          <div><dt>constellation</dt><dd>Diagram of allowed or measured symbol states in in-phase and quadrature coordinates.</dd></div>
+          <div><dt>symbol</dt><dd>One selected signaling state in a symbol interval, which can represent one or more bits.</dd></div>
+          <div><dt>baud</dt><dd>Symbols per second; not necessarily bits per second or transitions per second.</dd></div>
+          <div><dt>I/Q</dt><dd>Signed weights on same-frequency carrier components 90 degrees apart.</dd></div>
+          <div><dt>spectral efficiency</dt><dd>Stated gross or useful bit rate divided by occupied bandwidth.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -141,11 +177,16 @@
           <li><span class="formula-label">Permission boundary</span><span class="equation">a valid tag does not authorize every action.</span></li>
           <li><span class="formula-label">Encryption boundary</span><span class="equation">encryption alone does not necessarily detect changes or reject replay; timing and message length may remain visible.</span></li>
           <li><span class="formula-label">Physical boundary</span><span class="equation">an authenticated sensor message does not prove that the sensor measured physical reality accurately.</span></li>
+          <li><span class="formula-label">Bits per symbol</span><span class="equation">bits per symbol = log<sub>2</sub>(M)</span></li>
+          <li><span class="formula-label">Mapped bit rate</span><span class="equation">R<sub>b</sub> = R<sub>s</sub> log<sub>2</sub>(M), for fixed-length binary labels with M a power of two</span></li>
+          <li><span class="formula-label">Useful data rate</span><span class="equation">mapped bit rate times code rate, before other overhead and retries</span></li>
+          <li><span class="formula-label">Spectral efficiency</span><span class="equation">eta = stated bit rate / occupied bandwidth; state whether the rate is gross or useful</span></li>
+          <li><span class="formula-label">Comparison assumption</span><span class="equation">at equal average symbol energy, denser BPSK/QPSK/16-QAM constellations have smaller minimum point spacing</span></li>
         </ul>
         </section>
       </div>
       <div class="practice-focus">
-        <strong>Practice focus:</strong> Follow a remote sensor message through a noisy link. Add parity, test a byte-sum checksum, trace a small CRC, then distinguish detection from correction. Explain how block parity and interleaving address different error patterns. Finish by calculating the data-rate cost of redundancy and explaining why a passing check does not prove sender trust. Minimum-distance detection and correction formulas describe separate capabilities; a decoder does not automatically deliver both guarantees simultaneously. In the equations, k is the number of information bits, n is the total number of coded bits, and r is the number of CRC bits. The CRC probability estimate assumes approximately uniform remainders for random corrupted frames; it is not a guarantee for every error pattern or a probability of attacker success. Opening review from Lecture 20: - Data `1011010` uses even parity. Find its parity bit, then check complete words `10100100` and `10000100`. - A code uses k = 12 information bits and n = 16 transmitted bits at a coded rate of 8.00 Mbit/s. Find code rate, added bits per codeword, and information bit rate; ignore other overhead and retries. - In a separate example, use P_undetected ≈ 1/2^r for an 8-bit CRC under the roughly uniform random-remainder assumption. Explain why that estimate is not an attacker-success probability. Follow a toy door receiving `LOCK` and `OPEN`. First replace the command and recalculate its CRC. Then test a rule accepting only approved CRC values: a different command can share the same approved CRC. Explain what changes when a secret-key MAC is required. Replay a previously accepted `OPEN` with its original tag, and explain why a protected counter and remembered receiver state are needed. Finally, identify which separate problem encryption solves. Closing practice: - Distinguish CRC recomputation, a CRC collision, replay of an accepted command, and lack of privacy. Choose a control for each problem. - Start with last accepted counter = 70. In arrival order, consider `71 | OPEN` with a valid tag, the same message again, `72 | LOCK` with an invalid tag, then `73 | LOCK` with a valid tag. All senders have permission and all other format/error checks pass. Apply the rule: valid tag and counter greater than the last accepted number. Decide accept/reject and the remembered number after every row. - Design fields and receiver checks that block forgery and replay while preserving legitimate operation. If commands must also stay private, what changes? The preliminary Lab 8 plan progresses through parity, CRC, and a CRC-value whitelist using a hex/CRC helper. These are public checks, not proof of an authorized sender. MAC/replay protection is a conceptual repair, not an implemented lab stage; firmware and physical acceptance remain pending.
+        <strong>Practice focus:</strong> Follow a remote sensor message through a noisy link. Add parity, test a byte-sum checksum, trace a small CRC, then distinguish detection from correction. Explain how block parity and interleaving address different error patterns. Finish by calculating the data-rate cost of redundancy and explaining why a passing check does not prove sender trust. Minimum-distance detection and correction formulas describe separate capabilities; a decoder does not automatically deliver both guarantees simultaneously. In the equations, k is the number of information bits, n is the total number of coded bits, and r is the number of CRC bits. The CRC probability estimate assumes approximately uniform remainders for random corrupted frames; it is not a guarantee for every error pattern or a probability of attacker success. Opening review from Lecture 20: - Data `1011010` uses even parity. Find its parity bit, then check complete words `10100100` and `10000100`. - A code uses k = 12 information bits and n = 16 transmitted bits at a coded rate of 8.00 Mbit/s. Find code rate, added bits per codeword, and information bit rate; ignore other overhead and retries. - In a separate example, use P_undetected ≈ 1/2^r for an 8-bit CRC under the roughly uniform random-remainder assumption. Explain why that estimate is not an attacker-success probability. Follow a toy door receiving `LOCK` and `OPEN`. First replace the command and recalculate its CRC. Then test a rule accepting only approved CRC values: a different command can share the same approved CRC. Explain what changes when a secret-key MAC is required. Replay a previously accepted `OPEN` with its original tag, and explain why a protected counter and remembered receiver state are needed. Finally, identify which separate problem encryption solves. Closing practice: - Distinguish CRC recomputation, a CRC collision, replay of an accepted command, and lack of privacy. Choose a control for each problem. - Start with last accepted counter = 70. In arrival order, consider `71 | OPEN` with a valid tag, the same message again, `72 | LOCK` with an invalid tag, then `73 | LOCK` with a valid tag. All senders have permission and all other format/error checks pass. Apply the rule: valid tag and counter greater than the last accepted number. Decide accept/reject and the remembered number after every row. - Design fields and receiver checks that block forgery and replay while preserving legitimate operation. If commands must also stay private, what changes? The preliminary Lab 8 plan progresses through parity, CRC, and a CRC-value whitelist using a hex/CRC helper. These are public checks, not proof of an authorized sender. MAC/replay protection is a conceptual repair, not an implemented lab stage; firmware and physical acceptance remain pending. Follow the protected frame into a modulator. Compare its bits as amplitude, frequency, and phase states, then use I/Q coordinates to map and recover QPSK bit pairs. Compare BPSK, QPSK, and 16-QAM at the same baud rate, and explain why extra states cost decision margin under equal-energy conditions. A noisy constellation shows degraded signal quality, not proof of an attacker. Modulation carries the frame; it does not replace coding, encryption, or authentication. Lecture 23 develops QAM and bit error rate in more detail.
       </div>
     </section>
 
@@ -184,6 +225,20 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Digital Modulation Families</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Family</th><th scope="col">Changed Carrier Property</th><th scope="col">Basic Evidence</th></tr></thead>
+          <tbody>
+          <tr><td>ASK</td><td>Amplitude</td><td>Distinct amplitude levels</td></tr>
+          <tr><td>FSK</td><td>Frequency</td><td>Distinct tone or frequency states</td></tr>
+          <tr><td>PSK</td><td>Phase</td><td>Distinct phase states</td></tr>
+          <tr><td>QAM</td><td>Amplitude and phase</td><td>Multiple constellation points</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -203,6 +258,8 @@
           <li>How is authentication different from permission to perform an action?</li>
           <li>Why must a freshness counter be protected, and what must the receiver remember?</li>
           <li>Why does an authenticated message not prove that a sensor measured physical reality correctly?</li>
+          <li>How can two links have the same baud rate but different bit rate?</li>
+          <li>What does a noisy constellation look like?</li>
         </ul>
     </section>
 

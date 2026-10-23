@@ -1,15 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
-  <title id="title">DC-08 toy controller: proposed wiring and eight-byte protocol</title>
-  <desc id="desc">A computer connects to a classic five-volt Arduino Nano by USB. Output D4 drives a red LED through its own 330-ohm resistor; D5 drives a green LED through another 330-ohm resistor. Both LED cathodes return to Nano ground. D0 and D1 are reserved for the onboard USB serial connection. The message is one device-ID byte, four ASCII command bytes, two adjustable extra bytes, and one check byte. The check covers the first seven bytes.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1380" viewBox="0 0 1200 1380" role="img" aria-labelledby="title desc">
+  <title id="title">DC-08 service schematic DC08-SCH-003 revision C</title>
+  <desc id="desc">USB maintenance connection to a classic five-volt Arduino Nano. D4 drives red and A5 drives green, each through a separate 330-ohm resistor. Both cathodes connect to ground. The packet contains device ID, four ASCII command bytes, two adjustable extra bytes and one check byte. The check covers bytes 0–6. Patch notes specify even parity, CRC-8/SMBUS, and CRC-8/MAXIM-DOW with approved CRC values.</desc>
   <defs>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L0 6 L7 3 Z" fill="#117a7e"/></marker>
     <style>text{font-family:Arial,sans-serif;fill:#17324d}.label{font-size:20px}.small{font-size:17px}.wire{fill:none;stroke:#17324d;stroke-width:3;stroke-linejoin:round}.box{fill:#fff;stroke:#8babb6;stroke-width:2}.mono{font-family:monospace;font-size:22px}</style>
   </defs>
-  <rect width="1200" height="900" fill="#f7f3ea"/>
-  <text x="40" y="47" font-size="29" font-weight="bold">DC-08 service schematic · preliminary classroom design</text>
-  <text x="40" y="80" class="label">USB-powered classic 5 V Nano · two LED indicators · no physical lock or external transmitter</text>
+  <rect width="1200" height="1380" fill="#fff"/>
+  <rect x="16" y="16" width="1168" height="1348" fill="none" stroke="#17324d" stroke-width="2"/>
+  <text x="40" y="47" font-size="29" font-weight="bold">DC-08 / SERVICE SCHEMATIC</text>
+  <text x="40" y="80" class="label">DC08-SCH-003 · REV C · USB 5 V · 115200 baud / 8-N-1</text>
   <rect x="40" y="145" width="255" height="185" rx="15" class="box"/>
-  <text x="67" y="185" class="label" font-weight="bold">Lab computer</text>
+  <text x="67" y="185" class="label" font-weight="bold">Service terminal</text>
   <text x="67" y="222" class="small">Arduino Serial Monitor</text>
   <text x="67" y="253" class="small">115200 baud · 8-N-1</text>
   <text x="67" y="284" class="small">Hex text + newline</text>
@@ -22,7 +23,7 @@
   <text x="410" y="278" class="small">D0 / RX and D1 / TX</text>
   <text x="410" y="304" class="small">reserved: do not attach leads</text>
   <text x="620" y="348" class="label">D4</text>
-  <text x="620" y="408" class="label">D5</text>
+  <text x="620" y="408" class="label">A5</text>
   <text x="603" y="468" class="label">GND</text>
   <path d="M685 340 H735 l8 -10 12 20 12 -20 12 20 12 -20 8 10 H860" class="wire"/>
   <path d="M685 400 H735 l8 -10 12 20 12 -20 12 20 12 -20 8 10 H860" class="wire"/>
@@ -40,8 +41,8 @@
   <text x="40" y="391" class="small">Anode (A) → resistor.</text>
   <text x="40" y="417" class="small">Cathode (K) → common GND.</text>
   <text x="40" y="443" class="small">Unplug USB before wiring.</text>
-  <text x="40" y="469" class="small">No generator, relay, or real lock.</text>
-  <text x="40" y="495" class="small">Bench validation still required.</text>
+  <text x="40" y="469" class="small">D4: LOCKED indicator.</text>
+  <text x="40" y="495" class="small">A5: OPEN indicator.</text>
   <text x="40" y="558" font-size="25" font-weight="bold">Protocol annotation: eight decoded bytes = sixteen hex digits</text>
   <g transform="translate(40 590)">
     <rect width="130" height="90" fill="#e4eeee" stroke="#8babb6"/><rect x="130" width="130" height="90" fill="#fff" stroke="#8babb6"/><rect x="260" width="130" height="90" fill="#fff" stroke="#8babb6"/><rect x="390" width="130" height="90" fill="#fff" stroke="#8babb6"/><rect x="520" width="130" height="90" fill="#fff" stroke="#8babb6"/><rect x="650" width="130" height="90" fill="#e4eeee" stroke="#8babb6"/><rect x="780" width="130" height="90" fill="#e4eeee" stroke="#8babb6"/><rect x="910" width="200" height="90" fill="#ffe5c8" stroke="#a74d19"/>
@@ -55,7 +56,21 @@
   <path d="M40 697 V710 H950 V697" stroke="#117a7e" stroke-width="3" fill="none"/>
   <text x="490" y="742" text-anchor="middle" class="label">Parity or CRC covers bytes 0–6, including both extra bytes</text>
   <text x="1015" y="742" text-anchor="middle" class="small">Check excluded</text>
-  <text x="40" y="791" class="label">Stage 1: byte 7 = 00/01 parity bit. Stages 2–3: byte 7 = CRC-8.</text>
-  <text x="40" y="826" class="small">Both extra bytes are checked but ignored by the door action. The controller—not the browser—enforces ID and whitelist.</text>
-  <text x="40" y="860" class="small">Hex text is decoded before checking. A matching error check does not establish authorized origin.</text>
+  <text x="40" y="791" class="label" font-weight="bold">COMMANDS / ADDRESSING</text>
+  <text x="40" y="824" class="small">INIT: enable capture stream. HELP: status. RSET: return to before INIT at v1.0.</text>
+  <text x="40" y="855" class="small">Service commands: ID 00, both extra bytes zero, even parity in every patch; check is 00 or 01.</text>
+  <text x="40" y="886" class="small">LOCK / OPEN: use device ID 01–FF and installed patch check rules. A valid LOCK stays locked.</text>
+  <text x="40" y="917" class="small">Construct command bytes from the four ASCII characters. Send exactly 16 hex digits plus newline.</text>
+  <text x="40" y="963" class="label" font-weight="bold">PATCH NOTES / CHECK REGISTER</text>
+  <text x="40" y="998" class="small">v1.0: even parity over bytes 0–6 plus bit 0 of byte 7; byte 7 must be 00 or 01.</text>
+  <text x="40" y="1033" class="small">v2.0: CRC-8/SMBUS — Input reflected: No; Result reflected: No.</text>
+  <text x="40" y="1063" class="small">Polynomial: 07; Initial Value: 00; Final Xor Value: 00.</text>
+  <text x="40" y="1098" class="small">v3.0: CRC-8/MAXIM-DOW — Input reflected: Yes; Result reflected: Yes.</text>
+  <text x="40" y="1128" class="small">Polynomial: 31; Initial Value: 00; Final Xor Value: 00. CRC must match current LOCK approval.</text>
+  <text x="40" y="1163" class="small">Width: 8 bits. CRC covers bytes 0–6. Polynomial is normal-form hex; omit the implicit x⁸ term.</text>
+  <text x="40" y="1194" class="small">The v3.0 approval list stores CRC values, not complete packets. Both extra bytes affect the check.</text>
+  <text x="40" y="1238" class="label" font-weight="bold">TIMING / RECOVERY</text>
+  <text x="40" y="1270" class="small">Before INIT: service URL as hex every 10 s. After INIT: version + LOCK capture every 30 s.</text>
+  <text x="40" y="1300" class="small">Failed input: restart before INIT at v1.0. Final OPEN: green held on; valid RSET restarts the run.</text>
+  <text x="40" y="1340" class="small">ACCESS SYSTEMS / SERVICE ENGINEERING                                       DC08-SCH-003 / REV C / SHEET 1 OF 1</text>
 </svg>
