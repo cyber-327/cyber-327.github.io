@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../../../styles.css">
   <link rel="stylesheet" href="helper.css">
   <script src="protocol.js?v=3" defer></script>
-  <script src="app.js?v=3" defer></script>
+  <script src="app.js?v=4" defer></script>
   <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
@@ -51,6 +51,8 @@
     </section>
     <section class="tool-panel" aria-labelledby="search-title">
       <h2 id="search-title">3. Fixed-CRC collision search</h2>
+      <div id="search-hex-grid" class="hex-grid" aria-label="Collision-search frame with synchronized hex digits and locks"></div>
+      <p class="legend">This is the same frame as the message editor above. Values and locks stay synchronized in both directions.</p>
       <p>Set the desired command first. Lock the device ID, command, and both target CRC digits. Leave the two extra bytes adjustable, or use Vary extra bytes only to set these locks. The search keeps every locked digit unchanged and never returns the starting packet.</p>
       <p>The search uses the five CRC parameters entered above. The target is byte 7; the CRC covers bytes 0–6 only. Inspect the result's command before transmitting: a matching LOCK packet does not execute OPEN.</p>
       <div class="button-row"><button id="search" type="button">Search unlocked digits</button><button id="next" type="button" disabled>Next collision</button><button id="cancel" type="button" disabled>Cancel search</button></div>

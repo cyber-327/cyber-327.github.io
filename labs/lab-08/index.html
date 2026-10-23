@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 08: DC-08: Maintenance Port Investigation - CYBER 327 course material">
-  <title>Lab 08: DC-08: Maintenance Port Investigation | CYBER 327</title>
+  <meta name="description" content="Lab 08: DC-08 Door Receiver CTF - CYBER 327 course material">
+  <title>Lab 08: DC-08 Door Receiver CTF | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
   <meta name="robots" content="noindex, nofollow">
@@ -25,19 +25,18 @@
     <p class="eyebrow">Laboratory</p>
     <section class="page-intro">
       <p class="kicker">Lab 08 &middot; Week 8 &middot; October 23, 2026</p>
-      <h1>DC-08: Maintenance Port Investigation</h1>
-      <p class="body">Investigate the DC-08 maintenance interface, construct command packets, and test three successive security patches</p>
+      <h1>DC-08 Door Receiver CTF</h1>
+      <p class="body">Pen-test the DC-08 security-door receiver, defeat three successive patches, and capture the flags</p>
     </section>
 
     <section class="content-panel objectives-panel">
       <p class="eyebrow">Learning Outcomes</p>
       <h2>By the End of This Lab</h2>
         <ul>
-          <li>Decode hex clues and identify an eight-byte message format</li>
-          <li>Demonstrate a detected one-bit change and an undetected two-bit parity change</li>
-          <li>Create a changed command with a matching CRC using the supplied calculator</li>
-          <li>Find a different command with the same approved CRC while keeping the correct device ID</li>
-          <li>Separate error-check consistency, command acceptance, and authorized origin</li>
+          <li>Recover a device&#x27;s communication requirements from its output and service documentation</li>
+          <li>Construct and test command packets through a maintenance interface</li>
+          <li>Compare receiver behavior across successive firmware patches</li>
+          <li>Explain why accepted messages do not necessarily establish a trusted sender</li>
         </ul>
     </section>
 
@@ -45,11 +44,10 @@
       <p class="eyebrow">The Big Picture</p>
       <h2>What You Are Doing</h2>
         <ol class="overview-steps">
-          <li>Your team has access to the DC-08 maintenance interface. Recover its service documentation and determine how to issue an accepted OPEN command.</li>
-          <li>Red indicates LOCKED. Green indicates OPEN. Successful commands trigger successive firmware patches; complete all three to leave the controller unlocked.</li>
-          <li>Recover a leaked service-sheet address from hex output, then use the service sheet to learn the packet format.</li>
-          <li>Patch v1.0 checks even parity. Patch v2.0 uses CRC. Patch v3.0 changes the CRC convention and also requires an approved CRC value. Record each flag and the next patch capture.</li>
-          <li>Use the workbench to decode fields and calculate CRCs with parameters from the schematic. Determine parity yourself. Record the controller&#x27;s serial response, not just a calculator match.</li>
+          <li>You are conducting a penetration test of the DC-08, a receiver for a security door. You have gained access to its USB maintenance interface; your objective is to defeat the lock.</li>
+          <li>Recover the device documentation, investigate its messages, and capture a flag for each patch you defeat.</li>
+          <li>A packet workbench is available in your arsenal. Use it to support your investigation; the device determines whether an attempt succeeds.</li>
+          <li>Complete all three patches. An optional reset challenge is available after the final unlock.</li>
         </ol>
     </section>
 
@@ -59,19 +57,19 @@
         <p class="eyebrow">Before Lab</p>
         <h2>Preparation</h2>
         <ul>
-          <li>Review even parity, CRC parameters, and the difference between error detection and authentication.</li>
-          <li>Open the Lab 8 report and packet workbench. Only the computer attached to the Nano needs Arduino IDE and Serial Monitor. Ask the instructor for a prepared computer if the application or board port is unavailable.</li>
-          <li>Use the prepared DC-08 firmware. Do not upload another sketch, inspect firmware for flags, or bypass the maintenance interface by driving LED pins.</li>
+          <li>Review the week&#x27;s communication and message-checking concepts.</li>
+          <li>Open the Lab 8 report and packet workbench. Use Arduino IDE Serial Monitor on the computer connected to the device.</li>
+          <li>Keep testing within the assigned DC-08 maintenance interface. Do not replace firmware, inspect it for flags, or bypass the interface by driving indicator pins.</li>
         </ul>
       </section>
       <aside class="content-panel equipment">
         <p class="eyebrow">Bench Setup</p>
         <h2>Equipment and Materials</h2>
         <ul>
-          <li>Per team: instructor-prepared classic 5 V Arduino Nano and USB data cable</li>
-          <li>Computer with Arduino IDE Serial Monitor and a browser for the packet workbench</li>
-          <li>Breadboard, red LED, green LED, two 330 ohm resistors, and jumper wires, prechecked by the instructor</li>
+          <li>Prepared DC-08 receiver and USB data cable</li>
+          <li>Computer with Arduino IDE Serial Monitor and a browser</li>
           <li>Lab 8 report and packet workbench</li>
+          <li>Disconnect USB before moving wires; use USB power only</li>
         </ul>
       </aside>
     </div>
@@ -90,72 +88,42 @@
       <p class="eyebrow">Follow These Steps</p>
       <h2>Lab Walkthrough</h2>
       <section class="walkthrough-stage">
-        <h3>1. Discover the Maintenance Port — Table 1</h3>
-          <aside class="walkthrough-evidence" role="note">
-            <p class="eyebrow">Evidence Photo</p>
-            <p>Save the decoded service address, your constructed INIT packet, and the first version/device header and LOCK capture.</p>
-          </aside>
+        <h3>1. Gain Access — Table 1</h3>
           <ol class="walkthrough-list">
-            <li>Disconnect USB before checking wiring. D4 drives red and A5 drives green; each LED has its own 330 ohm resistor to its anode, with its cathode connected to GND. Use USB power only.</li>
-            <li>Connect USB. Open Serial Monitor at 115200 baud, 8-N-1, with a newline at the end of each message. Do not upload a sketch. Close other programs using that serial port.</li>
-            <li>Before initialization, the controller outputs only an address in hex, immediately and every 10 seconds. Save one copy and decode it with the converter.</li>
-            <li>Open the decoded address and recover the service schematic. Use its command list and service addressing/parity rules to construct an INIT packet in the correct syntax. Send your packet to initialize the controller; do not type the bare word INIT.</li>
-            <li>Every command is one line of 16 hex digits, with optional spaces. INIT, HELP and RSET use service ID 00, zero extra bytes and even parity in every patch. LOCK/OPEN use the discovered device ID. Record the version header and LOCK packet emitted after INIT; the capture repeats every 30 seconds.</li>
+            <li>You have gained access to the DC-08, a receiver for a security door. Your task is to break into the locked device. A helper page is available in your arsenal.</li>
+            <li>Connect the device by USB and open Arduino IDE Serial Monitor at 115200 baud, 8-N-1, with a newline at the end of each message. Do not upload another sketch; close other programs using the port.</li>
+            <li>Secure the device schematic to investigate its addressing, message format, and communication requirements.</li>
+            <li>To complete this part, initialize the device in the LOCK condition and record your findings in Table 1.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
-        <h3>2. Patch v1.0: Satisfy Parity — Table 2</h3>
-          <aside class="walkthrough-evidence" role="note">
-            <p class="eyebrow">Evidence Photo</p>
-            <p>Preserve one failed parity test and the patch-1 OPEN result. Label the changed bits and record serial text, not color alone.</p>
-          </aside>
+        <h3>2. Defeat Patch v1.0 — Table 2</h3>
           <ol class="walkthrough-list">
-            <li>Capture the v1.0 LOCK packet and load its eight bytes into the workbench. The check byte must be 00 or 01 and make the total number of one bits even.</li>
-            <li>Send the captured LOCK message. It should be accepted while the red LED stays on. A valid message is not necessarily an OPEN command.</li>
-            <li>Restore the capture before each test. Flip one bit in an extra byte without changing the check and send it. Record the failure reason and restart. Send INIT again, restore the original capture, then flip two bits in an extra byte while keeping the check and test again. Keep the ID and command unchanged.</li>
-            <li>Build an OPEN packet for your device and determine its even-parity check manually. Inspect the command, then send it. Save this successful packet and the flag. Green illuminates during patch installation; wait for Patched! and the v2.0 header before continuing.</li>
+            <li>The maintenance port is leaking a legitimate command. Use the schematic to determine what the message means and what you must send to open the device.</li>
+            <li>Investigate the command syntax and error-detection method. Record your attempts and the device&#x27;s responses in Table 2.</li>
+            <li>Capture the flag once you defeat the lock.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
-        <h3>3. Patch v2.0: Recompute the CRC — Table 3</h3>
-          <aside class="walkthrough-evidence" role="note">
-            <p class="eyebrow">Evidence Photo</p>
-            <p>Save the changed command with the old CRC failing and the matching new CRC succeeding.</p>
-          </aside>
+        <h3>3. Defeat Patch v2.0 — Table 3</h3>
           <ol class="walkthrough-list">
-            <li>Capture the v2.0 LOCK packet. Enter all five v2.0 CRC parameters from the schematic into the calculator. Calculate over bytes 0–6, including both extra bytes; byte 7 stores the check and is excluded.</li>
-            <li>Change only the four command bytes to OPEN and retain the old check. Send it and record the failure. Wrong input returns to before INIT at v1.0: send INIT, replay your saved v1.0 OPEN packet and wait for the v2.0 capture before retrying.</li>
-            <li>Choose Calculate CRC, then enter the calculated byte into byte 7 yourself. Inspect and send the OPEN packet. Save this successful packet and flag, then wait for v3.0. Changing both message and check is recomputation; the next patch requires keeping an approved check fixed.</li>
+            <li>The device has been patched, and your previous attack no longer works. Find out what changed and break in again.</li>
+            <li>Record your investigation and attempts in Table 3, and capture the new flag.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
-        <h3>4. Patch v3.0: Keep an Approved CRC — Table 4</h3>
-          <aside class="walkthrough-evidence" role="note">
-            <p class="eyebrow">Evidence Photo</p>
-            <p>Save the approved baseline, a rejected unapproved-CRC attempt, the helper&#x27;s collision result, and the Arduino&#x27;s successful patch-3 response.</p>
-          </aside>
+        <h3>4. Defeat Patch v3.0 — Table 4</h3>
           <ol class="walkthrough-list">
-            <li>Capture the v3.0 LOCK packet and record its device ID, extra bytes and approved CRC. Update all five calculator parameters for v3.0, which uses a different CRC convention. Use this capture, not the v2.0 CRC.</li>
-            <li>Change the command to OPEN, retain both extra bytes, and calculate its v3.0 CRC. Send the otherwise-valid packet and record the approval failure. To return to v3.0, send INIT and replay your saved successful v1.0 and v2.0 OPEN packets, waiting for each patch installation.</li>
-            <li>Restore the approved CRC into byte 7. Set the command to OPEN, then lock every digit except the four digits of the two extra bytes. The helper&#x27;s Vary extra bytes only button sets those locks without changing your values. Both check digits must remain locked.</li>
-            <li>Run the fixed-CRC search. Record the locked fields, approved CRC, matching packet, and number of candidates tested. Two extra bytes give 65,536 combinations and 256 matching combinations for each target CRC when both are fully adjustable. The starting packet is excluded; if it already matches, 255 different matches remain. Use Next collision to cycle through the results.</li>
-            <li>Inspect the result: its command must decode to OPEN, its device ID must match, and its CRC must equal the current approved value. A matching LOCK stays locked. Send the OPEN result; record the third flag, Congratulations! and the green LED remaining on. A correctly formed RSET packet starts a new run.</li>
+            <li>The device has been patched again. Find out what changed and defeat the lock once more.</li>
+            <li>Record your investigation and attempts in Table 4, and capture the final patch flag.</li>
+            <li>After defeating this patch, congratulations! For optional extra credit, send a valid reset command and capture the bonus flag before starting a new run.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
-        <h3>5. Explain the Trust Boundary</h3>
+        <h3>5. Finish and Submit</h3>
           <ol class="walkthrough-list">
-            <li>Compare the three patches. Which tested accidental changes did each notice? Why could a deliberate sender still create an accepted OPEN command? Do not claim parity or CRC protects all error patterns.</li>
-            <li>Explain why approving a CRC value does not approve one particular command. Restrict testing to your assigned controller and maintenance interface.</li>
-            <li>Propose a keyed message-authentication check over all decision-relevant fields. Since saved successful packets can be replayed after a restart, identify an additional freshness check.</li>
-          </ol>
-      </section>
-      <section class="walkthrough-stage">
-        <h3>6. Finish and Submit</h3>
-          <ol class="walkthrough-list">
-            <li>Complete Tables 1–4, three evidence groups, and the short conclusion. Each student submits an individual report as a PDF. Use flags only from the target&#x27;s serial output; the helper never awards flags.</li>
-            <li>Rotate decoder, packet operator and recorder roles. After completion, green stays on until a valid RSET or physical restart. HELP reports completion; other input leaves it intact. Save all evidence before replaying or resetting.</li>
-            <li>Close Serial Monitor and unplug USB before moving wires. Report connection or wiring faults before continuing.</li>
+            <li>Complete Tables 1–4, include your evidence and captured flags, and answer the short conclusion. Each student submits an individual report as a PDF.</li>
+            <li>Close Serial Monitor and disconnect USB before moving wires.</li>
           </ol>
       </section>
     </section>
@@ -164,10 +132,9 @@
       <section class="accent-panel">
         <h2>Why This Lab Matters</h2>
         <ul>
-          <li>A public error check can detect accidental corruption without authenticating a sender</li>
-          <li>A short CRC can be shared by different messages; approving its value does not approve every message with that value</li>
-          <li>Encoding, reliable delivery, authorization, and freshness are separate concerns</li>
-          <li>Test only the assigned controller and supplied maintenance interface</li>
+          <li>Receiver error checks and sender authentication address different requirements</li>
+          <li>A penetration test must examine what the device actually accepts, not just what a tool calculates</li>
+          <li>Testing is limited to the assigned DC-08 receiver and its maintenance interface</li>
         </ul>
       </section>
       <section class="content-panel submission-panel">

@@ -2,7 +2,11 @@
 (() => {
   const P = window.Lab08;
   const $ = id => document.getElementById(id);
-  const inputs = [], locks = [];
+  const inputs = [], locks = [], searchInputs = [], searchLocks = [];
+  function syncFrame() {
+    searchInputs.forEach((input, index) => { input.value = inputs[index].value; });
+    searchLocks.forEach((lock, index) => { lock.checked = locks[index].checked; });
+  }
   let generation = 0, searching = false, session = null;
   function result(id, text, error = false) {
     $(id).textContent = text;
@@ -18,15 +22,17 @@
     $("cancel").disabled = true;
   }
   function changed() {
+    syncFrame();
     cancelSearch("Packet or locks changed; search cancelled.");
     $("packet-output").value = "";
     result("crc-result", "Packet or settings changed. Calculate again.");
     result("inspection", "Packet changed. Inspect it again before copying.");
     result("search-result", "Packet or locks changed. Start a new search; previous matches were cleared.");
   }
-  function focusDigit(index) {
-    if (index >= 0 && index < inputs.length) { inputs[index].focus(); inputs[index].select(); }
+  function focusDigit(index, group = inputs) {
+    if (index >= 0 && index < group.length) { group[index].focus(); group[index].select(); }
   }
+  function createGrid(target, groupInputs, groupLocks) {
   for (let byte = 0; byte < 8; byte++) {
     const fieldset = document.createElement("fieldset");
     fieldset.className = "byte" + (byte === 7 ? " check-byte" : "");
@@ -40,17 +46,18 @@
       const container = document.createElement("div"); container.className = "digit";
       const input = document.createElement("input");
       input.type = "text"; input.maxLength = 1; input.autocomplete = "off"; input.spellcheck = false;
-      input.setAttribute("aria-label", `Byte ${byte} ${nibble ? "low" : "high"} hex digit`);
+      const location = target === "hex-grid" ? "Message" : "Collision search";
+      input.setAttribute("aria-label", `${location} byte ${byte} ${nibble ? "low" : "high"} hex digit`);
       input.addEventListener("focus", () => input.select());
       input.addEventListener("input", () => {
-        input.value = input.value.toUpperCase(); changed();
-        if (/^[0-9A-F]$/.test(input.value)) focusDigit(index + 1);
+        input.value = input.value.toUpperCase(); inputs[index].value = input.value; changed();
+        if (/^[0-9A-F]$/.test(input.value)) focusDigit(index + 1, groupInputs);
       });
       input.addEventListener("keydown", event => {
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-          event.preventDefault(); focusDigit(index + (event.key === "ArrowLeft" ? -1 : 1));
+          event.preventDefault(); focusDigit(index + (event.key === "ArrowLeft" ? -1 : 1), groupInputs);
         } else if (event.key === "Backspace" && !input.value) {
-          event.preventDefault(); focusDigit(index - 1);
+          event.preventDefault(); focusDigit(index - 1, groupInputs);
         }
       });
       input.addEventListener("paste", event => {
@@ -59,19 +66,23 @@
         if (!/^[0-9A-F]+$/.test(text) || text.length > 16 - index) {
           result("inspection", "Paste hex digits only, with optional spaces, that fit the remaining boxes.", true); return;
         }
-        changed();
         Array.from(text).forEach((digit, offset) => { inputs[index + offset].value = digit; });
-        focusDigit(Math.min(index + text.length, 15));
+        changed();
+        focusDigit(Math.min(index + text.length, 15), groupInputs);
       });
       const label = document.createElement("label"); label.textContent = "Lock";
       const lock = document.createElement("input"); lock.type = "checkbox"; lock.checked = false;
-      lock.setAttribute("aria-label", `Lock byte ${byte} ${nibble ? "low" : "high"} digit`);
-      lock.addEventListener("change", changed);
+      lock.setAttribute("aria-label", `${location} lock byte ${byte} ${nibble ? "low" : "high"} digit`);
+      lock.addEventListener("change", () => { locks[index].checked = lock.checked; changed(); });
       label.append(lock); container.append(input, label); digits.append(container);
-      inputs[index] = input; locks[index] = lock;
+      groupInputs[index] = input; groupLocks[index] = lock;
     }
-    fieldset.append(digits); $("hex-grid").append(fieldset);
+    fieldset.append(digits); $(target).append(fieldset);
   }
+  }
+  createGrid("hex-grid", inputs, locks);
+  createGrid("search-hex-grid", searchInputs, searchLocks);
+  syncFrame();
   function bytesFromGrid() {
     if (inputs.some(input => !/^[0-9A-F]$/i.test(input.value))) throw new Error("Fill all 16 boxes with one hex digit each (0–9, A–F).");
     return P.parseHex(inputs.map(input => input.value).join(""));
@@ -81,6 +92,7 @@
     result("crc-result", "Packet loaded. Calculate again with the current CRC parameters.");
     const digits = P.hex(bytes).replace(/ /g, "");
     inputs.forEach((input, index) => { input.value = digits[index]; });
+    syncFrame();
     $("packet-input").value = P.hex(bytes);
   }
   function inspect() {
@@ -122,9 +134,9 @@
   }
   for (const id of ["crc-refin", "crc-refout", "crc-poly", "crc-init", "crc-xorout"])
     $(id).addEventListener(id.startsWith("crc-ref") ? "change" : "input", changed);
-  $("all-lock").addEventListener("click", () => { changed(); locks.forEach(lock => { lock.checked = true; }); });
-  $("all-unlock").addEventListener("click", () => { changed(); locks.forEach(lock => { lock.checked = false; }); });
-  $("padding-only").addEventListener("click", () => { changed(); locks.forEach((lock, index) => { lock.checked = index < 10 || index >= 14; }); });
+  $("all-lock").addEventListener("click", () => { locks.forEach(lock => { lock.checked = true; }); changed(); });
+  $("all-unlock").addEventListener("click", () => { locks.forEach(lock => { lock.checked = false; }); changed(); });
+  $("padding-only").addEventListener("click", () => { locks.forEach((lock, index) => { lock.checked = index < 10 || index >= 14; }); changed(); });
   $("calculate-crc").addEventListener("click", () => {
     try {
       const bytes = bytesFromGrid(), value = P.crc8(bytes.slice(0, 7), crcParameters());
