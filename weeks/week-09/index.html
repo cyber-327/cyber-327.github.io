@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Week 09 - CYBER 327 course material">
-  <title>Week 09 | CYBER 327</title>
+  <meta name="description" content="Week 9 - CYBER 327 course material">
+  <title>Week 9 | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -21,13 +21,132 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Week 09 &middot; Week 9</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Rolling release begins at 11:59 PM the evening before the first lecture. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all weeks</a>
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 09 · October 25-31, 2026</p>
+      <h1>Week 9: QAM, PRBS, BER, and Link Metrics</h1>
+      <p class="body">Connect the week&#x27;s communication principles with observable evidence, cybersecurity applications, and laboratory work.</p>
     </section>
+
+    <aside class="callout rolling-guide-note">
+      <p class="eyebrow">Rolling Weekly Guide</p>
+      <h2>Updated through Lecture 23.</h2>
+      <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
+    </aside>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 23 / Mon</p>
+        <h2>QAM, PRBS, BER, and Link Metrics</h2>
+        <p class="meta">October 26, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-23-slides.pptx" download>Lecture 23 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>QPSK and QAM mapped rates; equal-average-energy constellation spacing</li>
+          <li>PRBS as repeatable known-pattern test data; reference alignment</li>
+          <li>BER from aligned compared bits; distinction from symbol errors and limits of finite records</li>
+          <li>EVM with stated RMS reference normalization; signal/noise and carrier/noise conventions</li>
+          <li>Controlled QPSK/16-QAM/64-QAM comparison against rate and BER requirements</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Corrupted legitimate commands, discarded frames, retries and availability</li>
+          <li>PRBS is diagnostic data, not a secret key or sender-authentication control</li>
+          <li>Rising BER does not establish deliberate interference, attacker identity or intent</li>
+          <li>Accurate bit recovery does not establish authorization or freshness</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Definitions and Formulas</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Important Definitions</h3>
+        <dl class="definition-list">
+          <div><dt>QAM (quadrature amplitude modulation)</dt><dd>Digital modulation that represents symbols using combinations of carrier amplitude and phase.</dd></div>
+          <div><dt>QPSK (quadrature phase-shift keying)</dt><dd>Four allowed phase states, representing two bits per symbol.</dd></div>
+          <div><dt>constellation</dt><dd>Plot of allowed or measured symbol points in in-phase and quadrature coordinates.</dd></div>
+          <div><dt>symbol</dt><dd>One signaling state that may represent one or more bits.</dd></div>
+          <div><dt>PRBS (pseudorandom binary sequence)</dt><dd>Reproducible, irregular-looking test bits. Match generator settings and align the reference with the received record before comparing.</dd></div>
+          <div><dt>BER (bit error rate)</dt><dd>Wrong recovered bits divided by aligned compared bits, at a stated measurement point and under stated test conditions.</dd></div>
+          <div><dt>EVM (error vector magnitude)</dt><dd>Symbol-position error relative to a stated reference. It is not a percentage of wrong bits.</dd></div>
+          <div><dt>RMS (root mean square)</dt><dd>Square the magnitudes, average them, then take the square root. Our EVM examples use supplied RMS magnitudes.</dd></div>
+          <div><dt>SNR (signal-to-noise ratio)</dt><dd>Desired signal power relative to noise power at the same receiver point and over the same bandwidth.</dd></div>
+          <div><dt>C/N (carrier-to-noise ratio)</dt><dd>Desired modulated carrier power relative to noise under a specified measurement convention and bandwidth.</dd></div>
+          <div><dt>FEC (forward error correction)</dt><dd>Added redundancy that lets a receiver correct some errors. The lecture&#x27;s comparison records use no error-correcting code.</dd></div>
+        </dl>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li><span class="formula-label">Bits per M-ary symbol</span><span class="equation">bits/symbol = log<sub>2</sub>(M)</span></li>
+          <li><span class="formula-label">Mapped bit rate</span><span class="equation">R<sub>b</sub> = R<sub>s</sub> log<sub>2</sub>(M), before coding/framing/retry deductions</span></li>
+          <li><span class="formula-label">Measured bit error rate</span><span class="equation">BER = erroneous bits / compared bits</span></li>
+          <li><span class="formula-label">Bit record length</span><span class="equation">N = R<sub>b</sub> T for a continuous stream at the stated measurement point; exclude startup and gaps</span></li>
+          <li><span class="formula-label">RMS EVM with ideal-reference normalization</span><span class="equation">EVM (%) = 100 × RMS error magnitude / RMS ideal-reference magnitude</span></li>
+          <li><span class="formula-label">Signal-to-noise ratio in dB</span><span class="equation">SNR<sub>dB</sub> = P<sub>signal,dBm</sub> - P<sub>noise,dBm</sub>, measured at the same receiver point and over the same bandwidth</span></li>
+        </ul>
+        </section>
+      </div>
+      <div class="practice-focus">
+        <strong>Practice focus:</strong> Calculate mapped rates from baud and modulation order, then calculate BER from wrong bits and compared bits. Explain why wrong symbols and wrong bits use different counts. Report zero observed errors with the record length rather than a promise of perfect future performance. Use supplied RMS magnitudes to calculate EVM without treating that percentage as BER. Compare desired signal and noise over the same bandwidth. Choose a modulation that meets both a stated mapped-rate requirement and a measured BER limit; mapped rate alone is not application goodput. State the measurement point, alignment and controlled conditions. A noisier constellation or rising BER supports investigating delivery problems, not identifying an attacker or proving sender authorization.
+      </div>
+    </section>
+
+
+    <section class="study-materials reference-materials">
+      <p class="eyebrow">Quick Reference</p>
+      <h2>Important Tables</h2>
+      <div class="reference-tables">
+      <section class="content-panel reference-table">
+        <h3>Modulation Order</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Modulation</th><th scope="col">Symbol States</th><th scope="col">Bits Per Symbol</th><th scope="col">General Tradeoff</th></tr></thead>
+          <tbody>
+          <tr><td>BPSK</td><td>2</td><td>1</td><td>Two opposite phases; lowest mapped rate here</td></tr>
+          <tr><td>QPSK</td><td>4</td><td>2</td><td>Four phases; larger minimum spacing than 16-QAM at equal average symbol energy</td></tr>
+          <tr><td>16-QAM</td><td>16</td><td>4</td><td>Twice QPSK&#x27;s mapped rate at the same baud; less minimum point spacing under that energy comparison</td></tr>
+          <tr><td>64-QAM</td><td>64</td><td>6</td><td>More bits per symbol; needs cleaner reception for a comparable error requirement</td></tr>
+          <tr><td>256-QAM</td><td>256</td><td>8</td><td>Still more bits per symbol; smaller minimum spacing at equal average symbol energy</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </div>
+    </section>
+
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>Why does a BER test require a known reference and matching sequence positions?</li>
+          <li>How do BER, symbol error fraction, EVM and signal/noise describe different aspects of reception?</li>
+          <li>What does zero observed errors establish, and what limits remain?</li>
+          <li>Which modulation meets both the mapped-rate and BER requirements under the stated comparison conditions?</li>
+        </ul>
+    </section>
+
+    <aside class="callout locked-callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>Lab 09 is not yet available</h2>
+      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-08/">&larr; Week 8</a>
+      <a href="../week-10/">Week 10 &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
