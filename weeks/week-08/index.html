@@ -25,13 +25,11 @@
     <section class="page-intro">
       <p class="kicker">Week 08 · October 18-24, 2026</p>
       <h1>Week 8: Error Detection and Correction Fundamentals</h1>
-      <p class="body">Connect the week&#x27;s communication principles with observable evidence, cybersecurity applications, and laboratory work.</p>
     </section>
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
       <h2>This week&#x27;s lecture material is complete.</h2>
-      <p>This page is cumulative. Definitions, formulas, tables, slides, and study prompts are added at 11:59 PM Mountain Time on the evening before each lecture.</p>
     </aside>
 
     <div class="lesson-stack">
@@ -188,9 +186,6 @@
           <li><span class="formula-label">Comparison assumption</span><span class="equation">at equal average symbol energy, denser BPSK/QPSK/16-QAM constellations have smaller minimum point spacing</span></li>
         </ul>
         </section>
-      </div>
-      <div class="practice-focus">
-        <strong>Practice focus:</strong> Follow a remote sensor message through a noisy link. Add parity, test a byte-sum checksum, trace a small CRC, then distinguish detection from correction. Explain how block parity and interleaving address different error patterns. Finish by calculating the data-rate cost of redundancy and explaining why a passing check does not prove sender trust. Minimum-distance detection and correction formulas describe separate capabilities; a decoder does not automatically deliver both guarantees simultaneously. In the equations, k is the number of information bits, n is the total number of coded bits, and r is the number of CRC bits. The CRC probability estimate assumes approximately uniform remainders for random corrupted frames; it is not a guarantee for every error pattern or a probability of attacker success. Opening review from Lecture 20: - Data `1011010` uses even parity. Find its parity bit, then check complete words `10100100` and `10000100`. - A code uses k = 12 information bits and n = 16 transmitted bits at a coded rate of 8.00 Mbit/s. Find code rate, added bits per codeword, and information bit rate; ignore other overhead and retries. - In a separate example, use P_undetected ≈ 1/2^r for an 8-bit CRC under the roughly uniform random-remainder assumption. Explain why that estimate is not an attacker-success probability. Follow a toy door receiving `LOCK` and `OPEN`. First replace the command and recalculate its CRC. Then test a rule accepting only approved CRC values: a different command can share the same approved CRC. Explain what changes when a secret-key MAC is required. Replay a previously accepted `OPEN` with its original tag, and explain why a protected counter and remembered receiver state are needed. Finally, identify which separate problem encryption solves. Closing practice: - Distinguish CRC recomputation, a CRC collision, replay of an accepted command, and lack of privacy. Choose a control for each problem. - Start with last accepted counter = 70. In arrival order, consider `71 | OPEN` with a valid tag, the same message again, `72 | LOCK` with an invalid tag, then `73 | LOCK` with a valid tag. All senders have permission and all other format/error checks pass. Apply the rule: valid tag and counter greater than the last accepted number. Decide accept/reject and the remembered number after every row. - Design fields and receiver checks that block forgery and replay while preserving legitimate operation. If commands must also stay private, what changes? The preliminary Lab 8 plan progresses through parity, CRC, and a CRC-value whitelist using a hex/CRC helper. These are public checks, not proof of an authorized sender. MAC/replay protection is a conceptual repair, not an implemented lab stage; firmware and physical acceptance remain pending. Follow a frame into a modulator. Count symbol groups for 101100, stating the padding rule when needed, and map 10110001 into QPSK points using the agreed labels. Decode a received I/Q estimate by its nearest allowed point. Calculate mapped bit rates at 3 kbaud and the baud needed for QPSK at 18 kbit/s. For a 24 kbit/s mapped rate, code rate 3/4 and occupied bandwidth 12 kHz, distinguish information rate, gross spectral efficiency and useful spectral efficiency. Compare QPSK/16-QAM at equal average symbol energy; point spread alone does not identify an attacker. Compression, coding, encryption and authentication are separate from modulation. The DC-08 CTF uses USB serial; Lecture 23 develops QAM and bit error rate further.
       </div>
     </section>
 
