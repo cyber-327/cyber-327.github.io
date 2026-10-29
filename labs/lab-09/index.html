@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 09 - CYBER 327 course material">
-  <title>Lab 09 | CYBER 327</title>
+  <meta name="description" content="Lab 09: Intercept the Link CTF - CYBER 327 course material">
+  <title>Lab 09: Intercept the Link CTF | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
+  <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
   <header class="site-header">
@@ -21,13 +22,154 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 09 &middot; Week 9</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 09 &middot; Week 9 &middot; October 30, 2026</p>
+      <h1>Intercept the Link CTF</h1>
+      <p class="body">Intercept an exposed I/Q link, recover its message, and restore communication through a degraded channel to capture two flags</p>
     </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Use two scope inputs to distinguish I/Q symbol states from voltage-versus-time traces</li>
+          <li>Determine symbol timing and translate an ordered symbol sequence into message bits</li>
+          <li>Recover a flag from an exposed, unencrypted physical connection</li>
+          <li>Compare sampled bit errors and mapped bit rate while changing one allowed control</li>
+          <li>Separate reliable delivery from confidentiality, authentication and freshness</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Assignment</p>
+      <h2>Your Mission</h2>
+        <ol class="overview-steps">
+          <li>You have access to a diagnostic connector on a DC-09 communication link. Two wires expose the I and Q signals; another exposes symbol timing. Investigate the link and recover the message.</li>
+          <li>First identify the signal states and timing. Then configure the receiver and capture the intercepted-message flag.</li>
+          <li>A changed channel disrupts reception. Investigate the fault, find the fastest allowed configuration that meets the target, and capture the recovery flag.</li>
+          <li>The interface carries four-state baseband symbol coordinates. It is a wired connection; no radio carrier or RF demodulator is involved.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before You Connect</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Review I/Q, symbol rate, mapped bit rate, sampling margin, intersymbol interference and BER.</li>
+          <li>Open the Lab 9 report. Use separate serial-monitor windows for the labeled TX and RX USB ports, both at 115200 baud, 8-N-1, with Newline selected. The TX console controls the allowed transmitted rates; RX controls its sampling and decisions.</li>
+          <li>Open the DC-09 link workbench for the schematic, bit mapper and console reference. Use HELP on each console. Do not replace the firmware or read source files to obtain flags.</li>
+          <li>The receiver reports decoded data and known-pattern error counts. The scope displays voltages; it does not calculate BER for this activity.</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Keysight InfiniiVision DSOX2012A oscilloscope and two compensated 10x probes</li>
+          <li>Two prepared classic 5 V Arduino Nanos, labeled TX and RX, with USB data cables</li>
+          <li>Prepared breadboard I/Q channel with REF and CHALLENGE positions, symbol-clock connection and common ground</li>
+          <li>Computer with two available USB ports (or a suitable hub), Arduino IDE serial consoles, calculator and the individual report</li>
+        </ul>
+        <h3>Optional or Specialized</h3>
+        <ul>
+          <li>prepared RX display-blanking lead to the scope&#x27;s rear EXT TRIG input</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Report and Wiring Diagram</h2>
+        <figure class="lab-diagram">
+          <img src="../../assets/labs/lab-09-iq-link.svg" alt="I/Q wiring diagram">
+          <figcaption>I/Q wiring diagram</figcaption>
+        </figure>
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-09-report.docx" download>Lab report</a>
+        <a class="button" href="../../labs/lab-09/helper/">DC-09 link workbench</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">The Investigation</p>
+      <h2>Capture the Flags</h2>
+      <section class="walkthrough-stage">
+        <h3>1. Reconnaissance — Table 1</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save a time capture establishing symbol timing and an X–Y capture showing the observed state groups, with device IDs and scope settings.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Identify the TX/RX devices, the exposed signal connections and the channel&#x27;s initial position. Use the prepared wiring diagram; ask before moving an unfamiliar connection.</li>
+            <li>The transmitter starts stopped. After the connection is checked, use START on TX to begin the signal stream. HOLD can keep one state steady for a voltage check; use START to resume.</li>
+            <li>In Normal time mode, observe SYMBOL_SYNC and determine the symbol interval. Do not assume the period of an arbitrary I or Q data pattern equals one symbol interval.</li>
+            <li>Observe I_RX and Q_RX in time, then connect I_RX to Channel 1 and Q_RX to Channel 2. Use DC coupling with matching probe factors. Press Horiz, choose Time Mode, then XY; adjust channel scale and position to view the state groups.</li>
+            <li>Determine the number of stable states and the observed low/high ranges on each axis. Raw X–Y mode can include paths between points. Use the prepared blanking lead only as directed; do not treat those paths as extra allowed states.</li>
+            <li>Record the observations in Table 1 and calculate bits per symbol and mapped bit rate. Use a consistent scale and label the measurement point.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>2. Intercept the Message — Table 2</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the ordered symbol capture, your decoded two-byte segment, and receiver output showing the clean-reference counts and first recovered flag.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>The static X–Y plot reveals the available states, but it does not preserve message order. Capture eight consecutive symbols at a byte boundary in Normal time mode. Enter your observed states into the workbench; record its bit pairs, two hex bytes and text or control-byte meaning alongside your capture.</li>
+            <li>Use receiver HELP to inspect its rate, sampling-phase and threshold controls. Configure the receiver from your measurements; record your attempts and its actual responses.</li>
+            <li>Wait for the receiver&#x27;s INTERCEPT stage announcement, then use RUN to compare the next complete 1,024-bit training payload. Record wrong bits, compared bits and any synchronization or frame failures separately. A receiver with no aligned data has not demonstrated zero BER.</li>
+            <li>Recover the message through the receiver and capture the intercepted-message flag. Keep the flag and the evidence of how you recovered it in Table 2.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>3. Restore the Link — Table 3</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the initial failed condition, the selected restored condition, both confirming count records, and the second recovered flag with the challenge network still connected.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Have the instructor enable the recovery message and the CHALLENGE channel position. The connection no longer behaves as it did before. Preserve the failed condition before changing receiver settings.</li>
+            <li>Compare the receiver-side pulse shapes and X–Y display with your reference. Identify what changed and one plausible explanation supported by the evidence.</li>
+            <li>Keep the challenge network in the signal path. Evaluate the allowed symbol rates 25, 50 and 200 symbols/s. Coordinate transmitter and receiver settings; keep thresholds, sampling phase and channel position fixed for the rate comparison. If you change another setting, restore and repeat the affected comparison.</li>
+            <li>The target is mapped bit rate of at least 80 bit/s and observed BER no greater than 0.01, using at least 1,024 aligned known-pattern payload bits in each run. A no-lock result fails; record it rather than inventing a BER.</li>
+            <li>After the receiver announces RECOVERY, choose the fastest allowed configuration that passes both limits. Confirm it with two fresh RUN measurements under unchanged settings, record one rejected candidate, and recover the second flag from the valid recovery message. Changing configuration or stage clears the qualifying-run count.</li>
+            <li>Record all candidate settings, counts, decisions and the recovery flag in Table 3. A flag alone does not replace the waveform evidence and measured comparisons.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>4. Finish and Submit</h3>
+          <ol class="walkthrough-list">
+            <li>Complete Tables 1–3, the three evidence groups and the short conclusion. Each student submits an individual PDF report.</li>
+            <li>Stop transmission before moving probes or channel jumpers. Restore the posted station state, close Serial Monitor, and disconnect USB as directed.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Matters</h2>
+        <ul>
+          <li>Physical access can reveal unencrypted traffic even when its waveform is unfamiliar</li>
+          <li>A degraded channel can prevent legitimate messages from arriving correctly or on time</li>
+          <li>A matching error check and reliable reception do not establish an authorized or fresh message</li>
+          <li>The scope and error counts support a link diagnosis; neither establishes attacker identity or intent</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete the individual Lab 9 report, including all tables, both flags, three evidence groups and the conclusion; submit as a PDF through Learning Suite.</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-09/">&larr; Week 9 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>

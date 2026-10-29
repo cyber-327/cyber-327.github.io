@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DC-09 Link Workbench | CYBER 327</title>
+  <link rel="stylesheet" href="../../../theme.css"><link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="helper.css?v=93aff1f402b7"><script src="mapping.js?v=e7f2a41d263e" defer></script><script src="app.js?v=b979c9d289fa" defer></script>
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+  <header class="site-header"><nav class="nav shell nav-shell"><a class="brand" href="../">DC-09 · Link investigation</a><span>Signal workbench</span></nav></header>
+  <main class="shell workbench">
+    <p class="eyebrow">Diagnostic interface</p><h1>DC-09 link workbench</h1>
+    <p>Measure the connection. Enter the states you observed. Recover the bytes.</p>
+    <section class="tool-panel" aria-labelledby="mapping-title">
+      <h2 id="mapping-title">1. I/Q state mapping</h2>
+      <p>I is horizontal; Q is vertical. High and low refer to your measured voltage groups. The display positions do not change the physical voltages.</p>
+      <p>Capture states in time order in Normal mode. The X–Y display shows the possible states, but does not preserve their order. Start at a byte boundary: four symbols form one byte.</p>
+      <div class="mapper-layout">
+        <div><p class="axis-label">Q high ↑</p><div class="constellation" aria-label="Four I/Q states">
+          <button type="button" data-pair="01" aria-label="I low, Q high, bits 01">I low · Q high<strong>01</strong></button>
+          <button type="button" data-pair="00" aria-label="I high, Q high, bits 00">I high · Q high<strong>00</strong></button>
+          <button type="button" data-pair="11" aria-label="I low, Q low, bits 11">I low · Q low<strong>11</strong></button>
+          <button type="button" data-pair="10" aria-label="I high, Q low, bits 10">I high · Q low<strong>10</strong></button>
+        </div><p class="axis-label">I low ← → I high</p></div>
+        <div><p id="entry-help">Choose a slot, then click its observed state above. Entry advances automatically. Use arrow keys to move between slots; Delete clears a selected slot.</p>
+          <div id="slots" class="symbol-slots" aria-label="Eight observed symbols"></div>
+          <div class="button-row"><button id="undo" type="button">Undo last edit</button><button id="clear" type="button">Clear sequence</button></div>
+          <p id="selection" role="status">Selected symbol 1 of 8.</p>
+        </div>
+      </div>
+      <div class="decoded" aria-live="polite" aria-atomic="true">
+        <p>Bit pairs: <code id="pairs"></code></p><p>Bits: <code id="bits"></code></p>
+        <p>Hex bytes: <code id="hex"></code></p><p>ASCII: <code id="ascii"></code></p>
+        <p id="completion"></p>
+      </div>
+      <p>Incomplete bytes remain incomplete. A middle dot marks a complete nonprintable byte; keep its hexadecimal value. This tool converts your entries and does not check them against a hidden answer.</p>
+    </section>
+    <section class="tool-panel" aria-labelledby="reference-title">
+      <h2 id="reference-title">2. Device reference</h2>
+      <figure><img class="schematic" src="../../../assets/labs/lab-09-iq-link.svg" alt="DC-09 transmitter, passive I/Q channel, receiver and scope connections"><figcaption>Receiver-side diagnostic points: I_RX, Q_RX, SYNC_RX and common GND.</figcaption></figure>
+      <p><a href="../../../assets/labs/lab-09-iq-link.svg">Open wiring schematic</a></p>
+      <p>Probe I_RX on CH1 and Q_RX on CH2. Use matching 10× settings and DC coupling. On the DSOX2012A select <strong>Horiz → Time Mode → XY</strong> for state groups, then return to Normal mode for time order. Measure the SYNC period to obtain the symbol interval.</p>
+      <p>Frame: <code>D3 91 | TYPE | LENGTH | PAYLOAD | CRC8</code>. The two-byte marker establishes byte alignment. LENGTH counts payload bytes. Types: <code>54</code> training, <code>44</code> intercepted data, <code>52</code> recovery data (all hexadecimal).</p>
+      <p>Pack four bit pairs per byte, most-significant bit first. The receiver checks CRC-8/SMBUS over TYPE, LENGTH and PAYLOAD: polynomial 07, initial 00, no input/output reflection, final XOR 00. Training uses 128 known payload bytes.</p>
+      <p>Mapped bit rate = symbol rate × log₂(number of states). Observed BER = wrong aligned training bits ÷ compared aligned training bits. Framing overhead is separate from mapped rate. A CRC match is not a sender-authentication check.</p>
+    </section>
+    <section class="tool-panel" aria-labelledby="console-title">
+      <h2 id="console-title">3. Console reference</h2>
+      <p>Open separate Arduino IDE Serial Monitor windows for TX and RX: <strong>115200 baud, 8-N-1, Newline</strong>. Commands are uppercase. This workbench does not connect to USB or transmit commands.</p>
+      <div class="table-wrap"><table><thead><tr><th>Console</th><th>Command</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td>Both</td><td><code>HELP</code> / <code>STATUS</code></td><td>Command syntax / current settings.</td></tr>
+        <tr><td>TX</td><td><code>START</code> / <code>STOP</code></td><td>Begin or stop the repeating stream. TX boots stopped.</td></tr>
+        <tr><td>Both</td><td><code>RATE 25</code>, <code>RATE 50</code>, or <code>RATE 200</code></td><td>Set symbols per second. Coordinate both boards.</td></tr>
+        <tr><td>TX</td><td><code>HOLD 00</code> (or 01, 11, 10)</td><td>Hold one state for voltage measurements; timing stops. Use START afterward.</td></tr>
+        <tr><td>RX</td><td><code>PHASE p</code></td><td>Sample p percent after SYNC; integer 5–90. Default 50.</td></tr>
+        <tr><td>RX</td><td><code>THRESH i q</code></td><td>I and Q decision thresholds in millivolts, chosen from measurements. Both must be positive and below VREF.</td></tr>
+        <tr><td>RX</td><td><code>VREF v</code></td><td>Measured receiver supply in millivolts, integer 1000–5500. Default 5000. Does not change physical supply voltage.</td></tr>
+        <tr><td>RX</td><td><code>RUN</code></td><td>Start a fresh comparison of the next complete 1,024-bit training payload; allow up to 90 seconds.</td></tr>
+        <tr><td>RX</td><td><code>RESETCOUNTS</code></td><td>Clear counts, cached recovery data and qualifying runs; keep settings.</td></tr>
+      </tbody></table></div>
+      <p>RX needs RATE and THRESH before RUN. Wait for the received stage announcement before starting its measurements. Changing a setting or received stage resets qualification. Record failed checks and timing/alignment failures as well as bit counts; BER is unavailable when no bits were compared.</p>
+      <p>Two fresh qualifying runs under the same settings and a valid recovery message are required for recovery confirmation. Preserve evidence that the challenge channel stayed connected.</p>
+    </section>
+    <p><a href="../">Return to Lab 9</a></p><noscript><p>Enable JavaScript to use the interactive mapper. The labeled mapping and device reference above remain available.</p></noscript>
+  </main>
+</body></html>

@@ -1,0 +1,23 @@
+.workbench { padding-bottom:3rem; }
+.tool-panel { padding:1.5rem; margin:1.5rem 0; border:1px solid #c9d5df; border-radius:12px; background:#fff; color:#173b5e; }
+.mapper-layout { display:grid; grid-template-columns:minmax(220px,1fr) minmax(260px,1.4fr); gap:2rem; align-items:center; }
+.constellation { display:grid; grid-template-columns:1fr 1fr; gap:1rem; padding:1rem; background:#edf4f4; border-radius:10px; }
+.constellation button { min-height:94px; }
+.constellation strong { display:block; font-size:1.6rem; }
+.axis-label { text-align:center; }
+.symbol-slots { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.5rem; }
+button { font:inherit; padding:.65rem; border:2px solid #6c8397; border-radius:7px; background:#f4f8fb; color:#173b5e; cursor:pointer; }
+button:hover { background:#dfeded; }
+button:focus-visible,a:focus-visible { outline:3px solid #c15e1b; outline-offset:3px; }
+.symbol-slots button[aria-pressed=true] { border-color:#006e75; background:#d8eeec; box-shadow:inset 0 0 0 1px #006e75; }
+.symbol-slots small { display:block; }
+.symbol-slots strong { display:block; font-size:1.35rem; }
+.button-row { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
+.decoded { background:#eff4f8; padding:1rem; margin-top:1.3rem; border-radius:8px; overflow-wrap:anywhere; }
+.decoded code { white-space:pre-wrap; }
+.schematic { display:block; width:100%; height:auto; }
+.table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; }
+td,th { padding:.6rem; border:1px solid #ced9e2; text-align:left; }
+td code { white-space:normal; }
+@media(max-width:650px) { .mapper-layout { grid-template-columns:1fr;gap:1rem; } .tool-panel { padding:1rem; } }
