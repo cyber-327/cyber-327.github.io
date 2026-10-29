@@ -29,7 +29,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 23.</h2>
+      <h2>Updated through Lecture 24.</h2>
     </aside>
 
     <div class="lesson-stack">
@@ -62,6 +62,36 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 24 / Wed</p>
+        <h2>OFDM, Spread Spectrum, and Shannon Revisited</h2>
+        <p class="meta">October 28, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-24-slides.pptx" download>Lecture 24 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>QAM selects symbol states; OFDM arranges symbols on parallel orthogonal subcarriers</li>
+          <li>Useful interval versus total interval: adjacent spacing, cyclic prefix, multipath delay coverage and rate cost</li>
+          <li>FHSS with a frequency/time diagram; DSSS with a reversible four-chip XOR illustration</li>
+          <li>Approximate spreading bandwidth ratio and finite interference tolerance</li>
+          <li>Shannon&#x27;s ideal-noise capacity bound, dB-to-linear conversion and limits of a below-capacity claim</li>
+          <li>Adaptive modulation and coding: information rate versus measured error performance</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>A wireless door command can time out because of channel problems; use measurements to choose a response</li>
+          <li>Distinguish delayed paths, narrow interference, broad noise and receiver overload</li>
+          <li>Hopping/spreading may help under suitable conditions; neither guarantees invisibility, secrecy or authentication</li>
+          <li>Rising errors do not identify an attacker; clean reception does not establish authorized origin or freshness</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -82,6 +112,22 @@
           <div><dt>SNR (signal-to-noise ratio)</dt><dd>Desired signal power relative to noise power at the same receiver point and over the same bandwidth.</dd></div>
           <div><dt>C/N (carrier-to-noise ratio)</dt><dd>Desired modulated carrier power relative to noise under a specified measurement convention and bandwidth.</dd></div>
           <div><dt>FEC (forward error correction)</dt><dd>Added redundancy that lets a receiver correct some errors. The lecture&#x27;s comparison records use no error-correcting code.</dd></div>
+          <div><dt>OFDM (orthogonal frequency-division multiplexing)</dt><dd>Combines many simultaneously transmitted subcarriers into one waveform. Each can carry a QPSK or QAM symbol.</dd></div>
+          <div><dt>subcarrier</dt><dd>One component frequency in the combined signal. A data subcarrier carries mapped bits; practical systems can reserve other components for reference signals or leave them unused.</dd></div>
+          <div><dt>orthogonality</dt><dd>Over the useful receiver observation interval, ideal subcarriers contribute zero to one another&#x27;s measurements. Spectra may overlap; correct timing and frequency alignment matter.</dd></div>
+          <div><dt>useful interval T_u</dt><dd>The portion of an OFDM block analyzed by the receiver, excluding the cyclic prefix. It sets adjacent subcarrier spacing in the basic construction.</dd></div>
+          <div><dt>multipath and excess delay</dt><dd>Copies of a signal travel by different paths. Excess delay measures a path&#x27;s arrival delay relative to the earliest reference path.</dd></div>
+          <div><dt>CP (cyclic prefix)</dt><dd>A copy of the useful block&#x27;s tail placed at the front, then discarded before receiver analysis. It adds time without adding new message bits.</dd></div>
+          <div><dt>equalization</dt><dd>Estimating and compensating for the channel&#x27;s amplitude/phase effects where feasible. It cannot recover information lost to overwhelming noise.</dd></div>
+          <div><dt>frequency selectivity and fading</dt><dd>The channel affects frequencies differently; a deep fade is a large reduction in received signal at a frequency.</dd></div>
+          <div><dt>intercarrier interference</dt><dd>Unwanted contribution from one subcarrier to another&#x27;s decision, for example when frequency offset spoils ideal separation.</dd></div>
+          <div><dt>spread spectrum</dt><dd>Deliberately uses a wider frequency range than the underlying data modulation requires, through hopping or a faster spreading code.</dd></div>
+          <div><dt>FHSS (frequency-hopping spread spectrum)</dt><dd>Transmitter and receiver change channels together using an agreed timing and sequence.</dd></div>
+          <div><dt>DSSS (direct-sequence spread spectrum)</dt><dd>Combines data with faster code elements called chips; a synchronized receiver uses the same code to despread the signal.</dd></div>
+          <div><dt>chip</dt><dd>One short element of a spreading sequence, not an independent new message bit.</dd></div>
+          <div><dt>processing gain G_p</dt><dd>A spreading ratio, approximately spread bandwidth divided by the corresponding unspread data-signal bandwidth under consistent definitions. It is not a guaranteed improvement for every noise/interference condition.</dd></div>
+          <div><dt>adaptive modulation and coding</dt><dd>Coordinated changes to modulation order and error-control redundancy in response to channel conditions and service requirements.</dd></div>
+          <div><dt>capacity</dt><dd>An ideal limit on information rate for a stated channel model; it is not measured application throughput or proof that a particular receiver works.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -93,6 +139,13 @@
           <li><span class="formula-label">Bit record length</span><span class="equation">N = R<sub>b</sub> T for a continuous stream at the stated measurement point; exclude startup and gaps</span></li>
           <li><span class="formula-label">RMS EVM with ideal-reference normalization</span><span class="equation">EVM (%) = 100 × RMS error magnitude / RMS ideal-reference magnitude</span></li>
           <li><span class="formula-label">Signal-to-noise ratio in dB</span><span class="equation">SNR<sub>dB</sub> = P<sub>signal,dBm</sub> - P<sub>noise,dBm</sub>, measured at the same receiver point and over the same bandwidth</span></li>
+          <li><span class="formula-label">Adjacent orthogonal subcarrier spacing</span><span class="equation">Δ<sub>f</sub> = 1 / T<sub>u</sub>; T<sub>u</sub> excludes the prefix</span></li>
+          <li><span class="formula-label">Total transmitted OFDM interval</span><span class="equation">T<sub>total</sub> = T<sub>u</sub> + T<sub>CP</sub></span></li>
+          <li><span class="formula-label">Mapped OFDM bit rate in the simplified example</span><span class="equation">R<sub>b</sub> = N<sub>data</sub> log<sub>2</sub>(M) / (T<sub>u</sub> + T<sub>CP</sub>), for N<sub>data</sub> identical M-ary data subcarriers and no other overhead</span></li>
+          <li><span class="formula-label">Information rate</span><span class="equation">R<sub>info</sub> = R<sub>b</sub> R<sub>c</sub>, where R<sub>c</sub> is the information fraction of the coded stream; subtract other overhead separately</span></li>
+          <li><span class="formula-label">Approximate spreading ratio</span><span class="equation">G<sub>p</sub> approx B<sub>spread</sub> / B<sub>data</sub>, using consistently defined spread and corresponding unspread signal bandwidths</span></li>
+          <li><span class="formula-label">SNR conversion</span><span class="equation">S/N = 10^(SNR<sub>dB</sub> / 10), a linear power ratio</span></li>
+          <li><span class="formula-label">Shannon capacity for the ideal band-limited additive white Gaussian noise model</span><span class="equation">C = B log<sub>2</sub>(1 + S/N), with B in Hz and linear S/N</span></li>
         </ul>
         </section>
       </div>
@@ -118,6 +171,19 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Mechanism and Cost</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Method</th><th scope="col">Purpose</th><th scope="col">Conditions and Costs</th></tr></thead>
+          <tbody>
+          <tr><td>OFDM with CP</td><td>Parallel carriers; manage frequency-dependent response and delayed copies</td><td>Adequate prefix, suitable timing and sufficiently stable channel; frequency offset and deep fades still matter</td></tr>
+          <tr><td>FHSS</td><td>Move communication among channels; reduce exposure to a fixed narrow interferer</td><td>Agreed hopping/timing; remaining channels must be usable; broad interference can still disrupt the link</td></tr>
+          <tr><td>DSSS</td><td>Faster code chips and matched despreading</td><td>Wider bandwidth, code alignment and finite interference tolerance; public spreading codes are not cryptographic keys</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -130,6 +196,10 @@
           <li>How do BER, symbol error fraction, EVM and signal/noise describe different aspects of reception?</li>
           <li>What does zero observed errors establish, and what limits remain?</li>
           <li>Which modulation meets both the mapped-rate and BER requirements under the stated comparison conditions?</li>
+          <li>Why can overlapping OFDM spectra still be separated, and when can that fail?</li>
+          <li>Which interval sets spacing, and which interval belongs in the rate calculation?</li>
+          <li>How do FHSS and DSSS distribute exposure to interference, and what do they cost?</li>
+          <li>Why does a below-capacity information rate still need a tested design?</li>
         </ul>
     </section>
 
