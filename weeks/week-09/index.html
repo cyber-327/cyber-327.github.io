@@ -29,7 +29,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>This week&#x27;s lecture material is complete.</h2>
+      <h2>Updated through Lecture 24.</h2>
     </aside>
 
     <div class="lesson-stack">
@@ -92,37 +92,6 @@
         </section>
       </div>
     </article>
-    <article class="lesson">
-      <div class="lesson-heading">
-        <p class="lesson-number">Lecture 25 / Fri</p>
-        <h2>Line Coding, Pulse Impairments, and Eye Patterns</h2>
-        <p class="meta">October 30, 2026</p>
-        <a class="button" href="../../assets/slides/lecture-25-slides.pptx" download>Lecture 25 slides (.pptx)</a>
-      </div>
-      <div class="topic-columns">
-        <section>
-          <h3>Digital Communications Foundations</h3>
-        <ul>
-          <li>Line coding versus error-control coding and encryption</li>
-          <li>NRZ-L, NRZ-M and NRZ-S conventions, initial level, encoding and decoding</li>
-          <li>Manchester midpoint transitions and AMI alternating marks; clock-recovery tradeoffs</li>
-          <li>Bit duration versus symbol duration; Manchester half-bit intervals</li>
-          <li>Pulse impairments: bandwidth limitation, voltage variation, ringing, pattern-dependent ISI and impedance mismatch</li>
-          <li>Eye construction, vertical/horizontal opening, observed voltage/timing margins and measurement limits</li>
-          <li>Brief AMI telephone-link context; practical diagnosis rather than legacy rate memorization</li>
-        </ul>
-        </section>
-        <section class="accent-panel">
-          <h3>Cybersecurity Connection</h3>
-        <ul>
-          <li>A cable replacement or added maintenance branch can disrupt legitimate commands through signal-integrity problems</li>
-          <li>Controlled comparisons distinguish configuration/physical faults from unsupported claims of sabotage</li>
-          <li>Eye patterns do not identify an attacker, authenticate a sender or establish an exact BER</li>
-          <li>Physical link repair and message authentication/freshness are separate controls</li>
-        </ul>
-        </section>
-      </div>
-    </article>
     </div>
 
     <section class="study-materials">
@@ -159,25 +128,6 @@
           <div><dt>processing gain G_p</dt><dd>A spreading ratio, approximately spread bandwidth divided by the corresponding unspread data-signal bandwidth under consistent definitions. It is not a guaranteed improvement for every noise/interference condition.</dd></div>
           <div><dt>adaptive modulation and coding</dt><dd>Coordinated changes to modulation order and error-control redundancy in response to channel conditions and service requirements.</dd></div>
           <div><dt>capacity</dt><dd>An ideal limit on information rate for a stated channel model; it is not measured application throughput or proof that a particular receiver works.</dd></div>
-          <div><dt>line coding</dt><dd>Mapping of bits into physical signal levels or transitions.</dd></div>
-          <div><dt>NRZ (non-return-to-zero)</dt><dd>No mandatory return to a neutral level inside each bit interval.</dd></div>
-          <div><dt>NRZ-L (level)</dt><dd>In our stated convention, data 1 is high and data 0 is low.</dd></div>
-          <div><dt>NRZ-M (mark)</dt><dd>A data 1 changes level at the beginning of its bit interval; data 0 holds the previous level. State the level immediately before the first bit.</dd></div>
-          <div><dt>NRZ-S (space)</dt><dd>A data 0 changes level at the beginning of its bit interval; data 1 holds. State the initial level. NRZI naming alone does not establish the transition convention.</dd></div>
-          <div><dt>NRZI (non-return-to-zero inverted)</dt><dd>A transition-code name whose precise rule must be checked; our examples use the explicit NRZ-M or NRZ-S rules above.</dd></div>
-          <div><dt>Manchester</dt><dd>A midpoint transition represents each bit; our convention is 1 = low-to-high, 0 = high-to-low. It uses half-bit level intervals without doubling the message rate.</dd></div>
-          <div><dt>AMI (alternate mark inversion)</dt><dd>A zero uses the neutral level and successive ones alternate positive/negative pulses; our first mark is positive. Long zero runs still provide no edges.</dd></div>
-          <div><dt>clock recovery</dt><dd>Estimating symbol/bit timing so the receiver samples at the intended instants. A transition code is not an authentication mechanism.</dd></div>
-          <div><dt>bandwidth limitation</dt><dd>A channel&#x27;s finite frequency response can round edges and spread pulse effects across time; suitable filtering may also remove noise.</dd></div>
-          <div><dt>ISI (intersymbol interference)</dt><dd>Effects from one symbol change another symbol&#x27;s sampled value. The same intended current bit can be measured differently after different preceding symbols.</dd></div>
-          <div><dt>timing jitter</dt><dd>Variation in transition timing relative to the chosen timing reference.</dd></div>
-          <div><dt>ringing and reflections</dt><dd>Overshoot or oscillation can follow a transition; impedance changes can reflect part of a signal, creating delayed copies.</dd></div>
-          <div><dt>impedance mismatch</dt><dd>A discontinuity between impedances in a signal path. Its pulse effects depend on actual impedances, delays and edge speed, not DC continuity alone.</dd></div>
-          <div><dt>eye diagram</dt><dd>Overlay of many waveform windows aligned to symbol timing, showing voltage and time separation. It is neither a constellation nor a readable copy of the message.</dd></div>
-          <div><dt>UI (unit interval)</dt><dd>One symbol interval for the selected display. It equals bit time in our binary one-bit-per-symbol NRZ examples.</dd></div>
-          <div><dt>observed eye height</dt><dd>Separation of upper/lower observed level bands at a stated sampling instant. It is not the voltage margin to each side of a threshold.</dd></div>
-          <div><dt>observed eye width</dt><dd>Usable sampling-time window under a stated decision criterion. Instrument definitions can use statistical levels; our calculations use supplied observed bounds.</dd></div>
-          <div><dt>threshold</dt><dd>The voltage decision boundary between the two levels in our binary examples.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -196,13 +146,6 @@
           <li><span class="formula-label">Approximate spreading ratio</span><span class="equation">G<sub>p</sub> approx B<sub>spread</sub> / B<sub>data</sub>, using consistently defined spread and corresponding unspread signal bandwidths</span></li>
           <li><span class="formula-label">SNR conversion</span><span class="equation">S/N = 10^(SNR<sub>dB</sub> / 10), a linear power ratio</span></li>
           <li><span class="formula-label">Shannon capacity for the ideal band-limited additive white Gaussian noise model</span><span class="equation">C = B log<sub>2</sub>(1 + S/N), with B in Hz and linear S/N</span></li>
-          <li><span class="formula-label">Symbol duration</span><span class="equation">T<sub>s</sub> = 1 / R<sub>s</sub></span></li>
-          <li><span class="formula-label">Bit duration</span><span class="equation">T<sub>b</sub> = 1 / R<sub>b</sub>; T<sub>b</sub> = T<sub>s</sub> only for the one-bit-per-symbol binary examples</span></li>
-          <li><span class="formula-label">Manchester half-bit interval</span><span class="equation">T<sub>half</sub> = T<sub>b</sub> / 2; the original message bit rate is unchanged</span></li>
-          <li><span class="formula-label">Observed eye height</span><span class="equation">H<sub>eye</sub> = V<sub>high,min</sub> - V<sub>low,max</sub>, at the stated sampling time</span></li>
-          <li><span class="formula-label">Worst observed threshold margin</span><span class="equation">M<sub>V</sub> = min(V<sub>high,min</sub> - V<sub>th</sub>, V<sub>th</sub> - V<sub>low,max</sub>), with threshold between the bands</span></li>
-          <li><span class="formula-label">Usable time-window width</span><span class="equation">W<sub>eye</sub> = t<sub>right</sub> - t<sub>left</sub>, for the stated criterion</span></li>
-          <li><span class="formula-label">Observed timing margin</span><span class="equation">M<sub>t</sub> = min(t<sub>sample</sub> - t<sub>left</sub>, t<sub>right</sub> - t<sub>sample</sub>), with the sample inside the stated usable window</span></li>
         </ul>
         </section>
       </div>
@@ -241,21 +184,6 @@
         </table>
       </div>
       </section>
-      <section class="content-panel reference-table">
-        <h3>Our Line-Code Conventions</h3>
-      <div class="table-scroll">
-        <table>
-          <thead><tr><th scope="col">Code</th><th scope="col">Decision Rule</th><th scope="col">Timing Limitation / Cost</th></tr></thead>
-          <tbody>
-          <tr><td>NRZ-L</td><td>High = 1; low = 0</td><td>Long constant runs lack edges</td></tr>
-          <tr><td>NRZ-M</td><td>Change = 1; hold = 0; specify initial level</td><td>Long zero runs lack edges</td></tr>
-          <tr><td>NRZ-S</td><td>Change = 0; hold = 1; specify initial level</td><td>Long one runs lack edges</td></tr>
-          <tr><td>Manchester</td><td>Midpoint rises for 1, falls for 0</td><td>Faster level intervals; generally more bandwidth</td></tr>
-          <tr><td>AMI</td><td>Zero neutral; alternate signs on ones; first mark positive</td><td>Long zero runs lack edges despite alternating marks</td></tr>
-          </tbody>
-        </table>
-      </div>
-      </section>
       </div>
     </section>
 
@@ -272,11 +200,6 @@
           <li>Which interval sets spacing, and which interval belongs in the rate calculation?</li>
           <li>How do FHSS and DSSS distribute exposure to interference, and what do they cost?</li>
           <li>Why does a below-capacity information rate still need a tested design?</li>
-          <li>How do level and transition rules represent the same bits differently?</li>
-          <li>Why do clock recovery and channel bandwidth matter even for correctly encoded bits?</li>
-          <li>How can bit history or an impedance change corrupt a sampled decision?</li>
-          <li>What do eye height/width show, and how are they different from threshold/timing margins?</li>
-          <li>What additional evidence is needed before assigning a cause, BER or attacker to a closing eye?</li>
         </ul>
     </section>
 
