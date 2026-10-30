@@ -20,9 +20,9 @@
 <path d="M270 445 H365 M445 445 H925 M570 445 V465 M570 495 V510"/>
 <rect x="365" y="432" width="80" height="26"/><rect x="560" y="465" width="20" height="30"/>
 </g>
-<g font-size="17"><text x="361" y="198">2.2 kΩ</text><text x="361" y="318">2.2 kΩ</text>
-<text x="590" y="270">10 kΩ</text><text x="590" y="390">10 kΩ</text>
-<text x="746" y="267">C_SELECT</text><text x="746" y="387">C_SELECT</text>
+<g font-size="17"><text x="361" y="198">330 Ω</text><text x="361" y="318">330 Ω</text>
+<text x="590" y="270">1.5 kΩ</text><text x="590" y="390">1.5 kΩ</text>
+<text x="746" y="267">100 nF / 33 µF</text><text x="746" y="387">100 nF / 33 µF</text>
 <text x="361" y="423">2.2 kΩ</text><text x="590" y="489">10 kΩ</text>
 <text x="746" y="298">REF / CHALLENGE</text><text x="746" y="418">REF / CHALLENGE</text></g>
 <g stroke="#173b5e" stroke-width="2"><path d="M550 300 H590 M556 305 H584 M562 310 H578 M690 300 H730 M696 305 H724 M702 310 H718 M550 420 H590 M556 425 H584 M562 430 H578 M690 420 H730 M696 425 H724 M702 430 H718 M550 510 H590 M556 515 H584 M562 520 H578 M270 525 H925"/></g>
@@ -37,5 +37,5 @@
 <text x="65" y="886" font-size="19">RX D7 • BLANK → 2.2 kΩ series / 10 kΩ to GND → rear EXT TRIG.</text>
 <text x="65" y="920" font-size="19">Low displays X–Y; high blanks the trace. Keep the ground at common GND.</text>
 <text x="65" y="954" font-size="19">No capacitor on SYNC or BLANK. Use only the prepared leads; do not join board outputs.</text>
-<text x="42" y="1016" font-size="17">USB power only. Disconnect power before circuit changes. Capacitors and signal levels must be checked before use.</text>
+<text x="42" y="1016" font-size="17">USB power only. 33 µF: + to signal, − to GND. Disconnect power before circuit changes; check levels before use.</text>
 </g></svg>

@@ -11,7 +11,7 @@
   <header class="site-header"><nav class="nav shell nav-shell"><a class="brand" href="../">DC-09 · Link investigation</a><span>Signal workbench</span></nav></header>
   <main class="shell workbench">
     <p class="eyebrow">Diagnostic interface</p><h1>DC-09 link workbench</h1>
-    <p>Measure the connection. Enter the states you observed. Recover the bytes.</p>
+    <p>The DC-08 assessment continues at the access panel's DC-09 communication link. The vendor claims its unfamiliar signaling keeps service traffic private. Use the recovered schematic and your measurements to recover the maintenance message, then restore delivery after a replacement line filter disrupts service.</p>
     <section class="tool-panel" aria-labelledby="mapping-title">
       <h2 id="mapping-title">1. I/Q state mapping</h2>
       <p>I is horizontal; Q is vertical. High and low refer to your measured voltage groups. The display positions do not change the physical voltages.</p>
@@ -40,6 +40,7 @@
       <h2 id="reference-title">2. Device reference</h2>
       <figure><img class="schematic" src="../../../assets/labs/lab-09-iq-link.svg" alt="DC-09 transmitter, passive I/Q channel, receiver and scope connections"><figcaption>Receiver-side diagnostic points: I_RX, Q_RX, SYNC_RX and common GND.</figcaption></figure>
       <p><a href="../../../assets/labs/lab-09-iq-link.svg">Open wiring schematic</a></p>
+      <p>Each I/Q path uses a 330 Ω series resistor and 1.5 kΩ to ground. REF selects 100 nF; CHALLENGE selects a 33 µF electrolytic, positive at the signal junction and negative at ground. SYNC uses its own 2.2 kΩ / 10 kΩ divider with no capacitor. Disconnect USB before circuit changes.</p>
       <p>Probe I_RX on CH1 and Q_RX on CH2. Use matching 10× settings and DC coupling. On the DSOX2012A select <strong>Horiz → Time Mode → XY</strong> for state groups, then return to Normal mode for time order. Measure the SYNC period to obtain the symbol interval.</p>
       <p>Frame: <code>D3 91 | TYPE | LENGTH | PAYLOAD | CRC8</code>. The two-byte marker establishes byte alignment. LENGTH counts payload bytes. Types: <code>54</code> training, <code>44</code> intercepted data, <code>52</code> recovery data (all hexadecimal).</p>
       <p>Pack four bit pairs per byte, most-significant bit first. The receiver checks CRC-8/SMBUS over TYPE, LENGTH and PAYLOAD: polynomial 07, initial 00, no input/output reflection, final XOR 00. Training uses 128 known payload bytes.</p>

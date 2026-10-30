@@ -26,7 +26,7 @@
     <section class="page-intro">
       <p class="kicker">Lab 09 &middot; Week 9 &middot; October 30, 2026</p>
       <h1>Intercept the Link CTF</h1>
-      <p class="body">Intercept an exposed I/Q link, recover its message, and restore communication through a degraded channel to capture two flags</p>
+      <p class="body">Continue the DC-08 door-system assessment: intercept an access-panel link, recover a maintenance message, and restore service after a line-filter change</p>
     </section>
 
     <section class="content-panel objectives-panel">
@@ -45,9 +45,9 @@
       <p class="eyebrow">The Assignment</p>
       <h2>Your Mission</h2>
         <ol class="overview-steps">
-          <li>You have access to a diagnostic connector on a DC-09 communication link. Two wires expose the I and Q signals; another exposes symbol timing. Investigate the link and recover the message.</li>
-          <li>First identify the signal states and timing. Then configure the receiver and capture the intercepted-message flag.</li>
-          <li>A changed channel disrupts reception. Investigate the fault, find the fastest allowed configuration that meets the target, and capture the recovery flag.</li>
+          <li>Your DC-08 assessment exposed weaknesses in the door receiver. The security team now asks you to investigate the DC-09 connection between an access panel and its door controller.</li>
+          <li>The vendor claims its unfamiliar signaling format keeps service messages private. You have access to a diagnostic connector and a recovered service schematic. Determine how the link communicates and recover a maintenance message as evidence for your assessment.</li>
+          <li>During a later maintenance update, a replacement line filter disrupts communication. Investigate the changed signals and restore reliable delivery without bypassing the filter. Capture the interception and recovery flags, with evidence showing how you earned them.</li>
           <li>The interface carries four-state baseband symbol coordinates. It is a wired connection; no radio carrier or RF demodulator is involved.</li>
         </ol>
     </section>
@@ -103,7 +103,7 @@
             <p>Save a time capture establishing symbol timing and an X–Y capture showing the observed state groups, with device IDs and scope settings.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Identify the TX/RX devices, the exposed signal connections and the channel&#x27;s initial position. Use the prepared wiring diagram; ask before moving an unfamiliar connection.</li>
+            <li>Investigate the exposed connection between the access panel and door controller. Identify the TX/RX devices, signal connections and initial channel position using the recovered wiring schematic; ask before moving an unfamiliar connection.</li>
             <li>The transmitter starts stopped. After the connection is checked, use START on TX to begin the signal stream. HOLD can keep one state steady for a voltage check; use START to resume.</li>
             <li>In Normal time mode, observe SYMBOL_SYNC and determine the symbol interval. Do not assume the period of an arbitrary I or Q data pattern equals one symbol interval.</li>
             <li>Observe I_RX and Q_RX in time, then connect I_RX to Channel 1 and Q_RX to Channel 2. Use DC coupling with matching probe factors. Press Horiz, choose Time Mode, then XY; adjust channel scale and position to view the state groups.</li>
@@ -118,6 +118,7 @@
             <p>Save the ordered symbol capture, your decoded two-byte segment, and receiver output showing the clean-reference counts and first recovered flag.</p>
           </aside>
           <ol class="walkthrough-list">
+            <li>Test the vendor&#x27;s claim about private service traffic. Recover the maintenance message from the exposed link and preserve the interception flag as evidence.</li>
             <li>The static X–Y plot reveals the available states, but it does not preserve message order. Capture eight consecutive symbols at a byte boundary in Normal time mode. Enter your observed states into the workbench; record its bit pairs, two hex bytes and text or control-byte meaning alongside your capture.</li>
             <li>Use receiver HELP to inspect its rate, sampling-phase and threshold controls. Configure the receiver from your measurements; record your attempts and its actual responses.</li>
             <li>Wait for the receiver&#x27;s INTERCEPT stage announcement, then use RUN to compare the next complete 1,024-bit training payload. Record wrong bits, compared bits and any synchronization or frame failures separately. A receiver with no aligned data has not demonstrated zero BER.</li>
@@ -131,7 +132,7 @@
             <p>Save the initial failed condition, the selected restored condition, both confirming count records, and the second recovered flag with the challenge network still connected.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Have the instructor enable the recovery message and the CHALLENGE channel position. The connection no longer behaves as it did before. Preserve the failed condition before changing receiver settings.</li>
+            <li>The replacement line filter has disrupted service. Have the instructor enable the recovery message and CHALLENGE channel position. Preserve the failed condition before changing receiver settings; restore delivery with the new filter still connected.</li>
             <li>Compare the receiver-side pulse shapes and X–Y display with your reference. Identify what changed and one plausible explanation supported by the evidence.</li>
             <li>Keep the challenge network in the signal path. Evaluate the allowed symbol rates 25, 50 and 200 symbols/s. Coordinate transmitter and receiver settings; keep thresholds, sampling phase and channel position fixed for the rate comparison. If you change another setting, restore and repeat the affected comparison.</li>
             <li>The target is mapped bit rate of at least 80 bit/s and observed BER no greater than 0.01, using at least 1,024 aligned known-pattern payload bits in each run. A no-lock result fails; record it rather than inventing a BER.</li>
