@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DC-09 · Service Schematic · DC09-SCH-002</title>
+  <link rel="stylesheet" href="../../../theme.css"><link rel="stylesheet" href="../../../styles.css">
+  <link rel="stylesheet" href="service.css?v=cb27e8df8645">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body class="engineering"><main class="drawing-sheet">
+  <header class="drawing-title">
+    <div><p>ACCESS SYSTEMS / SERVICE ENGINEERING</p><h1>DC-09 link: service sheet</h1><p>Diagnostic interface · wiring &amp; signaling specification</p></div>
+    <div>Drawing: DC09-SCH-002<br>Revision: B<br>Supply: USB / 5 V<br>Console: 115200 / 8-N-1</div>
+  </header>
+  <img src="../../../assets/labs/lab-09-iq-link.svg" alt="DC-09 schematic: 330 ohm and 1.5 kilohm I/Q paths, separate SYNC divider, REF and CHALLENGE capacitors">
+  <section><h2>01 / Connections and supply</h2>
+    <table><thead><tr><th>Signal</th><th>TX</th><th>RX / scope</th></tr></thead><tbody>
+      <tr><td>I</td><td>D9 → 330 Ω → I_RX</td><td>I_RX → A0 / CH1; 1.5 kΩ to GND</td></tr>
+      <tr><td>Q</td><td>D10 → 330 Ω → Q_RX</td><td>Q_RX → A1 / CH2; 1.5 kΩ to GND</td></tr>
+      <tr><td>SYNC</td><td>D2 → 2.2 kΩ → SYNC_RX</td><td>SYNC_RX → D2; 10 kΩ to GND; no capacitor</td></tr>
+      <tr><td>Reference</td><td>GND</td><td>Common TX/RX/probe ground; keep the boards' 5 V pins separate</td></tr>
+    </tbody></table>
+    <p>I_RX and Q_RX each have one selected capacitor to GND: REF = 100 nF; CHALLENGE = 33 µF electrolytic, positive at the signal junction and negative at GND. Disconnect USB before circuit changes. Use USB power and leave AREF unconnected.</p>
+    <p>Nominal logic high depends on actual supplies and loading. Measure high and low levels before choosing thresholds. Optional indicators: RX D4 red / A5 green, each with a separate 330 Ω resistor.</p>
+  </section>
+  <section><h2>02 / Symbol register</h2>
+    <p>I is horizontal, Q vertical. The voltages hold their levels for each symbol interval (NRZ level signaling); repeated states have no required return to zero. Each I/Q state carries two bits.</p>
+    <table><thead><tr><th>I level</th><th>Q level</th><th>Bits</th></tr></thead><tbody>
+      <tr><td>High</td><td>High</td><td>00</td></tr><tr><td>Low</td><td>High</td><td>01</td></tr>
+      <tr><td>Low</td><td>Low</td><td>11</td></tr><tr><td>High</td><td>Low</td><td>10</td></tr>
+    </tbody></table>
+    <p>Read four pairs per byte, most-significant bit first. At 200 symbols/s, each symbol occupies 5 ms. X–Y shows possible states; Normal time mode preserves their order. Mapped bit rate = symbol rate × log₂(number of states).</p>
+  </section>
+  <section><h2>03 / Capture and framed operation</h2>
+    <p><strong>CAPTURE:</strong> a four-byte maintenance message, 16 symbols at 200 symbols/s. Both outputs first go low. The first symbol raises Q, providing a rising-edge trigger on CH2. The burst contains payload only, lasts 80 ms from first symbol to end, then returns both outputs low and stops. No header or CRC is present in this burst.</p>
+    <p><strong>START:</strong> continuously alternates a known training frame and a DATA or RECOVERY frame. Use this stream for X–Y inspection and receiver RUN measurements. The receiver confirms valid INTERCEPT data without revealing its contents.</p>
+    <p>Framed format: <code>D3 91 | TYPE | LENGTH | PAYLOAD | CRC8</code>. Types (hex): 54 training, 44 intercepted data, 52 recovery data. LENGTH counts payload bytes. CRC-8/SMBUS covers TYPE, LENGTH and PAYLOAD: polynomial 07, initial 00, input/result reflection No, final XOR 00. Training contains 128 known bytes. The receiver finds the frame marker automatically.</p>
+  </section>
+  <section><h2>04 / Command register</h2>
+    <p>Separate TX/RX USB consoles: 115200 baud, 8-N-1, Newline. Commands are uppercase. Opening a console may reset its board; restore settings afterward.</p>
+    <div class="table-scroll"><table><thead><tr><th>Console</th><th>Command</th><th>Action</th></tr></thead><tbody>
+      <tr><td>Both</td><td>HELP / STATUS</td><td>List syntax / inspect settings</td></tr>
+      <tr><td>Both</td><td>RATE 25 / RATE 50 / RATE 200</td><td>Set symbols/s; use the same value on both boards</td></tr>
+      <tr><td>TX</td><td>START / STOP</td><td>Start framed operation / stop transmission</td></tr>
+      <tr><td>TX</td><td>HOLD 00 / 01 / 11 / 10</td><td>Stop and hold the selected state for voltage measurements</td></tr>
+      <tr><td>TX</td><td>CAPTURE</td><td>One payload-only burst; requires stopped INTERCEPT mode and RATE 200</td></tr>
+      <tr><td>TX</td><td>MODE INTERCEPT / MODE RECOVERY</td><td>Select message type and stop TX; START is required to resume framed operation</td></tr>
+      <tr><td>RX</td><td>VREF v</td><td>Measured supply in millivolts, 1000–5500; default 5000; does not change physical voltage</td></tr>
+      <tr><td>RX</td><td>THRESH i q</td><td>Measured I and Q decision thresholds in millivolts; positive, below VREF</td></tr>
+      <tr><td>RX</td><td>PHASE p</td><td>Sample p percent after SYNC, integer 5–90; default 50</td></tr>
+      <tr><td>RX</td><td>RUN</td><td>Fresh comparison of the next complete 1,024-bit training payload; timeout 90 seconds</td></tr>
+      <tr><td>RX</td><td>RESETCOUNTS</td><td>Clear counts, cached recovery data and qualification; retain settings</td></tr>
+    </tbody></table></div>
+  </section>
+  <section><h2>05 / Measurement and recovery</h2>
+    <p>On the DSOX2012A: CH1 = I_RX, CH2 = Q_RX; DC coupling, matching 10× factors. Select Horiz → Time Mode → XY for state groups. To capture time order, use Normal mode. For CAPTURE, stop TX, select 10 ms/div, choose CH2 rising-edge triggering at the measured Q midpoint, and put the trigger near the left edge with at least 80 ms after it. Arm Single before sending CAPTURE.</p>
+    <p>RX needs RATE and THRESH before RUN. A stage or configuration change clears qualification. BER = wrong aligned training bits / compared aligned training bits; unavailable comparison is not zero errors. A CRC match does not authenticate the sender.</p>
+    <p>Recovery confirmation needs a valid received RECOVERY payload and two fresh complete training runs under unchanged settings, each meeting mapped rate ≥80 bit/s and observed BER ≤0.01. Keep the changed filter connected and retain waveform and count evidence.</p>
+  </section>
+  <footer><p>DC09-SCH-002 / REV B · <a href="../helper/">Link workbench</a> · <a href="../">Link investigation</a></p></footer>
+</main></body></html>

@@ -5,10 +5,10 @@
     '11': Object.freeze({i:'Low',q:'Low'}), '10': Object.freeze({i:'High',q:'Low'})
   });
   function decode(slots) {
-    if (!Array.isArray(slots) || slots.length!==8 || slots.some(p=>p!==null && !Object.hasOwn(states,p)))
-      throw new Error('Use eight slots containing a valid pair or an empty value.');
+    if (!Array.isArray(slots) || slots.length!==16 || slots.some(p=>p!==null && !Object.hasOwn(states,p)))
+      throw new Error('Use sixteen slots containing a valid pair or an empty value.');
     const bytes=[];
-    for(let start=0;start<8;start+=4) {
+    for(let start=0;start<16;start+=4) {
       const pairs=slots.slice(start,start+4);
       if(pairs.some(p=>p===null)) bytes.push(null);
       else bytes.push(parseInt(pairs.join(''),2));
