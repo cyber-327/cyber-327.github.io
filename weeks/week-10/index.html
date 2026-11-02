@@ -21,13 +21,134 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Week 10 &middot; Week 10</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Rolling release begins at 11:59 PM the evening before the first lecture. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all weeks</a>
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 10 · November 1-7, 2026</p>
+      <h1>Week 10: Media Transmission Case Study: Video, Timing, and Compression</h1>
     </section>
+
+    <aside class="callout rolling-guide-note">
+      <p class="eyebrow">Rolling Weekly Guide</p>
+      <h2>Updated through Lecture 26.</h2>
+    </aside>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 26 / Mon</p>
+        <h2>Media Transmission Case Study: Video, Timing, and Compression</h2>
+        <p class="meta">November 2, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-26-slides.pptx" download>Lecture 26 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Follow a live camera through source representation, compression, encryption, link/channel processing, playback buffering and display</li>
+          <li>Pixels, frames, grayscale pixel depth and frame rate; raw video-rate calculation</li>
+          <li>Lossless versus lossy compression, video codec and equal-duration compression ratio</li>
+          <li>Average application throughput versus uneven packet/segment delivery</li>
+          <li>Playback reserve, buffer underflow, latency and arrival jitter</li>
+          <li>Diagnose artifacts with frame, arrival, buffer and encoder evidence</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Reliable bits alone do not establish timely, useful video or authenticated origin</li>
+          <li>Camera availability decisions trade useful detail, required rate and playback delay</li>
+          <li>Encryption protects video content while traffic sizes and timing may remain observable</li>
+          <li>Padding and shaping have throughput or delay costs; playback symptoms do not identify an attacker</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Definitions and Formulas</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Important Definitions</h3>
+        <dl class="definition-list">
+          <div><dt>pixel</dt><dd>One picture sample in an image.</dd></div>
+          <div><dt>frame</dt><dd>One complete video image.</dd></div>
+          <div><dt>frame rate</dt><dd>Number of video images represented per second.</dd></div>
+          <div><dt>pixel depth</dt><dd>Number of bits used to represent one pixel before compression.</dd></div>
+          <div><dt>compression</dt><dd>Representation that reduces required data by removing redundancy or perceptually less important information.</dd></div>
+          <div><dt>lossless compression</dt><dd>Compression that permits exact reconstruction of the original input data.</dd></div>
+          <div><dt>lossy compression</dt><dd>Compression that discards information and reconstructs an approximation of the original.</dd></div>
+          <div><dt>video codec</dt><dd>Paired method used to encode/compress and decode/decompress video.</dd></div>
+          <div><dt>application throughput</dt><dd>Useful application data delivered per unit time, after the overhead excluded by the stated measurement point.</dd></div>
+          <div><dt>segment</dt><dd>A short chunk of video data that can be carried in multiple packets.</dd></div>
+          <div><dt>packet</dt><dd>A unit of data sent through a packet network.</dd></div>
+          <div><dt>latency</dt><dd>Time between source action and received presentation.</dd></div>
+          <div><dt>jitter</dt><dd>Variation in arrival timing.</dd></div>
+          <div><dt>buffer</dt><dd>Stored data used to absorb timing and rate variation.</dd></div>
+          <div><dt>buffer underflow</dt><dd>The playback buffer runs out of the data needed for presentation.</dd></div>
+          <div><dt>artifact</dt><dd>A visible or audible distortion that can result from compression, missing data or timing problems.</dd></div>
+          <div><dt>traffic analysis</dt><dd>Inferring information from communication size, timing or direction without necessarily reading its content.</dd></div>
+          <div><dt>traffic padding</dt><dd>Adding dummy data to make real traffic patterns harder to distinguish; it consumes capacity.</dd></div>
+          <div><dt>traffic shaping</dt><dd>Controlling when and at what rate traffic is sent; smoothing can require waiting or extra provisioned capacity.</dd></div>
+        </dl>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li><span class="formula-label">Raw video rate</span><span class="equation">data rate = width × height × bits per pixel × frames per second</span></li>
+          <li><span class="formula-label">Compression ratio</span><span class="equation">ratio = uncompressed size / compressed size</span></li>
+          <li><span class="formula-label">Buffer duration</span><span class="equation">time = stored data / playback data rate</span></li>
+        </ul>
+        </section>
+      </div>
+    </section>
+
+
+    <section class="study-materials reference-materials">
+      <p class="eyebrow">Quick Reference</p>
+      <h2>Important Tables</h2>
+      <div class="reference-tables">
+      <section class="content-panel reference-table">
+        <h3>Video Symptoms And Communication Causes</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Symptom</th><th scope="col">Possible Communication Cause</th><th scope="col">What It Does Not Prove</th></tr></thead>
+          <tbody>
+          <tr><td>Blockiness</td><td>Loss or damaged compressed dependencies; strong compression</td><td>Deliberate interference</td></tr>
+          <tr><td>Freeze</td><td>Buffer underflow or missing reference data</td><td>Receiver hardware failure</td></tr>
+          <tr><td>Long delay</td><td>Buffering, processing, or network latency</td><td>Low signal power alone</td></tr>
+          <tr><td>Resolution drop</td><td>Adaptive rate control</td><td>Unauthorized modification</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </div>
+    </section>
+
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>How do width, height, pixel depth and frame rate set uncompressed video rate?</li>
+          <li>What does a compression ratio compare, and what changes between lossless and lossy compression?</li>
+          <li>Why can a stream fit the average throughput budget yet still freeze or arrive late?</li>
+          <li>Under what conditions does stored data divided by playback rate give a playback reserve?</li>
+          <li>What can encryption hide, and what could an observer still infer from the link?</li>
+          <li>Which measurement would help distinguish encoder settings, arrival gaps and playback waiting?</li>
+        </ul>
+    </section>
+
+    <aside class="callout locked-callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>Lab 10 is not yet available</h2>
+      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-09/">&larr; Week 9</a>
+      <a href="../week-11/">Week 11 &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>

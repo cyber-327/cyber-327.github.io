@@ -29,7 +29,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 24.</h2>
+      <h2>This week&#x27;s lecture material is complete.</h2>
     </aside>
 
     <div class="lesson-stack">
@@ -92,6 +92,36 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 25 / Fri</p>
+        <h2>Line Coding, Pulse Impairments, and Eye Patterns</h2>
+        <p class="meta">October 30, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-25-slides.pptx" download>Lecture 25 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Line coding versus error-control coding and encryption</li>
+          <li>NRZ-L, NRZ-M and NRZ-S conventions, initial level, encoding and decoding</li>
+          <li>Manchester midpoint transitions and AMI alternating marks; clock recovery</li>
+          <li>ASCII A as 01000001: the same byte represented with five line codes</li>
+          <li>Pulse rounding, voltage variation, ringing and pattern-dependent ISI</li>
+          <li>Eye diagrams: aligned overlays, purpose and qualitative voltage/timing opening</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>A replacement filter can disrupt delivery of legitimate door commands</li>
+          <li>An unfamiliar line code does not keep a message confidential</li>
+          <li>Repairing reception supports availability; authentication and freshness remain separate</li>
+          <li>An eye does not identify an attacker, authenticate a sender or establish an exact BER</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -128,6 +158,24 @@
           <div><dt>processing gain G_p</dt><dd>A spreading ratio, approximately spread bandwidth divided by the corresponding unspread data-signal bandwidth under consistent definitions. It is not a guaranteed improvement for every noise/interference condition.</dd></div>
           <div><dt>adaptive modulation and coding</dt><dd>Coordinated changes to modulation order and error-control redundancy in response to channel conditions and service requirements.</dd></div>
           <div><dt>capacity</dt><dd>An ideal limit on information rate for a stated channel model; it is not measured application throughput or proof that a particular receiver works.</dd></div>
+          <div><dt>line coding</dt><dd>Representing bits with physical signal levels or transitions.</dd></div>
+          <div><dt>NRZ (non-return-to-zero)</dt><dd>No required return to a neutral level inside each bit interval.</dd></div>
+          <div><dt>NRZ-L (level)</dt><dd>Our convention uses high for 1 and low for 0.</dd></div>
+          <div><dt>NRZ-M (mark)</dt><dd>A 1 changes the level at the start of its bit interval; a 0 holds it. State the initial level.</dd></div>
+          <div><dt>NRZ-S (space)</dt><dd>A 0 changes the level at the start of its bit interval; a 1 holds it. State the initial level.</dd></div>
+          <div><dt>NRZI (non-return-to-zero inverted)</dt><dd>A transition-code name; check the specific rule rather than assume which bit causes a change.</dd></div>
+          <div><dt>Manchester</dt><dd>Each bit has a midpoint transition; our convention is 1 rises and 0 falls. These transitions do not add new message bits.</dd></div>
+          <div><dt>AMI (alternate mark inversion)</dt><dd>Zeros use a neutral level; successive ones alternate positive and negative pulses. Our first mark is positive.</dd></div>
+          <div><dt>clock recovery</dt><dd>Estimating the timing needed to sample symbols or bits. Long runs without transitions can make this harder.</dd></div>
+          <div><dt>bandwidth limitation</dt><dd>A channel may round signal edges and spread their effects over time. Suitable filtering can also remove noise.</dd></div>
+          <div><dt>ISI (intersymbol interference)</dt><dd>One symbol affects another symbol&#x27;s sampled value; the previous bit can change the current decision.</dd></div>
+          <div><dt>ringing</dt><dd>Oscillation following a signal transition.</dd></div>
+          <div><dt>timing jitter</dt><dd>Variation in transition times relative to a timing reference.</dd></div>
+          <div><dt>eye diagram</dt><dd>Many waveform segments aligned to the same symbol timing and overlaid, showing how clearly a receiver can distinguish levels and sampling times. It does not show a message in order.</dd></div>
+          <div><dt>UI (unit interval)</dt><dd>One symbol interval in the selected display.</dd></div>
+          <div><dt>vertical eye opening</dt><dd>Room to distinguish voltage levels; voltage variation can reduce it.</dd></div>
+          <div><dt>horizontal eye opening</dt><dd>Room to choose the sampling time; timing jitter can reduce it. ISI and mixed impairments may affect both openings.</dd></div>
+          <div><dt>threshold</dt><dd>The voltage boundary used to choose between received levels.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -146,6 +194,9 @@
           <li><span class="formula-label">Approximate spreading ratio</span><span class="equation">G<sub>p</sub> approx B<sub>spread</sub> / B<sub>data</sub>, using consistently defined spread and corresponding unspread signal bandwidths</span></li>
           <li><span class="formula-label">SNR conversion</span><span class="equation">S/N = 10^(SNR<sub>dB</sub> / 10), a linear power ratio</span></li>
           <li><span class="formula-label">Shannon capacity for the ideal band-limited additive white Gaussian noise model</span><span class="equation">C = B log<sub>2</sub>(1 + S/N), with B in Hz and linear S/N</span></li>
+          <li><span class="formula-label">Eight-bit ASCII example</span><span class="equation">A = 41 hex = 01000001 (most-significant bit first)</span></li>
+          <li><span class="formula-label">Qualitative eye interpretation</span><span class="equation">less vertical opening means less voltage room; less horizontal opening means less timing room</span></li>
+          <li><span class="formula-relationship">Eye appearance suggests reception conditions; known-reference error counts are needed to measure BER</span></li>
         </ul>
         </section>
       </div>
@@ -184,6 +235,21 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Our Line-Code Conventions</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Code</th><th scope="col">Decision Rule</th><th scope="col">Timing Limitation / Cost</th></tr></thead>
+          <tbody>
+          <tr><td>NRZ-L</td><td>High = 1; low = 0</td><td>Long constant runs lack edges</td></tr>
+          <tr><td>NRZ-M</td><td>Change = 1; hold = 0; specify initial level</td><td>Long zero runs lack edges</td></tr>
+          <tr><td>NRZ-S</td><td>Change = 0; hold = 1; specify initial level</td><td>Long one runs lack edges</td></tr>
+          <tr><td>Manchester</td><td>Midpoint rises for 1, falls for 0</td><td>Faster level changes; generally more bandwidth</td></tr>
+          <tr><td>AMI</td><td>Zero neutral; alternate signs on ones; first mark positive</td><td>Long zero runs lack edges</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -200,6 +266,12 @@
           <li>Which interval sets spacing, and which interval belongs in the rate calculation?</li>
           <li>How do FHSS and DSSS distribute exposure to interference, and what do they cost?</li>
           <li>Why does a below-capacity information rate still need a tested design?</li>
+          <li>How can different voltage patterns carry the same character?</li>
+          <li>Why does a transition code require an agreed rule and starting level?</li>
+          <li>How can pulse rounding and bit history cause a wrong sampling decision?</li>
+          <li>What is overlaid to form an eye, and what do its vertical/horizontal openings tell us?</li>
+          <li>Why must a repaired link meet both error and rate requirements?</li>
+          <li>What does successful reception leave unknown about the sender and command?</li>
         </ul>
     </section>
 
