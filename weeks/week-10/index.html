@@ -29,7 +29,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 26.</h2>
+      <h2>Updated through Lecture 27.</h2>
     </aside>
 
     <div class="lesson-stack">
@@ -63,6 +63,36 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 27 / Wed</p>
+        <h2>Wireless Systems Survey: Wi-Fi, RFID, Bluetooth, IoT, and Cellular</h2>
+        <p class="meta">November 4, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-27-slides.pptx" download>Lecture 27 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Bits, modulation, antennas, propagation, filtering and receiver decisions in a shared physical medium</li>
+          <li>Bands and channels used by Wi-Fi, Bluetooth, Zigbee, cellular, RFID, NFC and UWB; illustrative regional frequency examples</li>
+          <li>Why finite spectrum, designated shared bands, standards and practical hardware lead to shared use</li>
+          <li>Overlapping transmissions, relative received power, channel access, retries and useful delivery</li>
+          <li>Real-system connections to OFDM, FHSS, DSSS, channel selection, backoff and managed scheduling</li>
+          <li>Brief MIMO definition for continuity with the following reception lecture</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Deauthentication: a forged management message can disconnect a susceptible established link without decrypting user data</li>
+          <li>Evil twin: an attacker-controlled AP advertises an imitation network; connection depends on settings, checks and user decisions</li>
+          <li>The two attacks may be combined, but neither guarantees the other</li>
+          <li>Match PMF, approved profiles, appropriate identity checks and validated HTTPS to different problems</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -91,6 +121,44 @@
           <div><dt>traffic analysis</dt><dd>Inferring information from communication size, timing or direction without necessarily reading its content.</dd></div>
           <div><dt>traffic padding</dt><dd>Adding dummy data to make real traffic patterns harder to distinguish; it consumes capacity.</dd></div>
           <div><dt>traffic shaping</dt><dd>Controlling when and at what rate traffic is sent; smoothing can require waiting or extra provisioned capacity.</dd></div>
+          <div><dt>spectrum</dt><dd>The range of frequencies under discussion.</dd></div>
+          <div><dt>band</dt><dd>A range of radio frequencies.</dd></div>
+          <div><dt>channel</dt><dd>A system-defined portion of spectrum and associated transmission rules.</dd></div>
+          <div><dt>bandwidth</dt><dd>Frequency span, measured in Hz; different from a bit rate.</dd></div>
+          <div><dt>airtime</dt><dd>Time during which a transmission occupies a shared radio channel.</dd></div>
+          <div><dt>coexistence</dt><dd>Different radio systems operating in the same environment, potentially sharing spectrum.</dd></div>
+          <div><dt>interference</dt><dd>Unwanted received signals that can disturb recovery of the wanted signal.</dd></div>
+          <div><dt>unlicensed band</dt><dd>A band compliant devices can use under stated rules without an individual spectrum license for ordinary use.</dd></div>
+          <div><dt>Wi-Fi</dt><dd>A family of wireless local-area networking technologies; common modes use OFDM and shared-access rules.</dd></div>
+          <div><dt>OFDM (orthogonal frequency-division multiplexing)</dt><dd>Organizing parallel subcarriers within a synchronized waveform; not automatic coordination between unrelated networks.</dd></div>
+          <div><dt>CSMA/CA (carrier-sense multiple access with collision avoidance)</dt><dd>Shared access using channel sensing and protocol backoff; it reduces, but cannot eliminate, collisions.</dd></div>
+          <div><dt>backoff</dt><dd>Waiting according to a protocol before attempting or retrying channel access.</dd></div>
+          <div><dt>Bluetooth</dt><dd>A wireless family using 2.4 GHz; connected communication can use adaptive frequency hopping.</dd></div>
+          <div><dt>FHSS (frequency-hopping spread spectrum)</dt><dd>Coordinated changes of frequency using an agreed sequence and timing.</dd></div>
+          <div><dt>AFH (adaptive frequency hopping)</dt><dd>Updating shared channel choices to avoid channels found unsuitable.</dd></div>
+          <div><dt>Zigbee</dt><dd>Low-power device networking; common 2.4 GHz implementations combine DSSS with access and retry rules.</dd></div>
+          <div><dt>DSSS (direct-sequence spread spectrum)</dt><dd>Representing data with faster code elements and recovering it with matched receiver processing.</dd></div>
+          <div><dt>chip</dt><dd>One element of a spreading sequence, not a new independent message bit.</dd></div>
+          <div><dt>cellular</dt><dd>Managed radio access using base stations, scheduling and cells; bands and waveform details vary.</dd></div>
+          <div><dt>MIMO (multiple-input multiple-output)</dt><dd>Multiple antennas and processing that can exploit spatial paths for reliability or throughput.</dd></div>
+          <div><dt>RFID (radio-frequency identification)</dt><dd>Reader–tag communication, including LF, HF and UHF implementations.</dd></div>
+          <div><dt>NFC (near-field communication)</dt><dd>Very short-range interactions using 13.56 MHz near-field coupling.</dd></div>
+          <div><dt>UWB (ultra-wideband)</dt><dd>Radio occupying a broad frequency span, including GHz-band fine-timing and ranging applications.</dd></div>
+          <div><dt>ranging</dt><dd>Estimating separation between devices using suitable measurements.</dd></div>
+          <div><dt>IoT (Internet of Things)</dt><dd>Connected physical devices and services; an application category, not one radio protocol.</dd></div>
+          <div><dt>beacon</dt><dd>A periodic announcement used to help discover a network.</dd></div>
+          <div><dt>association</dt><dd>Establishing a connection under a network’s rules; not sufficient identity evidence by itself.</dd></div>
+          <div><dt>authentication</dt><dd>Checking a claimed identity using the configured security method.</dd></div>
+          <div><dt>access point</dt><dd>A device providing a wireless connection into a network.</dd></div>
+          <div><dt>SSID (service set identifier)</dt><dd>The advertised Wi-Fi network name; copying a name does not establish operator identity.</dd></div>
+          <div><dt>evil twin</dt><dd>An attacker-controlled wireless access point that impersonates a network users expect to trust.</dd></div>
+          <div><dt>certificate</dt><dd>A signed statement linking an identity to a public key, checked against a trusted issuer and the expected identity.</dd></div>
+          <div><dt>deauthentication attack</dt><dd>Forging management messages to end a susceptible wireless authentication relationship and disrupt service.</dd></div>
+          <div><dt>PMF (protected management frames)</dt><dd>Protection for relevant robust management messages after protection is established; not protection against RF jamming.</dd></div>
+          <div><dt>RF jamming</dt><dd>Intentional radio interference that disrupts reception, distinct from a decoded forged disconnect message.</dd></div>
+          <div><dt>authentication server</dt><dd>A service checking network login in the selected authentication design.</dd></div>
+          <div><dt>TLS (Transport Layer Security)</dt><dd>A protocol providing authenticated protection for an application connection when properly configured and validated.</dd></div>
+          <div><dt>HTTPS</dt><dd>HTTP protected with TLS; proper validation can protect application content over an untrusted network path.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -99,6 +167,7 @@
           <li><span class="formula-label">Raw video rate</span><span class="equation">data rate = width × height × bits per pixel × frames per second</span></li>
           <li><span class="formula-label">Compression ratio</span><span class="equation">ratio = uncompressed size / compressed size</span></li>
           <li><span class="formula-label">Buffer duration</span><span class="equation">time = stored data / playback data rate</span></li>
+          <li><span class="formula-label">Conceptual lecture</span><span class="equation">no new calculation relationships. Distinguish waveform organization, channel access and authentication.</span></li>
         </ul>
         </section>
       </div>
@@ -123,6 +192,36 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Spectrum And Coexistence</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Technology</th><th scope="col">Frequency examples</th><th scope="col">Methods and role</th></tr></thead>
+          <tbody>
+          <tr><td>Wi-Fi</td><td>2.4 / 5 / 6 GHz examples</td><td>Common OFDM modes; channel planning; listen / backoff</td></tr>
+          <tr><td>Bluetooth</td><td>2.4 GHz</td><td>Connected-data adaptive frequency hopping</td></tr>
+          <tr><td>Zigbee</td><td>Commonly 2.4 GHz; variants exist</td><td>DSSS; channel assessment, backoff and retries</td></tr>
+          <tr><td>Cellular</td><td>Multiple low, mid and higher bands</td><td>Managed time/frequency scheduling; LTE / 5G OFDM-based methods</td></tr>
+          <tr><td>RFID / NFC</td><td>LF / HF / regional UHF; NFC 13.56 MHz</td><td>Reader–tag or very short-range exchanges</td></tr>
+          <tr><td>UWB</td><td>Wide GHz-band signals</td><td>Fine timing and ranging; region/device-specific channels</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Wireless Problems And Protections</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Problem</th><th scope="col">Relevant protection</th><th scope="col">Limit</th></tr></thead>
+          <tbody>
+          <tr><td>Interference / contention</td><td>Channel planning, adaptive hopping or scheduling</td><td>Does not establish sender identity</td></tr>
+          <tr><td>Forged disconnect</td><td>PMF after applicable protection is established</td><td>Does not prevent all disruption or RF jamming</td></tr>
+          <tr><td>Imitation AP</td><td>Approved profiles and expected authentication</td><td>A copied SSID is not enough to authenticate</td></tr>
+          <tr><td>Untrusted application path</td><td>Properly validated HTTPS / TLS</td><td>Separate from radio availability and network authentication</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -137,6 +236,12 @@
           <li>Under what conditions does stored data divided by playback rate give a playback reserve?</li>
           <li>What can encryption hide, and what could an observer still infer from the link?</li>
           <li>Which measurement would help distinguish encoder settings, arrival gaps and playback waiting?</li>
+          <li>Why can different wireless technologies share the same band yet still interfere?</li>
+          <li>How do Wi-Fi OFDM and shared-access rules solve different problems?</li>
+          <li>How does Bluetooth adaptive hopping connect to FHSS, and how does Zigbee connect to DSSS?</li>
+          <li>Why is a forged disconnect message different from RF jamming?</li>
+          <li>What extra evidence would you require before trusting a familiar network name?</li>
+          <li>A link slows down, another repeatedly disconnects, and a familiar network name appears twice. Which evidence would distinguish interference, forged disconnect messages and an evil twin? Which protection fits each?</li>
         </ul>
     </section>
 
