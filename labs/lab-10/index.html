@@ -33,7 +33,7 @@
       <p class="eyebrow">Learning Outcomes</p>
       <h2>By the End of This Lab</h2>
         <ul>
-          <li>Compare four encodings of the same byte and recover an unknown byte from measured levels and transitions</li>
+          <li>Observe four line-code references and identify the line coding used for a known message</li>
           <li>Operate a local RTL-SDR and a remote WebSDR and distinguish observations from station-identity claims</li>
           <li>Explain reception differences using location, antenna, noise and propagation</li>
           <li>Analyze a three-day cellular backup-link log in Excel and recommend a placement using radio quality and timely alert delivery</li>
@@ -45,10 +45,9 @@
       <h2>What You Are Doing</h2>
         <ol class="overview-steps">
           <li>Work through three independent activities; your assigned group determines the order.</li>
-          <li>Use a Nano and oscilloscope to compare line codes and decode one unknown byte.</li>
+          <li>Use a Nano and oscilloscope to observe line-code references and identify the coding of a known message.</li>
           <li>Receive an AM broadcast locally and through a remote WebSDR, then compare the evidence.</li>
           <li>Investigate a supplied workplace report and 1,296 cellular test records to choose a backup-gateway antenna location. No phone is required.</li>
-          <li>Submit an individual report after completing all three activities.</li>
         </ol>
     </section>
 
@@ -70,20 +69,10 @@
         <ul>
           <li>Per team: one preloaded classic 5 V Nano, USB data cable, computer with Arduino IDE, Keysight DSOX2012A scope and two 10× probes</li>
           <li>Shared: two RTL-SDR Blog V3 receivers, two prepared receiver computers, receiving antennas, suitable USB adapters and headphones</li>
-          <li>Browser with audio access to Northern Utah WebSDR; Excel or a compatible spreadsheet app, calculator and supplied cellular report/CSV files</li>
-          <li>No function generator, receiver Nano, channel resistors or capacitors are needed for the line-code activity</li>
+          <li>Excel or a compatible spreadsheet app, calculator and supplied cellular report/CSV files</li>
         </ul>
       </aside>
     </div>
-
-    <section class="content-panel measurement-map">
-      <p class="eyebrow">Measurement Map</p>
-      <h2>What Each Voltage Tells You</h2>
-        <dl class="definition-list">
-          <div><dt>CH1</dt><dd>D9 encoded data. CH2: D2 frame start. Both probe grounds: Nano GND.</dd></div>
-          <div><dt>ASCII lookup for the unknown</dt><dd>H=48, I=49, J=4A, K=4B, L=4C, M=4D, N=4E, O=4F (hex). Group decoded bits into two four-bit hex digits before using the lookup.</dd></div>
-        </dl>
-    </section>
 
     <section class="content-panel resource-panel">
       <p class="eyebrow">Student Resources</p>
@@ -103,47 +92,44 @@
         <h3>1. Read the Line Codes — Table 1</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
-            <p>Save NRZ-M and Manchester reference traces and your unknown-byte trace. Show both channels, time scale and marker; include the eight-bit decoding.</p>
+            <p>Save the four reference captures, a full CYBER327 capture and a close-up of its beginning. Show both channels, time scale and frame marker.</p>
           </aside>
           <ol class="walkthrough-list">
             <li>Connect the preloaded Nano to USB. Select its port in Arduino IDE, open Serial Monitor at 115200 baud with Newline selected, and send HELP. Leave the firmware installed.</li>
-            <li>Use two 10× probes and set both scope channel probe factors to 10×. Connect both ground clips to Nano GND. Connect CH1’s tip to D9 (encoded data) and CH2’s tip to D2 (frame-start marker). These are scope connections only; do not connect an external generator.</li>
+            <li>Use two 10× probes and set both scope channel probe factors to 10×. Connect both ground clips to Nano GND. Connect CH1’s tip to D9 (encoded data) and CH2’s tip to D2 (frame-start marker).</li>
             <li>Enable both channels in Normal time mode with DC coupling. Start at 2 V/div and 10 ms/div. Position both traces so you can distinguish LOW near 0 V from HIGH near 5 V using each channel’s zero reference.</li>
             <li>Set Trigger to Edge, source 2, rising slope. Turn the physical Trigger Level knob until the upper-right readout is about 2 V. Choose Horiz → Time Ref → Left and set horizontal delay to 0 s. Keep at least eight divisions to the right of the trigger.</li>
-            <li>Send FRAME REF and CODE NRZ-L, one command per line. The byte repeats automatically. Use Run/Stop to freeze a stable capture, or Single to acquire the next frame. The CH2 pulse is a 1 ms frame marker, not a bit clock.</li>
-            <li>The marker’s rising edge is time 0. Read eight consecutive 10 ms bit intervals, ending at 80 ms. Read NRZ levels at 5, 15, 25, 35, 45, 55, 65 and 75 ms. Count intervals, including repeated levels, rather than counting pulses.</li>
-            <li>The reference is ASCII A: hex 41, bits 01000001, most significant bit first. NRZ-L uses HIGH for 1 and LOW for 0. Record the eight observed levels in Table 1.</li>
-            <li>Send CODE NRZ-M. The data starts LOW immediately before the marker and changes at a bit’s start for 1; 0 holds its level. Read the level in each interval and compare it with the previous level, starting from LOW. Record the result.</li>
-            <li>Send CODE NRZ-S. Its initial level is also LOW, but 0 changes the level at the bit’s start and 1 holds it. Record the eight observed levels.</li>
-            <li>Send CODE MANCHESTER. A 1 changes LOW → HIGH at the middle of its bit; a 0 changes HIGH → LOW. Read each interval’s first and second halves, near 2.5 and 7.5 ms after its start. Ignore transitions at bit boundaries when deciding its value.</li>
-            <li>Save a reference capture for NRZ-M and one for Manchester. Explain which code guarantees a transition within every bit and how that helps the receiver keep time.</li>
-            <li>Send FRAME UNKNOWN. This selects a different byte encoded in NRZ-M, with initial level LOW. Capture all eight intervals. Record levels, decoded bits, hex and ASCII. Use the ASCII reference below; the console does not reveal the unknown byte. Save the original trace as evidence.</li>
-            <li>Before leaving, send FRAME REF and CODE NRZ-L. Disconnect the scope probes and leave the board ready for the next group.</li>
+            <li>Send FRAME REF and CODE NRZ-L, one command per line. The Nano repeatedly sends ASCII “3”. The CH2 pulse marks the start of the frame. Each data bit lasts 10 ms; bytes are sent MSB first. The initial level for NRZ-M/S is LOW. Use Run/Stop to freeze a capture, or Single to acquire the next frame.</li>
+            <li>Align the start of your capture with the frame marker, then record the levels for each bit interval in Table 1. Save the NRZ-L reference capture.</li>
+            <li>Send CODE NRZ-M to transmit ASCII “3”. Capture the reference, record its levels and save the image.</li>
+            <li>Send CODE NRZ-S to transmit ASCII “2”. Capture the reference, record its levels and save the image.</li>
+            <li>Send CODE MANCHESTER to transmit ASCII “7”. Capture the reference, record its half-bit pairs and save the image.</li>
+            <li>Send FRAME UNKNOWN. The Nano now repeatedly sends the known message CYBER327 using a line coding scheme to identify. Set the scope to 100 ms/div and capture the complete 640 ms message, aligned with the CH2 frame-start pulse. Then set 10 ms/div and acquire another frame-start capture for a close-up of the first byte.</li>
+            <li>Known message: ASCII CYBER327. Hex bytes, in order: 43 59 42 45 52 33 32 37. Each byte is sent MSB first; the message contains 64 bits.</li>
+            <li>Use the known message and your captures to identify the coding scheme. Record your result and transition evidence in Table 1.</li>
+            <li>Before leaving, send FRAME REF and CODE NRZ-L and restore 10 ms/div. Disconnect the scope probes and leave the board ready for the next group.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
         <h3>2. Compare Local and Remote AM Reception — Table 2</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
-            <p>Save one local and one remote spectrum/waterfall image, with receiver location, frequency, mode, time and relevant settings. Caption any fallback as supplied evidence.</p>
+            <p>Save one local and one remote spectrum/waterfall image, with receiver location, frequency, mode, time and relevant settings.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Use the two prepared RTL-SDR computers. With three teams, two begin on local receivers while the third uses WebSDR. Swap roles when directed so every team collects local and remote observations. With two teams, both can begin locally and then switch to WebSDR. Compare your observations and reset the equipment before leaving.</li>
+            <li>Make sure SDR++ is installed on the computer you will use and that the RTL-SDR, antenna and headphones are on hand. If the receiver equipment is not available yet, complete the WebSDR portion first while waiting.</li>
             <li>At a local receiver, confirm the antenna is connected. In SDR++, select Source → RTL-SDR, refresh the device list and choose the assigned dongle. Keep Bias-T off. Use the prepared V3 direct-sampling settings; the installation guide explains Q branch and automatic direct sampling.</li>
             <li>Enter the assigned carrier frequency in the large frequency display at the top. SDR++ displays Hz; for example, 1,000 kHz is 1,000,000 Hz. Choose AM in the Radio section, start with a 10 kHz receiver filter, press Play and increase the audio volume gradually. Keep the instructor’s prepared gain settings.</li>
             <li>Receiver filter width is the frequency range passed to the demodulator. For a centered AM filter with a total width of 10 kHz, tuning to 1000 kHz passes approximately 995–1005 kHz.</li>
             <li>A wider filter can preserve more of the wanted sidebands, but also admits more noise and nearby signals. A narrower filter can reduce unwanted reception, but may cut off wanted sideband content and make the audio sound muffled. This setting changes what the receiver processes; it does not change the transmitted signal’s bandwidth.</li>
             <li>Listen for a spoken station name, callsign or location. Record the time, tuned frequency, antenna/location, mode, audio clue and anything that affects clarity. A program name alone may be shared by several stations.</li>
             <li>Zoom the spectrum enough to see the carrier and nearby sidebands. Estimate the visible signal width when possible and state its uncertainty. Record the receiver filter width separately: the selected filter is not a measurement of transmitted bandwidth. Save a spectrum/waterfall screenshot with the frequency and settings visible.</li>
-            <li>Open <a href="https://www.sdrutah.org/">Northern Utah WebSDR</a>. Under <strong>WebSDR1 (&quot;Yellow&quot;)</strong>, select <strong>AM Broadcast (1160 kHz)</strong>.</li>
+            <li><strong>WebSDR</strong> — Open <a href="https://www.sdrutah.org/">Northern Utah WebSDR</a>. Under <strong>WebSDR1 (&quot;Yellow&quot;)</strong>, select <strong>AM Broadcast (1160 kHz)</strong>.</li>
             <li>Select <strong>AM</strong> and enter the same carrier frequency used on the local RTL-SDR, using the frequency field’s displayed units (often kHz). Replace the shortcut’s starting frequency of 1160 kHz with the assigned frequency.</li>
             <li>Click <strong>START</strong> to enable browser audio, then adjust the volume.</li>
             <li>Start near a <strong>10 kHz total receiver filter width</strong> if available. Otherwise use the AM default and record its actual width.</li>
             <li>Confirm and record the remote receiver’s location, tuned frequency and actual receiver filter width. WebSDR uses the remote receiver and antenna; it does not need your USB dongle.</li>
-            <li>Record the same observations and save a screenshot showing the remote receiver, tuned frequency and spectrum. If reception is absent or unclear, record that honestly; use the instructor’s alternate frequency or supplied fallback capture when directed.</li>
-            <li>Do these receivers appear to be receiving the same station? Explain your evidence. Why might the sound and spectrum look different? State same station, different stations, or not enough evidence. Matching frequency or matching syndicated audio alone does not prove it is the same transmitter.</li>
-            <li>Explain two plausible causes of a reception difference using your observations: receiver location, antenna, interference, propagation or receiver settings. Internet buffering can delay remote audio; that delay is not a measurement of radio propagation time. A poor signal alone does not establish an attack.</li>
-            <li>Do not compare the numerical signal levels across these receivers as calibrated power. SDR++ commonly displays dBFS and remote meters can use another scale. This V3 AM activity does not require changing RF gain, which may be unavailable in direct sampling.</li>
+            <li>Record the same observations and save a screenshot showing the remote receiver, tuned frequency and spectrum. If the initial station is unintelligible, find an intelligible nearby AM station. Record the new frequency and use that same frequency on both receivers for the comparison.</li>
             <li>Stop SDR++ before unplugging a dongle. Restore the assigned frequency and settings, close your WebSDR tab and return headphones for the next group.</li>
           </ol>
       </section>

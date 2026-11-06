@@ -61,14 +61,14 @@
       <p>The spectrum shows signal level versus frequency. The waterfall shows how that changes over time. Zoom around the carrier to see its sidebands, and keep the frequency axis visible in screenshots. The selected receiver filter width is not the transmitted signal’s measured width. SDR++ levels are usually dBFS, not calibrated dBm.</p>
       <h3>4. Open the remote receiver</h3>
       <ul>
-        <li>Open <a href="https://www.sdrutah.org/">Northern Utah WebSDR</a>. Under <strong>WebSDR1 (&quot;Yellow&quot;)</strong>, select <strong>AM Broadcast (1160 kHz)</strong>.</li>
+        <li><strong>WebSDR</strong> — Open <a href="https://www.sdrutah.org/">Northern Utah WebSDR</a>. Under <strong>WebSDR1 (&quot;Yellow&quot;)</strong>, select <strong>AM Broadcast (1160 kHz)</strong>.</li>
         <li>Select <strong>AM</strong> and enter the same carrier frequency used on the local RTL-SDR, using the frequency field’s displayed units (often kHz). Replace the shortcut’s starting frequency of 1160 kHz with the assigned frequency.</li>
         <li>Click <strong>START</strong> to enable browser audio, then adjust the volume.</li>
         <li>Start near a <strong>10 kHz total receiver filter width</strong> if available. Otherwise use the AM default and record its actual width.</li>
         <li>Confirm and record the remote receiver’s location, tuned frequency and actual receiver filter width. WebSDR uses the remote receiver and antenna; it does not need your USB dongle.</li>
       </ul>
       <p>Northern Utah’s <a href="https://www.sdrutah.org/info/faq.html">receiver FAQ</a> describes the narrower controls and dragging the passband edges to adjust filter width. Record the actual setting separately from the estimated visible signal width.</p>
-      <p>The two receivers can hear the same station, different stations, or too little signal to decide. Record the evidence. Internet audio buffering can produce a delay; do not interpret it as radio propagation time.</p>
+      <p>If the initial station is unintelligible, find an intelligible nearby AM station. Record the new frequency and use it on both the local and remote receiver. The two receivers can hear the same station, different stations, or too little signal to decide; record the observations in Table 2. Internet audio buffering can produce a delay; do not interpret it as radio propagation time.</p>
     </section>    <section class="syllabus-section" id="if-something-does-not-work">
       <h2>If something does not work</h2>
       <div class="table-scroll">
@@ -80,7 +80,7 @@
           <tr><td>Spectrum moves but audio is silent</td><td>Check Play, AM/WFM choice, selected frequency, mute, output device, volume and squelch; WebSDR may require a browser audio click.</td></tr>
           <tr><td>FM works but AM is weak or absent</td><td>Check V3 Q/direct sampling, tune units, AM mode and antenna. A short dipole may receive AM poorly; use the instructor’s tested receiving antenna/location.</td></tr>
           <tr><td>RF gain is unavailable on AM</td><td>This can be normal in direct sampling. Keep the prepared settings; gain adjustment is not a required task.</td></tr>
-          <tr><td>Remote page fails or is full</td><td>Use the instructor’s alternate receiver or labeled supplied captures. Record the failure rather than wait through your turn.</td></tr>
+          <tr><td>Remote page fails or is full</td><td>Retry Northern Utah WebSDR1; record the access issue if it remains unavailable.</td></tr>
           <tr><td>Mac reports a damaged app or missing library</td><td>Re-download the correct architecture from the official project; save the exact error. Use the tested lab computer if unresolved; do not disable system-wide security settings.</td></tr>
           </tbody>
         </table>
