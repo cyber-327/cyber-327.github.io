@@ -29,7 +29,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 27.</h2>
+      <h2>This week&#x27;s lecture material is complete.</h2>
     </aside>
 
     <div class="lesson-stack">
@@ -89,6 +89,36 @@
           <li>Evil twin: an attacker-controlled AP advertises an imitation network; connection depends on settings, checks and user decisions</li>
           <li>The two attacks may be combined, but neither guarantees the other</li>
           <li>Match PMF, approved profiles, appropriate identity checks and validated HTTPS to different problems</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 28 / Fri</p>
+        <h2>5G/Cellular Awareness, SDR, and Spectrum Ethics</h2>
+        <p class="meta">November 6, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-28-slides.pptx" download>Lecture 28 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Receiver chain, SDR hardware/software and compatible measurement tools</li>
+          <li>Spectrum, waterfall, frequency/time axes, filter width, displayed level and evidence settings</li>
+          <li>Local versus remote AM reception and limits of frequency/audio identity clues</li>
+          <li>Wanted versus unwanted power, SINR and logarithmic conversion using compatible linear measurements</li>
+          <li>Cellular directions/reference resources, RSRP/RSRQ/SINR and constructed placement comparison</li>
+          <li>Brief MIMO and beamforming context for reception changes</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Wireless availability investigation: preserve evidence, compare conditions, test alternatives and verify response</li>
+          <li>RF jamming can disrupt physical reception without decrypting content; it differs from decoded forged management messages</li>
+          <li>Distinguish ordinary interference, protocol attacks and deliberate RF interference without treating a symptom as proof</li>
+          <li>Match receiver observations with connection/error records and useful application delivery; identity remains a separate check</li>
         </ul>
         </section>
       </div>
@@ -159,6 +189,30 @@
           <div><dt>authentication server</dt><dd>A service checking network login in the selected authentication design.</dd></div>
           <div><dt>TLS (Transport Layer Security)</dt><dd>A protocol providing authenticated protection for an application connection when properly configured and validated.</dd></div>
           <div><dt>HTTPS</dt><dd>HTTP protected with TLS; proper validation can protect application content over an untrusted network path.</dd></div>
+          <div><dt>SDR (software-defined radio)</dt><dd>Radio in which important processing occurs in software, with physical receiving hardware still required.</dd></div>
+          <div><dt>ADC (analog-to-digital converter)</dt><dd>Hardware that converts an analog input into digital samples.</dd></div>
+          <div><dt>FFT (fast Fourier transform)</dt><dd>A calculation used to obtain frequency components from samples.</dd></div>
+          <div><dt>waterfall</dt><dd>A frequency-versus-time history whose color represents displayed level.</dd></div>
+          <div><dt>spectral occupancy</dt><dd>Where and when measurable signal energy is present under stated receiver settings.</dd></div>
+          <div><dt>noise floor</dt><dd>The displayed background level for the chosen receiver and analysis configuration.</dd></div>
+          <div><dt>dBFS</dt><dd>Decibels relative to digital full scale; ordinary SDR++ levels are not calibrated dBm.</dd></div>
+          <div><dt>dBm</dt><dd>An absolute power level relative to 1 mW.</dd></div>
+          <div><dt>dB</dt><dd>A logarithmic ratio; not a linear power to add in a SINR denominator.</dd></div>
+          <div><dt>WebSDR</dt><dd>A remotely located software-defined receiver accessed through a browser.</dd></div>
+          <div><dt>SINR (signal-to-interference-plus-noise ratio)</dt><dd>Wanted signal power divided by combined interference and noise power under compatible measurement definitions.</dd></div>
+          <div><dt>cell</dt><dd>An area served by a base station; actual coverage depends on operating conditions.</dd></div>
+          <div><dt>base station</dt><dd>Network radio equipment serving user devices in a cellular area.</dd></div>
+          <div><dt>uplink</dt><dd>Communication from a user device toward the base station.</dd></div>
+          <div><dt>downlink</dt><dd>Communication from a base station toward a user device.</dd></div>
+          <div><dt>reference signal</dt><dd>A known signal resource used for measurement or channel estimation.</dd></div>
+          <div><dt>RSRP (reference signal received power)</dt><dd>Power on specified reference-signal resources, commonly reported in dBm.</dd></div>
+          <div><dt>RSRQ (reference signal received quality)</dt><dd>A quality ratio relating reference power to total reception and specified measurement bandwidth.</dd></div>
+          <div><dt>RSSI (received signal strength indicator)</dt><dd>A broader received-power indication with implementation-dependent resource and scaling context.</dd></div>
+          <div><dt>MIMO (multiple-input multiple-output)</dt><dd>Multiple antennas and processing that can use spatial paths for throughput or reliability.</dd></div>
+          <div><dt>beamforming</dt><dd>Adjusting antenna-signal amplitudes and phases to favor particular directions.</dd></div>
+          <div><dt>RF jamming</dt><dd>Intentional radio interference that disrupts reception, distinct from a decoded forged disconnect message.</dd></div>
+          <div><dt>baseline</dt><dd>A recorded reference condition with enough settings and context to support comparison.</dd></div>
+          <div><dt>availability</dt><dd>The ability to obtain the required service when it is needed.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -168,6 +222,8 @@
           <li><span class="formula-label">Compression ratio</span><span class="equation">ratio = uncompressed size / compressed size</span></li>
           <li><span class="formula-label">Buffer duration</span><span class="equation">time = stored data / playback data rate</span></li>
           <li><span class="formula-label">Conceptual lecture</span><span class="equation">no new calculation relationships. Distinguish waveform organization, channel access and authentication.</span></li>
+          <li><span class="formula-label">SINR</span><span class="equation">SINR = signal power / (interference power + noise power)</span></li>
+          <li><span class="formula-label">Power comparison</span><span class="equation">A 3 dB power change is ≈ a factor of two</span></li>
         </ul>
         </section>
       </div>
@@ -222,6 +278,34 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Receiver Evidence And Its Limits</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Evidence</th><th scope="col">Useful question</th><th scope="col">Limit</th></tr></thead>
+          <tbody>
+          <tr><td>Spectrum / waterfall</td><td>Where and when does energy appear?</td><td>Settings, calibration and receiver coverage matter; appearance alone does not prove intent</td></tr>
+          <tr><td>Receiver filter</td><td>Which frequency region is selected?</td><td>Selected width is not the transmitted signal bandwidth</td></tr>
+          <tr><td>RSRP</td><td>How strong is the defined reference signal?</td><td>Not overall quality, upload throughput or sender identity</td></tr>
+          <tr><td>RSRQ / SINR</td><td>What is reception quality under the stated definitions?</td><td>Not a unique diagnosis or application-performance guarantee</td></tr>
+          <tr><td>Application tests / logs</td><td>Does useful delivery meet the requirement?</td><td>Correlate with radio and protocol evidence to investigate causes</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Investigating Wireless Disruption</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Hypothesis</th><th scope="col">Compare / inspect</th><th scope="col">Relevant response and limit</th></tr></thead>
+          <tbody>
+          <tr><td>Ordinary interference / contention</td><td>Traffic, equipment use, receiver health and consistent settings</td><td>Planning or placement may help; verify actual delivery</td></tr>
+          <tr><td>Forged Wi-Fi disconnect</td><td>Management frames, connection logs and negotiated protection</td><td>PMF protects relevant established exchanges, not RF reception</td></tr>
+          <tr><td>RF jamming</td><td>Unwanted activity correlated with failures, plus source/context evidence</td><td>Alternative channels/bands, suitable placement or wired contingency may help; no immunity claim</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -242,13 +326,21 @@
           <li>Why is a forged disconnect message different from RF jamming?</li>
           <li>What extra evidence would you require before trusting a familiar network name?</li>
           <li>A link slows down, another repeatedly disconnects, and a familiar network name appears twice. Which evidence would distinguish interference, forged disconnect messages and an evil twin? Which protection fits each?</li>
+          <li>What would you save with a receiver observation so another investigator can compare it?</li>
+          <li>Why do receiver filter width, observed span and displayed power need different interpretations?</li>
+          <li>Why can local and remote receivers differ at the same tuned frequency?</li>
+          <li>How can wanted power remain strong while quality falls?</li>
+          <li>Which question does each cellular metric answer, and what still requires an application test?</li>
+          <li>What distinguishes RF jamming from Wi-Fi deauthentication?</li>
+          <li>Wanted power is 90 pW, interference is 20 pW and noise is 10 pW. Calculate linear SINR and its dB value. If unwanted activity and message losses increase, what would you test before calling it a jamming attack?</li>
+          <li>Which evidence would distinguish interference from receiver faults or application bottlenecks?</li>
         </ul>
     </section>
 
     <aside class="callout locked-callout">
       <p class="eyebrow">Friday Lab</p>
       <h2>Lab 10 is not yet available</h2>
-      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+      <p>Scheduled release: November 1, 2026. The instructor may release it earlier.</p>
     </aside>
     <nav class="pager" aria-label="Week navigation">
       <a href="../week-09/">&larr; Week 9</a>
