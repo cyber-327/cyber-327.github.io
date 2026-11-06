@@ -25,7 +25,7 @@
     <section class="page-intro">
       <p class="kicker">Lab 10 &middot; Week 10 &middot; November 6, 2026</p>
       <h1>Line Coding and Radio Reception</h1>
-      <p class="body">Read line-coded data on an oscilloscope, compare local and remote AM reception, and choose a cellular receiver location using signal-quality evidence</p>
+      <p class="body">Read line-coded data on an oscilloscope, find AM/DSB, USB and LSB signals using WebSDR, and choose a cellular receiver location using signal-quality evidence</p>
     </section>
 
     <section class="content-panel objectives-panel">
@@ -33,8 +33,8 @@
       <h2>By the End of This Lab</h2>
         <ul>
           <li>Decode characters from line-coded signals and identify the line coding used for a known message</li>
-          <li>Operate a local RTL-SDR and a remote WebSDR and distinguish observations from station-identity claims</li>
-          <li>Explain reception differences using location, antenna, noise and propagation</li>
+          <li>Find separate AM/DSB, USB and LSB transmissions using WebSDR and record their frequencies and receiver locations</li>
+          <li>Distinguish DSB with a carrier from USB and LSB using the spectrum and audio together</li>
           <li>Analyze a three-day cellular backup-link log in Excel and recommend a placement using radio quality and timely alert delivery</li>
         </ul>
     </section>
@@ -45,7 +45,7 @@
         <ol class="overview-steps">
           <li>Work through three independent activities; your assigned group determines the order.</li>
           <li>Use a Nano and oscilloscope to observe line-code references and identify the coding of a known message.</li>
-          <li>Receive an AM broadcast locally and through a remote WebSDR, then compare the evidence.</li>
+          <li>Find three signals in WebSDR: ordinary AM (DSB with a carrier), USB and LSB.</li>
           <li>Investigate a supplied workplace report and 1,296 cellular test records to choose a backup-gateway antenna location. No phone is required.</li>
         </ol>
     </section>
@@ -56,10 +56,10 @@
         <p class="eyebrow">Before Lab</p>
         <h2>Preparation</h2>
         <ul>
-          <li>Install SDR++ before lab using the linked macOS/Windows guide. You can check that the app opens without a dongle; receiver checks need one of the two shared dongles.</li>
+          <li>Open the linked WebSDR Signal Guide in your browser and have headphones ready.</li>
           <li>Have Arduino IDE available. Use the preloaded Nano; open Serial Monitor at 115200 baud with Newline selected.</li>
           <li>Review the Lecture 25 line-code conventions and this week’s spectrum, propagation and cellular-quality terms.</li>
-          <li>Open the report. Your instructor supplies the rotation group, AM test frequency and cellular dataset. The procedure below gives the Northern Utah WebSDR access steps.</li>
+          <li>Open the report and supplied cellular dataset. Follow your assigned activity order; the WebSDR guide gives receiver links and search steps.</li>
         </ul>
       </section>
       <aside class="content-panel equipment">
@@ -67,7 +67,7 @@
         <h2>Equipment and Materials</h2>
         <ul>
           <li>Per team: one preloaded classic 5 V Nano, USB data cable, computer with Arduino IDE, Keysight DSOX2012A scope and two 10× probes</li>
-          <li>Shared: two RTL-SDR Blog V3 receivers, two prepared receiver computers, receiving antennas, suitable USB adapters and headphones</li>
+          <li>Browser with internet access and headphones for WebSDR</li>
           <li>Excel or a compatible spreadsheet app, calculator and supplied cellular report/CSV files</li>
         </ul>
       </aside>
@@ -79,7 +79,7 @@
 
       <div class="resource-links">
         <a class="button" href="../../assets/labs/lab-10-report.docx" download>Lab report</a>
-        <a class="button" href="../../labs/lab-10/sdr-setup/">SDR++ setup for macOS and Windows</a>
+        <a class="button" href="../../labs/lab-10/sdr-setup/">WebSDR Signal Guide</a>
         <a class="button" href="../../assets/labs/lab-10-cellular-report.html">Facilities acceptance-test report and dataset</a>
       </div>
     </section>
@@ -110,26 +110,33 @@
           </ol>
       </section>
       <section class="walkthrough-stage">
-        <h3>2. Compare Local and Remote AM Reception — Table 2</h3>
+        <h3>2. Find AM / DSB, USB and LSB Signals — Table 2</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
-            <p>Save one local and one remote spectrum/waterfall image, with receiver location, frequency, mode, time and relevant settings.</p>
+            <p>Save three spectrum/waterfall screenshots: AM / DSB, USB and LSB. Show readable frequencies and modes; caption each with receiver identity, location and observation time.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Make sure SDR++ is installed on the computer you will use and that the RTL-SDR, antenna and headphones are on hand. If the receiver equipment is not available yet, complete the WebSDR portion first while waiting.</li>
-            <li>At a local receiver, confirm the antenna is connected. In SDR++, select Source → RTL-SDR, refresh the device list and choose the assigned dongle. Keep Bias-T off. Use the prepared V3 direct-sampling settings; the installation guide explains Q branch and automatic direct sampling.</li>
-            <li>Enter the assigned carrier frequency in the large frequency display at the top. SDR++ displays Hz; for example, 1,000 kHz is 1,000,000 Hz. Choose AM in the Radio section, start with a 10 kHz receiver filter, press Play and increase the audio volume gradually. Keep the instructor’s prepared gain settings.</li>
-            <li>Receiver filter width is the frequency range passed to the demodulator. For a centered AM filter with a total width of 10 kHz, tuning to 1000 kHz passes approximately 995–1005 kHz.</li>
-            <li>A wider filter can preserve more of the wanted sidebands, but also admits more noise and nearby signals. A narrower filter can reduce unwanted reception, but may cut off wanted sideband content and make the audio sound muffled. This setting changes what the receiver processes; it does not change the transmitted signal’s bandwidth.</li>
-            <li>Listen for a spoken station name, callsign or location. Record the time, tuned frequency, antenna/location, mode, audio clue and anything that affects clarity. A program name alone may be shared by several stations.</li>
-            <li>Zoom the spectrum enough to see the carrier and nearby sidebands. Estimate the visible signal width when possible and state its uncertainty. Record the receiver filter width separately: the selected filter is not a measurement of transmitted bandwidth. Save a spectrum/waterfall screenshot with the frequency and settings visible.</li>
-            <li><strong>WebSDR</strong> — Open <a href="https://www.sdrutah.org/">Northern Utah WebSDR</a>. Under <strong>WebSDR1 (&quot;Yellow&quot;)</strong>, select <strong>AM Broadcast (1160 kHz)</strong>.</li>
-            <li>Select <strong>AM</strong> and enter the same carrier frequency used on the local RTL-SDR, using the frequency field’s displayed units (often kHz). Replace the shortcut’s starting frequency of 1160 kHz with the assigned frequency.</li>
-            <li>Click <strong>START</strong> to enable browser audio, then adjust the volume.</li>
-            <li>Start near a <strong>10 kHz total receiver filter width</strong> if available. Otherwise use the AM default and record its actual width.</li>
-            <li>Confirm and record the remote receiver’s location, tuned frequency and actual receiver filter width. WebSDR uses the remote receiver and antenna; it does not need your USB dongle.</li>
-            <li>Record the same observations and save a screenshot showing the remote receiver, tuned frequency and spectrum. If the initial station is unintelligible, find an intelligible nearby AM station. Record the new frequency and use that same frequency on both receivers for the comparison.</li>
-            <li>Stop SDR++ before unplugging a dongle. Restore the assigned frequency and settings, close your WebSDR tab and return headphones for the next group.</li>
+            <li><strong>WebSDR — start here.</strong> Open <a href="https://www.sdrutah.org/">Northern Utah WebSDR</a>. Find three separate intelligible transmissions: ordinary AM (DSB with a carrier), USB and LSB. Ordinary AM supplies the DSB example; it is not a fourth required signal.</li>
+            <li>Choose a receiver covering the band you want to explore. Click <strong>START</strong> to enable browser audio, then increase the volume gradually. Check mute and your computer’s audio output if you hear nothing.</li>
+            <li>Find the frequency-entry box and check its units. In a kHz field, enter 1160 for 1160 kHz, or 14290 for 14.290 MHz. The spectrum shows signal level across frequency; the waterfall shows how signals change over time. Zoom in enough to separate nearby signals.</li>
+            <li>Record the receiver’s name, URL and geographic location from its page. This is the location of the remote antenna and receiver. The transmitter can be somewhere else; you do not need to locate it.</li>
+            <li><strong>AM / DSB — choose the broadcast band.</strong> On the Utah landing page, select <strong>WebSDR1 (&quot;Yellow&quot;) → AM Broadcast (1160 kHz)</strong>.</li>
+            <li>Select <strong>AM</strong> and keep the default AM filter initially. Look for a strong, narrow carrier peak in the spectrum, or a steady carrier line in the waterfall. Center the tuning on that carrier.</li>
+            <li>Listen for understandable speech or recognizable music. If the starting channel is unclear, explore nearby broadcast channels until you find an intelligible signal.</li>
+            <li>Zoom in around the carrier while speech or music is present. Look for signal energy on both its lower-frequency and higher-frequency sides. The carrier and both sidebands support identifying ordinary AM as DSB with a carrier.</li>
+            <li>Save a screenshot showing the carrier, both sidebands where visible, frequency, AM setting and spectrum/waterfall. Record your audio and spectrum observations in the AM / DSB row of Table 2.</li>
+            <li><strong>USB — choose the 20-meter band.</strong> Return to the landing page and select <strong>WebSDR2 (&quot;Green&quot;) → 20 meters</strong>. Select <strong>USB</strong>.</li>
+            <li>Explore approximately <strong>14.150–14.350 MHz</strong>. Look for narrow patches of activity that change while someone speaks. Amateur conversations can have gaps between transmissions; choose an active voice signal.</li>
+            <li>Tune slowly across the signal. If the voice sounds unusually high or low, make smaller frequency adjustments until speech sounds natural. Use the receiver’s default USB filter initially.</li>
+            <li>When correctly tuned, look for speech energy mainly <strong>above the tuned reference frequency</strong>. A strong continuous carrier is normally absent. The reference marks where the suppressed carrier would be, so do not require a visible carrier line.</li>
+            <li>Save a screenshot while the speaker is transmitting, with frequency, USB setting and spectrum/waterfall visible. Record what you heard and the observations supporting USB in Table 2.</li>
+            <li><strong>LSB — choose the 40-meter band.</strong> Return to the landing page and select <strong>WebSDR1 (&quot;Yellow&quot;) → 40 meters</strong>. Select <strong>LSB</strong>.</li>
+            <li>Explore approximately <strong>7.175–7.300 MHz</strong>. Look for active voice transmissions and tune in small steps until speech sounds natural. Use the receiver’s default LSB filter initially.</li>
+            <li>When correctly tuned, look for speech energy mainly <strong>below the tuned reference frequency</strong>, usually without a strong continuous carrier. Compare its position with the frequency scale.</li>
+            <li>Save a screenshot during speech, with frequency, LSB setting and spectrum/waterfall visible. Record your audio and spectrum observations in the LSB row of Table 2.</li>
+            <li>Use the spectrum and audio together. The selected mode button alone does not identify the transmission. An ordinary AM broadcast can also be heard using USB or LSB because it contains both sidebands. Find separate single-sideband transmissions rather than submitting the same AM broadcast three times with different receiver settings.</li>
+            <li>If a band is quiet or a signal is too weak to identify, choose another receiver covering that band from the Utah landing page or <a href="http://websdr.org/">WebSDR directory</a>. Record the receiver you actually use. Fading or a weak carrier alone does not prove that a signal is single sideband.</li>
+            <li>For each of the three signals, record frequency with units, receiver name/location/URL, selected mode, an intelligible-audio observation and the spectrum evidence supporting the type. Caption all three screenshots with those settings and observation time, then close the receiver tabs when finished.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
@@ -166,7 +173,7 @@
         <h2>Why This Lab Matters</h2>
         <ul>
           <li>Line coding lets a receiver recover bits but does not authenticate commands or prevent replay.</li>
-          <li>Two receivers can hear different signals on the same frequency; waveform or audio similarity alone does not authenticate a transmitter.</li>
+          <li>Remote receivers make signals observable from another location; a frequency, mode button or familiar voice alone does not authenticate the transmitter.</li>
           <li>Power and quality evidence supports receiver placement and availability without proving the cause of interference.</li>
         </ul>
       </section>
