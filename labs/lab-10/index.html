@@ -61,7 +61,7 @@
           <li>Install SDR++ before lab using the linked macOS/Windows guide. You can check that the app opens without a dongle; receiver checks need one of the two shared dongles.</li>
           <li>Have Arduino IDE available. Use the preloaded Nano; open Serial Monitor at 115200 baud with Newline selected.</li>
           <li>Review the Lecture 25 line-code conventions and this week’s spectrum, propagation and cellular-quality terms.</li>
-          <li>Open the report. Your instructor supplies the rotation group, AM test frequency, WebSDR link and cellular dataset.</li>
+          <li>Open the report. Your instructor supplies the rotation group, AM test frequency and cellular dataset. The procedure below gives the Northern Utah WebSDR access steps.</li>
         </ul>
       </section>
       <aside class="content-panel equipment">
@@ -70,7 +70,7 @@
         <ul>
           <li>Per team: one preloaded classic 5 V Nano, USB data cable, computer with Arduino IDE, Keysight DSOX2012A scope and two 10× probes</li>
           <li>Shared: two RTL-SDR Blog V3 receivers, two prepared receiver computers, receiving antennas, suitable USB adapters and headphones</li>
-          <li>Browser with audio access and the assigned WebSDR bookmark; Excel or a compatible spreadsheet app, calculator and supplied cellular report/CSV files</li>
+          <li>Browser with audio access to Northern Utah WebSDR; Excel or a compatible spreadsheet app, calculator and supplied cellular report/CSV files</li>
           <li>No function generator, receiver Nano, channel resistors or capacitors are needed for the line-code activity</li>
         </ul>
       </aside>
@@ -131,9 +131,15 @@
             <li>Use the two prepared RTL-SDR computers. With three teams, two begin on local receivers while the third uses WebSDR. Swap roles when directed so every team collects local and remote observations. With two teams, both can begin locally and then switch to WebSDR. Compare your observations and reset the equipment before leaving.</li>
             <li>At a local receiver, confirm the antenna is connected. In SDR++, select Source → RTL-SDR, refresh the device list and choose the assigned dongle. Keep Bias-T off. Use the prepared V3 direct-sampling settings; the installation guide explains Q branch and automatic direct sampling.</li>
             <li>Enter the assigned carrier frequency in the large frequency display at the top. SDR++ displays Hz; for example, 1,000 kHz is 1,000,000 Hz. Choose AM in the Radio section, start with a 10 kHz receiver filter, press Play and increase the audio volume gradually. Keep the instructor’s prepared gain settings.</li>
+            <li>Receiver filter width is the frequency range passed to the demodulator. For a centered AM filter with a total width of 10 kHz, tuning to 1000 kHz passes approximately 995–1005 kHz.</li>
+            <li>A wider filter can preserve more of the wanted sidebands, but also admits more noise and nearby signals. A narrower filter can reduce unwanted reception, but may cut off wanted sideband content and make the audio sound muffled. This setting changes what the receiver processes; it does not change the transmitted signal’s bandwidth.</li>
             <li>Listen for a spoken station name, callsign or location. Record the time, tuned frequency, antenna/location, mode, audio clue and anything that affects clarity. A program name alone may be shared by several stations.</li>
             <li>Zoom the spectrum enough to see the carrier and nearby sidebands. Estimate the visible signal width when possible and state its uncertainty. Record the receiver filter width separately: the selected filter is not a measurement of transmitted bandwidth. Save a spectrum/waterfall screenshot with the frequency and settings visible.</li>
-            <li>Open the assigned WebSDR bookmark in a browser. Confirm the receiver’s location. Select AM, enter the same carrier frequency using the units shown there (often kHz), enable browser audio and start near a 10 kHz filter width if available. No USB dongle is required for WebSDR.</li>
+            <li>Open <a href="https://www.sdrutah.org/">Northern Utah WebSDR</a>. Under <strong>WebSDR1 (&quot;Yellow&quot;)</strong>, select <strong>AM Broadcast (1160 kHz)</strong>.</li>
+            <li>Select <strong>AM</strong> and enter the same carrier frequency used on the local RTL-SDR, using the frequency field’s displayed units (often kHz). Replace the shortcut’s starting frequency of 1160 kHz with the assigned frequency.</li>
+            <li>Click <strong>START</strong> to enable browser audio, then adjust the volume.</li>
+            <li>Start near a <strong>10 kHz total receiver filter width</strong> if available. Otherwise use the AM default and record its actual width.</li>
+            <li>Confirm and record the remote receiver’s location, tuned frequency and actual receiver filter width. WebSDR uses the remote receiver and antenna; it does not need your USB dongle.</li>
             <li>Record the same observations and save a screenshot showing the remote receiver, tuned frequency and spectrum. If reception is absent or unclear, record that honestly; use the instructor’s alternate frequency or supplied fallback capture when directed.</li>
             <li>Do these receivers appear to be receiving the same station? Explain your evidence. Why might the sound and spectrum look different? State same station, different stations, or not enough evidence. Matching frequency or matching syndicated audio alone does not prove it is the same transmitter.</li>
             <li>Explain two plausible causes of a reception difference using your observations: receiver location, antenna, interference, propagation or receiver settings. Internet buffering can delay remote audio; that delay is not a measurement of radio propagation time. A poor signal alone does not establish an attack.</li>
