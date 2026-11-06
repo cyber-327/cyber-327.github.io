@@ -1,0 +1,4 @@
+case_id,message_id,timestamp_local,location_id,signal_pw,interference_pw,noise_pw
+D1,A-0086,2026-11-02 14:10:00,A,32,80,16
+D2,B-0203,2026-11-03 09:40:00,B,0.64,0.048,0.016
+D3,C-0213,2026-11-03 11:20:00,C,0.125,0.002,0.0005

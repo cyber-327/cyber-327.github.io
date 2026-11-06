@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 10 - CYBER 327 course material">
-  <title>Lab 10 | CYBER 327</title>
+  <meta name="description" content="Lab 10: Line Coding and Radio Reception - CYBER 327 course material">
+  <title>Lab 10: Line Coding and Radio Reception | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
+  <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
   <header class="site-header">
@@ -21,13 +22,179 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 10 &middot; Week 10</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 10 &middot; Week 10 &middot; November 6, 2026</p>
+      <h1>Line Coding and Radio Reception</h1>
+      <p class="body">Read line-coded data on an oscilloscope, compare local and remote AM reception, and choose a cellular receiver location using signal-quality evidence</p>
     </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Compare four encodings of the same byte and recover an unknown byte from measured levels and transitions</li>
+          <li>Operate a local RTL-SDR and a remote WebSDR and distinguish observations from station-identity claims</li>
+          <li>Explain reception differences using location, antenna, noise and propagation</li>
+          <li>Analyze a three-day cellular backup-link log in Excel and recommend a placement using radio quality and timely alert delivery</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Work through three independent activities; your assigned group determines the order.</li>
+          <li>Use a Nano and oscilloscope to compare line codes and decode one unknown byte.</li>
+          <li>Receive an AM broadcast locally and through a remote WebSDR, then compare the evidence.</li>
+          <li>Investigate a supplied workplace report and 1,296 simulated cellular test messages to choose a backup-gateway antenna location. No phone is required.</li>
+          <li>Allow 5 minutes for introduction, three 20-minute rotations and 10 minutes to finish. Submit an individual report.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Install SDR++ before lab using the linked macOS/Windows guide. You can check that the app opens without a dongle; receiver checks need one of the two shared dongles.</li>
+          <li>Have Arduino IDE available. Use the preloaded Nano; open Serial Monitor at 115200 baud with Newline selected.</li>
+          <li>Review the Lecture 25 line-code conventions and this week’s spectrum, propagation and cellular-quality terms.</li>
+          <li>Open the report. Your instructor supplies the rotation group, AM test frequency, WebSDR link and cellular dataset.</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Per team: one preloaded classic 5 V Nano, USB data cable, computer with Arduino IDE, Keysight DSOX2012A scope and two 10× probes</li>
+          <li>Shared: two RTL-SDR Blog V3 receivers, two prepared receiver computers, receiving antennas, suitable USB adapters and headphones</li>
+          <li>Browser with audio access and the assigned WebSDR bookmark; Excel or a compatible spreadsheet app, calculator and supplied cellular report/CSV files</li>
+          <li>No function generator, receiver Nano, channel resistors or capacitors are needed for the line-code activity</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel measurement-map">
+      <p class="eyebrow">Measurement Map</p>
+      <h2>What Each Voltage Tells You</h2>
+        <dl class="definition-list">
+          <div><dt>CH1</dt><dd>D9 encoded data. CH2: D2 frame start. Both probe grounds: Nano GND.</dd></div>
+          <div><dt>ASCII lookup for the unknown</dt><dd>H=48, I=49, J=4A, K=4B, L=4C, M=4D, N=4E, O=4F (hex). Group decoded bits into two four-bit hex digits before using the lookup.</dd></div>
+        </dl>
+    </section>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Report and Setup Guides</h2>
+
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-10-report.docx" download>Lab report</a>
+        <a class="button" href="../../labs/lab-10/sdr-setup/">SDR++ setup for macOS and Windows</a>
+        <a class="button" href="../../assets/labs/lab-10-sdr-setup.md" download>SDR++ setup guide (Markdown)</a>
+        <a class="button" href="../../assets/labs/lab-10-cellular-report.html">Facilities Security acceptance-test report</a>
+        <a class="button" href="../../assets/labs/lab-10-cellular-log.csv">Three-day cellular message log (CSV)</a>
+        <a class="button" href="../../assets/labs/lab-10-cellular-diagnostics.csv">Engineering diagnostic appendix (CSV)</a>
+        <a class="button" href="../../assets/labs/lab-10-cellular-data.md" download>Acceptance-test report (Markdown)</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
+      <section class="walkthrough-stage">
+        <h3>1. Read the Line Codes — Table 1</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save NRZ-M and Manchester reference traces and your unknown-byte trace. Show both channels, time scale and marker; include the eight-bit decoding.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Connect the preloaded Nano to USB. Select its port in Arduino IDE, open Serial Monitor at 115200 baud with Newline selected, and send HELP. Leave the firmware installed.</li>
+            <li>Use two 10× probes and set both scope channel probe factors to 10×. Connect both ground clips to Nano GND. Connect CH1’s tip to D9 (encoded data) and CH2’s tip to D2 (frame-start marker). These are scope connections only; do not connect an external generator.</li>
+            <li>Enable both channels in Normal time mode with DC coupling. Start at 2 V/div and 10 ms/div. Position both traces so you can distinguish LOW near 0 V from HIGH near 5 V using each channel’s zero reference.</li>
+            <li>Set Trigger to Edge, source 2, rising slope. Turn the physical Trigger Level knob until the upper-right readout is about 2 V. Choose Horiz → Time Ref → Left and set horizontal delay to 0 s. Keep at least eight divisions to the right of the trigger.</li>
+            <li>Send FRAME REF and CODE NRZ-L, one command per line. The byte repeats automatically. Use Run/Stop to freeze a stable capture, or Single to acquire the next frame. The CH2 pulse is a 1 ms frame marker, not a bit clock.</li>
+            <li>The marker’s rising edge is time 0. Read eight consecutive 10 ms bit intervals, ending at 80 ms. Read NRZ levels at 5, 15, 25, 35, 45, 55, 65 and 75 ms. Count intervals, including repeated levels, rather than counting pulses.</li>
+            <li>The reference is ASCII A: hex 41, bits 01000001, most significant bit first. NRZ-L uses HIGH for 1 and LOW for 0. Record the eight observed levels in Table 1.</li>
+            <li>Send CODE NRZ-M. The data starts LOW immediately before the marker and changes at a bit’s start for 1; 0 holds its level. Read the level in each interval and compare it with the previous level, starting from LOW. Record the result.</li>
+            <li>Send CODE NRZ-S. Its initial level is also LOW, but 0 changes the level at the bit’s start and 1 holds it. Record the eight observed levels.</li>
+            <li>Send CODE MANCHESTER. A 1 changes LOW → HIGH at the middle of its bit; a 0 changes HIGH → LOW. Read each interval’s first and second halves, near 2.5 and 7.5 ms after its start. Ignore transitions at bit boundaries when deciding its value.</li>
+            <li>Save a reference capture for NRZ-M and one for Manchester. Explain which code guarantees a transition within every bit and how that helps the receiver keep time.</li>
+            <li>Send FRAME UNKNOWN. This selects a different byte encoded in NRZ-M, with initial level LOW. Capture all eight intervals. Record levels, decoded bits, hex and ASCII. Use the ASCII reference below; the console does not reveal the unknown byte. Save the original trace as evidence.</li>
+            <li>Before leaving, send FRAME REF and CODE NRZ-L. Disconnect the scope probes and leave the board ready for the next group.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>2. Compare Local and Remote AM Reception — Table 2</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save one local and one remote spectrum/waterfall image, with receiver location, frequency, mode, time and relevant settings. Caption any fallback as supplied evidence.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Use the two prepared RTL-SDR computers. With three teams, two teams begin on local receivers while the third uses WebSDR. After 8 minutes, swap: the third team uses a local receiver while the first two use WebSDR. With two teams, both begin locally and switch to WebSDR after 8 minutes. Use the last 4 minutes to compare and reset.</li>
+            <li>At a local receiver, confirm the antenna is connected. In SDR++, select Source → RTL-SDR, refresh the device list and choose the assigned dongle. Keep Bias-T off. Use the prepared V3 direct-sampling settings; the installation guide explains Q branch and automatic direct sampling.</li>
+            <li>Enter the assigned carrier frequency in the large frequency display at the top. SDR++ displays Hz; for example, 1,000 kHz is 1,000,000 Hz. Choose AM in the Radio section, start with a 10 kHz receiver filter, press Play and increase the audio volume gradually. Keep the instructor’s prepared gain settings.</li>
+            <li>Listen for a spoken station name, callsign or location. Record the time, tuned frequency, antenna/location, mode, audio clue and anything that affects clarity. A program name alone may be shared by several stations.</li>
+            <li>Zoom the spectrum enough to see the carrier and nearby sidebands. Estimate the visible signal width when possible and state its uncertainty. Record the receiver filter width separately: the selected filter is not a measurement of transmitted bandwidth. Save a spectrum/waterfall screenshot with the frequency and settings visible.</li>
+            <li>Open the assigned WebSDR bookmark in a browser. Confirm the receiver’s location. Select AM, enter the same carrier frequency using the units shown there (often kHz), enable browser audio and start near a 10 kHz filter width if available. No USB dongle is required for WebSDR.</li>
+            <li>Record the same observations and save a screenshot showing the remote receiver, tuned frequency and spectrum. If reception is absent or unclear, record that honestly; use the instructor’s alternate frequency or supplied fallback capture when directed.</li>
+            <li>Do these receivers appear to be receiving the same station? Explain your evidence. Why might the sound and spectrum look different? State same station, different stations, or not enough evidence. Matching frequency or matching syndicated audio alone does not prove it is the same transmitter.</li>
+            <li>Explain two plausible causes of a reception difference using your observations: receiver location, antenna, interference, propagation or receiver settings. Internet buffering can delay remote audio; that delay is not a measurement of radio propagation time. A poor signal alone does not establish an attack.</li>
+            <li>Do not compare the numerical signal levels across these receivers as calibrated power. SDR++ commonly displays dBFS and remote meters can use another scale. This V3 AM activity does not require changing RF gain, which may be unavailable in direct sampling.</li>
+            <li>Stop SDR++ before unplugging a dongle. Restore the assigned frequency and settings, close your WebSDR tab and return headphones for the next group.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>3. Investigate the Cellular Backup Link — Table 3</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Include dataset DC10-CELL-02, a readable spreadsheet summary with the three diagnostic calculations, and the labeled SINR time plot. Identify the data as simulated; submit the summary and chart, not all 1,296 rows.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Open the linked Facilities Security acceptance-test report. A building needs a cellular backup for its security alerts when wired Internet fails. Management favors the strongest signal; your task is to check that recommendation against three days of test results.</li>
+            <li>Download the message log and diagnostic appendix. Import the log into Excel with its header row; do not type the records manually. Expect 432 scheduled tests per location, 1,296 total, at ten-minute intervals over three complete days. Keep the file ordered by location then time. These are simulated workplace records, not your team’s live measurements.</li>
+            <li>Use the report’s formulas to add on_time and failure_run columns and fill them through row 1297. ACK means acknowledged within a 60-second observation window; only an ACK within 10.00 seconds is on time. A TIMEOUT has a blank delay, which must not count as zero. A late ACK and a TIMEOUT both count as failed tests.</li>
+            <li>Summarize A, B and C in Table 3: test count, on-time percentage, longest run of failed tests, median RSRP and median SINR. A placement passes only if at least 99.0% are on time and there are no two consecutive failed tests. Apply the percentage requirement before rounding. These are the workplace requirements, not universal cellular thresholds.</li>
+            <li>In the diagnostic appendix, calculate S / (I + N) and then 10 log10 of that ratio for each of the three cases. All powers use compatible resources and pW units. Record linear ratios and dB results to two decimal places and compare with the matching message IDs. RSRP and RSRQ are supplied readings; you do not need to derive them.</li>
+            <li>Make one time plot of reported SINR with a labeled series for each location across all three days. The report gives the matching row ranges. Inspect RSRQ and delivery results near the failures; the strongest power or best typical quality may not give the most reliable alert delivery.</li>
+            <li>Recommend a location and state whether each candidate passes both requirements. Cite delivery counts, failure patterns and radio readings. Explain one case where good radio readings do not establish timely delivery. Does the evidence establish deliberate interference? Give an alternative explanation and one follow-up test. Ten-minute samples do not establish an outage’s exact duration; the RTL-SDR display does not supply these cellular metrics.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>4. Finish and Submit</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Check that every required image has a caption and readable settings before exporting the report.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Complete Tables 1–3, add your evidence with captions, and answer the short conclusion. Everyone submits an individual PDF through Learning Suite.</li>
+            <li>State any equipment, reception or timing limitation and identify supplied captures separately from live observations.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Lab Matters</h2>
+        <ul>
+          <li>Line coding lets a receiver recover bits but does not authenticate commands or prevent replay.</li>
+          <li>Two receivers can hear different signals on the same frequency; waveform or audio similarity alone does not authenticate a transmitter.</li>
+          <li>Power and quality evidence supports receiver placement and availability without proving the cause of interference.</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete Tables 1–3, evidence and conclusion in an individual PDF. Tables 70 + evidence 15 + conclusion 15 = 100 points.</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-10/">&larr; Week 10 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>

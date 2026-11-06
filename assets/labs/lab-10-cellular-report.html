@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Backup Communications Acceptance Test - CYBER 327 course material">
+  <title>Backup Communications Acceptance Test | CYBER 327</title>
+  <link rel="stylesheet" href="../../theme.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../syllabus/">Syllabus</a>
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+        <a href="../../excellence/">Excellence</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Lab 10</p>
+<div class="page-heading"><h1>Backup Communications Acceptance Test</h1><p>Facilities Security · FS-BC-026 · DC10-CELL-02</p><p><a href="lab-10-cellular-data.md" download>Download report text</a> · <a href="lab-10-cellular-log.csv" download>Download message log</a> · <a href="lab-10-cellular-diagnostics.csv" download>Download diagnostics</a></p></div><article class="syllabus-content">    <section class="syllabus-section" id="assignment-brief">
+      <h2>Assignment brief</h2>
+      <p>Report FS-BC-026 | Dataset DC10-CELL-02 | Issued November 5, 2026</p>
+      <p>To: Security Engineering | From: Facilities Communications</p>
+      <p>During a recent wired Internet outage, several security alerts reached the monitoring center late. Facilities must install a cellular backup gateway for intrusion, forced-door and tamper alerts. Management favors the security office because its signal-strength reading looks strongest. Review the acceptance-test evidence and recommend where to install the gateway antenna.</p>
+      <p>This packet is simulated evidence for analysis, not a record of an actual workplace incident or live measurements collected by your team.</p>
+    </section>    <section class="syllabus-section" id="test-conditions">
+      <h2>Test conditions</h2>
+      <p>Three identical gateways with the same firmware, carrier service and antenna type were tested simultaneously at A (security office), B (equipment room) and C (upper-floor window). Each unit used cellular service for the entire test. Wired connectivity did not carry the test messages.</p>
+      <p>The test ran from November 2, 2026 at 00:00 through November 4 at 23:50: one scheduled message every 10 minutes, 432 per location and 1,296 total. All timestamps use the same local clock, MST (UTC−07:00). The file is grouped by location and then time. Each unit kept its log locally even when an acknowledgement did not arrive. Actual security alerts would be sent when an event occurs; the ten-minute interval applies only to this acceptance test.</p>
+      <p>Each message carried a unique ID. ACK means the monitoring center acknowledged that ID within the 60-second observation window; ack_delay_s is elapsed time measured by the gateway. TIMEOUT means no matching acknowledgement was observed within 60 seconds. Its blank delay is unknown, not zero. A timeout does not establish whether the outgoing message or its acknowledgement was lost, or whether it arrived later.</p>
+    </section>    <section class="syllabus-section" id="acceptance-requirements">
+      <h2>Acceptance requirements</h2>
+      <ul>
+        <li>At least 99.0% of the 432 scheduled messages at a location must be acknowledged within 10.00 seconds, inclusive.</li>
+        <li>There must be no two consecutive failed tests at that location. A failed test is a late ACK (over 10.00 seconds) or a TIMEOUT.</li>
+        <li>Both requirements must be met. These are this organization&#x27;s acceptance requirements, not universal cellular thresholds. Do not round a percentage before deciding whether it passes.</li>
+      </ul>
+    </section>    <section class="syllabus-section" id="operations-notes">
+      <h2>Operations notes</h2>
+      <ul>
+        <li>Loading-dock activity and nearby electrical equipment usually increase between 14:00 and 15:00 each day. No controlled on/off experiment was recorded.</li>
+        <li>A routine gateway-management job was scheduled for November 3 between 11:00 and 12:00. Per-device completion logs were not retained.</li>
+        <li>No confirmed interference incident or transmitter identification was recorded. These notes are leads to investigate, not established causes.</li>
+      </ul>
+    </section>    <section class="syllabus-section" id="attached-evidence">
+      <h2>Attached evidence</h2>
+      <ul>
+        <li><a href="lab-10-cellular-log.csv" download>Message log (CSV)</a>: all 1,296 scheduled tests, including failures.</li>
+        <li><a href="lab-10-cellular-diagnostics.csv" download>Engineering diagnostic appendix (CSV)</a>: compatible wanted, interference and noise powers for three selected records.</li>
+      </ul>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Column</th><th scope="col">Meaning</th></tr></thead>
+          <tbody>
+          <tr><td>timestamp_local</td><td>Scheduled test time in MST (UTC−07:00)</td></tr>
+          <tr><td>location_id / location_name</td><td>Candidate antenna placement, A, B or C</td></tr>
+          <tr><td>message_id</td><td>Unique scheduled message ID, also used in the diagnostic appendix</td></tr>
+          <tr><td>rsrp_dbm</td><td>Reported reference-signal received power; dBm is relative to 1 mW</td></tr>
+          <tr><td>rsrq_db</td><td>Reported reference-signal received quality; a bandwidth-adjusted ratio involving reference and total received power</td></tr>
+          <tr><td>sinr_db</td><td>Reported wanted-to-interference-plus-noise ratio, in dB</td></tr>
+          <tr><td>ack_delay_s</td><td>Time to matching acknowledgement, in seconds; blank for a timeout</td></tr>
+          <tr><td>delivery_status</td><td>ACK or TIMEOUT, using the 60-second observation window</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>RSRP answers a power question; RSRQ and SINR answer different quality questions. For comparable readings here, larger values are stronger or better. Downlink radio readings do not directly measure alert delivery in the other direction. Use the acknowledgement results to assess the complete round trip. Neither poor quality nor a missed acknowledgement establishes a deliberate attack. The RTL-SDR activity does not provide these cellular metrics.</p>
+    </section>    <section class="syllabus-section" id="engineering-diagnostic-appendix">
+      <h2>Engineering diagnostic appendix</h2>
+      <p>These three reference-resource power budgets use compatible resources, time windows and pW units for wanted signal S, interference I and noise N. Do not mix them with total-band RSSI or an arbitrary spectrum peak. You do not need to calculate RSRP or RSRQ. Calculate SINR = S / (I + N), then SINR_dB = 10 log10(SINR). Keep the unrounded ratio for the logarithm; round only the displayed answers. Compare with the matching message&#x27;s reported SINR; allow for rounding.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Case</th><th scope="col">Message ID</th><th scope="col">Location / time (MST)</th><th scope="col">S (pW)</th><th scope="col">I (pW)</th><th scope="col">N (pW)</th></tr></thead>
+          <tbody>
+          <tr><td>D1</td><td>A-0086</td><td>A / Nov 2, 14:10</td><td>32</td><td>80</td><td>16</td></tr>
+          <tr><td>D2</td><td>B-0203</td><td>B / Nov 3, 09:40</td><td>0.64</td><td>0.048</td><td>0.016</td></tr>
+          <tr><td>D3</td><td>C-0213</td><td>C / Nov 3, 11:20</td><td>0.125</td><td>0.002</td><td>0.0005</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>    <section class="syllabus-section" id="analysis-worksheet-instructions">
+      <h2>Analysis worksheet instructions</h2>
+      <p>Allow about 2 minutes to read the brief, 8 minutes to calculate, 4 minutes to graph and 6 minutes to decide and record your evidence. Import the CSV with its header row into Excel; do not type the records manually. Keep columns A–I in their supplied order. Use the full file, not only the previewed rows. If your Excel locale requires semicolons, replace formula argument commas with semicolons.</p>
+      <h3>Check delivery</h3>
+      <p>Add J1 = on_time and enter this in J2: <code>=IF(AND(I2=&quot;ACK&quot;,ISNUMBER(H2),H2&lt;=10),1,0)</code>. Fill down through J1297. One means on time; zero means a failed test. A blank timeout delay must never count as a fast acknowledgement.</p>
+      <p>Add K1 = failure_run and enter this in K2: <code>=IF(J2=1,0,IF(B2=B1,K1+1,1))</code>. Fill down through K1297 without changing the location/time order. This counts consecutive failed scheduled tests and resets at a success or a new location. A late ACK and a timeout both extend the run. If you sort the file, restore location then timestamp order before using this formula.</p>
+      <p>For location A&#x27;s test count use <code>=COUNTIF(B2:B1297,&quot;A&quot;)</code>. For its on-time fraction use <code>=COUNTIFS(B2:B1297,&quot;A&quot;,J2:J1297,1)/COUNTIF(B2:B1297,&quot;A&quot;)</code> and format as a percentage with two decimal places. Substitute B or C for the other locations.</p>
+      <p>The data rows are A: 2–433, B: 434–865 and C: 866–1297. For A&#x27;s longest failure run use <code>=MAX(K2:K433)</code>. For its typical power use <code>=MEDIAN(E2:E433)</code> and typical SINR use <code>=MEDIAN(G2:G433)</code>; use the corresponding ranges for B and C. A median describes the middle reported value, not an average linear power. Also inspect RSRQ near the failures. Record results in Table 3 and apply both acceptance requirements.</p>
+      <h3>Verify SINR and make one plot</h3>
+      <p>Open the diagnostic CSV separately. Its signal, interference and noise powers are in columns E, F and G. In H2 enter <code>=10*LOG10(E2/(F2+G2))</code> and fill through H4. Record each case&#x27;s linear ratio and dB result to two decimal places.</p>
+      <p>Make one line chart with time on the horizontal axis and reported SINR (dB) on the vertical axis. Use the 432 A timestamps in A2:A433 for the time axis, and three series from G2:G433, G434:G865 and G866:G1297. The B and C records have the same scheduled times as A. Label each series by location and retain all three days. Include the chart and a readable summary of your delivery calculations as evidence.</p>
+      <h3>Send your recommendation</h3>
+      <p>Recommend a location, state whether each candidate meets both requirements, and support your choice with delivery counts, failure patterns and radio readings. Explain one case in which good-looking radio readings do not establish dependable alert delivery. Assess whether the evidence establishes deliberate interference, give one alternative explanation and propose one follow-up test. Ten-minute sampling identifies runs of failed tests, not the exact start, duration or end of a communications outage.</p>
+    </section></article>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
+  </footer>
+</body>
+</html>

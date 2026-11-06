@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 10 - CYBER 327 course material">
-  <title>Lab 10 | CYBER 327</title>
+  <meta name="description" content="SDR++ Setup for macOS and Windows - CYBER 327 course material">
+  <title>SDR++ Setup for macOS and Windows | CYBER 327</title>
   <link rel="stylesheet" href="../../../theme.css">
   <link rel="stylesheet" href="../../../styles.css">
+  <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
   <header class="site-header">
@@ -21,13 +22,64 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 10 &middot; Week 10</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
-    </section>
+    <p class="eyebrow">Lab 10</p>
+<div class="page-heading"><h1>SDR++ Setup for macOS and Windows</h1><p>Prepare your computer before your receiver turn.</p><p><a href="../">Back to Lab 10</a> · <a href="../../../assets/labs/lab-10-sdr-setup.md" download>Download the guide</a></p></div><article class="syllabus-content">    <section class="syllabus-section" id="before-you-start">
+      <h2>Before you start</h2>
+      <p>Use SDR++ for the local RTL-SDR receiver. WebSDR runs separately in your browser and needs no installation or USB receiver. Install SDR++ before lab; there are only two shared dongles. Without one, you can check that the application opens, then finish the hardware checks during your assigned turn.</p>
+      <p>Use the <a href="https://www.sdrpp.org/">official SDR++ download page</a> and its <a href="https://github.com/AlexandreRouma/SDRPlusPlus/releases/tag/nightly">nightly release assets</a>. The package names below were checked November 1, 2026. Keep the extracted files together. Do not download the source-code ZIP. The instructor should retain one tested build for both shared computers rather than update during lab.</p>
+    </section>    <section class="syllabus-section" id="macos">
+      <h2>macOS</h2>
+      <h3>1. Choose the correct download</h3>
+      <p>Open Apple menu → About This Mac. If it lists an Apple chip, choose <code>sdrpp_macos_arm.zip</code>. If it lists an Intel processor, choose <code>sdrpp_macos_intel.zip</code>. A USB-C Mac also needs a USB adapter or hub that supports data.</p>
+      <h3>2. Install and open</h3>
+      <p>Double-click the ZIP in Downloads, then drag <code>SDR++.app</code> to Applications. Open it from Applications. Use the app bundle; you do not need to compile SDR++.</p>
+      <p>If macOS blocks this downloaded app, first check that it came from the official project. After attempting to open it, go to System Settings → Privacy &amp; Security and use the per-app Open Anyway option if available. Confirm the app you are opening. Do not turn off Gatekeeper globally. See <a href="https://support.apple.com/en-us/102445">Apple’s instructions for downloaded apps</a>.</p>
+      <p>The current project instructions recommend the app bundle. The older PDF manual mentions a <code>zstd</code> dependency. If your particular build reports a missing <code>zstd</code> library, use <a href="https://brew.sh/">Homebrew’s official installation instructions</a> and then run <code>brew install zstd</code> in Terminal. Do not install an entire development toolchain just to run the bundle. If a different library is missing, save the exact error and ask the instructor to use the tested build.</p>
+      <h3>3. Connect the receiver</h3>
+      <p>Connect the antenna to the V3’s SMA socket, then connect the dongle to USB. Open SDR++. macOS does not use Zadig or the Windows WinUSB setup. Continue with First reception below.</p>
+    </section>    <section class="syllabus-section" id="windows-10-or-11">
+      <h2>Windows 10 or 11</h2>
+      <h3>1. Download and extract</h3>
+      <p>On a standard Intel/AMD 64-bit Windows computer, download <code>sdrpp_windows_x64.zip</code>. In File Explorer, choose Extract All and extract to a writable folder, such as Documents → SDRPP. Open <code>sdrpp.exe</code> from the extracted folder, not from inside the ZIP. Keep all accompanying DLLs and folders with it. ARM-based Windows computers need a separate compatibility check; use a prepared lab computer if necessary.</p>
+      <h3>2. Set up the dongle’s USB driver</h3>
+      <p>Close SDR++ and any other SDR program. Plug the RTL-SDR into USB. Download Zadig from <a href="https://zadig.akeo.ie/">its official site</a> and run it as administrator. This requires administrator rights; complete it before lab or use the prepared receiver computer.</p>
+      <p>In Zadig, choose Options → List All Devices. Select the RTL-SDR’s <strong>Bulk-In, Interface (Interface 0)</strong> entry. It may instead be called RTL2832U or RTL2832UHIDIR. The manufacturer’s guide lists the usual USB ID as <code>0BDA 2838 00</code>. Confirm the entry belongs to the dongle by unplugging/replugging it and checking which entry disappears/reappears. Use Interface 0, not Interface 1.</p>
+      <p>Check that the target driver on the right is <strong>WinUSB</strong>, then choose Install Driver or Replace Driver. Do not replace a keyboard, mouse, hub or unrelated device’s driver. If you cannot positively identify the receiver, stop and use the instructor’s prepared computer. Follow the <a href="https://www.rtl-sdr.com/rtl-sdr-quick-start-guide/">manufacturer’s driver steps</a> rather than installing the bundled television-viewing software. No SDR# installation is required for this SDR++ activity.</p>
+      <h3>3. Connect the receiver</h3>
+      <p>Connect its antenna, reopen SDR++, and continue below. If driver installation is blocked by your computer’s policy, use the prepared receiver computer rather than changing its system-wide protections.</p>
+    </section>    <section class="syllabus-section" id="first-reception-both-platforms">
+      <h2>First reception — both platforms</h2>
+      <h3>1. Select your source</h3>
+      <p>Open the left menu if hidden. Expand Source, choose <strong>RTL-SDR</strong>, click Refresh and select the assigned dongle. Only one application can use that USB receiver at a time. Leave <strong>Bias-T off</strong> with the passive antenna.</p>
+      <h3>2. Check normal reception, then prepare AM</h3>
+      <p>For the instructor’s initial hardware check, use normal Quadrature sampling on a known local FM broadcast in the 88–108 MHz band and select WFM. Start with a 2.4 MS/s sample rate and moderate tuner gain, then press Play. Enter the actual known station frequency in the large frequency display at the top and increase volume gradually. This only checks that the dongle, antenna and audio work; the lab comparison uses AM.</p>
+      <p>Stop reception before changing source settings. For an <strong>RTL-SDR Blog V3</strong> with a conventional driver, choose <strong>Direct Sampling → Q branch</strong> for AM broadcast reception below about 2 MHz. Some builds label it Q input. The current RTL-SDR Blog driver can switch to direct sampling automatically below 28.8 MHz; use the instructor-tested setting for the installed driver. Direct sampling selects how the signal reaches the ADC; AM is still selected separately in Radio. See the <a href="https://www.rtl-sdr.com/rtl-sdr-blog-v-3-dongles-user-guide/">V3 feature guide</a>. These instructions are for the lab’s V3, not a V4.</p>
+      <h3>3. Tune and listen to AM</h3>
+      <p>Enter the assigned AM frequency in the top frequency display. SDR++ uses Hz: <code>1000 kHz = 1,000,000 Hz</code> and <code>1 MHz = 1,000,000 Hz</code>. Select <strong>AM</strong>, start with a <strong>10 kHz filter width</strong>, leave squelch off, press Play, and gradually raise audio volume. Keep the prepared source gain settings; tuner gain may be unavailable in direct sampling.</p>
+      <p>The spectrum shows signal level versus frequency. The waterfall shows how that changes over time. Zoom around the carrier to see its sidebands, and keep the frequency axis visible in screenshots. The selected receiver filter width is not the transmitted signal’s measured width. SDR++ levels are usually dBFS, not calibrated dBm.</p>
+      <h3>4. Open the remote receiver</h3>
+      <p>Use the instructor’s tested WebSDR bookmark. A candidate is <a href="https://www.sdrutah.org/">Northern Utah WebSDR</a>: choose WebSDR1 → AM Broadcast on its landing page. Your instructor will supply a tested bookmark to the receiver itself. Confirm the receiver location, choose AM, enter the assigned frequency in the page’s displayed units (often kHz), enable browser audio if prompted, and adjust its filter near 10 kHz if supported. You do not connect the USB dongle to WebSDR.</p>
+      <p>The two receivers can hear the same station, different stations, or too little signal to decide. Record the evidence. Internet audio buffering can produce a delay; do not interpret it as radio propagation time.</p>
+    </section>    <section class="syllabus-section" id="if-something-does-not-work">
+      <h2>If something does not work</h2>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Symptom</th><th scope="col">What to try</th></tr></thead>
+          <tbody>
+          <tr><td>App opens but no RTL-SDR appears</td><td>Reconnect the dongle, use a data-capable USB adapter, close other SDR apps, click Refresh; on Windows check the Interface 0 WinUSB driver.</td></tr>
+          <tr><td>Device is busy</td><td>Stop and close the other receiver application, including another copy of SDR++.</td></tr>
+          <tr><td>Spectrum moves but audio is silent</td><td>Check Play, AM/WFM choice, selected frequency, mute, output device, volume and squelch; WebSDR may require a browser audio click.</td></tr>
+          <tr><td>FM works but AM is weak or absent</td><td>Check V3 Q/direct sampling, tune units, AM mode and antenna. A short dipole may receive AM poorly; use the instructor’s tested receiving antenna/location.</td></tr>
+          <tr><td>RF gain is unavailable on AM</td><td>This can be normal in direct sampling. Keep the prepared settings; gain adjustment is not a required task.</td></tr>
+          <tr><td>Remote page fails or is full</td><td>Use the instructor’s alternate bookmarked receiver or labeled supplied captures. Record the failure rather than wait through your turn.</td></tr>
+          <tr><td>Mac reports a damaged app or missing library</td><td>Re-download the correct architecture from the official project; save the exact error. Use the tested lab computer if unresolved; do not disable system-wide security settings.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>    <section class="syllabus-section" id="finish">
+      <h2>Finish</h2>
+      <p>Stop SDR++ before unplugging the dongle. Restore the assigned AM frequency and settings, close your WebSDR tab, and return the receiver and headphones.</p>
+    </section></article>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
