@@ -47,8 +47,8 @@
           <li>Work through three independent activities; your assigned group determines the order.</li>
           <li>Use a Nano and oscilloscope to compare line codes and decode one unknown byte.</li>
           <li>Receive an AM broadcast locally and through a remote WebSDR, then compare the evidence.</li>
-          <li>Investigate a supplied workplace report and 1,296 simulated cellular test messages to choose a backup-gateway antenna location. No phone is required.</li>
-          <li>Allow 5 minutes for introduction, three 20-minute rotations and 10 minutes to finish. Submit an individual report.</li>
+          <li>Investigate a supplied workplace report and 1,296 cellular test records to choose a backup-gateway antenna location. No phone is required.</li>
+          <li>Submit an individual report after completing all three activities.</li>
         </ol>
     </section>
 
@@ -92,11 +92,7 @@
       <div class="resource-links">
         <a class="button" href="../../assets/labs/lab-10-report.docx" download>Lab report</a>
         <a class="button" href="../../labs/lab-10/sdr-setup/">SDR++ setup for macOS and Windows</a>
-        <a class="button" href="../../assets/labs/lab-10-sdr-setup.md" download>SDR++ setup guide (Markdown)</a>
-        <a class="button" href="../../assets/labs/lab-10-cellular-report.html">Facilities Security acceptance-test report</a>
-        <a class="button" href="../../assets/labs/lab-10-cellular-log.csv">Three-day cellular message log (CSV)</a>
-        <a class="button" href="../../assets/labs/lab-10-cellular-diagnostics.csv">Engineering diagnostic appendix (CSV)</a>
-        <a class="button" href="../../assets/labs/lab-10-cellular-data.md" download>Acceptance-test report (Markdown)</a>
+        <a class="button" href="../../assets/labs/lab-10-cellular-report.html">Facilities acceptance-test report and dataset</a>
       </div>
     </section>
 
@@ -132,7 +128,7 @@
             <p>Save one local and one remote spectrum/waterfall image, with receiver location, frequency, mode, time and relevant settings. Caption any fallback as supplied evidence.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Use the two prepared RTL-SDR computers. With three teams, two teams begin on local receivers while the third uses WebSDR. After 8 minutes, swap: the third team uses a local receiver while the first two use WebSDR. With two teams, both begin locally and switch to WebSDR after 8 minutes. Use the last 4 minutes to compare and reset.</li>
+            <li>Use the two prepared RTL-SDR computers. With three teams, two begin on local receivers while the third uses WebSDR. Swap roles when directed so every team collects local and remote observations. With two teams, both can begin locally and then switch to WebSDR. Compare your observations and reset the equipment before leaving.</li>
             <li>At a local receiver, confirm the antenna is connected. In SDR++, select Source → RTL-SDR, refresh the device list and choose the assigned dongle. Keep Bias-T off. Use the prepared V3 direct-sampling settings; the installation guide explains Q branch and automatic direct sampling.</li>
             <li>Enter the assigned carrier frequency in the large frequency display at the top. SDR++ displays Hz; for example, 1,000 kHz is 1,000,000 Hz. Choose AM in the Radio section, start with a 10 kHz receiver filter, press Play and increase the audio volume gradually. Keep the instructor’s prepared gain settings.</li>
             <li>Listen for a spoken station name, callsign or location. Record the time, tuned frequency, antenna/location, mode, audio clue and anything that affects clarity. A program name alone may be shared by several stations.</li>
@@ -149,16 +145,16 @@
         <h3>3. Investigate the Cellular Backup Link — Table 3</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
-            <p>Include dataset DC10-CELL-02, a readable spreadsheet summary with the three diagnostic calculations, and the labeled SINR time plot. Identify the data as simulated; submit the summary and chart, not all 1,296 rows.</p>
+            <p>Cite dataset DC10-CELL-03. Include a readable spreadsheet summary, one representative SINR formula and the labeled SINR time plot; keep the full working spreadsheet rather than pasting all 1,296 rows.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Open the linked Facilities Security acceptance-test report. A building needs a cellular backup for its security alerts when wired Internet fails. Management favors the strongest signal; your task is to check that recommendation against three days of test results.</li>
-            <li>Download the message log and diagnostic appendix. Import the log into Excel with its header row; do not type the records manually. Expect 432 scheduled tests per location, 1,296 total, at ten-minute intervals over three complete days. Keep the file ordered by location then time. These are simulated workplace records, not your team’s live measurements.</li>
-            <li>Use the report’s formulas to add on_time and failure_run columns and fill them through row 1297. ACK means acknowledged within a 60-second observation window; only an ACK within 10.00 seconds is on time. A TIMEOUT has a blank delay, which must not count as zero. A late ACK and a TIMEOUT both count as failed tests.</li>
-            <li>Summarize A, B and C in Table 3: test count, on-time percentage, longest run of failed tests, median RSRP and median SINR. A placement passes only if at least 99.0% are on time and there are no two consecutive failed tests. Apply the percentage requirement before rounding. These are the workplace requirements, not universal cellular thresholds.</li>
-            <li>In the diagnostic appendix, calculate S / (I + N) and then 10 log10 of that ratio for each of the three cases. All powers use compatible resources and pW units. Record linear ratios and dB results to two decimal places and compare with the matching message IDs. RSRP and RSRQ are supplied readings; you do not need to derive them.</li>
-            <li>Make one time plot of reported SINR with a labeled series for each location across all three days. The report gives the matching row ranges. Inspect RSRQ and delivery results near the failures; the strongest power or best typical quality may not give the most reliable alert delivery.</li>
-            <li>Recommend a location and state whether each candidate passes both requirements. Cite delivery counts, failure patterns and radio readings. Explain one case where good radio readings do not establish timely delivery. Does the evidence establish deliberate interference? Give an alternative explanation and one follow-up test. Ten-minute samples do not establish an outage’s exact duration; the RTL-SDR display does not supply these cellular metrics.</li>
+            <li>Open the Facilities acceptance-test report. Security Engineering has received a request to recommend an antenna location for the building’s cellular backup gateway. Read the brief, acceptance requirements and analysis goals.</li>
+            <li>Download Attachment A from that report and import the CSV into Excel. It contains 432 scheduled tests per location, 1,296 total, over three days. Keep the records grouped by location and then time.</li>
+            <li>Use each record’s S, I and N powers to calculate linear SINR and SINR in dB for the complete dataset. RSRP and RSRQ are already supplied. Keep full calculation precision and display results to two decimal places.</li>
+            <li>For A, B and C, summarize the test count, on-time acknowledgement percentage, longest consecutive failure run, median RSRP and median calculated SINR in Table 3. Apply both acceptance requirements before rounding.</li>
+            <li>Make one labeled time plot of calculated SINR for all three locations across all three days. Compare radio-quality changes with late or missing acknowledgements and inspect RSRQ near the failures.</li>
+            <li>Recommend a location using delivery results, failure patterns and radio evidence. Explain a case where radio quality does not establish dependable delivery. Assess whether deliberate interference is established, give an alternative explanation and propose a follow-up test.</li>
+            <li>If you need help, expand “Analysis walkthrough — optional” in the Facilities report for equations, Excel formulas and chart setup.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
@@ -169,7 +165,7 @@
           </aside>
           <ol class="walkthrough-list">
             <li>Complete Tables 1–3, add your evidence with captions, and answer the short conclusion. Everyone submits an individual PDF through Learning Suite.</li>
-            <li>State any equipment, reception or timing limitation and identify supplied captures separately from live observations.</li>
+            <li>State any equipment or reception limitation and caption your evidence with its source.</li>
           </ol>
       </section>
     </section>
