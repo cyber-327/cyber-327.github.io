@@ -33,7 +33,7 @@
       <p class="eyebrow">Learning Outcomes</p>
       <h2>By the End of This Lab</h2>
         <ul>
-          <li>Observe four line-code references and identify the line coding used for a known message</li>
+          <li>Decode characters from line-coded signals and identify the line coding used for a known message</li>
           <li>Operate a local RTL-SDR and a remote WebSDR and distinguish observations from station-identity claims</li>
           <li>Explain reception differences using location, antenna, noise and propagation</li>
           <li>Analyze a three-day cellular backup-link log in Excel and recommend a placement using radio quality and timely alert delivery</li>
@@ -99,11 +99,11 @@
             <li>Use two 10× probes and set both scope channel probe factors to 10×. Connect both ground clips to Nano GND. Connect CH1’s tip to D9 (encoded data) and CH2’s tip to D2 (frame-start marker).</li>
             <li>Enable both channels in Normal time mode with DC coupling. Start at 2 V/div and 10 ms/div. Position both traces so you can distinguish LOW near 0 V from HIGH near 5 V using each channel’s zero reference.</li>
             <li>Set Trigger to Edge, source 2, rising slope. Turn the physical Trigger Level knob until the upper-right readout is about 2 V. Choose Horiz → Time Ref → Left and set horizontal delay to 0 s. Keep at least eight divisions to the right of the trigger.</li>
-            <li>Send FRAME REF and CODE NRZ-L, one command per line. The Nano repeatedly sends ASCII “3”. The CH2 pulse marks the start of the frame. Each data bit lasts 10 ms; bytes are sent MSB first. The initial level for NRZ-M/S is LOW. Use Run/Stop to freeze a capture, or Single to acquire the next frame.</li>
+            <li>Send FRAME REF and CODE NRZ-L, one command per line. For this practice, the Nano repeatedly sends ASCII “3”. The CH2 pulse marks the start of the frame. Each data bit lasts 10 ms; bytes are sent MSB first. The initial level for NRZ-M/S is LOW. Use Run/Stop to freeze a capture, or Single to acquire the next frame.</li>
             <li>Align the start of your capture with the frame marker, then record the levels for each bit interval in Table 1. Save the NRZ-L reference capture.</li>
-            <li>Send CODE NRZ-M to transmit ASCII “3”. Capture the reference, record its levels and save the image.</li>
-            <li>Send CODE NRZ-S to transmit ASCII “2”. Capture the reference, record its levels and save the image.</li>
-            <li>Send CODE MANCHESTER to transmit ASCII “7”. Capture the reference, record its half-bit pairs and save the image.</li>
+            <li>Send CODE NRZ-M. Capture the signal and record its levels. Decode the eight bits, determine the ASCII character and record both in Table 1. Save the image.</li>
+            <li>Send CODE NRZ-S. Capture the signal and record its levels. Decode the eight bits, determine the ASCII character and record both in Table 1. Save the image.</li>
+            <li>Send CODE MANCHESTER. Capture the signal and record its half-bit pairs. Decode the eight bits, determine the ASCII character and record both in Table 1. Save the image.</li>
             <li>Send FRAME UNKNOWN. The Nano now repeatedly sends the known message CYBER327 using a line coding scheme to identify. Set the scope to 100 ms/div and capture the complete 640 ms message, aligned with the CH2 frame-start pulse. Then set 10 ms/div and acquire another frame-start capture for a close-up of the first byte.</li>
             <li>Known message: ASCII CYBER327. Hex bytes, in order: 43 59 42 45 52 33 32 37. Each byte is sent MSB first; the message contains 64 bits.</li>
             <li>Use the known message and your captures to identify the coding scheme. Record your result and transition evidence in Table 1.</li>
