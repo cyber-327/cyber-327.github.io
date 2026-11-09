@@ -21,13 +21,151 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Week 11 &middot; Week 11</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Rolling release begins at 11:59 PM the evening before the first lecture. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all weeks</a>
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 11 · November 8-14, 2026</p>
+      <h1>Week 11: Wireless Security Comparisons and Everyday Interfaces</h1>
     </section>
+
+    <aside class="callout rolling-guide-note">
+      <p class="eyebrow">Rolling Weekly Guide</p>
+      <h2>Updated through Lecture 29.</h2>
+    </aside>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 29 / Mon</p>
+        <h2>Wireless Access: Keys, Readers, and Relay Attacks</h2>
+        <p class="meta">November 9, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-29-slides.pptx" download>Lecture 29 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Follow a wireless access frame through Manchester line coding, OOK modulation, transmission, filtering, demodulation and timing recovery</li>
+          <li>Distinguish the selected OOK example from supported FSK options; define each acronym before use</li>
+          <li>Calculate frame airtime with consistent bit count/rate and explicit framing assumptions</li>
+          <li>Model round-trip propagation, processing delay and timing-related distance uncertainty</li>
+          <li>Compare BLE 1M/2M GFSK/hopping, UWB ranging, NFC access and the absence of OFDM from the selected fob/BLE examples</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Separate copied identifiers, CRC error checks, keyed MACs, protected freshness and proximity</li>
+          <li>Demonstrate replay rejection and successful live forwarding using a simplified challenge-response model</li>
+          <li>Use the documented 2011 car-key relay study without universal claims about current vehicles</li>
+          <li>Compare owner approval, disabled passive access and appropriate secure ranging with their limits</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Definitions and Formulas</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Important Definitions</h3>
+        <dl class="definition-list">
+          <div><dt>line coding</dt><dd>Representation of bits by signal levels or transitions.</dd></div>
+          <div><dt>Manchester coding</dt><dd>The course convention has a midpoint rise for 1 and a midpoint fall for 0.</dd></div>
+          <div><dt>OOK</dt><dd>On-off keying: an amplitude-shift-keying option that switches the carrier on and off.</dd></div>
+          <div><dt>FSK</dt><dd>Frequency-shift keying: representing digital states using different carrier frequencies.</dd></div>
+          <div><dt>identifier</dt><dd>A device or interface label; observing it does not prove who transmitted it.</dd></div>
+          <div><dt>beacon</dt><dd>An announcement used to discover a device or service; it is not proof of identity.</dd></div>
+          <div><dt>CRC</dt><dd>Cyclic redundancy check: an error-detection check that is not keyed sender authentication.</dd></div>
+          <div><dt>message authentication code (MAC)</dt><dd>A keyed tag used to check message authenticity and integrity; not a network MAC address.</dd></div>
+          <div><dt>nonce</dt><dd>A value used once in a protocol context; the illustrative challenge is newly chosen for each request.</dd></div>
+          <div><dt>authentication</dt><dd>Checking evidence that a message or participant is genuine under the chosen trust model.</dd></div>
+          <div><dt>freshness</dt><dd>Evidence that a message belongs to the current exchange rather than an earlier captured exchange.</dd></div>
+          <div><dt>replay</dt><dd>Reuse of a previously valid transmission at a later time.</dd></div>
+          <div><dt>relay attack</dt><dd>Forwarding a current exchange between legitimate endpoints so that distance or the apparent path is misleading.</dd></div>
+          <div><dt>proximity</dt><dd>Physical nearness; neither an identifier nor a valid response alone establishes it.</dd></div>
+          <div><dt>distance bounding</dt><dd>A protocol and hardware timing check designed to bound how far away a responding device can be.</dd></div>
+          <div><dt>BLE</dt><dd>Bluetooth Low Energy; LE 1M/2M examples use GFSK and connected frequency hopping.</dd></div>
+          <div><dt>GFSK</dt><dd>Gaussian frequency-shift keying: FSK with shaping to control the transmitted spectrum.</dd></div>
+          <div><dt>UWB</dt><dd>Ultra-wideband; used for secure ranging in the selected phone-key architecture.</dd></div>
+          <div><dt>NFC</dt><dd>Near-field communication; supports the selected digital-key architecture’s tap-based access option.</dd></div>
+        </dl>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li><span class="formula-label">Frame airtime</span><span class="equation">T<sub>frame</sub> = N / R<sub>b</sub></span></li>
+          <li><span class="formula-label">Radio round-trip model</span><span class="equation">t<sub>RT</sub> = 2d/c + t<sub>processing</sub></span></li>
+          <li><span class="formula-label">Processing-corrected distance model</span><span class="equation">d = c(t<sub>RT</sub> - t<sub>processing</sub>)/2</span></li>
+          <li><span class="formula-label">Distance uncertainty from round-trip timing uncertainty</span><span class="equation">Δ<sub>d</sub> = c Δ<sub>t</sub> / 2</span></li>
+          <li><span class="formula-label">Trust boundary</span><span class="equation">visible identifier does not equal authenticated identity</span></li>
+          <li><span class="formula-label">Replay resistance</span><span class="equation">freshness must be protected and checked against the current request</span></li>
+        </ul>
+        </section>
+      </div>
+    </section>
+
+
+    <section class="study-materials reference-materials">
+      <p class="eyebrow">Quick Reference</p>
+      <h2>Important Tables</h2>
+      <div class="reference-tables">
+      <section class="content-panel reference-table">
+        <h3>Technology And Purpose</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Technology</th><th scope="col">Job and limit</th></tr></thead>
+          <tbody>
+          <tr><td>Manchester</td><td>Bit timing through transitions; 1 rises and 0 falls at midpoint in our convention. Does not provide sender trust or secrecy.</td></tr>
+          <tr><td>OOK / FSK</td><td>Carrier amplitude / frequency changes carry information. Line-code choice and permission remain separate.</td></tr>
+          <tr><td>CRC / keyed MAC</td><td>Error checking / keyed authenticity and integrity checking. Freshness needs protected fields and a receiver check.</td></tr>
+          <tr><td>BLE LE 1M/2M</td><td>GFSK modulation and connected frequency hopping. Hopping alone does not establish proximity.</td></tr>
+          <tr><td>UWB in the selected architecture</td><td>Secure ranging requires appropriate protocol, hardware and authentication.</td></tr>
+          <tr><td>NFC in the selected architecture</td><td>Tap-based access option. Short range alone is not a universal relay defense.</td></tr>
+          <tr><td>OFDM</td><td>Parallel subcarriers in familiar Wi-Fi modes. Absent from the selected fob/BLE 1M/2M examples.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Wireless Evidence And Trust</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Observation</th><th scope="col">Meaning and limit</th></tr></thead>
+          <tbody>
+          <tr><td>Name, beacon or identifier is visible</td><td>A value is presented; this does not prove a genuine or authorized transmitter.</td></tr>
+          <tr><td>Bits decode correctly</td><td>A usable representation was recovered; this does not establish authenticity, freshness or proximity.</td></tr>
+          <tr><td>Keyed tag and protected current challenge check pass</td><td>An authentic current response under the key assumptions; physical proximity remains unproven.</td></tr>
+          <tr><td>Carefully secured ranging check passes</td><td>A distance-related condition under that design, rather than universal protection against every attack.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </div>
+    </section>
+
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>An old recorded response is rejected, but forwarding the current exchange opens the reader. Why? Would encryption or frequency hopping alone resolve this?</li>
+          <li>Why do line coding and RF modulation perform different jobs?</li>
+          <li>Why can a name or beacon be copied, even if later traffic is encrypted?</li>
+          <li>Would rejecting old messages alone stop this attack? Explain the missing check.</li>
+        </ul>
+    </section>
+
+    <aside class="callout locked-callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>Lab 11 is not yet available</h2>
+      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-10/">&larr; Week 10</a>
+      <a href="../week-12/">Week 12 &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
