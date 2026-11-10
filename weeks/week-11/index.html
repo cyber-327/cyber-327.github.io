@@ -47,7 +47,6 @@
           <li>Follow a wireless access frame through Manchester line coding, OOK modulation, transmission, filtering, demodulation and timing recovery</li>
           <li>Distinguish the selected OOK example from supported FSK options; define each acronym before use</li>
           <li>Calculate frame airtime with consistent bit count/rate and explicit framing assumptions</li>
-          <li>Model round-trip propagation, processing delay and timing-related distance uncertainty</li>
           <li>Compare BLE 1M/2M GFSK/hopping, UWB ranging, NFC access and the absence of OFDM from the selected fob/BLE examples</li>
         </ul>
         </section>
@@ -96,9 +95,6 @@
           <h3>Equations and Relationships</h3>
         <ul class="formula-list">
           <li><span class="formula-label">Frame airtime</span><span class="equation">T<sub>frame</sub> = N / R<sub>b</sub></span></li>
-          <li><span class="formula-label">Radio round-trip model</span><span class="equation">t<sub>RT</sub> = 2d/c + t<sub>processing</sub></span></li>
-          <li><span class="formula-label">Processing-corrected distance model</span><span class="equation">d = c(t<sub>RT</sub> - t<sub>processing</sub>)/2</span></li>
-          <li><span class="formula-label">Distance uncertainty from round-trip timing uncertainty</span><span class="equation">Δ<sub>d</sub> = c Δ<sub>t</sub> / 2</span></li>
           <li><span class="formula-label">Trust boundary</span><span class="equation">visible identifier does not equal authenticated identity</span></li>
           <li><span class="formula-label">Replay resistance</span><span class="equation">freshness must be protected and checked against the current request</span></li>
         </ul>
