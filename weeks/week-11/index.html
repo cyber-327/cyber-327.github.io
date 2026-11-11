@@ -29,7 +29,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 29.</h2>
+      <h2>Updated through Lecture 30.</h2>
     </aside>
 
     <div class="lesson-stack">
@@ -57,6 +57,35 @@
           <li>Demonstrate replay rejection and successful live forwarding using a simplified challenge-response model</li>
           <li>Use the documented 2011 car-key relay study without universal claims about current vehicles</li>
           <li>Compare owner approval, disabled passive access and appropriate secure ranging with their limits</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 30 / Wed</p>
+        <h2>From Pulses to Messages: UART and Device Interfaces</h2>
+        <p class="meta">November 11, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-30-slides.pptx" download>Lecture 30 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Classic Nano Serial Monitor path: USB-to-serial bridge and hardware UART; distinct from a separate software UART</li>
+          <li>ASCII, bytes, conventional MSB-first representation and UART LSB-first transmission</li>
+          <li>Logic-level NRZ representation, asynchronous local timing, start/data/parity/stop fields and 8N1</li>
+          <li>Electrical compatibility: logic-level UART versus bipolar/inverted RS-232 data</li>
+          <li>Bit/frame duration, gap-free character rate and data-field efficiency</li>
+          <li>Timing inference and diagnosis of baud, framing, polarity or payload interpretation errors</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Follow the documented 2016 CCTV recorder serial-console takeover from physical access to accepted boot changes</li>
+          <li>Correct decoding does not authenticate a sender, authorize a command or imply administrator access</li>
+          <li>Distinguish a protected web interface from exposed boot controls; restrict maintenance access and protect boot configuration</li>
         </ul>
         </section>
       </div>
@@ -89,6 +118,26 @@
           <div><dt>GFSK</dt><dd>Gaussian frequency-shift keying: FSK with shaping to control the transmitted spectrum.</dd></div>
           <div><dt>UWB</dt><dd>Ultra-wideband; used for secure ranging in the selected phone-key architecture.</dd></div>
           <div><dt>NFC</dt><dd>Near-field communication; supports the selected digital-key architecture’s tap-based access option.</dd></div>
+          <div><dt>CCTV / DVR</dt><dd>Closed-circuit television / digital video recorder: the recorder stores feeds from security cameras.</dd></div>
+          <div><dt>bootloader</dt><dd>Software that runs early in startup and loads the operating system; a boot console may accept configuration commands.</dd></div>
+          <div><dt>root shell</dt><dd>An operating-system command interface with the highest administrative privileges on the studied Linux device.</dd></div>
+          <div><dt>ASCII</dt><dd>American Standard Code for Information Interchange: maps characters to numeric values; the examples put its seven-bit codes in eight-bit data fields.</dd></div>
+          <div><dt>byte</dt><dd>Eight bits; its interpretation may be a character, number or part of a binary message.</dd></div>
+          <div><dt>UART</dt><dd>Universal asynchronous receiver/transmitter: sends and receives framed serial data without a shared clock wire.</dd></div>
+          <div><dt>TX / RX</dt><dd>Transmit output / receive input. A transmitter connects to a compatible receiver input.</dd></div>
+          <div><dt>NRZ</dt><dd>Non-return-to-zero: no mandatory neutral return within each bit. The selected logic-level UART uses LOW=0 and HIGH=1.</dd></div>
+          <div><dt>baud</dt><dd>Signaling symbols per second. In the selected binary UART, one symbol carries one bit.</dd></div>
+          <div><dt>8N1</dt><dd>Eight data bits, no parity bit, one stop bit; one start bit precedes the data.</dd></div>
+          <div><dt>start bit</dt><dd>A LOW interval after idle HIGH that aligns reception of an idle-high UART frame.</dd></div>
+          <div><dt>stop bit</dt><dd>A HIGH interval ending the selected UART frame; it is not a checksum or authentication check.</dd></div>
+          <div><dt>LSB first</dt><dd>Least-significant data bit is sent first. Reverse the data field when writing conventional MSB-first binary, not the entire frame.</dd></div>
+          <div><dt>MSB</dt><dd>Most-significant bit: the highest-weight bit of the data value.</dd></div>
+          <div><dt>parity</dt><dd>An optional basic error-detection bit; N in 8N1 means it is absent.</dd></div>
+          <div><dt>logic-level UART</dt><dd>An interface using levels relative to its supply and ground; examples include 3.3 V and 5 V devices with device-specific limits.</dd></div>
+          <div><dt>TTL</dt><dd>Transistor-transistor logic; TTL UART is common shorthand for a logic-level interface, not a guarantee of voltage compatibility.</dd></div>
+          <div><dt>RS-232</dt><dd>An electrical interface with bipolar data levels: logical 1 is negative and logical 0 is positive.</dd></div>
+          <div><dt>framing efficiency</dt><dd>The fraction of frame bits in the data field under the stated definition of payload.</dd></div>
+          <div><dt>debug console</dt><dd>A maintenance interface that displays diagnostic text or accepts commands; access depends on firmware protections.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -97,6 +146,11 @@
           <li><span class="formula-label">Frame airtime</span><span class="equation">T<sub>frame</sub> = N / R<sub>b</sub></span></li>
           <li><span class="formula-label">Trust boundary</span><span class="equation">visible identifier does not equal authenticated identity</span></li>
           <li><span class="formula-label">Replay resistance</span><span class="equation">freshness must be protected and checked against the current request</span></li>
+          <li><span class="formula-label">Binary UART bit duration</span><span class="equation">T<sub>b</sub> = 1 / R<sub>b</sub></span></li>
+          <li><span class="formula-label">Complete frame intervals</span><span class="equation">N<sub>f</sub> = N<sub>start</sub> + N<sub>data</sub> + N<sub>parity</sub> + N<sub>stop</sub></span></li>
+          <li><span class="formula-label">Frame duration</span><span class="equation">T<sub>f</sub> = N<sub>f</sub> / R<sub>b</sub></span></li>
+          <li><span class="formula-label">Ideal character rate</span><span class="equation">R<sub>chars</sub> = R<sub>b</sub> / N<sub>f</sub></span></li>
+          <li><span class="formula-label">Data-field efficiency</span><span class="equation">efficiency = N<sub>data</sub> / N<sub>f</sub></span></li>
         </ul>
         </section>
       </div>
@@ -138,6 +192,49 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>Typical UART Frame Fields</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Field</th><th scope="col">Length and purpose</th></tr></thead>
+          <tbody>
+          <tr><td>Idle</td><td>Variable duration at logical 1 in the selected interface; not an extra fixed-count frame field</td></tr>
+          <tr><td>Start</td><td>One logical 0 interval following idle, aligning reception</td></tr>
+          <tr><td>Data</td><td>Eight bits in this example, D0 first; other configured widths exist</td></tr>
+          <tr><td>Parity</td><td>Zero bits in 8N1; optional basic error detection in other formats</td></tr>
+          <tr><td>Stop</td><td>One logical 1 interval in 8N1; other configured lengths exist</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Interfaces And Interpretation</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Interface / observation</th><th scope="col">Meaning and limit</th></tr></thead>
+          <tbody>
+          <tr><td>Logic-level UART</td><td>Unipolar supply-related levels; check actual device ratings, not just a TTL label</td></tr>
+          <tr><td>RS-232 data</td><td>Logical 1 is negative and logical 0 positive; use appropriate line conversion</td></tr>
+          <tr><td>USB on a classic Nano</td><td>A different interface reaches a USB-to-serial bridge; USB bus signaling is not the UART waveform</td></tr>
+          <tr><td>Unreadable characters</td><td>Check levels, reference, polarity, baud, framing and payload interpretation</td></tr>
+          <tr><td>Readable maintenance text</td><td>Recovered data; not automatic proof of command access or administrator rights</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Recorder Access Paths</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Path</th><th scope="col">Meaning and required protection</th></tr></thead>
+          <tbody>
+          <tr><td>Network viewer</td><td>A login check protects this interface; it does not automatically protect local boot commands</td></tr>
+          <tr><td>Serial output</td><td>Shows recovered bytes; does not by itself establish an interactive console or root access</td></tr>
+          <tr><td>Boot console</td><td>Powerful startup commands and configuration need their own access protections</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -150,6 +247,10 @@
           <li>Why do line coding and RF modulation perform different jobs?</li>
           <li>Why can a name or beacon be copied, even if later traffic is encrypted?</li>
           <li>Would rejecting old messages alone stop this attack? Explain the missing check.</li>
+          <li>Would removing diagnostic output prevent the recorder takeover if its bootloader still accepted powerful commands?</li>
+          <li>How can you infer baud rate from a waveform?</li>
+          <li>What additional observation distinguishes readable output from accepted boot commands?</li>
+          <li>Why does a web login not automatically protect a local boot console?</li>
         </ul>
     </section>
 
