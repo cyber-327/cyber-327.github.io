@@ -29,7 +29,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 30.</h2>
+      <h2>This week&#x27;s lecture material is complete.</h2>
     </aside>
 
     <div class="lesson-stack">
@@ -90,6 +90,35 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 31 / Fri</p>
+        <h2>Network Topologies, Ethernet Frames, and Interface Leakage</h2>
+        <p class="meta">November 13, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-31-slides.pptx" download>Lecture 31 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Follow a file from bytes through frames and physical signals to the receiver</li>
+          <li>Introduce a server, Ethernet switch and local area network without a networking prerequisite</li>
+          <li>Explain destination/source MAC addresses using one local file transfer</li>
+          <li>Identify Ethernet II frame fields, payload, error check and overhead</li>
+          <li>Calculate frame-only serialization time and payload fraction under stated assumptions</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Cable interception exposes frames crossing the tapped link</li>
+          <li>Prepared readable and TLS-protected transfers compare file exposure with remaining metadata</li>
+          <li>Distinguish error detection, confidentiality and sender authority</li>
+          <li>Match physical controls and authenticated encryption to the observed exposure</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -138,6 +167,20 @@
           <div><dt>RS-232</dt><dd>An electrical interface with bipolar data levels: logical 1 is negative and logical 0 is positive.</dd></div>
           <div><dt>framing efficiency</dt><dd>The fraction of frame bits in the data field under the stated definition of payload.</dd></div>
           <div><dt>debug console</dt><dd>A maintenance interface that displays diagnostic text or accepts commands; access depends on firmware protections.</dd></div>
+          <div><dt>client</dt><dd>Computer or application requesting a service or file.</dd></div>
+          <div><dt>server</dt><dd>Computer or application providing the requested service or file.</dd></div>
+          <div><dt>Ethernet</dt><dd>Rules for transmitting frames over wired links; Internet access is not required.</dd></div>
+          <div><dt>frame</dt><dd>Bounded data unit with delivery information, carried data and an error check.</dd></div>
+          <div><dt>payload</dt><dd>Data carried inside a frame; it can include other protocol headers as well as file data.</dd></div>
+          <div><dt>switch</dt><dd>Device connecting Ethernet links and forwarding a known destination toward its associated port.</dd></div>
+          <div><dt>port</dt><dd>Connection point for a link on a switch or other device, in this physical-link discussion.</dd></div>
+          <div><dt>LAN</dt><dd>Local area network, connecting communicating devices within a local network.</dd></div>
+          <div><dt>topology</dt><dd>Arrangement of devices and links; this lecture’s switch-centered arrangement is a star.</dd></div>
+          <div><dt>MAC address</dt><dd>Media Access Control link-interface address, distinct from a keyed authentication code.</dd></div>
+          <div><dt>FCS</dt><dd>Frame check sequence, a CRC-based error check that does not authenticate a sender.</dd></div>
+          <div><dt>network tap</dt><dd>Hardware providing a capture view of traffic crossing the link where it is installed.</dd></div>
+          <div><dt>metadata</dt><dd>Observable addressing, frame lengths, timing or direction apart from protected file content.</dd></div>
+          <div><dt>TLS</dt><dd>Transport Layer Security, used to protect application communication; HTTPS uses TLS.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -151,6 +194,9 @@
           <li><span class="formula-label">Frame duration</span><span class="equation">T<sub>f</sub> = N<sub>f</sub> / R<sub>b</sub></span></li>
           <li><span class="formula-label">Ideal character rate</span><span class="equation">R<sub>chars</sub> = R<sub>b</sub> / N<sub>f</sub></span></li>
           <li><span class="formula-label">Data-field efficiency</span><span class="equation">efficiency = N<sub>data</sub> / N<sub>f</sub></span></li>
+          <li><span class="formula-label">Frame-only serialization time</span><span class="equation">T = 8 × complete frame bytes / line bit rate</span></li>
+          <li><span class="formula-label">Frame-only ideal frame rate</span><span class="equation">frames/s = line bit rate / complete frame bits</span></li>
+          <li><span class="formula-label">Ethernet-payload fraction</span><span class="equation">payload bytes / complete frame bytes × 100%</span></li>
         </ul>
         </section>
       </div>
@@ -235,6 +281,76 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>File Delivery Foundations</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Step</th><th scope="col">Communication idea</th><th scope="col">Important limit</th></tr></thead>
+          <tbody>
+          <tr><td>Client requests a file</td><td>Server supplies file data</td><td>Client/server are software roles</td></tr>
+          <tr><td>File data is carried in frames</td><td>Each frame has boundaries and delivery/check fields</td><td>Other protocol information is also carried</td></tr>
+          <tr><td>Switch connects local links</td><td>A known destination is forwarded toward its port</td><td>An ordinary port does not see all other traffic</td></tr>
+          <tr><td>Reply frame returns to client</td><td>Destination = client; source = server</td><td>An address does not prove authority</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Untagged Ethernet II Fields</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Field</th><th scope="col">Bytes</th><th scope="col">Purpose</th></tr></thead>
+          <tbody>
+          <tr><td>Destination address</td><td>6</td><td>Receiving link interface</td></tr>
+          <tr><td>Source address</td><td>6</td><td>Sending link interface</td></tr>
+          <tr><td>Type</td><td>2</td><td>Interpretation of the carried protocol</td></tr>
+          <tr><td>Payload plus padding</td><td>46–1500</td><td>Carried data and other protocol information</td></tr>
+          <tr><td>FCS</td><td>4</td><td>CRC error detection, not authentication</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Worked Frame-Only Example</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Quantity</th><th scope="col">Result</th><th scope="col">Assumption</th></tr></thead>
+          <tbody>
+          <tr><td>Complete frame</td><td>1500 + 18 = 1518 bytes</td><td>Untagged; includes FCS</td></tr>
+          <tr><td>Frame bits</td><td>1518 × 8 = 12144 bits</td><td>Eight bits per byte</td></tr>
+          <tr><td>Serialization time</td><td>121.44 μs</td><td>100 Mbit/s; excludes preamble, delimiter, gap and processing</td></tr>
+          <tr><td>Ethernet-payload fraction</td><td>98.81%</td><td>Includes higher-layer headers; not application goodput</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Cable Interception and Protection</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Observation</th><th scope="col">Readable transfer</th><th scope="col">Authenticated encrypted transfer</th></tr></thead>
+          <tbody>
+          <tr><td>File bytes at a tap on the client link</td><td>Contents can be recovered</td><td>Contents protected without required keys</td></tr>
+          <tr><td>Local Ethernet addresses</td><td>Visible</td><td>Still visible in this application-encryption example</td></tr>
+          <tr><td>Frame lengths, timing and direction</td><td>Observable</td><td>Still observable; values can change</td></tr>
+          <tr><td>Scope of evidence</td><td>This tapped link</td><td>This tapped link; not every frame on the LAN</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Match Protection to Exposure</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Exposure</th><th scope="col">Protection</th><th scope="col">Limit</th></tr></thead>
+          <tbody>
+          <tr><td>Accessible cable or equipment</td><td>Restrict and monitor physical access</td><td>Does not replace protocol protection</td></tr>
+          <tr><td>Readable file data</td><td>Authenticated encrypted transfer with intended server verification</td><td>Does not guarantee availability or conceal every traffic pattern</td></tr>
+          <tr><td>Confusing error checks with trust</td><td>Verify sender authority at the appropriate layer</td><td>FCS and source addresses do not establish permission</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -251,6 +367,11 @@
           <li>How can you infer baud rate from a waveform?</li>
           <li>What additional observation distinguishes readable output from accepted boot commands?</li>
           <li>Why does a web login not automatically protect a local boot console?</li>
+          <li>Why does a large file require many frames?</li>
+          <li>What does a destination MAC address allow a switch to do?</li>
+          <li>What can a tap on one Ethernet link reveal about an unencrypted file transfer?</li>
+          <li>What remains observable when file content is encrypted?</li>
+          <li>Why is a valid Ethernet error check insufficient to establish sender authority?</li>
         </ul>
     </section>
 
