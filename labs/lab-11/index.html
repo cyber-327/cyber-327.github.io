@@ -95,7 +95,7 @@
             <li>Use the supplied panel/door circuit schematic to build the legitimate system. PANEL D5 (TX) connects to DOOR A5 (RX); DOOR D5 (TX) connects to PANEL A5 (RX). Join their grounds. Power each Nano from its own USB cable; do not join 5 V pins.</li>
             <li>Install both required indicators on DOOR: D4 through a 1 kohm resistor to the red LED anode, cathode to GND; D6 through a separate 1 kohm resistor to the green LED anode, cathode to GND. A5 is the receive pin, not an LED output. Unplug USB power before wiring.</li>
             <li>Open separate Arduino IDE windows for PANEL and DOOR, select their correct ports and open Serial Monitors at 115200 baud with Newline. Label the windows. Opening a monitor can reset its Nano.</li>
-            <li>In PANEL’s console enter PATTERN. At startup it already selects this mode. PATTERN sends exactly one ASCII U byte every second with a long idle interval; no newline or other byte is appended. DOOR should remain red on and green off.</li>
+            <li>In PANEL’s console enter PATTERN. At startup it already selects this mode. PATTERN sends exactly one start character every second with a long idle interval; no newline or other byte is appended. Determine its value from your capture. This character is a data byte, separate from the UART start bit. DOOR should remain red on and green off.</li>
             <li>Enable scope CH1, select DC coupling and match the probe factor. Start at 1 V/div and 200 microseconds/div. Probe tip goes to PANEL D5 and ground clip to common GND. Use a falling edge trigger on CH1 near 2 V.</li>
             <li>Arm Single acquisition during the quiet HIGH interval. Capture one isolated byte after idle, then zoom and measure adjacent bit intervals. Record actual idle/high/low levels and calculate baud rate as 1 / bit interval. The link uses eight data bits, no parity and one stop bit; data is sent least significant bit first.</li>
           </ol>
@@ -107,12 +107,12 @@
             <p>Save the manual byte, complete recovered line, listener settings and wrong-rate/restored comparison.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>While PANEL is still in PATTERN, manually decode the isolated U byte. Mark start, eight data bits and stop. Write data bits in time order, then reconstruct the usual binary number, hexadecimal value and ASCII character. Do not include start or stop in the data value.</li>
+            <li>While PANEL is still in PATTERN, manually decode the isolated start character. Mark start, eight data bits and stop. Write data bits in time order, then reconstruct the usual binary number, hexadecimal value and ASCII character. Do not include start or stop in the data value.</li>
             <li>Connect LISTENER by USB in a third IDE window at 115200 baud with Newline. Its wire RX is A5 and TX is D5, like the other boards. This USB monitor speed is separate from the measured wire speed.</li>
             <li>With all USB power unplugged, join LISTENER GND to the common ground and connect LISTENER A5 to the PANEL D5 / DOOR A5 junction. Leave LISTENER D5 disconnected. Restore power; if PANEL reset, confirm PATTERN again.</li>
-            <li>In LISTENER’s console enter BAUD followed by your measured candidate rate. HELP lists supported rates. The isolated U characters should be readable at the matching setting.</li>
-            <li>In PANEL’s console enter TRAFFIC. This switches from isolated training bytes to complete operating command lines. The transition clears accumulated training text; wait for a complete repeated line beginning with U and separated by vertical bars.</li>
-            <li>Recover one complete line from LISTENER’s Serial Monitor. You do not manually decode every character on the scope. The frame format is U | device | action | access code, terminated by a newline. Preserve leading zeros and uppercase actions. Identify each recovered field in Table 2.</li>
+            <li>In LISTENER’s console enter BAUD followed by your measured candidate rate. HELP lists supported rates. At the matching setting, compare the received start characters with your manual decode.</li>
+            <li>In PANEL’s console enter TRAFFIC. This switches from isolated training bytes to complete operating command lines. The transition clears accumulated training text; wait for a complete repeated line beginning with the recovered start character and separated by vertical bars.</li>
+            <li>Recover one complete line from LISTENER’s Serial Monitor. You do not manually decode every character on the scope. The frame format is start character | device | action | access code, terminated by a newline. Use the character you recovered, not the words start character. Preserve leading zeros and uppercase actions. Identify each recovered field in Table 2.</li>
             <li>Try another supported BAUD value on LISTENER while PANEL stays in TRAFFIC. Record corrupted or missing text, then restore the measured correct rate and verify complete readable lines return. Leave the USB monitors at 115200 throughout.</li>
           </ol>
       </section>
@@ -123,7 +123,7 @@
             <p>Save the rejected and accepted frames, DOOR console results, both LED states and successful reset/restoration.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Use the intercepted device and access-code fields to construct an OPEN frame. Retain the U prefix and vertical-bar separators. The console command is SEND followed by a space and your complete frame; SEND itself is not transmitted on the wire.</li>
+            <li>Use the intercepted device and access-code fields to construct an OPEN frame. Retain the recovered start character and vertical-bar separators. The console command is SEND followed by a space and your complete frame; SEND itself is not transmitted on the wire.</li>
             <li>Unplug all USB power. Remove PANEL D5 from the PANEL-to-DOOR signal junction before connecting LISTENER D5 to DOOR A5 instead. LISTENER A5 may remain at that junction. Keep common ground and the DOOR D5-to-PANEL A5 return connection. Never join the PANEL and LISTENER TX outputs.</li>
             <li>Restore power and re-enter the measured BAUD setting on LISTENER. First send an OPEN frame using the recovered device but a deliberately different four-digit code. Record the submitted frame, DOOR rejection and red-on/green-off result. The incorrect-code control must not open the receiver.</li>
             <li>Now send an OPEN frame using the access code recovered from the operating traffic. Watch DOOR’s USB console for acceptance and the flag. Green on and red off indicate OPEN. LISTENER’s Frame sent message alone does not establish acceptance.</li>
