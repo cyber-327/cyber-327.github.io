@@ -7,7 +7,6 @@
   <title>Lab 11: Wired Interception CTF | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
-  <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
   <header class="site-header">
@@ -26,16 +25,16 @@
     <section class="page-intro">
       <p class="kicker">Lab 11 &middot; Week 11 &middot; November 13, 2026</p>
       <h1>Wired Interception CTF</h1>
-      <p class="body">Observe a wired communication link, recover its messages, and use an exposed access code to open the receiver</p>
+      <p class="body">Measure an isolated UART byte, intercept operating messages and use exposed information to test command acceptance</p>
     </section>
 
     <section class="content-panel objectives-panel">
       <p class="eyebrow">Learning Outcomes</p>
       <h2>By the End of This Lab</h2>
         <ul>
-          <li>Measure the communication signal and identify its baud rate</li>
-          <li>Recover and interpret traffic using a listening Nano</li>
-          <li>Use the intercepted information to open the door controller</li>
+          <li>Measure a UART signal and infer its baud rate</li>
+          <li>Manually decode one byte and recover a complete line with a listener</li>
+          <li>Distinguish a transmitted command from receiver acceptance</li>
         </ul>
     </section>
 
@@ -43,9 +42,9 @@
       <p class="eyebrow">The Big Picture</p>
       <h2>What You Are Doing</h2>
         <ol class="overview-steps">
-          <li>Measure the communication signal and identify its baud rate.</li>
-          <li>Recover and interpret traffic using a listening Nano.</li>
-          <li>Use the intercepted information to open the door controller.</li>
+          <li>Build the panel/door circuit and measure its isolated training byte.</li>
+          <li>Use a listening Nano to recover and interpret complete operating traffic.</li>
+          <li>Test a modified command and verify the receiver’s console and required LEDs.</li>
         </ol>
     </section>
 
@@ -55,30 +54,27 @@
         <p class="eyebrow">Before Lab</p>
         <h2>Preparation</h2>
         <ul>
-          <li>Open the lab report and device reference. Use the assigned boards and keep the board roles labeled.</li>
+          <li>Open the lab report and panel/door circuit schematic. Keep each board and its USB console labeled.</li>
         </ul>
       </section>
       <aside class="content-panel equipment">
         <p class="eyebrow">Bench Setup</p>
         <h2>Equipment and Materials</h2>
         <ul>
-          <li>Three classic 5 V Nanos, labeled PANEL, DOOR and LISTENER, with USB data cables</li>
-          <li>Keysight DSOX2012A oscilloscope and probe</li>
-          <li>Computer with Arduino IDE, breadboard and jumper wires</li>
-        </ul>
-        <h3>Optional or Specialized</h3>
-        <ul>
-          <li>red and green LEDs, each with its own 1 kohm series resistor</li>
+          <li>Three classic 5 V Nanos labeled PANEL, DOOR and LISTENER, each with a USB data cable</li>
+          <li>Keysight DSOX2012A oscilloscope and 10x probe with ground clip</li>
+          <li>Computer with Arduino IDE and three USB data connections, breadboard and jumper wires</li>
+          <li>One red LED, one green LED and two 1 kohm series resistors for the DOOR status indicators</li>
         </ul>
       </aside>
     </div>
 
     <section class="content-panel resource-panel">
       <p class="eyebrow">Student Resources</p>
-      <h2>Report and Device Reference</h2>
+      <h2>Report and Circuit Schematic</h2>
         <figure class="lab-diagram">
-          <img src="../../assets/labs/lab-11-device-reference.svg" alt="Device reference">
-          <figcaption>Device reference</figcaption>
+          <img src="../../assets/labs/lab-11-device-reference.svg" alt="Circuit schematic">
+          <figcaption>Circuit schematic</figcaption>
         </figure>
       <div class="resource-links">
         <a class="button" href="../../assets/labs/lab-11-report.docx" download>Lab report</a>
@@ -89,54 +85,57 @@
       <p class="eyebrow">Follow These Steps</p>
       <h2>Lab Walkthrough</h2>
       <section class="walkthrough-stage">
-        <h3>Gain Access — Table 1</h3>
+        <h3>Build and Measure — Table 1</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
-            <p>Save the measured electrical levels and a readable bit-interval capture before moving the probe.</p>
+            <p>Save the required LED baseline and measured electrical levels with a readable isolated-byte timing capture.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Security Engineering has access to a door controller cable. The control panel continues to send legitimate LOCK commands. Investigate what the cable reveals and whether you can use that information to open the door.</li>
-            <li>Connect PANEL and DOOR by USB. Open separate Arduino IDE windows, select the correct port in each, and open both Serial Monitors at 115200 baud with Newline. Keep these windows labeled.</li>
-            <li>With USB power unplugged, join the three Nano GND pins on a common ground rail. Connect PANEL D9 to DOOR D8, and DOOR D9 to PANEL D8. Leave LISTENER D9 disconnected. Do not join the boards’ 5 V pins.</li>
-            <li>Reconnect USB power. Enable CH1 on the scope, select DC coupling, and match the channel probe factor to the physical probe. Start at 1 V/div and 500 microseconds/div with a 10x probe.</li>
-            <li>Connect the probe ground to GND and its tip to PANEL D9. Set an edge trigger on CH1, falling slope, approximately 2 V. Use Normal or Single acquisition and wait for the next message.</li>
-            <li>Measure idle, high and low levels. Zoom into the alternating transitions at the start of a message. Measure several adjacent intervals, then calculate baud rate as 1 / bit interval. The interface uses eight data bits, no parity and one stop bit; data bits are sent least significant first.</li>
+            <li>Security Engineering is examining a wired door-control link. First characterize its isolated training byte, then recover operating traffic and determine what the receiver accepts.</li>
+            <li>Use the supplied panel/door circuit schematic to build the legitimate system. PANEL D5 (TX) connects to DOOR A5 (RX); DOOR D5 (TX) connects to PANEL A5 (RX). Join their grounds. Power each Nano from its own USB cable; do not join 5 V pins.</li>
+            <li>Install both required indicators on DOOR: D4 through a 1 kohm resistor to the red LED anode, cathode to GND; D6 through a separate 1 kohm resistor to the green LED anode, cathode to GND. A5 is the receive pin, not an LED output. Unplug USB power before wiring.</li>
+            <li>Open separate Arduino IDE windows for PANEL and DOOR, select their correct ports and open Serial Monitors at 115200 baud with Newline. Label the windows. Opening a monitor can reset its Nano.</li>
+            <li>In PANEL’s console enter PATTERN. At startup it already selects this mode. PATTERN sends exactly one ASCII U byte every second with a long idle interval; no newline or other byte is appended. DOOR should remain red on and green off.</li>
+            <li>Enable scope CH1, select DC coupling and match the probe factor. Start at 1 V/div and 200 microseconds/div. Probe tip goes to PANEL D5 and ground clip to common GND. Use a falling edge trigger on CH1 near 2 V.</li>
+            <li>Arm Single acquisition during the quiet HIGH interval. Capture one isolated byte after idle, then zoom and measure adjacent bit intervals. Record actual idle/high/low levels and calculate baud rate as 1 / bit interval. The link uses eight data bits, no parity and one stop bit; data is sent least significant bit first.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
         <h3>Intercept the Traffic — Table 2</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
-            <p>Save readable intercepted traffic, your listener settings, one manually decoded byte, and the wrong-rate/restored comparison.</p>
+            <p>Save the manual byte, complete recovered line, listener settings and wrong-rate/restored comparison.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Connect LISTENER by USB, choose its port in a third IDE window, and open Serial Monitor at 115200 baud with Newline. This USB speed is separate from the speed of the intercepted wire.</li>
-            <li>With power off, connect LISTENER D8 to the PANEL D9 / DOOR D8 junction. Keep LISTENER D9 disconnected. Restore power.</li>
-            <li>In LISTENER’s Serial Monitor, enter BAUD followed by your measured candidate rate. Its HELP command lists supported values. The output should become readable when the receiver settings match the wire.</li>
-            <li>Capture one byte on the scope. Identify its start bit, eight data bits and stop bit. Reverse the data-bit reading order when writing the usual binary number, then find its hexadecimal and ASCII values.</li>
-            <li>Recover a complete message and identify the device field, action and access-code field. The vertical bars separate fields; the newline ends the frame.</li>
-            <li>Try another supported baud rate on LISTENER. Record the symptom, then restore the correct rate. Do not change PANEL or DOOR to make a wrong answer work.</li>
+            <li>While PANEL is still in PATTERN, manually decode the isolated U byte. Mark start, eight data bits and stop. Write data bits in time order, then reconstruct the usual binary number, hexadecimal value and ASCII character. Do not include start or stop in the data value.</li>
+            <li>Connect LISTENER by USB in a third IDE window at 115200 baud with Newline. Its wire RX is A5 and TX is D5, like the other boards. This USB monitor speed is separate from the measured wire speed.</li>
+            <li>With all USB power unplugged, join LISTENER GND to the common ground and connect LISTENER A5 to the PANEL D5 / DOOR A5 junction. Leave LISTENER D5 disconnected. Restore power; if PANEL reset, confirm PATTERN again.</li>
+            <li>In LISTENER’s console enter BAUD followed by your measured candidate rate. HELP lists supported rates. The isolated U characters should be readable at the matching setting.</li>
+            <li>In PANEL’s console enter TRAFFIC. This switches from isolated training bytes to complete operating command lines. The transition clears accumulated training text; wait for a complete repeated line beginning with U and separated by vertical bars.</li>
+            <li>Recover one complete line from LISTENER’s Serial Monitor. You do not manually decode every character on the scope. The frame format is U | device | action | access code, terminated by a newline. Preserve leading zeros and uppercase actions. Identify each recovered field in Table 2.</li>
+            <li>Try another supported BAUD value on LISTENER while PANEL stays in TRAFFIC. Record corrupted or missing text, then restore the measured correct rate and verify complete readable lines return. Leave the USB monitors at 115200 throughout.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
-        <h3>Open the Controller — Table 3</h3>
+        <h3>Test Command Acceptance — Table 3</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
-            <p>Save the submitted frame and the DOOR result together, including the flag when accepted.</p>
+            <p>Save the rejected and accepted frames, DOOR console results, both LED states and successful reset/restoration.</p>
           </aside>
           <ol class="walkthrough-list">
-            <li>Use the intercepted message to work out a command for OPEN. The device reference gives the field order but does not disclose the access code.</li>
-            <li>Unplug power before changing wires. Remove PANEL D9 from the signal junction. Connect LISTENER D9 to DOOR D8 instead. LISTENER D8 may remain at that junction to observe it. PANEL’s output must stay disconnected.</li>
-            <li>Restore power. Re-enter the measured BAUD setting if LISTENER restarted. In LISTENER’s console, enter SEND followed by your complete frame, using the observed separators and the OPEN action.</li>
-            <li>Watch DOOR’s Serial Monitor for the result and flag. If fitted, the green LED indicates OPEN and the red LED indicates LOCKED. A successful SEND message alone does not prove the door accepted it.</li>
-            <li>Record what you changed and what the receiver accepted. Use RESET in DOOR’s console to return it to LOCKED. Restore the original wiring with power off.</li>
+            <li>Use the intercepted device and access-code fields to construct an OPEN frame. Retain the U prefix and vertical-bar separators. The console command is SEND followed by a space and your complete frame; SEND itself is not transmitted on the wire.</li>
+            <li>Unplug all USB power. Remove PANEL D5 from the PANEL-to-DOOR signal junction before connecting LISTENER D5 to DOOR A5 instead. LISTENER A5 may remain at that junction. Keep common ground and the DOOR D5-to-PANEL A5 return connection. Never join the PANEL and LISTENER TX outputs.</li>
+            <li>Restore power and re-enter the measured BAUD setting on LISTENER. First send an OPEN frame using the recovered device but a deliberately different four-digit code. Record the submitted frame, DOOR rejection and red-on/green-off result. The incorrect-code control must not open the receiver.</li>
+            <li>Now send an OPEN frame using the access code recovered from the operating traffic. Watch DOOR’s USB console for acceptance and the flag. Green on and red off indicate OPEN. LISTENER’s Frame sent message alone does not establish acceptance.</li>
+            <li>Record the successful frame, flag and both indicator states. Enter RESET in DOOR’s console and verify LOCKED with red on and green off.</li>
+            <li>Power off. Disconnect LISTENER D5, restore PANEL D5 to DOOR A5 and power up. PANEL returns to PATTERN after reset; enter TRAFFIC on PANEL to restore normal LOCK command lines. Verify the red/green baseline and repeated readable traffic, then record the restored check.</li>
           </ol>
       </section>
       <section class="walkthrough-stage">
         <h3>Finish and Submit</h3>
           <ol class="walkthrough-list">
-            <li>Complete Tables 1–3, the evidence and the conclusion. Each student submits an individual PDF report through Learning Suite.</li>
-            <li>Disconnect power before returning the wires and boards.</li>
+            <li>Complete Tables 1–3, evidence and the conclusion. Each student submits an individual PDF report through Learning Suite.</li>
+            <li>Disconnect power before returning wires and boards.</li>
           </ol>
       </section>
     </section>
