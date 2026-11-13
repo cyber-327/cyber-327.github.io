@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 11 - CYBER 327 course material">
-  <title>Lab 11 | CYBER 327</title>
+  <meta name="description" content="Lab 11: Wired Interception CTF - CYBER 327 course material">
+  <title>Lab 11: Wired Interception CTF | CYBER 327</title>
   <link rel="stylesheet" href="../../theme.css">
   <link rel="stylesheet" href="../../styles.css">
+  <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
   <header class="site-header">
@@ -21,13 +22,144 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Lab 11 &middot; Week 11</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Release pending instructor approval. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all labs</a>
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 11 &middot; Week 11 &middot; November 13, 2026</p>
+      <h1>Wired Interception CTF</h1>
+      <p class="body">Observe a wired communication link, recover its messages, and use an exposed access code to open the receiver</p>
     </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Measure the communication signal and identify its baud rate</li>
+          <li>Recover and interpret traffic using a listening Nano</li>
+          <li>Use the intercepted information to open the door controller</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Measure the communication signal and identify its baud rate.</li>
+          <li>Recover and interpret traffic using a listening Nano.</li>
+          <li>Use the intercepted information to open the door controller.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Open the lab report and device reference. Use the assigned boards and keep the board roles labeled.</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Three classic 5 V Nanos, labeled PANEL, DOOR and LISTENER, with USB data cables</li>
+          <li>Keysight DSOX2012A oscilloscope and probe</li>
+          <li>Computer with Arduino IDE, breadboard and jumper wires</li>
+        </ul>
+        <h3>Optional or Specialized</h3>
+        <ul>
+          <li>red and green LEDs, each with its own 1 kohm series resistor</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Report and Device Reference</h2>
+        <figure class="lab-diagram">
+          <img src="../../assets/labs/lab-11-device-reference.svg" alt="Device reference">
+          <figcaption>Device reference</figcaption>
+        </figure>
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-11-report.docx" download>Lab report</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
+      <section class="walkthrough-stage">
+        <h3>Gain Access — Table 1</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the measured electrical levels and a readable bit-interval capture before moving the probe.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Security Engineering has access to a door controller cable. The control panel continues to send legitimate LOCK commands. Investigate what the cable reveals and whether you can use that information to open the door.</li>
+            <li>Connect PANEL and DOOR by USB. Open separate Arduino IDE windows, select the correct port in each, and open both Serial Monitors at 115200 baud with Newline. Keep these windows labeled.</li>
+            <li>With USB power unplugged, join the three Nano GND pins on a common ground rail. Connect PANEL D9 to DOOR D8, and DOOR D9 to PANEL D8. Leave LISTENER D9 disconnected. Do not join the boards’ 5 V pins.</li>
+            <li>Reconnect USB power. Enable CH1 on the scope, select DC coupling, and match the channel probe factor to the physical probe. Start at 1 V/div and 500 microseconds/div with a 10x probe.</li>
+            <li>Connect the probe ground to GND and its tip to PANEL D9. Set an edge trigger on CH1, falling slope, approximately 2 V. Use Normal or Single acquisition and wait for the next message.</li>
+            <li>Measure idle, high and low levels. Zoom into the alternating transitions at the start of a message. Measure several adjacent intervals, then calculate baud rate as 1 / bit interval. The interface uses eight data bits, no parity and one stop bit; data bits are sent least significant first.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Intercept the Traffic — Table 2</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save readable intercepted traffic, your listener settings, one manually decoded byte, and the wrong-rate/restored comparison.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Connect LISTENER by USB, choose its port in a third IDE window, and open Serial Monitor at 115200 baud with Newline. This USB speed is separate from the speed of the intercepted wire.</li>
+            <li>With power off, connect LISTENER D8 to the PANEL D9 / DOOR D8 junction. Keep LISTENER D9 disconnected. Restore power.</li>
+            <li>In LISTENER’s Serial Monitor, enter BAUD followed by your measured candidate rate. Its HELP command lists supported values. The output should become readable when the receiver settings match the wire.</li>
+            <li>Capture one byte on the scope. Identify its start bit, eight data bits and stop bit. Reverse the data-bit reading order when writing the usual binary number, then find its hexadecimal and ASCII values.</li>
+            <li>Recover a complete message and identify the device field, action and access-code field. The vertical bars separate fields; the newline ends the frame.</li>
+            <li>Try another supported baud rate on LISTENER. Record the symptom, then restore the correct rate. Do not change PANEL or DOOR to make a wrong answer work.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Open the Controller — Table 3</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the submitted frame and the DOOR result together, including the flag when accepted.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Use the intercepted message to work out a command for OPEN. The device reference gives the field order but does not disclose the access code.</li>
+            <li>Unplug power before changing wires. Remove PANEL D9 from the signal junction. Connect LISTENER D9 to DOOR D8 instead. LISTENER D8 may remain at that junction to observe it. PANEL’s output must stay disconnected.</li>
+            <li>Restore power. Re-enter the measured BAUD setting if LISTENER restarted. In LISTENER’s console, enter SEND followed by your complete frame, using the observed separators and the OPEN action.</li>
+            <li>Watch DOOR’s Serial Monitor for the result and flag. If fitted, the green LED indicates OPEN and the red LED indicates LOCKED. A successful SEND message alone does not prove the door accepted it.</li>
+            <li>Record what you changed and what the receiver accepted. Use RESET in DOOR’s console to return it to LOCKED. Restore the original wiring with power off.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Finish and Submit</h3>
+          <ol class="walkthrough-list">
+            <li>Complete Tables 1–3, the evidence and the conclusion. Each student submits an individual PDF report through Learning Suite.</li>
+            <li>Disconnect power before returning the wires and boards.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Lab Matters</h2>
+        <ul>
+          <li>Readable commands and reusable access codes can expose control of a device. A CRC does not authenticate the sender.</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete the individual Lab 11 report and submit it as a PDF through Learning Suite.</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-11/">&larr; Week 11 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
