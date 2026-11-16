@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lab 12: Infrared Relay CTF - CYBER 327 course material">
+  <title>Lab 12: Infrared Relay CTF | CYBER 327</title>
+  <link rel="stylesheet" href="../../theme.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="unlisted-lab-alias" content="12">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell nav-shell" aria-label="Main navigation">
+      <a class="brand" href="../../">CYBER 327</a>
+      <div class="nav-links">
+        <a href="../../syllabus/">Syllabus</a>
+        <a href="../../weeks/">Weekly Guides</a>
+        <a href="../../labs/">Labs</a>
+        <a href="../../excellence/">Excellence</a>
+      </div>
+    </nav>
+  </header>
+  <main class="shell content-shell">
+    <p class="eyebrow">Laboratory</p>
+    <section class="page-intro">
+      <p class="kicker">Lab 12 &middot; Week 12 &middot; November 20, 2026</p>
+      <h1>Infrared Relay CTF</h1>
+      <p class="body">Compare a legitimate opening, a replayed response, and a live relay between an infrared reader and its authorized key</p>
+    </section>
+
+    <section class="content-panel objectives-panel">
+      <p class="eyebrow">Learning Outcomes</p>
+      <h2>By the End of This Lab</h2>
+        <ul>
+          <li>Observe a legitimate infrared challenge and response</li>
+          <li>Test whether an old response answers a fresh request</li>
+          <li>Relay a live exchange around a blocked direct path</li>
+        </ul>
+    </section>
+
+    <section class="callout lab-overview">
+      <p class="eyebrow">The Big Picture</p>
+      <h2>What You Are Doing</h2>
+        <ol class="overview-steps">
+          <li>Observe a legitimate infrared challenge and response.</li>
+          <li>Test whether an old response answers a fresh request.</li>
+          <li>Relay a live exchange around a blocked direct path.</li>
+        </ol>
+    </section>
+
+
+    <div class="lab-layout lab-preflight">
+      <section class="content-panel">
+        <p class="eyebrow">Before Lab</p>
+        <h2>Preparation</h2>
+        <ul>
+          <li>Open the lab report and device reference. Use the assigned boards and keep the board roles labeled.</li>
+        </ul>
+      </section>
+      <aside class="content-panel equipment">
+        <p class="eyebrow">Bench Setup</p>
+        <h2>Equipment and Materials</h2>
+        <ul>
+          <li>Four classic Nanos labeled READER, KEY, RELAY-R and RELAY-K, with USB cables</li>
+          <li>Four compatible 38 kHz infrared transmitter/receiver pairs</li>
+          <li>Computer with Arduino IDE, four USB connections or a suitable hub, jumper wires and an opaque partition</li>
+        </ul>
+        <h3>Optional or Specialized</h3>
+        <ul>
+          <li>red/green LEDs with separate 1 kohm resistors; optional oscilloscope</li>
+        </ul>
+      </aside>
+    </div>
+
+    <section class="content-panel resource-panel">
+      <p class="eyebrow">Student Resources</p>
+      <h2>Report and Device Reference</h2>
+        <figure class="lab-diagram">
+          <img src="../../assets/labs/lab-12-device-reference.svg" alt="Device reference">
+          <figcaption>Device reference</figcaption>
+        </figure>
+      <div class="resource-links">
+        <a class="button" href="../../assets/labs/lab-12-report.docx" download>Lab report</a>
+      </div>
+    </section>
+
+    <section class="content-panel procedure-panel">
+      <p class="eyebrow">Follow These Steps</p>
+      <h2>Lab Walkthrough</h2>
+      <section class="walkthrough-stage">
+        <h3>Inspect the System — Table 1</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save a legitimate opening and a blocked-path attempt, with the physical arrangement visible.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Security Engineering is assessing an infrared door reader. Its authorized key can answer a fresh request, but the key must appear to be nearby. Determine whether that assumption survives an attacker who forwards messages.</li>
+            <li>Identify the four roles: READER issues a challenge and checks the response; KEY creates an authenticated response; RELAY-R sits beside READER; RELAY-K sits beside KEY. Each board needs both an IR transmitter and an IR receiver. A challenge is a request containing counters that change between trials; an old response may not answer a new request.</li>
+            <li>Use the device reference to identify the four boards and their connections. Each IR receiver SIGNAL connects to D2; each transmitter module SIGNAL connects to D3. Use the module’s marked power pins and verified supply rating. Do not infer pin order from a similar-looking board.</li>
+            <li>Open four labeled board consoles at 115200 baud with Newline. HELP lists each board’s commands. Keep the READER console visible for results. Each local IR connection must work in both directions: aim each transmitter at the other board’s receiver. The 38 kHz optical carrier is separate from the USB console baud rate.</li>
+            <li>With READER and KEY facing each other and both relays set to BRIDGE OFF, enter OPEN on READER. Record the challenge, response and opening result. Enter LOCK afterward.</li>
+            <li>Place the opaque partition so READER cannot communicate directly with KEY. Enter LOCK, then OPEN with both bridges off. Allow up to 60 seconds for the request window to expire and verify the direct path no longer opens the reader. Check for reflections or gaps if it does. Record no response separately from an explicit rejection, then enter LOCK to clear the trial.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Capture and Replay — Table 2</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the old response, the fresh challenge and the reader’s replay result.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Place RELAY-R beside READER, with their IR modules facing each other. Place RELAY-K beside KEY in the same way. Shield each local pair from the other pair.</li>
+            <li>With power off, connect RELAY-R D9 to RELAY-K D8, RELAY-K D9 to RELAY-R D8, and join the relay grounds. Leave their 5 V pins separate. Restore power.</li>
+            <li>Enter BRIDGE ON on both relay consoles, then OPEN on READER. Wait for the complete exchange and confirm an opening. This supplies a valid response for the replay experiment.</li>
+            <li>On RELAY-R, enter CAPTURE to display its most recent response as hexadecimal text. Save that response and the matching READER challenge. CAPTURE displays the stored bytes; REPLAY sends them for you, so do not retype them as a command. Do not unplug RELAY-R or close/reopen its monitor during this experiment: a reset erases its captured response.</li>
+            <li>Set both relays to BRIDGE OFF, then enter LOCK on READER. Enter OPEN to create a new pending request, then promptly enter REPLAY on RELAY-R within the 60-second request window. Keep the direct IR path blocked and both bridges off.</li>
+            <li>Compare the previous and current challenges using the message register in the device reference. Record which counter field changed and whether READER received and rejected the old response. A silent receiver is not evidence of rejection; realign RELAY-R and repeat if the replay never arrives. Save the full response in your evidence and a relevant excerpt in Table 2. Enter LOCK after the trial.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Relay a Live Exchange — Table 3</h3>
+          <aside class="walkthrough-evidence" role="note">
+            <p class="eyebrow">Evidence Photo</p>
+            <p>Save the live forwarding records, reader result and bridge-disabled control. Show that the direct path stayed blocked.</p>
+          </aside>
+          <ol class="walkthrough-list">
+            <li>Keep the partition in place. Enable BRIDGE ON on both relay nodes.</li>
+            <li>Enter LOCK, then OPEN on READER. Allow the complete exchange to finish; it can take several seconds. Follow the printed IR and WIRE records as the request travels to KEY and its response returns. The relay nodes forward the exchange without holding the authentication key. Record what each hop carries and whether it uses infrared or wire.</li>
+            <li>Collect the flag from READER’s console after it accepts the response. The same opening flag appears during the legitimate baseline, so the flag by itself is not relay evidence: preserve the blocked-path arrangement and forwarding records.</li>
+            <li>Disable either bridge. Enter LOCK, then OPEN and allow up to 60 seconds to observe the failed control. Enter LOCK to clear it. Restore both bridges and repeat LOCK then OPEN once more. Record failure and restored success while the direct optical path stays blocked. The 60-second window is a transaction timeout, not a measurement of distance.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
+        <h3>Finish and Submit</h3>
+          <ol class="walkthrough-list">
+            <li>Complete Tables 1–3, evidence and the conclusion. Each student submits an individual PDF report through Learning Suite.</li>
+            <li>Enter LOCK on READER and BRIDGE OFF on both relays. Disconnect power before moving wires.</li>
+          </ol>
+      </section>
+    </section>
+
+    <div class="topic-columns supporting-panels">
+      <section class="accent-panel">
+        <h2>Why This Lab Matters</h2>
+        <ul>
+          <li>A fresh authenticated response can be forwarded. Message authentication alone does not establish physical proximity.</li>
+        </ul>
+      </section>
+      <section class="content-panel submission-panel">
+        <h2>Submission</h2>
+        <ul class="deliverables">
+          <li>Complete the individual Lab 12 report and submit it as a PDF through Learning Suite.</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="Lab navigation">
+      <a href="../../weeks/week-12/">&larr; Week 12 guide</a>
+      <a href="../">All labs &rarr;</a>
+    </nav>
+  </main>
+  <footer class="site-footer shell">
+    <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
+  </footer>
+</body>
+</html>
