@@ -21,13 +21,138 @@
     </nav>
   </header>
   <main class="shell content-shell">
-    <p class="eyebrow">Scheduled Content</p>
-    <section class="page-intro locked-page">
-      <p class="kicker">Week 12 &middot; Week 12</p>
-      <h1>Not Yet Available</h1>
-      <p class="body">Rolling release begins at 11:59 PM the evening before the first lecture. The instructor may release it earlier.</p>
-      <a class="button" href="../">Return to all weeks</a>
+    <p class="eyebrow">Weekly Guide</p>
+    <section class="page-intro">
+      <p class="kicker">Week 12 · November 15-21, 2026</p>
+      <h1>Week 12: Network Media and Physical/Data-Link Foundations</h1>
     </section>
+
+    <aside class="callout rolling-guide-note">
+      <p class="eyebrow">Rolling Weekly Guide</p>
+      <h2>Updated through Lecture 32.</h2>
+    </aside>
+
+    <div class="lesson-stack">
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 32 / Mon</p>
+        <h2>Network Media and Physical/Data-Link Foundations</h2>
+        <p class="meta">November 16, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-32-slides.pptx" download>Lecture 32 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Follow the existing client–switch–server file transfer into its physical link</li>
+          <li>Single-ended and differential reception; common-mode and unequal pickup</li>
+          <li>Twisting, balanced exposure, crosstalk and a controlled source-on/off comparison</li>
+          <li>Twisted pair, coax and twinax geometry, applications and interface compatibility</li>
+          <li>Category, connector and interface distinctions; introductory fiber comparison</li>
+          <li>Regeneration and the limits of symbol decisions</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>Zhang and Rasmussen&#x27;s documented CAN electromagnetic message-injection case</li>
+          <li>Finite, frequency-dependent rejection and receiver nonidealities</li>
+          <li>Physical coupling controls, CRC, authentication and availability protect different properties</li>
+          <li>Media selection and controlled observations do not alone establish malicious intent</li>
+        </ul>
+        </section>
+      </div>
+    </article>
+    </div>
+
+    <section class="study-materials">
+      <p class="eyebrow">Recall and Apply</p>
+      <h2>Definitions and Formulas</h2>
+      <div class="topic-columns">
+        <section class="content-panel">
+          <h3>Important Definitions</h3>
+        <dl class="definition-list">
+          <div><dt>network medium</dt><dd>Physical path carrying communication signals.</dd></div>
+          <div><dt>physical layer</dt><dd>Signaling, timing and medium behavior.</dd></div>
+          <div><dt>data-link layer</dt><dd>Local frame organization, delivery fields and error checks.</dd></div>
+          <div><dt>single-ended reception</dt><dd>Measuring a signal relative to a reference or return.</dd></div>
+          <div><dt>differential reception</dt><dd>Measuring the voltage difference between two input conductors.</dd></div>
+          <div><dt>common-mode pickup</dt><dd>A similar disturbance on both conductors relative to a reference.</dd></div>
+          <div><dt>crosstalk</dt><dd>Unwanted coupling from a neighboring signal path.</dd></div>
+          <div><dt>regeneration</dt><dd>Deciding received symbols and retransmitting fresh levels and timing. An incorrect decision can be retransmitted cleanly.</dd></div>
+          <div><dt>CAN</dt><dd>Controller Area Network, a two-wire differential bus connecting controllers.</dd></div>
+        </dl>
+        </section>
+        <section class="content-panel formula-panel">
+          <h3>Equations and Relationships</h3>
+        <ul class="formula-list">
+          <li><span class="formula-label">Differential voltage</span><span class="equation">V<sub>diff</sub> = V<sub>A</sub> - V<sub>B</sub></span></li>
+          <li><span class="formula-label">Equal pickup in the ideal model</span><span class="equation">(V<sub>A</sub> + n) - (V<sub>B</sub> + n) = V<sub>A</sub> - V<sub>B</sub></span></li>
+          <li><span class="formula-label">Unequal pickup leaves error</span><span class="equation">(V<sub>A</sub> + n<sub>A</sub>) - (V<sub>B</sub> + n<sub>B</sub>) = (V<sub>A</sub> - V<sub>B</sub>) + (n<sub>A</sub> - n<sub>B</sub>)</span></li>
+          <li><span class="formula-relationship">Real noise rejection is finite and frequency dependent; observe receiver input limits.</span></li>
+        </ul>
+        </section>
+      </div>
+    </section>
+
+
+    <section class="study-materials reference-materials">
+      <p class="eyebrow">Quick Reference</p>
+      <h2>Important Tables</h2>
+      <div class="reference-tables">
+      <section class="content-panel reference-table">
+        <h3>Physical Media and Interfaces</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Medium</th><th scope="col">Construction and use</th></tr></thead>
+          <tbody>
+          <tr><td>Twisted pair</td><td>Paired conductors alternate position for balanced exposure. Use suitable category and termination for the supported Ethernet link.</td></tr>
+          <tr><td>Coax</td><td>Center conductor, insulation and shield/return. Used for compatible controlled-impedance RF instrument links.</td></tr>
+          <tr><td>Twinax</td><td>Two inner conductors within a shield. Used for supported short direct-attach rack links.</td></tr>
+          <tr><td>Fiber</td><td>Light in an optical strand through suitable interfaces. Consider electrical interference, supported reach and isolation requirements.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Separate the Protection Goals</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Measure</th><th scope="col">Purpose and limit</th></tr></thead>
+          <tbody>
+          <tr><td>Balanced routing, shielding and filtering</td><td>Reduce coupling and receiver exposure. Installation and frequency affect performance.</td></tr>
+          <tr><td>CRC and error handling</td><td>Detect errors and respond to failures. An unkeyed check does not authenticate a sender.</td></tr>
+          <tr><td>Authenticated messages and freshness</td><td>Check message trust and reuse. Physical interference can still prevent delivery.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      </div>
+    </section>
+
+
+    <section class="study-panel">
+      <p class="eyebrow">Check Your Understanding</p>
+      <h2>Study Questions</h2>
+        <ul class="questions">
+          <li>How does a receiver use two input voltages?</li>
+          <li>Start with V_A = 1.0 V and V_B = 3.0 V. Add 0.6 V to both, then another 0.3 V to A only. Calculate the difference after each step. What else is needed to predict a bit decision?</li>
+          <li>Why does twisting support differential noise rejection?</li>
+          <li>How would you test for crosstalk while keeping the comparison controlled?</li>
+          <li>How do geometry, interfaces and physical access affect media choice?</li>
+          <li>Why do finite noise rejection and message authentication address different problems?</li>
+        </ul>
+    </section>
+
+    <aside class="callout locked-callout">
+      <p class="eyebrow">Friday Lab</p>
+      <h2>Lab 12 is not yet available</h2>
+      <p>Release pending instructor approval. The instructor may release it earlier.</p>
+    </aside>
+    <nav class="pager" aria-label="Week navigation">
+      <a href="../week-11/">&larr; Week 11</a>
+      <a href="../week-13/">Week 13 &rarr;</a>
+    </nav>
   </main>
   <footer class="site-footer shell">
     <p>CYBER 327: Digital Communications with cybersecurity applications.</p>
