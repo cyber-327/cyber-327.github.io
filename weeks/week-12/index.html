@@ -29,7 +29,7 @@
 
     <aside class="callout rolling-guide-note">
       <p class="eyebrow">Rolling Weekly Guide</p>
-      <h2>Updated through Lecture 32.</h2>
+      <h2>Updated through Lecture 33.</h2>
     </aside>
 
     <div class="lesson-stack">
@@ -63,6 +63,39 @@
         </section>
       </div>
     </article>
+    <article class="lesson">
+      <div class="lesson-heading">
+        <p class="lesson-number">Lecture 33 / Wed</p>
+        <h2>Transmission Lines, Attenuation, and Characteristic Impedance</h2>
+        <p class="meta">November 18, 2026</p>
+        <a class="button" href="../../assets/slides/lecture-33-slides.pptx" download>Lecture 33 slides (.pptx)</a>
+      </div>
+      <div class="topic-columns">
+        <section>
+          <h3>Digital Communications Foundations</h3>
+        <ul>
+          <li>Continue the client–switch–server link: continuity versus fast-signal behavior.</li>
+          <li>Propagation along the path; compare one-way delay with transition rise time.</li>
+          <li>Work delay = length / velocity using a stated cable velocity; discuss dielectric influence.</li>
+          <li>Define wavelength spatially, frequency in hertz and c before using λ = v/f. Use the cable&#x27;s velocity rather than assuming c.</li>
+          <li>Apply the approximate λ/10 guideline to 25 cm (76.8 MHz) and 60 Hz (320 km), both at an assumed 0.64c. Distinguish this from digital edge-rise-time analysis.</li>
+          <li>Explain distributed R/L/C/G using an annotated small-section equivalent model.</li>
+          <li>Introduce characteristic impedance as a single traveling wave&#x27;s voltage/current ratio, distinct from DC resistance.</li>
+          <li>Explain matching and a returning wave conceptually; defer reflection coefficients and TDR distances to Friday.</li>
+          <li>Explain frequency-dependent conductor/dielectric loss, skin effect and changing edge shape; distinguish crosstalk from Monday.</li>
+          <li>Work calibrated power-level loss and cascaded-loss examples; retain student calculations as practice.</li>
+        </ul>
+        </section>
+        <section class="accent-panel">
+          <h3>Cybersecurity Connection</h3>
+        <ul>
+          <li>A constructed before/inserted/restored adapter comparison tests a physical path change.</li>
+          <li>Additional insertion loss does not identify a device, locate a discontinuity or establish intent.</li>
+          <li>Repeat with fixed calibration, reference planes, terminations and settings; compare an approved known-good assembly and maintenance records.</li>
+        </ul>
+        </section>
+      </div>
+    </article>
     </div>
 
     <section class="study-materials">
@@ -81,6 +114,17 @@
           <div><dt>crosstalk</dt><dd>Unwanted coupling from a neighboring signal path.</dd></div>
           <div><dt>regeneration</dt><dd>Deciding received symbols and retransmitting fresh levels and timing. An incorrect decision can be retransmitted cleanly.</dd></div>
           <div><dt>CAN</dt><dd>Controller Area Network, a two-wire differential bus connecting controllers.</dd></div>
+          <div><dt>transmission line</dt><dd>A path whose distributed electrical properties and propagation must be considered when modeling the signal.</dd></div>
+          <div><dt>rise time</dt><dd>Time for a transition to move between specified low/high fractions of its final change. Compare its timescale with path delay, not only the bit interval.</dd></div>
+          <div><dt>propagation delay</dt><dd>Travel time for a signal feature along a stated path.</dd></div>
+          <div><dt>bit duration</dt><dd>Time allocated to one bit. A long bit duration can still include a short edge rise time.</dd></div>
+          <div><dt>wavelength</dt><dd>Distance between corresponding points on successive cycles of a repeating wave, such as adjacent peaks at one instant.</dd></div>
+          <div><dt>electrical length</dt><dd>Physical length expressed relative to wavelength at the frequency of interest.</dd></div>
+          <div><dt>characteristic impedance</dt><dd>Voltage/current ratio of a single traveling wave on a uniform line. It is distinct from a conductor&#x27;s DC resistance.</dd></div>
+          <div><dt>termination</dt><dd>The electrical arrangement presented at an interface; suitable matching controls reflections.</dd></div>
+          <div><dt>reflection</dt><dd>A wave returning after an impedance change.</dd></div>
+          <div><dt>attenuation</dt><dd>Reduction of signal strength along a path; calibrated insertion loss measures delivered-power reduction in the specified setup and can include mismatch effects.</dd></div>
+          <div><dt>skin effect</dt><dd>Increasing concentration of alternating current near conductor surfaces as frequency rises, increasing effective conductor resistance.</dd></div>
         </dl>
         </section>
         <section class="content-panel formula-panel">
@@ -90,6 +134,15 @@
           <li><span class="formula-label">Equal pickup in the ideal model</span><span class="equation">(V<sub>A</sub> + n) - (V<sub>B</sub> + n) = V<sub>A</sub> - V<sub>B</sub></span></li>
           <li><span class="formula-label">Unequal pickup leaves error</span><span class="equation">(V<sub>A</sub> + n<sub>A</sub>) - (V<sub>B</sub> + n<sub>B</sub>) = (V<sub>A</sub> - V<sub>B</sub>) + (n<sub>A</sub> - n<sub>B</sub>)</span></li>
           <li><span class="formula-relationship">Real noise rejection is finite and frequency dependent; observe receiver input limits.</span></li>
+          <li><span class="formula-label">One-way delay</span><span class="equation">t<sub>d</sub> = length / propagation velocity. Use the specified or measured cable velocity.</span></li>
+          <li><span class="formula-label">Wavelength</span><span class="equation">λ = v/f, with v in m/s and f in Hz, giving λ in metres. The vacuum speed c is ≈ 3.00 × 10<sup>8</sup> m/s; a cable typically has a lower propagation velocity.</span></li>
+          <li><span class="formula-relationship">An approximate screening guideline is length ≥ λ/10. It is not a sharp failure boundary, maximum bit rate or guarantee that shorter paths have negligible resistance/loading. For digital edges compare propagation delay with rise time and account for relevant high-frequency content.</span></li>
+          <li><span class="formula-relationship">Worked examples assume a separate cable with v = 0.64c = 1.92 × 10^8 m/s. A 0.25 m length equals λ/10 when λ = 2.50 m and f = 76.8 MHz. At 60 Hz, λ = 3200 km and λ/10 = 320 km. This velocity is not a universal power-line value or an Ethernet specification.</span></li>
+          <li><span class="formula-label">Traveling-wave impedance</span><span class="equation">Z0 = V<sub>wave</sub> / I<sub>wave</sub>. Total V/I where reflected waves overlap need not equal Z0.</span></li>
+          <li><span class="formula-label">Positive link loss</span><span class="equation">loss<sub>dB</sub> = input<sub>dBm</sub> - output<sub>dBm</sub>.</span></li>
+          <li><span class="formula-relationship">Cascaded compatible losses under the stated test assumptions add in dB; subtract total loss from the input dBm level to predict output.</span></li>
+          <li><span class="formula-relationship">Geometry and dielectric material affect propagation and impedance. More length of the same uniform cable adds delay and usually loss, rather than simply multiplying its nominal Z0.</span></li>
+          <li><span class="formula-relationship">Skin effect has no universal 10 MHz onset. Frequency-dependent loss and reflections can reduce receiver margin; actual errors and achievable rate depend on the complete link.</span></li>
         </ul>
         </section>
       </div>
@@ -127,6 +180,33 @@
         </table>
       </div>
       </section>
+      <section class="content-panel reference-table">
+        <h3>What the Cable Model Represents</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Property</th><th scope="col">Role along the path</th></tr></thead>
+          <tbody>
+          <tr><td>Series R</td><td>Conductor loss; effective resistance can vary with frequency.</td></tr>
+          <tr><td>Series L</td><td>Magnetic energy associated with changing current.</td></tr>
+          <tr><td>Shunt C</td><td>Electric energy between conductors.</td></tr>
+          <tr><td>Shunt G</td><td>Leakage and dielectric loss through the insulating region.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
+      <section class="content-panel reference-table">
+        <h3>Distinguish the Observations</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Observation</th><th scope="col">Useful comparison</th></tr></thead>
+          <tbody>
+          <tr><td>Later arrival</td><td>Length and propagation velocity; compare delay with edge rise time.</td></tr>
+          <tr><td>Reduced delivered power</td><td>Calibrated insertion loss over the relevant frequencies and consistent terminations/reference planes.</td></tr>
+          <tr><td>Ringing after a path change</td><td>Matching and the changed assembly; additional mechanisms can contribute.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </section>
       </div>
     </section>
 
@@ -141,6 +221,13 @@
           <li>How would you test for crosstalk while keeping the comparison controlled?</li>
           <li>How do geometry, interfaces and physical access affect media choice?</li>
           <li>Why do finite noise rejection and message authentication address different problems?</li>
+          <li>When does a simple connected-wire model omit important propagation behavior?</li>
+          <li>What distinguishes propagation delay, edge rise time and bit duration? Why can a slow bit pattern still require transmission-line analysis?</li>
+          <li>Explain λ = v/f and the approximate λ/10 guideline. Why do 25 cm at 76.8 MHz and 320 km at 60 Hz both reach it when v = 0.64c?</li>
+          <li>Why is a cable&#x27;s nominal characteristic impedance different from a continuity-meter resistance?</li>
+          <li>How can the same path introduce delay, loss and reflections?</li>
+          <li>A 24.0 m path has v = 2.00 × 10^8 m/s. Find one-way delay. A calibrated test applies −4.0 dBm and delivers −11.0 dBm; find loss, then predict output with another 3.0 dB.</li>
+          <li>What does a repeatable before/inserted/restored comparison establish, and what further evidence would a tampering claim need?</li>
         </ul>
     </section>
 
