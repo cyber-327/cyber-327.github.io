@@ -64,7 +64,7 @@
         <h2>Equipment and Materials</h2>
         <ul>
           <li>Four classic Nanos labeled READER, KEY, RELAY-R and RELAY-K, with USB cables</li>
-          <li>Four compatible 38 kHz infrared transmitter/receiver pairs</li>
+          <li>Four compatible 38 kHz infrared transmitter/receiver pairs, each emitter labeled with its tested drive mode</li>
           <li>Computers with Arduino IDE and USB for each subteam, breadboards, jumper wires and an opaque partition</li>
           <li>One red LED and one green LED for READER, each with its own 1 kohm resistor</li>
           <li>Alligator-clip leads for three separate wired-tunnel chains; optional oscilloscope</li>
@@ -107,7 +107,7 @@
             <li>Security Engineering is assessing an infrared door reader. Its authorized key can answer a fresh request, but the key must appear to be nearby. Determine whether that assumption survives an attacker who forwards messages.</li>
             <li>Identify the four roles: READER issues a challenge and checks the response; KEY creates an authenticated response; RELAY-R sits beside READER; RELAY-K sits beside KEY. Each board needs both an IR transmitter and an IR receiver. A challenge is a request containing counters that change between trials; an old response may not answer a new request.</li>
             <li>Use the device reference to identify the four boards and their connections. Each IR receiver SIGNAL connects to A0; each transmitter module SIGNAL connects to D3. Use the module’s marked power pins and verified supply rating. Do not infer pin order from a similar-looking board.</li>
-            <li>Open four labeled board consoles at 115200 baud with Newline. HELP lists each board’s commands. Keep the READER console visible for results. Each local IR connection must work in both directions: aim each transmitter at the other board’s receiver. The 38 kHz optical carrier is separate from the USB console baud rate.</li>
+            <li>Open four labeled board consoles at 115200 baud with Newline. HELP lists each board’s commands. Keep the READER console visible for results. Each local IR connection must work in both directions: aim each transmitter at the other board’s receiver. The instructor matches each board’s firmware to its labeled emitter mode (PWM or LOW). Keep each emitter with its assigned node. The 38 kHz optical carrier is separate from the USB console baud rate.</li>
             <li>With READER and KEY facing each other and both relays set to BRIDGE OFF, enter OPEN on READER. Record the challenge, response and opening result. Confirm green on and red off when READER accepts the response. Enter LOCK afterward and confirm red on and green off. Red remains on while a request is pending or fails.</li>
             <li>Place the opaque partition so READER cannot communicate directly with KEY. Enter LOCK, then OPEN with both bridges off. Allow up to 60 seconds for the request window to expire and verify the direct path no longer opens the reader. Check for reflections or gaps if it does. Record no response separately from an explicit rejection, then enter LOCK to clear the trial.</li>
           </ol>
