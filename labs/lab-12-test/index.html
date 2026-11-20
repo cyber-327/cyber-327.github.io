@@ -65,11 +65,9 @@
         <ul>
           <li>Four classic Nanos labeled READER, KEY, RELAY-R and RELAY-K, with USB cables</li>
           <li>Four compatible 38 kHz infrared transmitter/receiver pairs</li>
-          <li>Computer with Arduino IDE, four USB connections or a suitable hub, jumper wires and an opaque partition</li>
-        </ul>
-        <h3>Optional or Specialized</h3>
-        <ul>
-          <li>red/green LEDs with separate 1 kohm resistors; optional oscilloscope</li>
+          <li>Computers with Arduino IDE and USB for each subteam, breadboards, jumper wires and an opaque partition</li>
+          <li>One red LED and one green LED for READER, each with its own 1 kohm resistor</li>
+          <li>Alligator-clip leads for three separate wired-tunnel chains; optional oscilloscope</li>
         </ul>
       </aside>
     </div>
@@ -90,6 +88,16 @@
       <p class="eyebrow">Follow These Steps</p>
       <h2>Lab Walkthrough</h2>
       <section class="walkthrough-stage">
+        <h3>Set Up the Four Subteams</h3>
+          <ol class="walkthrough-list">
+            <li>Divide your team into four subteams, assigned to READER, KEY, RELAY-R and RELAY-K. Each subteam assembles, checks and operates its assigned node. Share logs and observations across the full team; each student still submits an individual report.</li>
+            <li>Use the instructor-programmed board labeled for your role. The instructor installs libraries and uploads firmware before lab. Do not upload another sketch or change board configuration.</li>
+            <li>Disconnect USB power before wiring. Each node needs a transmitter and receiver: receiver OUT to A0, emitter SIG to D3, both module grounds to Nano GND, and VCC to the instructor-verified supply. A6 and A7 are analog-only on the classic Nano; do not use them for the receiver.</li>
+            <li>The READER subteam must install both indicators: D4 through a 1 kohm resistor to the red LED anode, and A5 through a separate 1 kohm resistor to the green LED anode. Connect both cathodes to GND. The longer leg is normally the anode; the flat side marks the cathode. KEY and the two relays do not need these LEDs.</li>
+            <li>Have another subteam check the wiring before reconnecting USB. Open each node’s Serial Monitor at 115200 baud with Newline, enter HELP and confirm the commands match its label. On READER, enter LOCK: red must be on and green off. Resolve wiring or console problems before joining the nodes.</li>
+          </ol>
+      </section>
+      <section class="walkthrough-stage">
         <h3>Inspect the System — Table 1</h3>
           <aside class="walkthrough-evidence" role="note">
             <p class="eyebrow">Evidence Photo</p>
@@ -98,9 +106,9 @@
           <ol class="walkthrough-list">
             <li>Security Engineering is assessing an infrared door reader. Its authorized key can answer a fresh request, but the key must appear to be nearby. Determine whether that assumption survives an attacker who forwards messages.</li>
             <li>Identify the four roles: READER issues a challenge and checks the response; KEY creates an authenticated response; RELAY-R sits beside READER; RELAY-K sits beside KEY. Each board needs both an IR transmitter and an IR receiver. A challenge is a request containing counters that change between trials; an old response may not answer a new request.</li>
-            <li>Use the device reference to identify the four boards and their connections. Each IR receiver SIGNAL connects to D2; each transmitter module SIGNAL connects to D3. Use the module’s marked power pins and verified supply rating. Do not infer pin order from a similar-looking board.</li>
+            <li>Use the device reference to identify the four boards and their connections. Each IR receiver SIGNAL connects to A0; each transmitter module SIGNAL connects to D3. Use the module’s marked power pins and verified supply rating. Do not infer pin order from a similar-looking board.</li>
             <li>Open four labeled board consoles at 115200 baud with Newline. HELP lists each board’s commands. Keep the READER console visible for results. Each local IR connection must work in both directions: aim each transmitter at the other board’s receiver. The 38 kHz optical carrier is separate from the USB console baud rate.</li>
-            <li>With READER and KEY facing each other and both relays set to BRIDGE OFF, enter OPEN on READER. Record the challenge, response and opening result. Enter LOCK afterward.</li>
+            <li>With READER and KEY facing each other and both relays set to BRIDGE OFF, enter OPEN on READER. Record the challenge, response and opening result. Confirm green on and red off when READER accepts the response. Enter LOCK afterward and confirm red on and green off. Red remains on while a request is pending or fails.</li>
             <li>Place the opaque partition so READER cannot communicate directly with KEY. Enter LOCK, then OPEN with both bridges off. Allow up to 60 seconds for the request window to expire and verify the direct path no longer opens the reader. Check for reflections or gaps if it does. Record no response separately from an explicit rejection, then enter LOCK to clear the trial.</li>
           </ol>
       </section>
@@ -112,7 +120,7 @@
           </aside>
           <ol class="walkthrough-list">
             <li>Place RELAY-R beside READER, with their IR modules facing each other. Place RELAY-K beside KEY in the same way. Shield each local pair from the other pair.</li>
-            <li>With power off, connect RELAY-R D9 to RELAY-K D8, RELAY-K D9 to RELAY-R D8, and join the relay grounds. Leave their 5 V pins separate. Restore power.</li>
+            <li>With USB power disconnected, build three separate wired-tunnel chains. For each chain, run a jumper from the breadboard, connect a series of alligator-clip leads, then use a jumper into the other breadboard. Connect RELAY-R A1 (TX) to RELAY-K D8 (RX), RELAY-K A1 (TX) to RELAY-R D8 (RX), and RELAY-R GND to RELAY-K GND. Label both signal chains and the ground chain. Keep exposed clips from touching other chains or pins. Leave the 5 V pins separate. Have both relay subteams verify the connections before restoring power. The tunnel runs at 9600 baud.</li>
             <li>Enter BRIDGE ON on both relay consoles, then OPEN on READER. Wait for the complete exchange and confirm an opening. This supplies a valid response for the replay experiment.</li>
             <li>On RELAY-R, enter CAPTURE to display its most recent response as hexadecimal text. Save that response and the matching READER challenge. CAPTURE displays the stored bytes; REPLAY sends them for you, so do not retype them as a command. Do not unplug RELAY-R or close/reopen its monitor during this experiment: a reset erases its captured response.</li>
             <li>Set both relays to BRIDGE OFF, then enter LOCK on READER. Enter OPEN to create a new pending request, then promptly enter REPLAY on RELAY-R within the 60-second request window. Keep the direct IR path blocked and both bridges off.</li>
